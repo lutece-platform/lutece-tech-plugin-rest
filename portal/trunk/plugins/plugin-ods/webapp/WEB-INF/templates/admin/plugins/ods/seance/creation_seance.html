@@ -1,0 +1,270 @@
+<SCRIPT>
+	function calculate(id) {
+    	document.formCreatingSeance.idSeancePropertyToRecalculate.value = id;
+    	
+   		var myForm = document.getElementById('formCreatingSeance');
+    	if( id == 0 ){ // cas ou on enregistre
+   			myForm.action = "jsp/admin/plugins/ods/seance/DoCreateAndRegisterSeance.jsp";
+    	}else if(id == -1){
+   			myForm.action = "jsp/admin/plugins/ods/seance/DoResetCreatingSeance.jsp";
+    	}
+    	
+    	document.formCreatingSeance.submit();
+    }
+</SCRIPT>
+
+ <div class="content-box">
+  <h2>#i18n{ods.listeseances.label.title}</h2>
+	<form id="formCreatingSeance" name="formCreatingSeance" method="POST" action="jsp/admin/plugins/ods/seance/DoCreateSeance.jsp">
+		<input type="hidden" id="idSeancePropertyToRecalculate" name="idSeancePropertyToRecalculate" value="">
+   <p>
+    <label for="" style="width:45%;">#i18n{ods.listeseances.label.dates}</label>
+    #i18n{ods.listeseances.label.start} :
+    <#if seanceBean.dateSeance?exists>
+	    <input type="text" name="seance_begin" id="seance_begin" size="10" value="${seanceBean.dateSeance?string("dd/MM/yyyy")}"/>
+	<#else>
+    	<input type="text" name="seance_begin" id="seance_begin" size="10" value=""/>
+	</#if>
+    <input type="button" class="button" id="button_seance_begin" value="..." />
+    #i18n{ods.listeseances.label.end} :
+    <#if seanceBean.dateCloture?exists>
+	    <input type="text" name="seance_end" id="seance_end" size="10" value="${seanceBean.dateCloture?string("dd/MM/yyyy")}"/>
+	<#else>
+	    <input type="text" name="seance_end" id="seance_end" size="10" value=""/>
+	</#if>
+    <input type="button" class="button" id="button_seance_end" value="..." />
+   </p>
+   <p>
+    <label for="" style="width:45%;">#i18n{ods.listeseances.label.dateRemiseCr}</label>
+    <#if seanceBean.dateRemiseCr?exists>
+	    <input type="text" name="seance_date_remise_cr_sommaire" id="seance_date_remise_cr_sommaire" size="10" value="${seanceBean.dateRemiseCr?string("dd/MM/yyyy")}"/>
+	<#else>
+	    <input type="text" name="seance_date_remise_cr_sommaire" id="seance_date_remise_cr_sommaire" size="10" value=""/>
+	</#if>
+    <input type="button" class="button" id="button_seance_date_remise_cr_sommaire" value="..." />
+    <input type="button" class="button" id="" value="#i18n{ods.listeseances.button.calculate}" onclick="javascript: calculate(1);"/>
+   </p>
+   <p>
+    <label for="" style="width:45%;">#i18n{ods.listeseances.label.dateDepotQuestionsOrales}</label>
+    <#if seanceBean.dateDepotQuestionsOrales?exists>
+	    <input type="text" name="seance_date_depot_questions" id="seance_date_depot_questions" size="10" value="${seanceBean.dateDepotQuestionsOrales?string("dd/MM/yyyy")}"/>
+	<#else>
+	    <input type="text" name="seance_date_depot_questions" id="seance_date_depot_questions" size="10" value=""/>
+	</#if>
+    <input type="button" class="button" id="button_seance_date_depot_questions" value="..." />
+    <input type="button" class="button" id="" value="#i18n{ods.listeseances.button.calculate}" onclick="javascript: calculate(2);"/>
+   </p>
+   <p>
+    <label for="" style="width:45%;">#i18n{ods.listeseances.label.dateLimiteDiffQuestions} : </label>
+    <#if seanceBean.dateLimiteDiffQuestions?exists>
+	    <input type="text" name="seance_date_limite_diff_questions" id="seance_date_limite_diff_questions" size="10" value="${seanceBean.dateLimiteDiffQuestions?string("dd/MM/yyyy")}"/>
+	<#else>
+	    <input type="text" name="seance_date_limite_diff_questions" id="seance_date_limite_diff_questions" size="10" value=""/>
+	</#if>
+    <input type="button" class="button" id="button_seance_date_limite_diff_questions" value="..." />
+    <input type="button" class="button" id="" value="#i18n{ods.listeseances.button.calculate}" onclick="javascript: calculate(3);"/>
+   </p>
+   <p>
+    <label for="" style="width:45%;">#i18n{ods.listeseances.label.dateLimiteDiffPdd} : </label>
+    <#if seanceBean.dateLimiteDiffPdd?exists>
+	    <input type="text" name="seance_date_limite_diff_pdd" id="seance_date_limite_diff_pdd" size="10" value="${seanceBean.dateLimiteDiffPdd?string("dd/MM/yyyy")}"/>
+	<#else>
+	    <input type="text" name="seance_date_limite_diff_pdd" id="seance_date_limite_diff_pdd" size="10" value=""/>
+	</#if>
+    <input type="button" class="button" id="button_seance_date_limite_diff_pdd" value="..." />
+    <input type="button" class="button" id="" value="#i18n{ods.listeseances.button.calculate}" onclick="javascript: calculate(4);"/>
+   </p>
+   <p>
+    <label for="" style="width:45%;">#i18n{ods.listeseances.label.dateLimiteDiffDsp} : </label>
+    <#if seanceBean.dateLimiteDiffDsp?exists>
+	    <input type="text" name="seance_date_limite_diff_dsp" id="seance_date_limite_diff_dsp" size="10" value="${seanceBean.dateLimiteDiffDsp?string("dd/MM/yyyy")}"/>
+	<#else>
+	    <input type="text" name="seance_date_limite_diff_dsp" id="seance_date_limite_diff_dsp" size="10" value=""/>
+	</#if>
+    <input type="button" class="button" id="button_seance_date_limite_diff_dsp" value="..." />
+    <input type="button" class="button" id="" value="#i18n{ods.listeseances.button.calculate}" onclick="javascript: calculate(5);"/>
+   </p>
+   <p>
+    <label for="" style="width:45%;">#i18n{ods.listeseances.label.dateConfOrg}</label>
+    <#if seanceBean.dateConfOrg?exists>
+	    <input type="text" name="seance_date_conference" id="seance_date_conference" size="10" value="${seanceBean.dateConfOrg?string("dd/MM/yyyy")}"/>
+	<#else>
+	    <input type="text" name="seance_date_conference" id="seance_date_conference" size="10" value=""/>
+	</#if>
+    <input type="button" class="button" id="button_seance_date_conference" value="..." />
+    <input type="button" class="button" id="" value="#i18n{ods.listeseances.button.calculate}" onclick="javascript: calculate(6);"/>
+   </p>
+   <p>
+    <label for="" style="width:45%;">#i18n{ods.listeseances.label.dateReu1} : </label>
+    <#if seanceBean.dateReu1?exists>
+	    <input type="text" name="seance_date_reunion_1" id="seance_date_reunion_1" size="10" value="${seanceBean.dateReu1?string("dd/MM/yyyy")}"/>
+	<#else>
+	    <input type="text" name="seance_date_reunion_1" id="seance_date_reunion_1" size="10" value=""/>
+	</#if>
+    <input type="button" class="button" id="button_seance_date_reunion_1" value="..." />
+    <input type="button" class="button" id="" value="#i18n{ods.listeseances.button.calculate}" onclick="javascript: calculate(8);"/>
+   </p>
+   <p>
+    <label for="" style="width:45%;">#i18n{ods.listeseances.label.dateReu2} : </label>
+    <#if seanceBean.dateReu2?exists>
+	    <input type="text" name="seance_date_reunion_2" id="seance_date_reunion_2" size="10" value="${seanceBean.dateReu2?string("dd/MM/yyyy")}"/>
+	<#else>
+	    <input type="text" name="seance_date_reunion_2" id="seance_date_reunion_2" size="10" value=""/>
+	</#if>
+    <input type="button" class="button" id="button_seance_date_reunion_2" value="..." />
+    <input type="button" class="button" id="" value="#i18n{ods.listeseances.button.calculate}" onclick="javascript: calculate(9);"/>
+   </p>
+   <p>
+    <label for="" style="width:45%;">#i18n{ods.listeseances.label.dateReu3} : </label>
+    <#if seanceBean.dateReu3?exists>
+	    <input type="text" name="seance_date_reunion_3" id="seance_date_reunion_3" size="10" value="${seanceBean.dateReu3?string("dd/MM/yyyy")}"/>
+	<#else>
+	    <input type="text" name="seance_date_reunion_3" id="seance_date_reunion_3" size="10" value=""/>
+	</#if>
+    <input type="button" class="button" id="button_seance_date_reunion_3" value="..." />
+    <input type="button" class="button" id="" value="#i18n{ods.listeseances.button.calculate}" onclick="javascript: calculate(10);"/>
+   </p>
+   <p>
+    <label for="" style="width:45%;">#i18n{ods.listeseances.label.dateReuPostComm} : </label>
+    <#if seanceBean.dateReuPostComm?exists>
+	    <input type="text" name="seance_date_reunion_post_commission" id="seance_date_reunion_post_commission" size="10" value="${seanceBean.dateReuPostComm?string("dd/MM/yyyy")}"/>
+	<#else>
+	    <input type="text" name="seance_date_reunion_post_commission" id="seance_date_reunion_post_commission" size="10" value=""/>
+	</#if>
+    <input type="button" class="button" id="button_seance_date_reunion_post_commission" value="..." />
+    <input type="button" class="button" id="" value="#i18n{ods.listeseances.button.calculate}" onclick="javascript: calculate(7);"/>
+   </p>
+   <p>
+    <input type="button" class="button" id="" value="#i18n{ods.listeseances.button.validate}" onclick="javascript: calculate(0);"/>
+    <input type="button" class="button" id="" value="#i18n{ods.listeseances.button.back}" onclick="javascript: calculate(-1);"/>
+   </p>
+  </form>
+ </div>
+ 
+ <!-- main calendar program -->
+<script type="text/javascript" src="js/jscalendar/calendar.js"></script>
+<!-- language for the calendar -->
+<script type="text/javascript" src="js/jscalendar/lang/calendar-fr.js"></script>
+<!-- the following script defines the Calendar.setup helper function, which makes
+       adding a calendar a matter of 1 or 2 lines of code. -->
+<script type="text/javascript" src="js/jscalendar/calendar-setup.js"></script>
+<script type="text/javascript">
+    Calendar.setup({
+    inputField     :    "seance_begin",      // id of the input field
+    ifFormat       :    "%d/%m/%Y",       // format of the input field
+    showsTime      :    false,            // will display a time selector
+    button         :    "button_seance_begin",   // trigger for the calendar (button ID)
+    singleClick    :    true,           // double-click mode
+    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
+    });
+</script>
+<script type="text/javascript">
+    Calendar.setup({
+    inputField     :    "seance_end",      // id of the input field
+    ifFormat       :    "%d/%m/%Y",       // format of the input field
+    showsTime      :    false,            // will display a time selector
+    button         :    "button_seance_end",   // trigger for the calendar (button ID)
+    singleClick    :    true,           // double-click mode
+    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
+    });
+</script>
+<script type="text/javascript">
+    Calendar.setup({
+    inputField     :    "seance_date_remise_cr_sommaire",      // id of the input field
+    ifFormat       :    "%d/%m/%Y",       // format of the input field
+    showsTime      :    false,            // will display a time selector
+    button         :    "button_seance_date_remise_cr_sommaire",   // trigger for the calendar (button ID)
+    singleClick    :    true,           // double-click mode
+    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
+    });
+</script>
+<script type="text/javascript">
+    Calendar.setup({
+    inputField     :    "seance_date_depot_questions",      // id of the input field
+    ifFormat       :    "%d/%m/%Y",       // format of the input field
+    showsTime      :    false,            // will display a time selector
+    button         :    "button_seance_date_depot_questions",   // trigger for the calendar (button ID)
+    singleClick    :    true,           // double-click mode
+    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
+    });
+</script>
+<script type="text/javascript">
+    Calendar.setup({
+    inputField     :    "seance_date_limite_diff_questions",      // id of the input field
+    ifFormat       :    "%d/%m/%Y",       // format of the input field
+    showsTime      :    false,            // will display a time selector
+    button         :    "button_seance_date_limite_diff_questions",   // trigger for the calendar (button ID)
+    singleClick    :    true,           // double-click mode
+    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
+    });
+</script>
+<script type="text/javascript">
+    Calendar.setup({
+    inputField     :    "seance_date_limite_diff_pdd",      // id of the input field
+    ifFormat       :    "%d/%m/%Y",       // format of the input field
+    showsTime      :    false,            // will display a time selector
+    button         :    "button_seance_date_limite_diff_pdd",   // trigger for the calendar (button ID)
+    singleClick    :    true,           // double-click mode
+    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
+    });
+</script>
+<script type="text/javascript">
+    Calendar.setup({
+    inputField     :    "seance_date_limite_diff_dsp",      // id of the input field
+    ifFormat       :    "%d/%m/%Y",       // format of the input field
+    showsTime      :    false,            // will display a time selector
+    button         :    "button_seance_date_limite_diff_dsp",   // trigger for the calendar (button ID)
+    singleClick    :    true,           // double-click mode
+    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
+    });
+</script>
+<script type="text/javascript">
+    Calendar.setup({
+    inputField     :    "seance_date_conference",      // id of the input field
+    ifFormat       :    "%d/%m/%Y",       // format of the input field
+    showsTime      :    false,            // will display a time selector
+    button         :    "button_seance_date_conference",   // trigger for the calendar (button ID)
+    singleClick    :    true,           // double-click mode
+    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
+    });
+</script>
+<script type="text/javascript">
+    Calendar.setup({
+    inputField     :    "seance_date_reunion_post_commission",      // id of the input field
+    ifFormat       :    "%d/%m/%Y",       // format of the input field
+    showsTime      :    false,            // will display a time selector
+    button         :    "button_seance_date_reunion_post_commission",   // trigger for the calendar (button ID)
+    singleClick    :    true,           // double-click mode
+    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
+    });
+</script>
+<script type="text/javascript">
+    Calendar.setup({
+    inputField     :    "seance_date_reunion_1",      // id of the input field
+    ifFormat       :    "%d/%m/%Y",       // format of the input field
+    showsTime      :    false,            // will display a time selector
+    button         :    "button_seance_date_reunion_1",   // trigger for the calendar (button ID)
+    singleClick    :    true,           // double-click mode
+    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
+    });
+</script>
+<script type="text/javascript">
+    Calendar.setup({
+    inputField     :    "seance_date_reunion_2",      // id of the input field
+    ifFormat       :    "%d/%m/%Y",       // format of the input field
+    showsTime      :    false,            // will display a time selector
+    button         :    "button_seance_date_reunion_2",   // trigger for the calendar (button ID)
+    singleClick    :    true,           // double-click mode
+    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
+    });
+</script>
+<script type="text/javascript">
+    Calendar.setup({
+    inputField     :    "seance_date_reunion_3",      // id of the input field
+    ifFormat       :    "%d/%m/%Y",       // format of the input field
+    showsTime      :    false,            // will display a time selector
+    button         :    "button_seance_date_reunion_3",   // trigger for the calendar (button ID)
+    singleClick    :    true,           // double-click mode
+    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
+    });
+</script>

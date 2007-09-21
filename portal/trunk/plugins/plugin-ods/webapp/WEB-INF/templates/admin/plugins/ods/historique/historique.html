@@ -1,0 +1,18 @@
+<div class="content-box" >
+  <h2>#i18n{ods.visualisationhistorique.label.title}</h2>
+  
+  <#if liste_historiques?exists && liste_historiques?size=0>
+	  <p><strong>#i18n{ods.visualisationhistorique.label.noversion}</p>
+  <#else>
+	  <#list liste_historiques as version>
+	  	<p><strong>#i18n{ods.visualisationhistorique.label.version} ${version.version}</strong> : ${version.datePublication}</p>
+	  </#list>
+  </#if>
+  	
+  
+  <form method="post" action="">
+   <input type="button" onclick="javascript:history.go(-1)" class="button" value="#i18n{ods.visualisationhistorique.button.retour}" />
+  </form>
+
+ </div>
+</div>

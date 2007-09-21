@@ -1,0 +1,24 @@
+/* Code wizard CSS */
+
+pre {
+	color : black;
+	font-size : small;
+
+}
+font {
+	color : black;
+}
+
+font.comment {
+	color : green;
+}
+
+font.keyword {
+	 color : darkblue;
+	 font-weight : bold;
+}
+
+font.modify {
+	 color : darkblue;
+	 font-weight : bold;
+}

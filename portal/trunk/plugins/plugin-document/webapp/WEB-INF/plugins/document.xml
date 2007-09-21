@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<plug-in>
+	<!-- Plugin Informations -->
+	<name>document</name>
+	<class>
+		fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation
+	</class>
+	<version>2.0</version>
+	<documentation></documentation>
+	<installation></installation>
+	<changes></changes>
+	<user-guide></user-guide>
+	<description>document.plugin.description</description>
+	<provider>document.plugin.provider</provider>
+	<provider-url>http://lutece.paris.fr</provider-url>
+	<icon-url>images/admin/skin/plugins/document/document.png</icon-url>
+	<copyright>Copyright 2001-2006 Mairie de Paris</copyright>
+	<db-pool-required>1</db-pool-required>
+
+
+	<!-- Administration interface parameters -->
+	<admin-features>
+		<admin-feature>
+			<feature-id>DOCUMENT_TYPES_MANAGEMENT</feature-id>
+			<feature-title>
+				document.adminFeature.document_types_management.name
+			</feature-title>
+			<feature-description>
+				document.adminFeature.document_types_management.description
+			</feature-description>
+			<feature-level>1</feature-level>
+			<feature-url>
+				jsp/admin/plugins/document/ManageDocumentTypes.jsp
+			</feature-url>
+			<feature-icon-url>
+				images/admin/skin/plugins/document/manage_document_types.png
+			</feature-icon-url>
+		</admin-feature>
+		<admin-feature>
+			<feature-id>DOCUMENT_MANAGEMENT</feature-id>
+			<feature-title>
+				document.adminFeature.documents_management.name
+			</feature-title>
+			<feature-description>
+				document.adminFeature.documents_management.description
+			</feature-description>
+			<feature-level>3</feature-level>
+			<feature-url>
+				jsp/admin/plugins/document/ManageDocuments.jsp
+			</feature-url>
+			<feature-icon-url>
+				images/admin/skin/plugins/document/manage_documents.png
+			</feature-icon-url>
+		</admin-feature>
+		<admin-feature>
+			<feature-id>DOCUMENT_RULES_MANAGEMENT</feature-id>
+			<feature-title>
+				document.adminFeature.rules_management.name
+			</feature-title>
+			<feature-description>
+				document.adminFeature.rules_management.description
+			</feature-description>
+			<feature-level>1</feature-level>
+			<feature-url>
+				jsp/admin/plugins/document/ManageRules.jsp
+			</feature-url>
+			<feature-icon-url>
+				images/admin/skin/plugins/document/manage_rules.png
+			</feature-icon-url>
+		</admin-feature>
+		<admin-feature>
+			<feature-id>DOCUMENT_CATEGORY_MANAGEMENT</feature-id>
+			<feature-title>
+				document.adminFeature.category_management.name
+			</feature-title>
+			<feature-description>
+				document.adminFeature.category_management.description
+			</feature-description>
+			<feature-level>1</feature-level>
+			<feature-url>
+				jsp/admin/plugins/document/ManageCategory.jsp
+			</feature-url>
+			<feature-icon-url>
+				images/admin/skin/plugins/document/manage_category.png
+			</feature-icon-url>
+		</admin-feature>
+	</admin-features>
+
+	<!-- Portlet parameters -->
+	<portlets>
+		<portlet>
+			<portlet-class>
+				fr.paris.lutece.plugins.document.business.portlet.DocumentListPortletHome
+			</portlet-class>
+			<portlet-type-id>DOCUMENT_PORTLET</portlet-type-id>
+			<portlet-type-name>document.portlet.name</portlet-type-name>
+			<portlet-creation-url>
+				plugins/document/CreatePortletDocument.jsp
+			</portlet-creation-url>
+			<portlet-update-url>
+				plugins/document/ModifyPortletDocument.jsp
+			</portlet-update-url>
+			<portlet-create-action-url>
+				plugins/document/DoCreatePortletDocument.jsp
+			</portlet-create-action-url>
+			<portlet-modify-action-url>
+				plugins/document/DoModifyPortletDocument.jsp
+			</portlet-modify-action-url>
+			<portlet-create-script-template>
+				/admin/portlet/script_create_portlet.html
+			</portlet-create-script-template>
+			<portlet-modify-script-template>
+				/admin/portlet/script_modify_portlet.html
+			</portlet-modify-script-template>
+			<portlet-create-specific-template>
+				/admin/plugins/document/portlet/portlet_document_type.html
+			</portlet-create-specific-template>
+			<portlet-modify-specific-template>
+				/admin/plugins/document/portlet/portlet_document_type.html
+			</portlet-modify-specific-template>
+			<portlet-create-specific-form-template></portlet-create-specific-form-template>
+			<portlet-modify-specific-form-template></portlet-modify-specific-form-template>
+		</portlet>
+	</portlets>
+
+	<!-- Content Service -->
+	<content-services>
+		<content-service>
+			<content-service-class>
+				fr.paris.lutece.plugins.document.service.DocumentContentService
+			</content-service-class>
+		</content-service>
+	</content-services>
+
+	<!-- Search Indexer Service -->
+	<search-indexers>
+		<search-indexer>
+			<search-indexer-class>
+				fr.paris.lutece.plugins.document.service.search.DocumentIndexer
+			</search-indexer-class>
+		</search-indexer>
+	</search-indexers>
+
+	<!-- RBAC Resources -->
+	<rbac-resource-types>
+		<rbac-resource-type>
+			<rbac-resource-type-class>
+				fr.paris.lutece.plugins.document.service.DocumentTypeResourceIdService
+			</rbac-resource-type-class>
+		</rbac-resource-type>
+		<rbac-resource-type>
+			<rbac-resource-type-class>
+				fr.paris.lutece.plugins.document.service.spaces.SpaceResourceIdService
+			</rbac-resource-type-class>
+		</rbac-resource-type>
+	</rbac-resource-types>
+
+	<!-- Page Includes -->
+	<page-include-services>
+		<page-include-service>
+			<page-include-service-id>
+				documentMeta
+			</page-include-service-id>
+			<page-include-service-class>
+				fr.paris.lutece.plugins.document.web.DocumentMetaPageInclude
+			</page-include-service-class>
+		</page-include-service>
+	</page-include-services>
+
+	<!-- Daemons -->
+	<daemons>
+		<daemon>
+			<daemon-id>docSearchIndexer</daemon-id>
+			<daemon-name>
+				document.daemon.docSearchIndexer.name
+			</daemon-name>
+			<daemon-description>
+				document.daemon.docSearchIndexer.description
+			</daemon-description>
+			<daemon-class>
+				fr.paris.lutece.plugins.document.service.docsearch.DocSearchIndexerDaemon
+			</daemon-class>
+		</daemon>
+	</daemons>
+
+	<!-- Insert Services -->
+	<insert-services>
+		<insert-service>
+			<insert-service-id>
+				DOCUMENT_INSERT_SERVICE
+			</insert-service-id>
+			<insert-service-name>
+				document.insertService.name
+			</insert-service-name>
+			<insert-service-bean-class>
+				fr.paris.lutece.plugins.document.web.DocumentServiceJspBean
+			</insert-service-bean-class>
+			<insert-service-label>
+				document.insertService.label
+			</insert-service-label>
+		</insert-service>
+	</insert-services>
+
+</plug-in>

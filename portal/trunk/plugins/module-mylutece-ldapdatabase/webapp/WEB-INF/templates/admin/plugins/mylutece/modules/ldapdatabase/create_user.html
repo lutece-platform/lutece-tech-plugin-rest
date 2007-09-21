@@ -1,0 +1,56 @@
+<div class="content-box" >
+    
+    <h2>#i18n{module.mylutece.ldapdatabase.create_user.tableTitle}</h2>
+    
+    <form name="search_user" action="jsp/admin/plugins/mylutece/modules/ldapdatabase/CreateUser.jsp">
+        <p>
+            <label for="last_name">#i18n{module.mylutece.ldapdatabase.create_user.lastName} : </label>
+            <input type="text" name="last_name" size="35" tabindex="1" maxlength="50" value="${last_name}" />
+        </p>
+        
+        <p>
+            <label for="first_name">#i18n{module.mylutece.ldapdatabase.create_user.firstName} : </label>
+            <input type="text"  name="first_name" maxlength="50" size="35" tabindex="2" value="${first_name}" />
+        </p>
+        
+        <p>
+            <label for="email">#i18n{module.mylutece.ldapdatabase.create_user.eMail} : </label>
+            <input type="text"  name="email" maxlength="50" size="35" tabindex="3" value="${email}" />
+        </p>
+        
+        <p>
+            <input type="hidden" name="plugin_name" value="${plugin_name}" />
+            <input type="submit" class="button" value="#i18n{module.mylutece.ldapdatabase.create_user.btnSearch}" tabindex="4" />
+		    <input type="button" class="button" onclick="javascript:this.form.action='jsp/admin/plugins/mylutece/modules/ldapdatabase/ManageUsers.jsp';this.form.submit();" value="#i18n{portal.admin.message.buttonCancel}" />
+        </p>
+    </form>
+    
+    <#if user_list?has_content>
+        <table>
+            <tr>
+                <th colspan="4">#i18n{module.mylutece.ldapdatabase.create_user.result}</th>
+            </tr>
+            <tr>
+                <th>#i18n{module.mylutece.ldapdatabase.create_user.colLastName}</th>
+                <th>#i18n{module.mylutece.ldapdatabase.create_user.colFirstName}</th>
+                <th>#i18n{module.mylutece.ldapdatabase.create_user.colEmail}</th>
+                <th></th>					
+            </tr>
+            <#list user_list as user >
+            <tr>
+                <form action="jsp/admin/plugins/mylutece/modules/ldapdatabase/DoModifyOrderUser.jsp">
+                    <input type="hidden" name="plugin_name" value="${plugin_name}" />
+	       			<input type="hidden" name="guid" value="${user.ldapGuid}" />
+                    <td>${user.lastName}</td>
+                    <td>${user.firstName}</td>
+                    <td>${user.email}</td>
+                    <td>
+		       			<input type="submit" class="button" value="#i18n{module.mylutece.ldapdatabase.create_user.linkImport}" onclick="this.form.action='jsp/admin/plugins/mylutece/modules/ldapdatabase/DoCreateUser.jsp'" />
+                    </td>
+                </form>
+            </tr>
+            </#list>
+        </table>
+    </#if>
+    
+</div>

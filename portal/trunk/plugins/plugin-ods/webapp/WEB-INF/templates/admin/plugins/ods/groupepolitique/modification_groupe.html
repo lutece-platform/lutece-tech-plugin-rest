@@ -1,0 +1,28 @@
+<div class="content-box">
+	<h2>#i18n{ods.modificationgroupe.label.title}</h2>
+	<form action="jsp/admin/plugins/ods/groupepolitique/DoModificationGroupe.jsp" method="post">
+		<input type="hidden" name="id_groupe" value="${groupe.idGroupe}"  />
+		<p>
+			<label for="nom_groupe">#i18n{ods.modificationgroupe.label.nom_groupe} * :</label>
+			<input type="text" id="nom_groupe" name="nom_groupe" size="40" value="${groupe.nomGroupe}" />
+		</p>
+		<p>
+			<label for="nom_complet">#i18n{ods.modificationgroupe.label.nom_complet} * :</label>
+			<input type="text" id="nom_complet" name="nom_complet" id="" size="80" value="${groupe.nomComplet}" />
+		</p>
+		<p>
+			<label for="status">#i18n{ods.modificationgroupe.label.actif}</label>
+			<#if actif=true>
+				<input id="status" name="status" type="checkbox" value="true" checked="checked" />
+			<#else>
+				<input id="status" name="status" type="checkbox" value="true" />
+			</#if>
+			#i18n{ods.modificationgroupe.label.actif_comment}
+		</p>
+		<p>
+			<input type="submit" value="#i18n{ods.modificationgroupe.button.validate}" class="button" />
+			<input type="button" value="#i18n{ods.modificationgroupe.button.back}" class="button" onclick="javascript:history.go(-1)" />
+		</p>
+	</form>
+</div>
+  

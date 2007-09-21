@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<!-- this file contains various capthca required objects  : background, font, color, filter generator to personalize captcha challenge -->
+
+	<!-- Captcha service -->
+	<bean id="captchaService"
+		class="fr.paris.lutece.plugins.jcaptcha.service.JCaptchaService">
+	</bean>
+	
+	<!-- Image capthca service -->
+	<!-- bean called by the ImageCaptchaServlet -->
+	<bean id="imageCaptchaService"
+		class="fr.paris.lutece.plugins.jcaptcha.service.SimpleBufferedManageableCaptchaService">
+		<constructor-arg>
+			<ref bean="imageEngine" />
+		</constructor-arg>
+		<constructor-arg>
+			<ref bean="simpleImageCaptchaContainer" />
+		</constructor-arg>
+		<constructor-arg>
+			<value>180</value><!-- minGuarantedStorageDelayInSeconds -->
+		</constructor-arg>
+		<constructor-arg>
+			<value>200</value><!-- maxCaptchaStoreSize -->
+		</constructor-arg>
+	</bean>
+
+	<!-- Sound captcha service -->	
+	<!-- bean called by the SoundCaptchaServlet -->
+	<bean id="soundCaptchaService"
+		class="fr.paris.lutece.plugins.jcaptcha.service.SimpleBufferedManageableCaptchaService">
+		<constructor-arg>
+			<ref bean="soundEngine" />
+		</constructor-arg>
+		<constructor-arg>
+			<ref bean="simpleSoundCaptchaContainer" />
+		</constructor-arg>
+		<constructor-arg>
+			<value>180</value><!-- minGuarantedStorageDelayInSeconds -->
+		</constructor-arg>
+		<constructor-arg>
+			<value>200</value><!-- maxCaptchaStoreSize -->
+		</constructor-arg>
+	</bean>
+	
+	<!--	 Simple buffered captcha container -->
+	<!-- image captcha generator using scheduler -->
+	<bean id="simpleImageCaptchaContainer"
+		class="com.octo.captcha.engine.bufferedengine.SimpleBufferedEngineContainer">
+		<constructor-arg index="0">
+			<ref bean="imageEngine" />
+		</constructor-arg>
+		<constructor-arg index="1">
+			<ref bean="memoryCaptchaBuffer" />
+		</constructor-arg>
+		<constructor-arg index="2">
+			<ref bean="diskCaptchaBuffer" />
+		</constructor-arg>
+		<constructor-arg index="3">
+			<ref bean="containerConfiguration" />
+		</constructor-arg>
+		<constructor-arg>
+			<!-- feedPeriod -->
+			<value>10000</value>
+		</constructor-arg>
+		<constructor-arg>
+			<!-- swapPeriod -->
+			<value>1000</value>
+		</constructor-arg>
+	</bean>
+
+	<!-- sound captcha generator using scheduler -->
+	<bean id="simpleSoundCaptchaContainer"
+		class="com.octo.captcha.engine.bufferedengine.SimpleBufferedEngineContainer">
+		<constructor-arg index="0">
+			<ref bean="soundEngine" />
+		</constructor-arg>
+		<constructor-arg index="1">
+			<ref bean="memoryCaptchaBuffer" />
+		</constructor-arg>
+		<constructor-arg index="2">
+			<ref bean="diskCaptchaBuffer" />
+		</constructor-arg>
+		<constructor-arg index="3">
+			<ref bean="containerConfiguration" />
+		</constructor-arg>
+		<constructor-arg>
+			<!-- feedPeriod -->
+			<value>10000</value>
+		</constructor-arg>
+		<constructor-arg>
+			<!-- swapPeriod -->
+			<value>1000</value>
+		</constructor-arg>
+	</bean>
+	
+	<!-- captcha memory management -->
+	<bean id="memoryCaptchaBuffer"
+		class="com.octo.captcha.engine.bufferedengine.buffer.MemoryCaptchaBuffer" />
+	
+	<!-- captcha file system management -->
+	<bean id="diskCaptchaBuffer"
+		class="com.octo.captcha.engine.bufferedengine.buffer.DiskCaptchaBuffer">
+		<constructor-arg>
+			<!-- file to persist captchas-->
+			<value>d://captcha-stored</value>
+		</constructor-arg>
+		<constructor-arg>
+			<!--if the captchas have to be stored-->
+			<value>false</value>
+		</constructor-arg>
+	</bean>
+	
+	<!-- configuration used by memoryCaptchaBuffer and diskCaptchaBuffer -->
+	<bean id="containerConfiguration"
+		class="com.octo.captcha.engine.bufferedengine.ContainerConfiguration">
+		<constructor-arg>
+			<!--localeRatio-->
+			<map></map>
+		</constructor-arg>
+		<constructor-arg>
+			<!--maxVolatileMemorySize-->
+			<value>100</value>
+		</constructor-arg>
+		<constructor-arg>
+			<!--maxPersistentMemorySize-->
+			<value>100</value>
+		</constructor-arg>
+		<constructor-arg>
+			<!--swapSize-->
+			<value>10</value>
+		</constructor-arg>
+		<constructor-arg>
+			<!--feedSize-->
+			<value>5</value>
+		</constructor-arg>
+	</bean>
+
+	<!-- Captcha engines -->
+	<bean class="com.octo.captcha.engine.GenericCaptchaEngine"
+		id="imageEngine">
+		<constructor-arg index="0">
+			<list>
+				<ref bean="ImageCaptchaFactory" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean class="com.octo.captcha.engine.GenericCaptchaEngine"
+		id="soundEngine">
+		<constructor-arg index="0">
+			<list>
+				<ref bean="SoundCaptchaFactory" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<!-- Capthca factories -->
+	<bean id="ImageCaptchaFactory"
+		class="fr.paris.lutece.plugins.jcaptcha.service.image.LuteceGimpyImageFactory">
+		<constructor-arg>
+			<ref bean="wordgen" />
+		</constructor-arg>
+		<constructor-arg>
+			<ref bean="wordtoimage" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="SoundCaptchaFactory"
+		class="fr.paris.lutece.plugins.jcaptcha.service.sound.LuteceGimpySoundFactory">
+		<constructor-arg>
+			<ref bean="wordgen" />
+		</constructor-arg>
+		<constructor-arg>
+			<ref bean="wordtosound" />
+		</constructor-arg>
+	</bean>
+
+	<!-- Word generator-->
+	<!-- contains the list of char used to generate captcha codes -->
+	<bean id="wordgen"
+		class="com.octo.captcha.component.word.wordgenerator.RandomWordGenerator">
+		<constructor-arg>
+			<value>0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</value> <!-- chars used to generate random words -->
+		</constructor-arg>
+	</bean>
+
+	<!-- word to image mixer -->
+	<!-- bean declaring background, paster and filters to apply on the image captcha  -->
+	<bean id="wordtoimage"
+		class="com.octo.captcha.component.image.wordtoimage.DeformedComposedWordToImage">
+		<constructor-arg index="0">
+			<ref bean="randomUnifontGen" />
+		</constructor-arg>
+		<constructor-arg index="1">
+			<ref bean="miatBackground" />
+		</constructor-arg>
+		<constructor-arg index="2">
+			<ref bean="BlackNonLinearPaster" />
+		</constructor-arg>
+		<!-- filter to use declarations -->
+		<constructor-arg index="3">
+			<ref bean="none" /> <!-- background deformation -->
+		</constructor-arg>
+		<constructor-arg index="4">
+			<ref bean="none" /> <!-- text deformation -->
+		</constructor-arg>
+		<constructor-arg index="5">
+			<ref bean="none" /> <!-- final deformation -->
+		</constructor-arg>
+	</bean>
+
+
+	<!-- word to sound mixer -->
+	<!-- bean declaring filters and effects to apply on the audio captcha -->
+	<bean id="wordtosound"
+		class="fr.paris.lutece.plugins.jcaptcha.service.sound.LuteceWordToSound">
+		<constructor-arg index="0">
+			<ref bean="soundconfigurator" />
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>4</value><!-- min word length -->
+		</constructor-arg>
+		<constructor-arg index="2">
+			<value>7</value><!-- max word length -->
+		</constructor-arg>
+		<constructor-arg index="3">
+			<value>1</value><!-- min white sound number -->
+		</constructor-arg>
+		<constructor-arg index="4">
+			<value>3</value><!-- max white sound number -->
+		</constructor-arg>
+		<constructor-arg index="5">
+			<ref bean="backgroundMixerConfigurator"/>
+		</constructor-arg>
+		<constructor-arg index="6"><!-- filters list to apply -->
+			<list>
+				<ref bean="echoFilter"></ref>
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<!-- bean used by FreeTTS implementation (not present) to configure voice  -->
+	<bean id="soundconfigurator"
+		class="fr.paris.lutece.plugins.jcaptcha.service.sound.LuteceSoundConfigurator">
+		<constructor-arg index="0">
+			<value>10</value><!-- pitch -->
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>22050</value><!-- rate -->
+		</constructor-arg>
+		<constructor-arg index="2">
+			<value>50</value><!-- volume -->
+		</constructor-arg>
+	</bean>
+	
+	<!-- bean used to apply audio background on the audio captcha -->
+	<bean id="backgroundMixerConfigurator" class="fr.paris.lutece.plugins.jcaptcha.service.sound.LuteceBackgroundSoundMixerConfigurator">
+		<constructor-arg>
+			<value>50</value><!-- attenuation value ( % )-->
+		</constructor-arg>
+		<constructor-arg> <!-- file list to use as background (without .wav extension)  -->
+			<list>
+				<value>background_0</value>
+				<value>background_1</value>
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<!-- sound filter bean to apply echo on the captcha message -->
+	<bean id="echoFilter"
+		class="fr.paris.lutece.plugins.jcaptcha.service.sound.filter.EchoFilter">
+		<constructor-arg index="0">
+			<value>250</value><!-- delay (millisecond) before earing echo -->
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>10</value><!-- decay % value -->
+		</constructor-arg>
+	</bean>
+
+	<!-- sound filter bean used to apply pitch variation on the captcha message -->
+	<bean id="pitchFilter" class="fr.paris.lutece.plugins.jcaptcha.service.sound.filter.PitchFilter">
+		<constructor-arg>
+			<value>50</value><!-- minimal pitch value, in percent of original pitch -->
+		</constructor-arg>
+		<constructor-arg>
+			<value>120</value><!-- maximal pitch value, in percent of original pitch -->
+		</constructor-arg>
+	</bean>
+
+	<!-- Image filter null -->
+	<bean id="none"
+		class="com.octo.captcha.component.image.deformation.ImageDeformationByFilters">
+		<constructor-arg index="0">
+			<null />
+		</constructor-arg>
+	</bean>
+
+	<!-- Random font generator -->
+	<bean id="randomUnifontGen"
+		class="com.octo.captcha.component.image.fontgenerator.RandomFontGenerator">
+		<constructor-arg index="0">
+			<value>25</value>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>30</value>
+		</constructor-arg>
+		<constructor-arg index="2">
+			<list>
+				<ref bean="fontArial" />
+				<ref bean="fontTahoma" />
+				<ref bean="fontVerdana" />
+				<ref bean="fontComic" />
+				<ref bean="fontLucida" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<!-- Font declarations -->
+	<bean id="fontArial" class="java.awt.Font">
+		<constructor-arg index="0">
+			<value>Arial</value>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>0</value>
+		</constructor-arg>
+		<constructor-arg index="2">
+			<value>10</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="fontTahoma" class="java.awt.Font">
+		<constructor-arg index="0">
+			<value>Tahoma</value>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>0</value>
+		</constructor-arg>
+		<constructor-arg index="2">
+			<value>10</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="fontVerdana" class="java.awt.Font">
+		<constructor-arg index="0">
+			<value>Verdana</value>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>0</value>
+		</constructor-arg>
+		<constructor-arg index="2">
+			<value>10</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="fontComic" class="java.awt.Font">
+		<constructor-arg index="0">
+			<value>Comic sans MS</value>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>0</value>
+		</constructor-arg>
+		<constructor-arg index="2">
+			<value>10</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="fontLucida" class="java.awt.Font">
+		<constructor-arg index="0">
+			<value>Lucida console</value>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>0</value>
+		</constructor-arg>
+		<constructor-arg index="2">
+			<value>10</value>
+		</constructor-arg>
+	</bean>
+
+	<!-- image bakground size configuration -->
+	<bean id="miatBackground"
+		class="com.octo.captcha.component.image.backgroundgenerator.UniColorBackgroundGenerator">
+		<constructor-arg type="java.lang.Integer" index="0">
+			<value>200</value>
+		</constructor-arg>
+		<constructor-arg type="java.lang.Integer" index="1">
+			<value>50</value>
+		</constructor-arg>
+	</bean>
+
+	<!-- bean used to paste generated message over the generated background -->
+	<bean id="BlackNonLinearPaster"
+		class="com.octo.captcha.component.image.textpaster.NonLinearTextPaster">
+		<constructor-arg type="java.lang.Integer" index="0">
+			<value>4</value>	<!-- min image word length -->
+		</constructor-arg>
+		<constructor-arg type="java.lang.Integer" index="1">
+			<value>7</value>	<!-- max image word length -->
+		</constructor-arg>
+		<constructor-arg type="java.awt.Color" index="2">
+			<ref bean="black" />
+		</constructor-arg>
+	</bean>
+
+	<!-- color declarations -->
+	<bean id="black" class="java.awt.Color">
+		<constructor-arg type="int" index="0">
+			<value>0</value>
+		</constructor-arg>
+		<constructor-arg type="int" index="1">
+			<value>0</value>
+		</constructor-arg>
+		<constructor-arg type="int" index="2">
+			<value>0</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="white" class="java.awt.Color">
+		<constructor-arg type="int" index="0">
+			<value>255</value>
+		</constructor-arg>
+		<constructor-arg type="int" index="1">
+			<value>255</value>
+		</constructor-arg>
+		<constructor-arg type="int" index="2">
+			<value>255</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="grey" class="java.awt.Color">
+		<constructor-arg type="int" index="0">
+			<value>211</value>
+		</constructor-arg>
+		<constructor-arg type="int" index="1">
+			<value>211</value>
+		</constructor-arg>
+		<constructor-arg type="int" index="2">
+			<value>211</value>
+		</constructor-arg>
+	</bean>
+</beans>

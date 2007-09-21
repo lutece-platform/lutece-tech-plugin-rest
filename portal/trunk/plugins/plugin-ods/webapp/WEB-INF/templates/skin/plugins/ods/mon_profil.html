@@ -1,0 +1,46 @@
+<div id="page-content-left">
+   <#include "page_content_left.html">
+   </div>
+   <div id="page-content-right">
+   <div id="out-min-height">
+    <div id="in-min-height">
+     <div id="one-zone-first">
+      <div id="one-zone-first-content">
+       <h1>#i18n{ods.front.monProfil.title}</h1>
+	   <p><a href="${password}">» #i18n{ods.front.monProfil.label.modifPassword}</a></p>
+       <!-- bloc -->
+       <form class="default-form" method="post" action="jsp/site/Portal.jsp?page=ods_mon_profil">
+        <fieldset>
+        <p>
+         <label class="text-label" for="">#i18n{ods.front.monProfil.label.votreNom.label} : </label>
+         ${utilisateur.prenom} ${utilisateur.nom}<br/>
+         <br/>
+         <label class="text-label" for="" >#i18n{ods.front.monProfil.label.votreMail.label} : </label>
+         ${utilisateur.mail}
+         <br/>
+		 <br/>
+         <label class="text-label" for="mail_copie_1" >#i18n{ods.front.monProfil.label.votreMailCopie1.label} : </label>
+         <#if utilisateur.mailCopie1?exists>
+         	<input type="text" name="mail_copie_1" id="mail_copie_1" value="${utilisateur.mailCopie1}" />
+         <#else>
+         	<input type="text" name="mail_copie_1" id="mail_copie_1" value="" />
+         </#if>
+         <br/>
+         <label class="text-label" for="mail_copie_2" >#i18n{ods.front.monProfil.label.votreMailCopie2.label} : </label>
+         <#if utilisateur.mailCopie2?exists>
+         	<input type="text" name="mail_copie_2" id="mail_copie_2" value="${utilisateur.mailCopie2}" />
+         <#else>
+         	<input type="text" name="mail_copie_2" id="mail_copie_2" value="" />
+         </#if>
+         
+        </p>
+        <p align="center">
+         <input name="enregistrer" type="submit" value="#i18n{ods.front.monProfil.button.save}" />
+        </p>
+        </fieldset>
+       </form>
+      </div>
+     </div>
+    </div>
+   </div>
+     </div>

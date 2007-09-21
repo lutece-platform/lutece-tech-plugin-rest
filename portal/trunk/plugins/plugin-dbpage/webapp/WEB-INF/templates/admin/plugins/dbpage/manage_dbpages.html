@@ -1,0 +1,49 @@
+<div class="content-box" >
+    <h2>#i18n{dbpage.manage_dbpages.tableLabel}</h2>
+    <form method="post" rm action="jsp/admin/plugins/dbpage/ManageDbPages.jsp">
+        <@pagination paginator=paginator />
+        
+        <!-- Number of dbpage per page selector -->
+        #i18n{dbpage.manage_dbpages.labelItemsPerPage} :
+        <select name="items_per_page">
+            <#list [ "5" , "10" , "20" , "50" ] as nb>
+            <#if nb_items_per_page = nb >
+            <option selected="selected" value="${nb}">${nb}</option>
+            <#else>
+            <option value="${nb}">${nb}</option>
+            </#if>
+            </#list>
+        </select>
+        <input type="submit" class="button" value="#i18n{dbpage.manage_dbpages.buttonItemsPerPage}" />
+    </form>    
+    
+    <table summary="#i18n{dbpage.manage_dbpages.tableSummary}">
+        <tr>
+            <th width="20%">#i18n{dbpage.manage_dbpages.columnTitleName}</th>
+            <th width="20%">#i18n{dbpage.manage_dbpages.columnTitleId}</th>
+            <th width="20%">#i18n{dbpage.manage_dbpages.columnTitleDescription}</th>
+            <th width="20%">#i18n{dbpage.manage_dbpages.columnTitleWorkgroup}</th>
+            <th width="20%">#i18n{dbpage.manage_dbpages.columnTitleAction}</th>
+        </tr>
+        
+        <#list dbpage_list as dbPage >
+        <tr>
+            <td>
+            <a href="jsp/admin/plugins/dbpage/ModifyDbPage.jsp?dbpage_id=${dbPage.id}">${dbPage.paramName}</td>
+            <td> ${dbPage.id}</td>
+            <td>${dbPage.title}</td>    
+            <td><#if dbPage.workgroup?has_content>${dbPage.workgroup}<#else>&nbsp;</#if></td>
+            <td >
+                <a href="jsp/admin/plugins/dbpage/DoConfirmDeleteDbPage.jsp?dbpage_id=${dbPage.id}" class="admin-menu">
+                <img src="images/admin/skin/actions/delete.png" width="24" height="24" alt="#i18n{dbpage.manage_dbpages.labelDelete}" title="#i18n{dbpage.manage_dbpages.labelDelete}"></a>
+            </td>
+        </tr>
+        </#list>
+        
+    </table>
+    
+    <form method="post" action="jsp/admin/plugins/dbpage/CreateDbPage.jsp">
+        <input type="submit" value="#i18n{dbpage.manage_dbpages.buttonAddDbPage}" class="button"/>
+    </form>
+    
+</div>

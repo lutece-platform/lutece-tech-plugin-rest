@@ -1,0 +1,31 @@
+<#setting number_format="#0.00"/>           
+<div class="content-box">	   
+    <h2>#i18n{poll.view_scores.boxTitle}</h2>           
+    <table>                    
+        <tr>
+            <th colspan="3">${poll.name}</th>
+        </tr>
+        <#list questions_list as question >
+            <tr>
+                <th colspan="3">${question.label}</th>
+            </tr>            
+            <#list question.choices?sort_by('score')?reverse as choice>
+                <tr>
+                    <td>
+                        ${choice.label}
+                    </td>
+                    <td>
+                        ${choice.score?string.number}
+                    </td>
+                    <td>                  
+                        <#if question.votesCount=0>
+                        <img src="images/local/skin/percent.jpg" width="0" height="10" />&nbsp;0%
+                        <#else>
+                        <img src="images/local/skin/percent.jpg" width="${choice.score*100/question.votesCount}" height="10" />&nbsp;${choice.score*100/question.votesCount}%
+                        </#if> 
+                    </td>
+                </tr>
+            </#list>        
+        </#list>                
+    </table>   
+</div>

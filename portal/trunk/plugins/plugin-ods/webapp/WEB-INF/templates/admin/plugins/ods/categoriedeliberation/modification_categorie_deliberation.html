@@ -1,0 +1,32 @@
+<div class="content-box">
+	<h2>#i18n{ods.modificationcategoriedeliberation.label.title}</h2>
+	<form action="jsp/admin/plugins/ods/categoriedeliberation/DoModificationCategorieDeliberation.jsp" method="post">
+		<input type="hidden" name="id_categorie" value="${categorie.idCategorie}"  />
+		<p>
+			<label for="code">#i18n{ods.modificationcategoriedeliberation.label.code} * : </label>
+			<input type="text" id="code" name="code" size="10" value="${categorie.code}" />
+		</p>
+		<p>
+			<label for="libelle">#i18n{ods.modificationcategoriedeliberation.label.libelle}</label>
+			<input type="text" id="libelle" name="libelle" size="80" value="${categorie.libelle}" />
+		</p>
+		<p>
+			<label for="status">#i18n{ods.modificationcategoriedeliberation.label.actif} * : </label>
+			<#if actif=true>
+				<input id="status" name="status" type="checkbox" value="true" checked="checked" />
+			<#else>
+				<input id="status" name="status" type="checkbox" value="true" />
+			</#if>
+			#i18n{ods.modificationcategoriedeliberation.label.actif_comment}
+		</p>
+		<p>
+			<input type="submit" value="#i18n{ods.modificationcategoriedeliberation.button.validate}" class="button" />
+			<input type="button" value="#i18n{ods.modificationcategoriedeliberation.button.back}" class="button" onclick="javascript:history.go(-1)" />
+		</p>
+		<#if !avertissement?exists || (avertissement != 0)>
+		<p>
+			<span style="font-weight:bold; color:#364C5E; text-align:center;">#i18n{ods.modificationcategoriedeliberation.message.avertissement}</span>
+		</p>
+		</#if>
+	</form>
+</div>

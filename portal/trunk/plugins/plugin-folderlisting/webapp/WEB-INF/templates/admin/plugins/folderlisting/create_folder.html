@@ -1,0 +1,28 @@
+<div class="content-box" >
+    
+    <h2>#i18n{folderlisting.create_folder.tableLabel}</h2>
+    
+<form method="post" form name="create_folder" id="create_folder" action="jsp/admin/plugins/folderlisting/DoCreateFolder.jsp">
+        
+        <p>
+            <label for="folder_name" >#i18n{folderlisting.create_folder.rowTitleName} * : </label> 
+            <input type="text" id="folder_name" name="folder_name" size="60" maxlength="50" tabindex="1" />
+        </p>
+        
+        <p>
+            <label for="folder_path" >#i18n{folderlisting.create_folder.rowTitlePath} * :</label>  
+            <input type="text" id="folder_path" name="folder_path" size="60" maxlength="200" tabindex="2" />
+        </p>
+        <p>
+            <label for="folder_workgroup" >#i18n{folderlisting.create_folder.rowTitleWorkgroup} * :</label>  
+			<@combo name="folder_workgroup" default_value="" items=workgroup_list />
+        </p>
+        
+        
+        <p>   
+            <input type="submit" value="#i18n{folderlisting.create_folder.buttonValidate}" class="button" tabindex="3" />
+        </p>
+        
+    </form>
+    
+</div>

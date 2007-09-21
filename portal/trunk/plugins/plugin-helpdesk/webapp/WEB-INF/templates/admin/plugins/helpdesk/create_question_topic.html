@@ -1,0 +1,15 @@
+<div class="content-box" >
+    <h2>#i18n{helpdesk.create_question_topic.adminTitle}</h2>
+        <form method="post" name="do_create_question_topic" action="jsp/admin/plugins/helpdesk/DoCreateQuestionTopic.jsp">
+            <p>
+                <label>#i18n{helpdesk.create_question_topic.LabelTitle}</label>
+                <input type="text" name="question_topic" id="question_topic" tabindex="1" size="50" maxlength="50" />
+            </p>
+
+            <input type="hidden" name="question_type_id" value="${id_question_type}">
+            <input type="submit" value="#i18n{helpdesk.create_question_topic.buttonLabelCreate}" tabindex="10" class="button" />
+            
+        </form>
+</div>
+
+

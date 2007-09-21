@@ -1,0 +1,20 @@
+<div id="one-zone-first">
+    <div id="one-zone-first-content">
+
+		<h2 class="page-title" >#i18n{reporting.xpage.reporting.title}</h2>
+		<p>
+		<form method="post"  name="display_standard_reporting" id="display_standard_reporting" action="jsp/site/Portal.jsp?page=reporting&table=standard">
+			
+        	<label for="reporting_workgroup" >#i18n{reporting.xpage.home.suiviBySection}</label>  
+            <@combo name="workgroup" default_value="" items=workgroups_list />
+        	
+        	<input type="submit" value="#i18n{reporting.xpage.home.buttonValidate}" class="button"/>
+		</form>
+		<br/>
+		<a href="jsp/site/Portal.jsp?page=reporting&table=standard">#i18n{reporting.xpage.home.suiviAllSection}</a>
+		<br/><br/>
+		<a href="jsp/site/Portal.jsp?page=reporting&table=monthly">#i18n{reporting.xpage.home.monthlyFollowUp}</a>
+		</p>
+	
+	</div>
+</div>

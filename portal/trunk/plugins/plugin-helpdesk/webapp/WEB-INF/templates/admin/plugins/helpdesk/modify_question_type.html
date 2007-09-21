@@ -1,0 +1,52 @@
+<div id="left" >
+    <div class="content-box" >
+        <h2>#i18n{helpdesk.modify_question_type.boxTitle}</h2>    
+        <table>
+            <tr>
+                <th>
+                    #i18n{helpdesk.modify_question_type.LabelTopic}
+                </th>
+            </tr>
+            
+            <#if question_topic_list?size != 0>
+                <#list question_topic_list as question_topic >                                 
+                    <tr>
+                        <th>
+                            <a href="jsp/admin/plugins/helpdesk/ModifyQuestionTopic.jsp?question_topic_id=${question_topic.idQuestionTopic}" class="bullet-link">${question_topic.questionTopic}</a>
+                        </th>                                
+                    </tr>                    
+                </#list>                       
+            <#else>
+                <tr>
+                    <td>                                            
+                        #i18n{helpdesk.modify_question_type.noTopic}
+                    </td>
+                </tr>                                            
+            </#if>                       
+      </table>
+    </div>
+</div>    
+
+<div id="right">   
+    <div class="content-box" >
+    <h2>#i18n{helpdesk.modify_question_type.adminTitle}</h2>
+        <form name="modify_question_type" action="jsp/admin/plugins/helpdesk/DoModifyQuestionType.jsp" method="post">
+
+               <p>
+                  <label><strong>#i18n{helpdesk.modify_question_type.LabelTitle}</strong></label>
+                  <input type="text" name="question_type" id="question_type" value="${question_type.questionType}" size="50" maxlength="50"/>
+               </p>
+    <table>
+            <tr>           
+                    <input type="hidden" name="question_type_id" value="${question_type.idQuestionType}" />
+                    <input type="submit" tabindex="1" value="#i18n{helpdesk.modify_question_type.buttonLabelModify}" class="button" />
+                </form>
+                <form name="remove_question_type" action="jsp/admin/plugins/helpdesk/ConfirmRemoveQuestionType.jsp" method="post">                
+                     <input type="hidden" name="question_type_id" value="${question_type.idQuestionType}" />
+                     <input type="submit" tabindex="1" value="#i18n{helpdesk.modify_question_type.buttonLabelDelete}" class="button" />
+                </form>            
+            </tr>
+    </table>   
+    </div>
+</div>
+

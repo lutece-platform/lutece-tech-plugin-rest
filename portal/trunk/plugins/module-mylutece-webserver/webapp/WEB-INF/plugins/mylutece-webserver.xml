@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<plug-in>
+   <name>mylutece-webserver</name>
+   <class>fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation</class>
+   <version>2.0</version>
+   <description>My Lutece Pluggable Authentication Module WebServer</description>
+   <documentation></documentation>
+   <installation></installation>
+   <changes></changes>
+   <user-guide></user-guide>
+   <provider>Mairie de Paris</provider>
+   <provider-url>http://lutece.paris.fr</provider-url>
+   <icon-url>images/admin/skin/plugins/mylutece/mylutece.png</icon-url>
+   <copyright>Copyright 2001-2007 Mairie de Paris</copyright>
+   <db-pool-required>0</db-pool-required>
+</plug-in>

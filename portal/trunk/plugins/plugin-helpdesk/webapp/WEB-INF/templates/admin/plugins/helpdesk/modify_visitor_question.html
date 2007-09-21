@@ -1,0 +1,60 @@
+<#include "/admin/util/editor/editor.html" />
+
+<form method="post" name="modify_visitor_question" action="jsp/admin/plugins/helpdesk/DoModifyVisitorQuestion.jsp">                                
+<div class="content-box" >
+    <h2>#i18n{helpdesk.modify_visitor_question.adminTitle}</h2>
+           <p>
+              <strong>#i18n{helpdesk.modify_visitor_question.LabelName}</strong>${visitor_question.lastname}
+              <input type="hidden" name="last_name" value="${visitor_question.lastname}" />              
+           </p>
+           <p>
+              <strong>#i18n{helpdesk.modify_visitor_question.LabelFirstName}</strong>${visitor_question.firstname}
+              <input type="hidden" name="first_name" value="${visitor_question.firstname}" />              
+           </p>
+           <p>
+              <strong>#i18n{helpdesk.modify_visitor_question.LabelEmail}</strong>${visitor_question.email}
+              <input type="hidden" name="email" value="${visitor_question.email}" />              
+           </p>   
+           <p>
+              <strong>#i18n{helpdesk.modify_visitor_question.LabelDate}</strong>${visitor_question.date}
+              <input type="hidden" name="vq_date" value="${visitor_question.date}" />              
+           </p>  
+           <p>
+              <strong>#i18n{helpdesk.modify_visitor_question.LabelQuestion}</strong>${visitor_question.question}
+              <input type="hidden" name="question" value="${visitor_question.question}" />              
+           </p>
+</div>
+<div class="content-box">
+           <p>
+              <strong>#i18n{helpdesk.modify_visitor_question.LabelAnswer}</strong><br/>
+           </p>               
+           <div id="richtext" class="editor">
+                <textarea id="answer" name="answer" class="richtext"  style="width:100%;" rows="20" cols="90">
+                </textarea>
+                <p>
+                    <a href="javascript:openanswers()" class="bullet-link">
+                        #i18n{helpdesk.modify_visitor_question.LabelAnswerType}
+                    </a>              
+                </p>                
+                <p>                    
+                    <input type="checkbox" class="checkbox" name="add_question_answer" value="1" tabindex="5" />
+                    <strong>#i18n{helpdesk.modify_visitor_question.LabelAddQuestion}</strong>
+                </p>
+           </div>
+          
+
+        <input type="hidden" name="question_id" value="${visitor_question.idVisitorQuestion}" />
+        <input type="submit" value="#i18n{helpdesk.modify_visitor_question.buttonLabelModify}" tabindex="10" class="button" />
+
+    
+</div>
+</form>
+<@initEditor />
+
+<script language="JavaScript" type="">
+
+function openanswers()
+{
+	FenetreContact = window.open("jsp/admin/plugins/helpdesk/AnswerSelection.jsp?plugin_name=@plugin_name@","ANSWERS","toolbar=no, scrollbars=yes, status=no, location=no, directories=no, menubar=no, width=540, height=350");
+}
+</script>

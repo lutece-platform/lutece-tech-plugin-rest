@@ -1,0 +1,91 @@
+<pre>
+<font class="comment">
+/*
+ * Copyright (c) 2002-2007, Mairie de Paris
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *  1. Redistributions of source code must retain the above copyright notice
+ *     and the following disclaimer.
+ *
+ *  2. Redistributions in binary form must reproduce the above copyright notice
+ *     and the following disclaimer in the documentation and/or other materials
+ *     provided with the distribution.
+ *
+ *  3. Neither the name of 'Mairie de Paris' nor 'Lutece' nor the names of its
+ *     contributors may be used to endorse or promote products derived from
+ *     this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * License 1.0
+ */
+</font>
+<font class="keyword">package</font> test.${businessObject.packageName};
+
+<font class="keyword">import</font> test.fr.paris.lutece.LuteceTestCase;
+<font class="keyword">import</font> fr.paris.lutece.plugins.${businessObject.pluginName}.business.${businessObject.className};
+<font class="keyword">import</font> fr.paris.lutece.plugins.${businessObject.pluginName}.business.${businessObject.className}Home;
+
+<font class="modify">public class</font> ${businessObject.className}Test <font class="keyword">extends</font> LuteceTestCase
+{
+<#list businessObject.attributes as attribute>
+<#if attribute.type = "String"> 
+    <font class="modify">private final static</font> ${attribute.type} ${attribute.name?upper_case}1 = "${attribute.name}1";
+    <font class="modify">private final static</font> ${attribute.type} ${attribute.name?upper_case}2 = "${attribute.name}2";
+<#else>
+    <font class="modify">private final static</font> ${attribute.type} ${attribute.name?upper_case}1 = 1;
+    <font class="modify">private final static</font> ${attribute.type} ${attribute.name?upper_case}2 = 2;
+</#if>
+</#list>
+
+    <font class="modify">public void</font> testBusiness(  )
+    {
+        <font class="comment">// Initialize an object</font>
+        ${businessObject.className} ${businessObject.instanceName} = new ${businessObject.className}();
+        <#list businessObject.attributes as attribute>
+        ${businessObject.instanceName}.set${attribute.name}( ${attribute.name?upper_case}1 );
+        </#list>
+
+        <font class="comment">// Create test</font>
+        ${businessObject.className}Home.create( ${businessObject.instanceName} );
+        ${businessObject.className} ${businessObject.instanceName}Stored = ${businessObject.className}Home.findByPrimaryKey( ${businessObject.instanceName}.getId() );
+        <#list businessObject.attributes as attribute>
+        assertEquals( ${businessObject.instanceName}Stored.get${attribute.name}() , ${businessObject.instanceName}.get${attribute.name}() );
+        </#list>
+
+        <font class="comment">// Update test</font>
+        <#list businessObject.attributes as attribute>
+        ${businessObject.instanceName}.set${attribute.name}( ${attribute.name?upper_case}2 );
+        </#list>
+        ${businessObject.className}Home.update( ${businessObject.instanceName} );
+        ${businessObject.instanceName}Stored = ${businessObject.className}Home.findByPrimaryKey( ${businessObject.instanceName}.getId() );
+        <#list businessObject.attributes as attribute>
+        assertEquals( ${businessObject.instanceName}Stored.get${attribute.name}() , ${businessObject.instanceName}.get${attribute.name}() );
+        </#list>
+
+        <font class="comment">// List test</font>
+        ${businessObject.className}Home.findAll();
+        
+        <font class="comment">// Delete test</font>
+        ${businessObject.className}Home.remove( ${businessObject.instanceName}.getId() );
+        ${businessObject.instanceName}Stored = ${businessObject.className}Home.findByPrimaryKey( ${businessObject.instanceName}.getId() );
+        assertNull( ${businessObject.instanceName}Stored );
+        
+    }
+
+}
+</pre>

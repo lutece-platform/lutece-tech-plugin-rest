@@ -1,0 +1,27 @@
+<h3>${section_title}</h3>
+<table class="data-table">
+    <tr>
+        <#list column_names as row>
+        <th><center>${row}</center></th>
+        </#list>
+    </tr>
+    
+    <#assign class="odd-row">
+    <#if result_dataset?exists>
+        <#list result_dataset as row>
+    <tr class=${class}>
+            <#list row as cell>
+                <#if class= "odd-row">
+                    <#assign class= "even-row">
+                <#else>
+                    <#assign class= "odd-row">
+                </#if>       
+        <td>
+            <center>${cell}</center>
+        </td>
+            </#list>
+    </tr>
+        </#list> 
+    </#if>
+    
+</table>

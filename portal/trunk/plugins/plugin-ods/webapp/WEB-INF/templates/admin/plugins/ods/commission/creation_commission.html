@@ -1,0 +1,22 @@
+
+ <div class="content-box">
+  <h2>#i18n{ods.creationcommission.label.title}</h2>
+  <form action="jsp/admin/plugins/ods/commission/DoCreationCommission.jsp" method="POST"  >
+   <p>
+    <label for="">#i18n{ods.creationcommission.label.numero}</label>
+    <input type="text" name="numero_commission" size="40" value="" />
+   </p>
+   <p>
+    <label for="">#i18n{ods.creationcommission.label.description}</label>
+    <textarea name="description_commission" id="" cols="80" rows="6"></textarea>
+   </p>
+	<p>
+		<label for="status">#i18n{ods.creationcommission.label.actif}</label>
+		<input id="status" name="status" type="checkbox" value="true" checked="checked" /> #i18n{ods.creationcommission.label.actif_comment}
+	</p>
+   <p>
+    <input type="submit" value="#i18n{ods.creationgroupe.button.validate}" class="button" />
+    <input type="button" value="#i18n{ods.creationgroupe.button.back}" class="button" onclick="javascript:history.go(-1)" />
+   </p>
+  </form>
+ </div>

@@ -1,0 +1,27 @@
+<div class="content-box">
+	<h2>#i18n{ods.creationnaturedossier.label.title}</h2>
+	<form action="jsp/admin/plugins/ods/naturedossier/DoCreationNatureDossier.jsp" method="post">
+		<p>
+			<label>#i18n{ods.creationnaturedossier.label.seance} </label>
+			#i18n{ods.creationnaturedossier.label.from}
+			${seance.dateSeance?string("dd/MM/yyyy")}
+			<#if seance.dateSeance?string("ddMMyyyy") != seance.dateCloture?string("ddMMyyyy") >
+				#i18n{ods.creationnaturedossier.label.to}
+				${seance.dateCloture?string("dd/MM/yyyy")}
+			</#if>
+		</p>
+		<input type="hidden" name="id_seance" value="${seance.idSeance}" />
+		<p>
+			<label for="num_nature">#i18n{ods.creationnaturedossier.label.ordre} * : </label>
+			<input type="text" id="num_nature" name="num_nature" size="3" />
+		</p>
+		<p>
+			<label for="libelle">#i18n{ods.creationnaturedossier.label.libelle} * : </label>
+			<input type="text" id="libelle" name="libelle" size="80" />
+		</p>
+		<p>
+			<input type="submit" value="#i18n{ods.creationnaturedossier.button.create}" class="button" />
+			<input type="button" value="#i18n{ods.creationnaturedossier.button.cancel}" class="button" onclick="javascript:history.go(-1)" />
+		</p>
+	</form>
+ </div>

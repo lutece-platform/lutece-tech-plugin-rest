@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<properties>
+		<title>Introduction</title>
+	</properties>
+	<body>
+		<section name="Descriptif du plugin">
+			<subsection name="Introduction">
+				<p>Ce plugin permet l'intégration d'un test de type Captcha à l'intérieur d'un formulaire.</p> 
+			</subsection>
+			<subsection name="Fonctionnalités">
+				<p>Le rôle de ce plugin est de fournir un service de Captcha, afin de protéger un formulaire ou l'accès à certaines ressources par des robots.</p>
+				<p>Le Captcha généré est rendu accessible aux personnes mal voyantes par la mise en place d'un Captcha sonore.</p>
+				<p>Le Captcha visuel est constitué d'une image dans laquelle un code a été intégré puis déformé.</p>
+				<p>Un lien permettant de recharger le Captcha est diposé à coté de l'image.</p>
+				<p>Le Captcha sonore est fournit sous forme d'un lien vers un flux de type MIME : x-wav</p>
+				<p>Le plugin fourni un champ de saisie de la réponse ainsi qu'un service de validation.</p>				
+			</subsection>
+		</section>
+	</body>
+</document>

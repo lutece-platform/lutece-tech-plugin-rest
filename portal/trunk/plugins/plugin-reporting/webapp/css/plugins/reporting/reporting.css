@@ -1,0 +1,16 @@
+/* ====================================================================
+ * styles for the reporting plugin
+ * -------------------------------------------------------------------- */
+
+ 
+.risk1 {
+ 	background-color: green;
+ }
+ 
+.risk2 {
+ 	background-color: orange;
+ }
+ 
+.risk3 {
+ 	background-color: red;
+ }

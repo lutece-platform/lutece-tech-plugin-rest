@@ -1,0 +1,68 @@
+<div class="content-box" >
+    <h2>#i18n{reporting.manage_project.title}</h2>
+    
+    <form method="post"  action="jsp/admin/plugins/reporting/ManageProject.jsp">
+        <@pagination paginator=paginator />
+
+        <!-- Number of feeds per page selector -->
+        #i18n{reporting.manage_project.labelItemsPerPage} :
+        <select name="items_per_page">
+            <#list [ "5" , "10" , "20" , "50" ] as nb>
+            <#if nb_items_per_page = nb >
+            <option selected="selected" value="${nb}">${nb}</option>
+            <#else>
+            <option value="${nb}">${nb}</option>
+            </#if>
+            </#list>
+        </select>
+        <input type="submit" class="button" value="#i18n{reporting.manage_project.buttonItemsPerPage}" />
+    </form>
+    
+
+	<table>
+        <tr>
+            <th>#i18n{reporting.manage_project.columnTitleName}</th>
+            <th>#i18n{reporting.manage_project.columnTitleCP}</th>
+            <th>#i18n{reporting.manage_project.columnTitleWorkGroup}</th>
+            <th>#i18n{reporting.manage_project.columnTitleFollowUp}</th>
+            <th>#i18n{reporting.manage_project.columnTitleActions}</th>
+        </tr>
+        
+        
+        <#list reporting_project_list as project >
+        <tr>
+        	<td><a class="bullet-link" href="jsp/admin/plugins/reporting/ModifyReportingProject.jsp?project_id=${project.idProject}">
+        		${project.name}
+        		</a>
+        	</td>
+        	<td>
+        		${project.projectManager}
+        	</td>
+        	<td>
+        		${project.workgroupKey}
+        	</td>
+        	<td>
+        		<#if project.followUp>
+        		
+        		
+
+        			<img src="images/admin/skin/enable.png" alt="#i18n{reporting.manage_project.labelEnable}" title="#i18n{reporting.manage_project.labelEnable}"/>
+        		<#else>
+        			<img src="images/admin/skin/disable.png" alt="#i18n{reporting.manage_project.labelDisable}" title="#i18n{reporting.manage_project.labelDisable}"/>
+        		</#if>
+        	</td>
+        	<td> 
+        		<a href="jsp/admin/plugins/reporting/RemoveProject.jsp?project_id=${project.idProject}" class="admin-menu">
+                <img src="images/admin/skin/actions/delete.png" width="24" height="24" alt="#i18n{reporting.manage_project.labelDelete}" title="#i18n{reporting.manage_project.labelDelete}">
+                </a>
+            </td>
+    	</tr>
+    	</#list>
+    </table>
+
+    	
+    	
+    	<form method="post"  action="jsp/admin/plugins/reporting/CreateReportingProject.jsp">
+        <input type="submit" value="#i18n{reporting.manage_project.buttonAddProject}" class="button"/>
+    </form>
+</div>

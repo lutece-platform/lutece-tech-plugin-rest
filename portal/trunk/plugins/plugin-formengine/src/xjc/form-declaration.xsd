@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:annotation>
+		<xs:documentation> This Schema defines a form to be used with plugin "formengine"
+		</xs:documentation>
+	</xs:annotation>
+	<xs:element name="formDefinition">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="title" type="xs:string"/>
+				<xs:element name="subForms" type="subForms"/>
+				<xs:element name="outputs" type="outputs" />
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+			<xs:attribute name="className" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="subForms">
+		<xs:sequence>
+			<xs:element name="subFormDefinition" type="subFormDefinition" maxOccurs="unbounded"
+				minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="outputs">
+		<xs:sequence>
+			<xs:element name="outputSet" type="outputSet" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="outputSet">
+		<xs:sequence>
+			<xs:element name="output" type="output" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="useTransactionHeaders" type="xs:boolean" use="optional" default="true"/>
+		<xs:attribute name="specificTransactionIdGeneratorClassName" type="xs:string" use="optional" />
+	</xs:complexType>
+	<xs:complexType name="output">
+		<xs:attribute name="outputProcessorClassName" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="subFormDefinition">
+		<xs:sequence>
+			<xs:element name="title" type="xs:string"/>
+			<xs:element ref="formElements"/>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="className" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:element name="formElements">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="fields" type="fields"/>
+				<xs:element name="buttons" type="buttons"/>
+				<xs:element name="checkSubFormRules" type="checkSubFormRules" minOccurs="0"/>
+				<xs:element name="notices" type="notices" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="fields">
+		<xs:sequence>
+			<xs:element name="field" type="field" maxOccurs="unbounded" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="buttons">
+		<xs:sequence>
+			<xs:element name="button" type="button" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="checkSubFormRules">
+		<xs:sequence>
+			<xs:element name="checkRule" type="checkRule" maxOccurs="unbounded" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+
+	<xs:complexType name="field">
+		<xs:sequence>
+			<xs:element name="label" type="xs:string"/>
+			<xs:element name="value" type="xs:string"/>
+			<xs:element name="additionalInfo" type="xs:string" minOccurs="0"/>
+			<xs:element name="choiceList" type="choiceList" minOccurs="0"/>
+			<xs:element name="fileNames" type="fileNames" minOccurs="0"/>
+			<xs:element name="checkFieldRules" type="checkFieldRules" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="type" type="xs:string" use="required"/>
+		<xs:attribute name="cols" type="xs:string" use="optional"/>
+		<xs:attribute name="rows" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="button">
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="type" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="checkFieldRules">
+		<xs:sequence>
+			<xs:element name="checkRule" type="checkRule" maxOccurs="unbounded" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="checkRule">
+		<xs:attribute name="type" type="xs:string" use="required"/>
+		<xs:attribute name="parameter" type="xs:string" use="optional"/>
+		<xs:attribute name="errorMessage" type="xs:string" use="optional"/>
+		<xs:attribute name="errorKey" type="xs:string" use="optional"/>
+		<xs:attribute name="min" type="xs:string" use="optional"/>
+		<xs:attribute name="max" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="choiceList">
+		<xs:sequence>
+			<xs:element name="choice" type="choice" maxOccurs="unbounded" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="choice">
+		<xs:attribute name="value" type="xs:string" use="required"/>
+		<xs:attribute name="label" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="fileNames">
+		<xs:sequence>
+			<xs:element name="fileName" type="fileName" maxOccurs="unbounded" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="fileName">
+		<xs:attribute name="value" type="xs:string" use="required"/>
+	</xs:complexType>
+	
+	
+	<xs:complexType name="notices" >
+		<xs:sequence>
+			<xs:element name="noticeGroup" type="noticeGroup" maxOccurs="unbounded" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="noticeGroup">
+	    <xs:sequence>
+			<xs:element name="notice" type="xs:string" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+	</xs:complexType>
+	
+	<!--
+	<xs:complexType name="notice" mixed="true">
+	    <xs:sequence>
+			<xs:element name="link" type="link" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="link">
+	    <xs:sequence>
+			<xs:element name="label" type="xs:string" />
+		</xs:sequence>
+		<xs:attribute name="href" type="xs:string" use="required"/>
+		<xs:attribute name="target" type="xs:string" use="optional"/>
+	</xs:complexType>
+	-->
+	
+</xs:schema>

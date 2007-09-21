@@ -1,0 +1,51 @@
+<div class="content-box">
+	<h2>#i18n{ods.listedirections.label.title}</h2>
+	<#if liste_directions?size=0>
+		<div class="highlight-box">
+			#i18n{ods.listedirections.label.noDirection}
+		</div>
+	<#else>
+    	<p>#i18n{ods.listefichiers.label.nbresult} ${liste_directions?size}</p>
+		<table>
+			<tr>
+				<th>#i18n{ods.listedirections.label.code}</th>
+				<th>#i18n{ods.listedirections.label.nom}</th>
+				<th>#i18n{ods.listedirections.label.actif}</th>
+    			<#if permission_gestion >
+					<th>#i18n{ods.listedirections.label.actions}</th>
+				</#if>
+			</tr>
+			<#list liste_directions as direction>
+			<a name="ANC_LAST" id="ANC_LAST"></a>
+				<tr>
+					<td nowrap="nowrap">${direction.code}</td>
+					<td nowrap="nowrap">${direction.libelleLong}</td>
+					<#if direction.actif=true>
+						<td nowrap="nowrap"><img src="images/admin/skin/enable.png" alt="direction active" title="Actif" /></td>
+					<#else>
+						<td nowrap="nowrap"><img src="images/admin/skin/disable.png" alt="direction inactive" title="Inactif" /></td>
+					</#if>
+					
+    				<#if permission_gestion >
+					<td nowrap="nowrap" class="ods-actions">
+						<a href="jsp/admin/plugins/ods/direction/ModificationDirection.jsp?id_direction=${direction.idDirection}">
+							<img src="images/admin/skin/plugins/ods/action/modify.png" alt="Modifier" title="Modifier" />
+						</a>
+						<a href="jsp/admin/plugins/ods/direction/SuppressionDirection.jsp?id_direction=${direction.idDirection}">
+							<img src="images/admin/skin/actions/delete.png" alt="Supprimer" title="Supprimer" />
+						</a>
+					</td>
+					</#if>
+				</tr>
+			</#list>
+		</table>
+	</#if>
+	
+    <#if permission_gestion >
+	<form method="post"
+		action="jsp/admin/plugins/ods/direction/CreationDirection.jsp">
+	<p><input type="submit"
+		value="#i18n{ods.listedirections.button.create}" class="button" /></p>
+	</form>
+	</#if>
+</div>

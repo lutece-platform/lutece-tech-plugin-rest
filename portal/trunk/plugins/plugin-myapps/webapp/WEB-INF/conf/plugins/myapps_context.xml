@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+  
+  <bean id="myAppsDAO"  class="fr.paris.lutece.plugins.myapps.business.MyAppsDAO" />
+  <bean id="myAppsUserDAO"  class="fr.paris.lutece.plugins.myapps.business.MyAppsUserDAO" />
+  <bean id="myAppsPortletDAO"  class="fr.paris.lutece.plugins.myapps.business.portlet.MyAppsPortletDAO" />  
+
+</beans>

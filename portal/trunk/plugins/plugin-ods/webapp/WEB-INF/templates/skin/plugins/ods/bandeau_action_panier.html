@@ -1,0 +1,44 @@
+<script language="JavaScript" type="text/javascript">
+
+function addPanier(f) {
+	var flagIsFoundOne = false;
+	for (i=0; i<f.elements.length; i++) {
+		if (f.elements[i].type == 'checkbox') {
+			if ( f.elements[i].checked ) {
+				flagIsFoundOne = true;
+				f.selectionPanier.value += f.elements[i].value;
+				if(i < f.elements.length-1 ){
+  					f.selectionPanier.value += "-"; 
+        		}
+			} 
+		}
+	}
+	if( flagIsFoundOne )
+		window.location = '${webapp}/jsp/site/Portal.jsp?page=ods_panier&doWhat=addSelectionPanier&selection=' + f.selectionPanier.value;
+}
+
+function removePanier(f) {
+	var flagIsFoundOne = false;
+	for (i=0; i<f.elements.length; i++) {
+		if (f.elements[i].type == 'checkbox') {
+			if ( f.elements[i].checked ) {
+				flagIsFoundOne = true;
+				f.selectionPanier.value += f.elements[i].value;
+				if(i < f.elements.length-1 ){
+	  				f.selectionPanier.value += "-"; 
+	       		}
+			} 
+		}
+	}
+	if( flagIsFoundOne )
+		window.location = '${webapp}/jsp/site/Portal.jsp?page=ods_panier&doWhat=deleteSelectionPanier&selection=' + f.selectionPanier.value;
+}
+
+</script>
+
+<input type="hidden" id="selectionPanier" name="selectionPanier" value="" />
+<p class="buttons">
+<input type="button" onclick="toggleBoxes(this.form, 'on');" value="#i18n{ods.front.liasse.button.toutselectionner}" id="ods-btn-selectall" />
+<input name="" type="button" onclick="toggleBoxes(this.form, 'off');" value="#i18n{ods.front.liasse.button.toutdeselectionner}" id="ods-btn-unselectall" />
+<input name="" type="button" onclick="addPanier(this.form);" value="#i18n{ods.front.liasse.button.ajouteraupanier}" id="ods-btn-ajouterpanier" />
+</p>

@@ -1,0 +1,51 @@
+<div class="content-box">
+	<h2>#i18n{ods.listecommissions.label.title}</h2>
+	<#if liste_commissions?size=0>
+		<div class="highlight-box">
+			#i18n{ods.listecommissions.label.noCommission}
+		</div>
+    <#else>
+    	<p>#i18n{ods.listefichiers.label.nbresult} ${liste_commissions?size}</p>
+		<table>
+	  		<tr>
+	    		<th>#i18n{ods.listecommissions.label.numero}</th>
+    			<th>#i18n{ods.listecommissions.label.description}</th>
+				<th>#i18n{ods.listecommissions.label.actif}</th>
+    		   	<#if permission_gestion >
+    				<th>#i18n{ods.listecommissions.label.actions}</th>
+    			</#if>
+   		  	</tr>
+  			
+  			<#list liste_commissions as commission>	                
+		    <a name="ANC_LAST" id="ANC_LAST"></a>
+		    <tr>
+    	 		<td nowrap="nowrap"> ${commission.numero}</td>
+    	       	<td> ${commission.libelle}</td>
+    	       	<#if commission.actif=true>
+					<td nowrap="nowrap"><img src="images/admin/skin/enable.png" alt="commission active" title="Actif" /></td>
+				<#else>
+					<td nowrap="nowrap"><img src="images/admin/skin/disable.png" alt="commission inactive" title="Inactif" /></td>
+				</#if>
+    		   	<#if permission_gestion > 
+    		   	<td nowrap="nowrap" class="ods-actions">
+    		   		<a href="jsp/admin/plugins/ods/commission/ModificationCommission.jsp?id_commission=${commission.idCommission}">
+    		   			<img src="images/admin/skin/plugins/ods/action/modify.png" alt="#i18n{ods.listecommissions.title.modify}" title="#i18n{ods.listecommissions.title.modify}" />
+    		   		</a> 
+    		   		<a href="jsp/admin/plugins/ods/commission/SuppressionCommission.jsp?id_commission=${commission.idCommission}">
+    		   			<img src="images/admin/skin/actions/delete.png" alt="#i18n{ods.listecommissions.title.delete}" title="#i18n{ods.listecommissions.title.delete}" />
+    		   		</a>
+    		   	</td>
+    		   	</#if>
+   		 	</tr>
+		    </#list>	
+		</table>
+	</#if>
+	
+    <#if permission_gestion >
+	<form method="POST"  action="jsp/admin/plugins/ods/commission/CreationCommission.jsp">
+	<p>
+		<input type="submit" value="#i18n{ods.listecommissions.button.create}" class="button" />
+	</p>
+	</form>
+	</#if>
+</div>

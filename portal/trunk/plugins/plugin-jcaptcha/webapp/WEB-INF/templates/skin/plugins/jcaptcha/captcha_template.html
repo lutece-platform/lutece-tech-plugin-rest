@@ -1,0 +1,50 @@
+
+<p>#i18n{jcaptcha.message.title}</p>
+
+<div class="captcha-element">
+	<span class="captcha-label">
+		<div>
+		<img src="JCaptchaImage" alt="" />
+		</div>
+	</span>
+	<span class="captcha-field">
+		<div>
+			<a onClick="window.location.reload()"
+				href="javascript:window.location.reload()"
+				title="Recharger l'image">
+				&#160;
+				<img src="images/reload.png"
+					alt="Recharger l'image" />
+				<span class="reloaded">
+					&#160;#i18n{jcaptcha.message.reloaded}
+				</span>
+			</a>
+			<br />
+			<a href="JCaptchaSound" target="_blank">
+				&#160;
+				<img src="images/sound.jpg"
+					alt="Captcha Sonore" />
+				<span class="sound">
+					&#160;#i18n{jcaptcha.message.sound}
+				</span>
+			</a>
+		</div>
+	</span>
+</div>
+
+<div class="captcha-element">
+	<span class="captcha-label">
+		<label for="j_captcha_response">
+					<span class="captcha-mandatory"> * </span>
+					#i18n{jcaptcha.message.response}
+					
+		</label>
+		<span class="double-point">:</span>
+	</span>
+	<span class="captcha-field">
+		<div class="jcaptcha-text">
+			<input type="text" id="j_captcha_response"
+				name="j_captcha_response" value="" />
+		</div>
+	</span>
+</div>

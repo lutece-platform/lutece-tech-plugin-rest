@@ -1,0 +1,32 @@
+<div class="portlet">
+	<h3 class="portlet-header">#i18n{ods.front.menu.userconnecte}</h3>
+	<div class="portlet-content">
+	<#if user_given_name?exists>
+		${user_given_name}
+	</#if>
+		<br /><br />
+		<input name="" type="button" value="#i18n{ods.front.menu.deconnect}" id="ods-btn-disconnect" onclick="location='../logout'" />
+	</div>
+</div>
+<div class="portlet">
+	<h3 class="portlet-header">#i18n{ods.front.menu.aconsulter}</h3>
+	<div class="portlet-content">
+		<ul class="ods-menu">
+			<li class="ods-menu-conseil"><a href="jsp/site/Portal.jsp?page=ods_prochain_conseil">#i18n{ods.front.menu.prochainconseil}</a></li>
+			<li class="ods-menu-recherche"><a href="jsp/site/Portal.jsp?page=ods_recherche">#i18n{ods.front.menu.rechercheavancee}</a></li>
+			<li class="ods-menu-calendrier"><a href="jsp/site/Portal.jsp?page=ods_calendrier">#i18n{ods.front.menu.calendrier}</a></li>
+			<li class="ods-menu-archives"><a href="jsp/site/Portal.jsp?page=ods_recherche_archives">#i18n{ods.front.menu.archives}</a></li>
+			<li class="ods-menu-conseil"><a href="jsp/site/Portal.jsp?page=ods_derniers_conseils">#i18n{ods.front.menu.derniersconseils}</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portlet-background-colored">
+	<h3 class="portlet-background-colored-header">#i18n{ods.front.menu.espaceperso}</h3>
+	<div class="portlet-background-colored-content">
+		<ul class="ods-menu">
+			<li class="ods-menu-profil"><a href="jsp/site/Portal.jsp?page=ods_mon_profil">#i18n{ods.front.menu.profil}</a></li>
+			<li class="ods-menu-criteres"><a href="jsp/site/Portal.jsp?page=ods_mes_criteres">#i18n{ods.front.menu.criteres}</a></li>
+			<li class="ods-menu-panier"><a href="jsp/site/Portal.jsp?page=ods_panier">#i18n{ods.front.menu.panier}</a></li>
+		</ul>
+	</div>
+</div>

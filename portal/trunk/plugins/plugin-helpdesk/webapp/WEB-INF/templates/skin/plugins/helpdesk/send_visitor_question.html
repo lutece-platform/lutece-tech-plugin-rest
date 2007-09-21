@@ -1,0 +1,19 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="${portal_url}/css/page_template_styles.css" title="lutece">
+</head>
+<body>
+<b>#i18n{helpdesk.send_visitor_question.boxTitle}</b><br/>
+<br/>
+<b>#i18n{helpdesk.send_visitor_question.Name}</b>&nbsp;${visitor_question.lastname}<br/>
+<b>#i18n{helpdesk.send_visitor_question.FirstName}</b>&nbsp;${visitor_question.firstname}<br/>
+<b>#i18n{helpdesk.send_visitor_question.Email}</b>&nbsp;<a href="mailto:${visitor_question.email}">${visitor_question.email}</a><br/>
+<b>#i18n{helpdesk.send_visitor_question.Date}</b>&nbsp;${date}<br/>
+<br/>
+<b>#i18n{helpdesk.send_visitor_question.Question}</b><br/>
+<blockquote>${visitor_question.question}</blockquote>
+<br/>
+<a href="${portal_url}/jsp/admin/plugins/helpdesk/ModifyVisitorQuestion.jsp?plugin_name=${plugin_name}&url=helpdesk.vqcardindex&question_id=${visitor_question.idVisitorQuestion}">#i18n{helpdesk.send_visitor_question.Answer}</a>
+<br/>
+</body>
+</html>

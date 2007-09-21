@@ -1,0 +1,61 @@
+<div id="left">
+    <div class="content-box" >
+        <h2>#i18n{helpdesk.modify_question_topic.questionType}</h2>
+        
+        <table>
+            <tr>
+                <th>
+                    #i18n{helpdesk.modify_question_topic.labelQuestion}
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    ${question_type.questionType}
+                </td>
+            </tr>                       
+            <tr>
+                <th>
+                    #i18n{helpdesk.modify_question_topic.actions}
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <a href="jsp/admin/plugins/helpdesk/ModifyQuestionType.jsp?question_type_id=${question_type.idQuestionType}" >
+                        <img src="images/admin/skin/plugins/helpdesk/edit.png" alt="#i18n{helpdesk.modify_question_topic.modify}" title="#i18n{helpdesk.modify_question_topic.modify}" />
+                    </a>
+                    <a href="jsp/admin/plugins/helpdesk/ConfirmRemoveQuestionType.jsp?question_type_id=${question_type.idQuestionType}" >
+                        <img src="images/admin/skin/plugins/helpdesk/delete.png" alt="#i18n{helpdesk.modify_question_topic.delete}" title="#i18n{helpdesk.modify_question_topic.delete}" />
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div id="right">
+
+    <div class="content-box">
+        <h2>#i18n{helpdesk.modify_question_topic.adminTitle}</h2>
+                     
+            <form method="post" name="modify_question_topic" action="jsp/admin/plugins/helpdesk/DoModifyQuestionTopic.jsp"  >
+            <p>
+                <label for="question_topic" >#i18n{helpdesk.modify_question_topic.labelTopic} * :</label>
+                <input type="hidden" id="question_topic_id" name="question_topic_id" value="${question_topic.idQuestionTopic}" />
+                <input type="text" name="question_topic" id="question_topic" value="${question_topic.questionTopic}" size="50" maxlength="50"/>                
+            </p>     	
+            <table>
+                <tr>            
+                    <input type="hidden" name="question_topic_id" value="${question_topic.idQuestionTopic}" />
+                    <input type="hidden" name="question_type_id" value="${question_type.idQuestionType}" />                    
+                    <input type="submit" value="#i18n{helpdesk.modify_question_topic.labelButtonValidate}" tabindex="6" class="button" />
+              	
+                    </form>
+                    <form method="post" name="delete_question_topic" action="jsp/admin/plugins/helpdesk/ConfirmRemoveQuestionTopic.jsp"  >                    
+                        <input type="hidden" name="question_topic_id" value="${question_topic.idQuestionTopic}" />
+                        <input type="hidden" name="question_type_id" value="${question_type.idQuestionType}" />                                            
+                        <input type="submit" value="#i18n{helpdesk.modify_question_topic.delete}" tabindex="6" class="button" />
+                    </form>
+                </tr>
+            </table>
+    </div>
+</div>

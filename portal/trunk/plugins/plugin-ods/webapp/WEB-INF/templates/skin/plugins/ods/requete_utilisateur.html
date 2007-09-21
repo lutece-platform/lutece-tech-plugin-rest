@@ -1,0 +1,90 @@
+( #i18n{ods.front.requeteutilisateur.label.typedocument} = 
+<#assign first = 1>
+<#list liste_types_doc as type_doc>
+	<#if first != 1> #i18n{ods.front.requeteutilisateur.label.nouvellevaleur} </#if>${type_doc}
+	<#assign first = 0>
+</#list>
+)
+<#assign only_seance = 0>
+<#if liste_types_doc?size = 1>
+	<#list liste_types_doc as type_doc>
+		<#if type_doc = "seance">
+			<#assign only_seance = 1>
+		</#if>
+	</#list>
+</#if>
+<#if date_1?has_content>
+	#i18n{ods.front.requeteutilisateur.label.nouveaucritere} ( #i18n{ods.front.requeteutilisateur.label.premiereDate} = ${date_1?string('dd/MM/yyyy')} )
+</#if>
+<#if date_2?has_content>
+	#i18n{ods.front.requeteutilisateur.label.nouveaucritere} ( #i18n{ods.front.requeteutilisateur.label.deuxiemeDate} = ${date_2?string('dd/MM/yyyy')} )
+</#if>
+<#if only_seance = 0>
+	<#if mots_recherches?has_content>
+		#i18n{ods.front.requeteutilisateur.label.nouveaucritere} ( #i18n{ods.front.requeteutilisateur.label.motsrecherches} = ${mots_recherches})
+	</#if>
+	<#if liste_formations_conseil?has_content>
+		#i18n{ods.front.requeteutilisateur.label.nouveaucritere} ( #i18n{ods.front.requeteutilisateur.label.formationconseil} = 
+		<#assign first = 1>
+		<#list liste_formations_conseil as formation>
+			<#if (first != 1)> #i18n{ods.front.requeteutilisateur.label.nouvellevaleur} </#if>${formation.libelle}
+			<#assign first = 0>
+		</#list>)
+	</#if>
+	<#if liste_commissions?has_content>
+		#i18n{ods.front.requeteutilisateur.label.nouveaucritere} ( #i18n{ods.front.requeteutilisateur.label.commission} = 
+		<#assign first = 1>
+		<#list liste_commissions as commission>
+			<#if (first != 1)> #i18n{ods.front.requeteutilisateur.label.nouvellevaleur} </#if>${commission.libelle}
+			<#assign first = 0>
+		</#list>)
+	</#if>
+	<#if liste_rapporteurs?has_content>
+		#i18n{ods.front.requeteutilisateur.label.nouveaucritere} ( #i18n{ods.front.requeteutilisateur.label.rapporteur} = 
+		<#assign first = 1>
+		<#list liste_rapporteurs as rapporteur>
+			<#if first != 1> #i18n{ods.front.requeteutilisateur.label.nouvellevaleur} </#if>${rapporteur.civilite} ${rapporteur.prenomElu} ${rapporteur.nomElu}
+			<#assign first = 0>
+		</#list>)
+	</#if>
+	<#if liste_arrondissements?has_content>
+		#i18n{ods.front.requeteutilisateur.label.nouveaucritere} ( #i18n{ods.front.requeteutilisateur.label.arrondissement} = 
+		<#assign first = 1>
+		<#list liste_arrondissements as arrondissement>
+			<#if first != 1> #i18n{ods.front.requeteutilisateur.label.nouvellevaleur} </#if>${arrondissement}
+			<#assign first = 0>
+		</#list>)
+	</#if>
+	<#if liste_directions?has_content>
+		#i18n{ods.front.requeteutilisateur.label.nouveaucritere} ( #i18n{ods.front.requeteutilisateur.label.direction} = 
+		<#assign first = 1>
+		<#list liste_directions as direction>
+			<#if first != 1> #i18n{ods.front.requeteutilisateur.label.nouvellevaleur} </#if>${direction.libelleLong}
+			<#assign first = 0>
+		</#list>)
+	</#if>
+	<#if liste_categories?has_content>
+		#i18n{ods.front.requeteutilisateur.label.nouveaucritere} ( #i18n{ods.front.requeteutilisateur.label.categorie} = 
+		<#assign first = 1>
+		<#list liste_categories as categorie>
+			<#if first != 1> #i18n{ods.front.requeteutilisateur.label.nouvellevaleur} </#if>${categorie.libelle}
+			<#assign first = 0>
+		</#list>)
+	</#if>
+	<#if liste_groupes?has_content>
+		#i18n{ods.front.requeteutilisateur.label.nouveaucritere} ( #i18n{ods.front.requeteutilisateur.label.groupedepositaire} = 
+		<#assign first = 1>
+		<#list liste_groupes as groupe>
+			<#if first != 1> #i18n{ods.front.requeteutilisateur.label.nouvellevaleur} </#if>${groupe.nomGroupe}
+			<#assign first = 0>
+		</#list>)
+	</#if>
+	<#if liste_elus?has_content>
+		#i18n{ods.front.requeteutilisateur.label.nouveaucritere} ( #i18n{ods.front.requeteutilisateur.label.eludepositaire} = 
+		<#assign first = 1>
+		<#list liste_elus as elu>
+			<#if first != 1> #i18n{ods.front.requeteutilisateur.label.nouvellevaleur} </#if>${elu.civilite} ${elu.prenomElu} ${elu.nomElu}
+			<#assign first = 0>
+		</#list>)
+	</#if>
+</#if>

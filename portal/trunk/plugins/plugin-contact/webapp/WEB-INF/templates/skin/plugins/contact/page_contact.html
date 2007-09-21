@@ -1,0 +1,73 @@
+
+
+<div id="one-zone-first">
+    <div id="one-zone-first-content">
+        
+        
+        <h2 class="page-title">#i18n{contact.page_contact.pageTitle}</h2>
+        
+        <#if alert?exists>
+        <div class="alert" >${alert}</div>
+        </#if>
+        
+        <form class="default-form" id="contact_form" action="jsp/site/plugins/contact/DoSendMessage.jsp" method="post" >
+            
+            <fieldset>
+                
+                <p>
+                    <input type="hidden" name="page" value="contact" />
+                    <input type="hidden" name="portal_url" value="${portal_url}" />
+                    
+                    <label class="text-label" for="visitor_email">#i18n{contact.page_contact.visitorEmail} * :</label>
+                    <input type="text" name="visitor_email" id="visitor_email" size="30" maxlength="100" value="${visitor_email}" class="${style_email}" />
+                    <br />
+                    
+                    <label class="text-label" for="visitor_last_name">#i18n{contact.page_contact.visitorLastName} * :</label>
+                    <input type="text" name="visitor_last_name" id="visitor_last_name" value="${visitor_last_name}" size="30" maxlength="50" class="${style_last_name}" />
+                    <br />
+                    
+                    <label class="text-label" for="visitor_first_name">#i18n{contact.page_contact.visitorFirstName} * :</label>
+                    <input type="text" name="visitor_first_name" id="visitor_first_name" value="${visitor_first_name}" size="30" maxlength="50" class="${style_first_name}"/>
+                    <br />
+                    
+                    <label class="text-label" for="visitor_address" >#i18n{contact.page_contact.visitorAddress} :</label>
+                    <input type="text" name="visitor_address" id="visitor_address" value="${visitor_address}" size="60" maxlength="120" />
+                    <br />
+                    
+                    <label class="combo-label">#i18n{contact.page_contact.comboLabel} * :</label>
+                    
+                    <#assign cssComboParams>class="${style_contact}"</#assign>      
+                    <@comboWithParams name="contact" default_value="${default_contact}" additionalParameters="${cssComboParams}" items=contacts_list/>
+                    <br />
+                    
+                    <label class="text-label" for="message_object">#i18n{contact.page_contact.messageObject} * :</label>
+                    <input type="text" name="message_object" id="message_object" value="${message_object}" size="60" maxlength="120" class="${style_object}"/>
+                    <br />
+                    
+                    <label class="textarea-label" for="message">#i18n{contact.page_contact.message} * :<br/>#i18n{contact.page_contact.characterMax}</label>
+                    <textarea name="message" id="message" cols="45" rows="6" class="${style_message}">${message}</textarea>
+                    <br />
+                    
+                </p>
+                
+                <h3>* #i18n{contact.page_contact.mandatoryFields}</h3>
+                
+                <table align="center">
+                    <tr>
+                        <td>
+                            <input class="site-buttons" id="button-send" type="submit" value="#i18n{contact.page_contact.buttonSend}"/>
+                        </td>
+                        <td>   
+                           <div class="site-buttons" id="button-reset">
+                              <a href="${portal_url}?page=contact">#i18n{contact.page_contact.buttonReset}</a>
+                           </div>     
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+            
+        </form>
+        
+        
+    </div>
+</div>

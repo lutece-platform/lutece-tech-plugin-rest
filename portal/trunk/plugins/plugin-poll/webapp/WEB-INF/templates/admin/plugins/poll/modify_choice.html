@@ -1,0 +1,19 @@
+<div class="content-box">	
+    
+    <h2>#i18n{poll.modify_choice.boxTitle}</h2>
+        
+    <form method="post" action="jsp/admin/plugins/poll/DoModifyChoice.jsp" name="modify_choice">        
+        <input type="hidden" name="choice_id" value="${choice.id}" />                
+        <input type="hidden" name="question_id" value="${choice.questionId}" />        
+        <p>
+            <label for="choice_label" >#i18n{poll.modify_choice.label}&nbsp;*&nbsp;:</label>
+            <input type="text" id="choice_label" name="choice_label" value="${choice.label}" size="100" maxlength="250"/>			
+        </p>				
+       
+        <p>
+            <input type="submit" value="#i18n{poll.modify_choice.buttonLabelValidate}" tabindex="9" class="button" />
+            <input class="button" type="button" onclick="javascript:history.go(-1)" value="#i18n{portal.admin.message.buttonCancel}" />
+        </p>							 
+    </form>		      	   
+    
+</div>

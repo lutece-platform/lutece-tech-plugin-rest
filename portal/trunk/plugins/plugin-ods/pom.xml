@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <parent>
+      <artifactId>lutece-plugins-pom</artifactId>
+      <groupId>fr.paris.lutece.tools</groupId>
+      <version>1.4</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>fr.paris.lutece.plugins</groupId>
+  <artifactId>plugin-ods</artifactId>
+  <packaging>lutece-plugin</packaging>
+  <version>1.0.1-SNAPSHOT</version>
+  <name>Lutece ODS plugin</name>
+
+	<repositories>
+	  <repository>
+	    <id>lutece</id>
+	    <name>luteceRepository</name>
+	    <url>http://dev.lutece.paris.fr/maven_repository</url>
+	    <layout>default</layout>
+	  </repository>
+	</repositories>
+
+  <dependencies>
+      
+    <dependency>
+      <groupId>fr.paris.lutece</groupId>
+      <artifactId>lutece-core</artifactId>
+      <version>2.1.0b5</version>
+      <type>lutece-core</type>
+    </dependency>
+
+    <dependency>
+        <groupId>fr.paris.lutece.plugins</groupId>
+        <artifactId>plugin-adminauthenticationwsso</artifactId>
+        <version>2.0.0</version>
+        <type>lutece-plugin</type>
+    </dependency>
+        
+    <dependency>
+      <groupId>fr.paris.lutece.plugins</groupId>
+      <artifactId>module-mylutece-wssodatabase</artifactId>
+      <version>2.0.0</version>
+      <type>lutece-plugin</type>
+    </dependency>
+    
+    <dependency>
+        <groupId>javax.xml.bind</groupId>
+        <artifactId>jaxb-api</artifactId>
+        <version>2.0</version>
+    </dependency>
+
+    <!-- dependance locale -->
+    <dependency>
+	    <groupId>javax.jms</groupId>
+	    <artifactId>jms</artifactId>
+	    <version>1.1</version>
+	   </dependency>
+    
+    <!-- dependance locale -->
+  	<dependency>
+      	<groupId>javax.transaction</groupId>
+      	<artifactId>jta</artifactId>
+      	<version>1.0.1B</version>
+  	</dependency>
+  
+    <dependency>
+        <groupId>com.sun.xml.bind</groupId>
+        <artifactId>jaxb-impl</artifactId>
+        <version>2.0.3</version>
+    </dependency>    
+
+    <dependency>
+      <groupId>pdfbox</groupId>
+      <artifactId>pdfbox</artifactId>
+      <version>0.7.3</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-remoting</artifactId>
+        <version>2.0.5</version>
+    </dependency>   
+    
+    <!-- dependance locale -->
+    <dependency>
+        <groupId>net.sf.jcopist</groupId>
+        <artifactId>jcopist-client</artifactId>
+        <version>1.0-RC6</version>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.objectweb.joram</groupId>
+        <artifactId>jcup</artifactId>
+        <version>4.3.28</version>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.objectweb.joram</groupId>
+        <artifactId>joram-client</artifactId>
+        <version>4.3.28</version>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.objectweb.joram</groupId>
+        <artifactId>joram-shared</artifactId>
+        <version>4.3.28</version>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.objectweb.monolog</groupId>
+        <artifactId>monolog</artifactId>
+        <version>2.1.8</version>
+    </dependency>
+	
+	<dependency>
+	    <groupId>com.lowagie</groupId>
+	    <artifactId>itext</artifactId>
+	    <version>1.3.1</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>opensymphony</groupId>
+	    <artifactId>quartz</artifactId>
+	    <version>1.6.0</version>
+	</dependency>
+	
+	<dependency>
+    	<groupId>commons-net</groupId>
+    	<artifactId>commons-net</artifactId>
+   		<version>1.1.0</version>
+	</dependency>
+  
+  <!-- utilise par quartz -->
+	<dependency>
+    	<groupId>commons-collections</groupId>
+    	<artifactId>commons-collections</artifactId>
+    	<version>3.1</version>
+	</dependency>     
+  
+  <!-- dependance locale -->
+	<dependency>
+    	<groupId>sequoia</groupId>
+    	<artifactId>sequoia</artifactId>
+    	<version>2.10.9</version>
+	</dependency>     	
+	
+	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxb2-maven-plugin</artifactId>
+				<executions>
+					
+
+					<execution>
+						<id>compileEntete</id>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+						<configuration>
+							<packageName>fr.paris.lutece.plugins.ods.business.ordredujour.generated.entete</packageName>
+							<schemaFiles>entete.xsd</schemaFiles>
+							<staleFile>${project.build.directory}/generated-sources/jaxb/entete/.staleFlag</staleFile>
+							<outputDirectory>${project.build.directory}/generated-sources/jaxb/entete</outputDirectory>
+					
+						</configuration>
+					</execution>
+					
+					<execution>
+						<id>compilePiedDePage</id>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+						<configuration>
+							<packageName>fr.paris.lutece.plugins.ods.business.ordredujour.generated.pieddepage</packageName>
+							<schemaFiles>pied_de_page.xsd</schemaFiles>
+							<staleFile>${project.build.directory}/generated-sources/jaxb/piedDePage/.staleFlag</staleFile>
+							<outputDirectory>${project.build.directory}/generated-sources/jaxb/piedDePage</outputDirectory>
+						</configuration>
+					</execution>
+					
+					<execution>
+						<id>compileOrdreDuJour</id>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+						<configuration>
+							<packageName>fr.paris.lutece.plugins.ods.business.publicationparisfr.generated.ordredujour</packageName>
+							<schemaFiles>ordre_du_jour.xsd</schemaFiles>
+							<staleFile>${project.build.directory}/generated-sources/jaxb/ordreDuJour/.staleFlag</staleFile>
+							<outputDirectory>${project.build.directory}/generated-sources/jaxb/ordreDuJour</outputDirectory>
+					
+						</configuration>
+					</execution>
+					
+					<execution>
+						<id>compileSyntheseDeliberationDirections</id>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+						<configuration>
+							<packageName>fr.paris.lutece.plugins.ods.business.publicationparisfr.generated.listedirections</packageName>
+							<schemaFiles>synthese_delib_directions.xsd</schemaFiles>
+							<staleFile>${project.build.directory}/generated-sources/jaxb/synthese/.staleFlag</staleFile>
+							<outputDirectory>${project.build.directory}/generated-sources/jaxb/synthese</outputDirectory>
+						</configuration>
+					</execution>
+					<execution>
+						<id>compileDetailDeliberationsDirection</id>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+						<configuration>
+							<packageName>fr.paris.lutece.plugins.ods.business.publicationparisfr.generated.detaildelibdirection</packageName>
+							<schemaFiles>detail_delib_direction.xsd</schemaFiles>
+							<staleFile>${project.build.directory}/generated-sources/jaxb/detailDeliberations/.staleFlag</staleFile>
+							<outputDirectory>${project.build.directory}/generated-sources/jaxb/detailDeliberations</outputDirectory>
+					
+						</configuration>
+					</execution>
+					</executions>
+				<configuration>
+					<schemaDirectory>${basedir}/src/xjc</schemaDirectory>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<properties>
+		<jiraProjectName>ODS</jiraProjectName>
+	</properties>
+	
+</project>
+

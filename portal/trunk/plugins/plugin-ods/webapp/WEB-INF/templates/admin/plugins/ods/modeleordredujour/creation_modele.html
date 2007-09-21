@@ -1,0 +1,34 @@
+
+ <div class="content-box">
+  <h2>#i18n{ods.modele.title.creationModele}</h2>
+  <form action="jsp/admin/plugins/ods/modeleordredujour/DoCreationModele.jsp" method="post" enctype="multipart/form-data" >
+   <p>
+    <label for="">#i18n{ods.modele.creation.label.titre} * :</label>
+    <input type="text" name="titre" id="titre" size="80" value="" />
+   </p>
+   <p>
+    <label for="">#i18n{ods.modele.creation.label.type} * :</label>
+   <@combo name="id_type_odj"  items=liste_type default_value=-1 />
+   </p>
+   <p>
+    <label for="">#i18n{ods.modele.creation.label.formationConseil} * :</label>
+   <@combo name="id_formation_conseil"  items=liste_formation_conseil default_value=-1 />
+   </p>
+   <p>
+    <label for="">#i18n{ods.modele.creation.label.commission} :</label>
+    <@combo name="id_commission"  items=liste_commission default_value=-1 />
+   </p>
+   <p>
+    <label for="">#i18n{ods.modele.creation.label.entete} :</label>
+    <input name="entete_document" type="file" id="entete_document" />
+   </p>
+   <p>
+    <label for="">#i18n{ods.modele.creation.label.pied} :</label>
+    <input name="pied_document" type="file" id="pied_document" />
+   </p>
+   <p>
+    <input type="submit" value="#i18n{ods.all.button.save}" class="button" />
+    <input type="button" value="#i18n{ods.all.button.cancel}" class="button" onclick="javascript:history.go(-1)" />
+   </p>
+  </form>
+ </div>

@@ -1,0 +1,31 @@
+
+<div class="content-box" >
+    <h2>#i18n{reporting.historyMonthlyProject.Title}</h2>
+    
+    <table>
+        <tr>
+            <th>#i18n{reporting.historyMonthlyProject.columnTitlePeriod}</th>
+            <th>#i18n{reporting.historyMonthlyProject.columnTitleFact}</th>
+            <th>#i18n{reporting.historyMonthlyProject.columnTitleEvenement}</th>
+        </tr>
+        
+        
+        <#list reporting_monthly_list as monthly >
+        <tr>
+        	<td>
+        		${monthly.namePeriod}
+        	</td>
+        	<td> 
+				${monthly.fact}
+            </td>
+            <td> 
+				${monthly.event}
+            </td>
+    	</tr>
+    	</#list>
+    </table>
+    
+</div>
+<p align="center">
+<a href="javascript:window.close();">#i18n{reporting.history.closeWindow}</a> 
+</p>

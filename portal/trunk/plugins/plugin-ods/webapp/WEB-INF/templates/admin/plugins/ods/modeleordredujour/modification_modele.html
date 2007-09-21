@@ -1,0 +1,55 @@
+
+<div class="content-box">
+  <h2>#i18n{ods.modele.title.modificationModele}</h2>
+  <form action="jsp/admin/plugins/ods/modeleordredujour/DoModificationModele.jsp" method="post" enctype="multipart/form-data" >
+  <input type="hidden" id="id_modele" name="id_modele" value="${modele.idModele}"  />
+ 
+   <p>
+    <label for="">#i18n{ods.modele.creation.label.titre} * :</label>
+    <input type="text" name="titre" id="titre" size="80" value="${modele.titre}" />
+   </p>
+   <p>
+    <label for="">#i18n{ods.modele.creation.label.type} * :</label>
+    <#if modele.typeOrdreDuJour?exists>
+   	<@combo name="id_type_odj"  items=liste_type default_value=modele.typeOrdreDuJour.idTypeOrdreDuJour />
+   <#else>
+     <@combo name="id_type_odj"  items=liste_type default_value=-1 />
+   </#if>
+   </p>
+   <p>
+    <label for="">#i18n{ods.modele.creation.label.formationConseil} * :</label>
+   <#if modele.formationConseil?exists>
+   	<@combo name="id_formation_conseil"  items=liste_formation_conseil default_value=modele.formationConseil.idFormationConseil />
+   <#else>
+  	<@combo name="id_formation_conseil"  items=liste_formation_conseil default_value=-1 />
+   </#if>
+   </p>
+   <p>
+    <label for="">#i18n{ods.modele.creation.label.commission} :</label>
+       <#if modele.commission?exists>
+    	 <@combo name="id_commission"  items=liste_commission default_value=modele.commission.idCommission />
+   		<#else>
+   		 <@combo name="id_commission"  items=liste_commission default_value=-1 />
+   	    </#if>
+   </p>
+   <p>
+    <label for="">#i18n{ods.modele.creation.label.entete} :</label>
+    <#if modele.enteteDocument?exists>
+    	<a href="jsp/admin/plugins/ods/modeleordredujour/DoDownloadFichier.jsp?id_fichier=${modele.enteteDocument.idFichier}&type=EnteteDocument.xml">EnteteDocument.xml</a>
+    </#if>
+    <input name="entete_document" type="file" id="entete_document" />
+   </p>
+   <p>
+    <label for="">#i18n{ods.modele.creation.label.pied} :</label>
+    <#if modele.piedDocument?exists>
+     <a href="jsp/admin/plugins/ods/modeleordredujour/DoDownloadFichier.jsp?id_fichier=${modele.piedDocument.idFichier}&type=PiedDocument.xml">PiedDocument.xml</a>
+ 	</#if>
+    <input name="pied_document" type="file" id="pied_document" />
+   </p>
+   <p>
+    <input type="submit" value="#i18n{ods.all.button.save}" class="button" />
+    <input type="button" value="#i18n{ods.all.button.cancel}" class="button" onclick="javascript:history.go(-1)" />
+   </p>
+  </form>
+ </div>
+ 

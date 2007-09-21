@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<plug-in>
+    <!-- Plugin Informations -->
+    <name>ods</name>
+    <class>fr.paris.lutece.plugins.ods.service.PluginODSImplementation</class>
+    <!-- <class>fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation</class> -->
+    <version>1.0</version>
+    <documentation></documentation>
+    <installation></installation>
+    <changes></changes>
+    <user-guide></user-guide>
+    <description>ods.description</description>
+    <provider>ods.plugin.provider</provider>
+    <provider-url>http://lutece.paris.fr</provider-url>
+    <icon-url>images/admin/skin/plugins/ods/ods.png</icon-url>
+    <copyright>Copyright 2001-2006 Mairie de Paris</copyright>
+    <db-pool-required>1</db-pool-required>
+     <!-- Specific plugin CSS stylesheet -->
+    <css-stylesheet>ods/ods.css</css-stylesheet>
+     <!-- Specific plugin JAVASCRIPT -->
+    <javascript-file>ods/ods.js</javascript-file>
+    
+    
+    <!-- Administration interface parameters -->
+    
+    
+    <!-- prochaine seance -->
+    <admin-features>
+        <admin-feature>
+            <feature-id>ODS_PROJET_DE_DELIB</feature-id>
+            <feature-title>ods.adminfeature.projetdelib.title</feature-title>
+            <feature-description>ods.adminfeature.projetdelib.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/projetdeliberation/Deliberation.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/projetdeliberation/deliberation.png</feature-icon-url>
+        </admin-feature>
+        
+        <admin-feature>
+            <feature-id>ODS_PROP_DE_DELIB</feature-id>
+            <feature-title>ods.adminfeature.propositiondelib.title</feature-title>
+            <feature-description>ods.adminfeature.propositiondelib.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/propositiondedeliberation/Deliberation.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/projetdeliberation/deliberation.png</feature-icon-url>
+        </admin-feature>
+        
+        <admin-feature>
+            <feature-id>ODS_ODJ</feature-id>
+            <feature-title>ods.adminfeature.odj.title</feature-title>
+            <feature-description>ods.adminfeature.odj.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/ordredujour/Ordresdujour.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/ordredujour/ordredujour.png</feature-icon-url>
+        </admin-feature>
+        
+        <admin-feature>
+            <feature-id>ODS_AMENDEMENTS</feature-id>
+            <feature-title>ods.adminfeature.amendement.title</feature-title>
+            <feature-description>ods.adminfeature.amendement.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/voeuamendement/Amendements.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/voeuamendement/amendements.png</feature-icon-url>
+        </admin-feature>        
+        
+        <admin-feature>
+            <feature-id>ODS_VOEUXRATTACHES</feature-id>
+            <feature-title>ods.adminfeature.voeuattache.title</feature-title>
+            <feature-description>ods.adminfeature.voeuattache.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/voeuamendement/Voeuxrattaches.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/voeuamendement/voeuxrattaches.png</feature-icon-url>
+        </admin-feature>    
+        
+        <admin-feature>
+            <feature-id>ODS_VOEUX</feature-id>
+            <feature-title>ods.adminfeature.voeu.title</feature-title>
+            <feature-description>ods.adminfeature.voeu.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/voeuamendement/Voeuxnonrattaches.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/voeuamendement/voeuxnonrattaches.png</feature-icon-url>
+        </admin-feature>
+        
+        <admin-feature>
+            <feature-id>ODS_VA_NUMEROTES</feature-id>
+            <feature-title>ods.adminfeature.vanumerotes.title</feature-title>
+            <feature-description>ods.adminfeature.voeu.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/voeuamendement/VaNumerotes.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/voeuamendement/vanumerotes.png</feature-icon-url>
+        </admin-feature>        
+        
+        <admin-feature>
+            <feature-id>ODS_FASCICULES</feature-id>
+            <feature-title>ods.adminfeature.fascicule.title</feature-title>
+            <feature-description>ods.adminfeature.fascicule.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/fascicule/Fascicules.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/fascicule/fascicules.png</feature-icon-url>
+        </admin-feature>    
+        
+        <admin-feature>
+            <feature-id>ODS_FICHIERS</feature-id>
+            <feature-title>ods.adminfeature.fichier.title</feature-title>
+            <feature-description>ods.adminfeature.fichier.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/fichiers/Fichiers.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/fichiers/fichiers.png</feature-icon-url>
+        </admin-feature>   
+        
+        <admin-feature>
+            <feature-id>ODS_NATURE_DOSSIERS</feature-id>
+            <feature-title>ods.adminfeature.naturedossier.title</feature-title>
+            <feature-description>ods.adminfeature.naturedossier.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/naturedossier/Naturesdossiers.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/naturedossier/naturesdossiers.png</feature-icon-url>
+        </admin-feature>
+        
+        <admin-feature>
+            <feature-id>ODS_TOURNIQUET</feature-id>
+            <feature-title>ods.adminfeature.tourniquet.title</feature-title>
+            <feature-description>ods.adminfeature.tourniquet.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/tourniquet/Tourniquet.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/tourniquet/tourniquet.png</feature-icon-url>
+        </admin-feature>
+        
+        <admin-feature>
+            <feature-id>ODS_RELEVE_TRAVAUX</feature-id>
+            <feature-title>ods.adminfeature.releve.title</feature-title>
+            <feature-description>ods.adminfeature.releve.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/relevetravaux/ReleveTravaux.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/relevetravaux/releve.png</feature-icon-url>
+        </admin-feature>            
+                                     
+
+    <!-- gestion aval -->
+        <admin-feature>
+            <feature-id>ODS_PROJET_DE_DELIB_GESTION_AVAL</feature-id>
+            <feature-title>ods.adminfeature.projetdelib.gestion_aval.title</feature-title>
+            <feature-description>ods.adminfeature.projetdelib.gestion_aval.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/projetdeliberation/ProjetsdeliberationGestionAval.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/projetdelib_gestion_aval.png</feature-icon-url>
+        </admin-feature>
+        
+        <admin-feature>
+            <feature-id>ODS_PROP_DE_DELIB_GESTION_AVAL</feature-id>
+            <feature-title>ods.adminfeature.propositiondelib.gestion_aval.title</feature-title>
+            <feature-description>ods.adminfeature.propositiondelib.gestion_aval.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/propositiondedeliberation/PropositiondeliberationGestionAval.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/propositiondedeliberation/propositiondelib_gestion_aval.png</feature-icon-url>
+        </admin-feature>
+        
+        <admin-feature>
+            <feature-id>ODS_AMENDEMENTS_GESTION_AVAL</feature-id>
+            <feature-title>ods.adminfeature.amendement.gestion_aval.title</feature-title>
+            <feature-description>ods.adminfeature.amendement.gestion_aval.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/voeuamendement/AmendementsGestionAval.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/voeuamendement/amendement_gestion_aval.png</feature-icon-url>
+        </admin-feature>    
+        
+        <admin-feature>
+            <feature-id>ODS_VOEUXRATTACHES_GESTION_AVAL</feature-id>
+            <feature-title>ods.adminfeature.voeuattache.gestion_aval.title</feature-title>
+            <feature-description>ods.adminfeature.voeuattache.gestion_aval.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/voeuamendement/VoeuxrattachesGestionAval.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/voeuamendement/voeuattache_gestion_aval.png</feature-icon-url>
+        </admin-feature>               
+        
+        <admin-feature>
+            <feature-id>ODS_VOEUX_GESTION_AVAL</feature-id>
+            <feature-title>ods.adminfeature.voeu.gestion_aval.title</feature-title>
+            <feature-description>ods.adminfeature.voeu.gestion_aval.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/voeuamendement/VoeuxnonrattachesGestionAval.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/voeuamendement/voeu_gestion_aval.png</feature-icon-url>
+        </admin-feature>    
+        
+        <admin-feature>
+            <feature-id>ODS_STATUTVA_GESTION_AVAL</feature-id>
+            <feature-title>ods.adminfeature.statutva.gestion_aval.title</feature-title>
+            <feature-description>ods.adminfeature.statutva.gestion_aval.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/statut/StatutVAGestionAval.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/statut/statutva_gestion_aval.png</feature-icon-url>
+        </admin-feature>        
+        
+        <admin-feature>
+            <feature-id>ODS_FICHIERS_GESTION_AVAL</feature-id>
+            <feature-title>ods.adminfeature.fichier.gestion_aval.title</feature-title>
+            <feature-description>ods.adminfeature.fichier.gestion_aval.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/fichier/FichiersGestionAval.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/fichiers/fichier_gestion_aval.png</feature-icon-url>
+        </admin-feature>             
+        
+
+    <!-- administration -->
+    
+        <admin-feature>
+            <feature-id>ODS_SEANCES</feature-id>
+            <feature-title>ods.adminfeature.seance.title</feature-title>
+            <feature-description>ods.adminfeature.seance.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/seance/Seances.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/seance/seances.png</feature-icon-url>
+        </admin-feature> 
+            
+        <admin-feature>
+            <feature-id>ODS_GROUPES_POLITIQUES</feature-id>
+            <feature-title>ods.adminfeature.groupespolitiques.title</feature-title>
+            <feature-description>ods.adminfeature.groupespolitiques.description</feature-description>
+            <feature-level>3</feature-level>
+            <feature-url>jsp/admin/plugins/ods/groupepolitique/Groupespolitiques.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/groupepolitique/groupespolitiques.png</feature-icon-url>
+        </admin-feature>
+        
+        <admin-feature>
+            <feature-id>ODS_ELUS</feature-id>
+            <feature-title>ods.adminfeature.elus.title</feature-title>
+            <feature-description>ods.adminfeature.elus.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/elu/Elus.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/elu/elus.png</feature-icon-url>
+        </admin-feature>
+        
+        <admin-feature>
+            <feature-id>ODS_COMMISSIONS</feature-id>
+            <feature-title>ods.adminfeature.commissions.title</feature-title>
+            <feature-description>ods.adminfeature.commissions.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/commission/Commissions.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/commission/commissions.png</feature-icon-url>
+        </admin-feature>     
+        
+        <admin-feature>
+            <feature-id>ODS_DIRECTIONS</feature-id>
+            <feature-title>ods.adminfeature.directions.title</feature-title>
+            <feature-description>ods.adminfeature.directions.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/direction/Directions.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/direction/directions.png</feature-icon-url>
+        </admin-feature>      
+        
+        <admin-feature>
+            <feature-id>ODS_CATEGORIES</feature-id>
+            <feature-title>ods.adminfeature.categories.title</feature-title>
+            <feature-description>ods.adminfeature.categories.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/categoriedeliberation/Categories.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/categoriedeliberation/categories.png</feature-icon-url>
+        </admin-feature> 
+        
+        <admin-feature>
+            <feature-id>ODS_MODELES_ODJ</feature-id>
+            <feature-title>ods.adminfeature.modeleodj.title</feature-title>
+            <feature-description>ods.adminfeature.modeleodj.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/modeleordredujour/Modeles.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/modeleordredujour/modeles.png</feature-icon-url>
+        </admin-feature>
+        
+        <admin-feature>
+            <feature-id>ODS_EXPRESSIONS</feature-id>
+            <feature-title>ods.adminfeature.expressionusuelle.title</feature-title>
+            <feature-description>ods.adminfeature.expressionusuelle.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/expression/Expressions.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/expressionusuelle/expressions.png</feature-icon-url>
+        </admin-feature>
+        
+        <admin-feature>
+            <feature-id>ODS_HORODATAGE</feature-id>
+            <feature-title>ods.adminfeature.horodatage.title</feature-title>
+            <feature-description>ods.adminfeature.horodatage.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/horodatage/Horodatage.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/horodatage/horodatage.png</feature-icon-url>
+        </admin-feature>
+        
+        <admin-feature>
+            <feature-id>ODS_INDEXER</feature-id>
+            <feature-title>ods.adminfeature.indexer.title</feature-title>
+            <feature-description>ods.adminfeature.indexer.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/indexer/Indexer.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/indexer/indexer.png</feature-icon-url>
+        </admin-feature>
+        
+        <admin-feature>
+            <feature-id>ODS_CERTIFICAT_AFFICHAGE</feature-id>
+            <feature-title>ods.adminfeature.certificatAffichage.title</feature-title>
+            <feature-description>ods.adminfeature.certificatAffichage.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ods/certificatAffichage/CertificatAffichage.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/ods/certificatAffichage/certificatAffichage.png</feature-icon-url>
+        </admin-feature>
+    </admin-features>    
+    
+    
+   <!-- Applications -->
+    <applications>
+        <application>
+            <application-id>ods_accueil</application-id>
+            <application-class>fr.paris.lutece.plugins.ods.web.AccueilApp</application-class>
+              <application-name>test</application-name>        
+        </application>
+    	<application>
+            <application-id>ods_calendrier</application-id>
+            <application-class>fr.paris.lutece.plugins.ods.web.CalendrierApp</application-class>
+        </application>
+ 		<application>
+            <application-id>ods_pdd_list</application-id>
+            <application-class>fr.paris.lutece.plugins.ods.web.PddListApp</application-class>
+        </application>    
+    <application>
+            <application-id>ods_pdd</application-id>
+            <application-class>fr.paris.lutece.plugins.ods.web.PddApp</application-class>
+        </application>    
+     <application>
+            <application-id>ods_prochain_conseil</application-id>
+            <application-class>fr.paris.lutece.plugins.ods.web.ProchainConseilApp</application-class>
+        </application>       
+    <application>
+            <application-id>ods_direction_list</application-id>
+            <application-class>fr.paris.lutece.plugins.ods.web.DirectionListeApp</application-class>
+        </application>     
+      <application>
+            <application-id>ods_recherche_archives</application-id>
+            <application-class>fr.paris.lutece.plugins.ods.web.RechercheArchivesApp</application-class>
+      </application>
+      <application>
+            <application-id>ods_recherche</application-id>
+            <application-class>fr.paris.lutece.plugins.ods.web.RechercheApp</application-class>
+        </application>
+        <application>
+            <application-id>ods_mon_profil</application-id>
+            <application-class>fr.paris.lutece.plugins.ods.web.ProfilApp</application-class>
+        </application>
+        <application>
+            <application-id>ods_mes_criteres</application-id>
+            <application-class>fr.paris.lutece.plugins.ods.web.CriteresDeRechercheApp</application-class>
+        </application>          
+       <application>
+            <application-id>ods_panier</application-id>
+            <application-class>fr.paris.lutece.plugins.ods.web.PanierApp</application-class>
+        </application>          
+       <application>
+            <application-id>ods_confirmation_telechargement</application-id>
+            <application-class>fr.paris.lutece.plugins.ods.web.PanierConfirmationApp</application-class>
+        </application>          
+        <application>
+            <application-id>ods_releve_travaux_comm</application-id>
+            <application-class>fr.paris.lutece.plugins.ods.web.ReleveDesTravauxCommApp</application-class>
+        </application>   
+        <application>
+            <application-id>ods_in_work</application-id>
+            <application-class>fr.paris.lutece.plugins.ods.web.InWorkApp</application-class>
+        </application>       
+        <application>
+            <application-id>ods_plan_site</application-id>
+            <application-class>fr.paris.lutece.plugins.ods.web.PlanSiteApp</application-class>
+        </application>       
+        <application>
+            <application-id>ods_contacts</application-id>
+            <application-class>fr.paris.lutece.plugins.ods.web.ContactsApp</application-class>
+        </application>       
+        <application>
+            <application-id>ods_aide</application-id>
+            <application-class>fr.paris.lutece.plugins.ods.web.AideApp</application-class>
+        </application>
+       
+      <application>
+            <application-id>ods_pdd_list_new</application-id>
+            <application-class>fr.paris.lutece.plugins.ods.web.PddListNewApp</application-class>
+        </application>
+        <application>
+            <application-id>ods_odj</application-id>
+            <application-class>fr.paris.lutece.plugins.ods.web.OrdreDuJourApp</application-class>
+        </application>
+        <application>
+            <application-id>ods_derniers_conseils</application-id>
+            <application-class>fr.paris.lutece.plugins.ods.web.DerniersConseilsApp</application-class>
+        </application>
+        <application>
+            <application-id>ods_seance_archives</application-id>
+            <application-class>fr.paris.lutece.plugins.ods.web.SeanceArchivesApp</application-class>
+        </application>
+        <application>
+            <application-id>ods_liasse</application-id>
+            <application-class>fr.paris.lutece.plugins.ods.web.VoeuxAmendementsApp</application-class>
+        </application>
+    </applications>    
+   <admin-features>
+        <admin-feature>
+            <feature-id>LISTE_GROUPES</feature-id>
+            <feature-title>test titre</feature-title>
+            <feature-description>test description</feature-description>
+            <feature-level>3</feature-level>
+            <feature-url>jsp/admin/plugins/ods/ListeGroupes.jsp</feature-url>
+        </admin-feature>
+    </admin-features>
+    <!-- Daemons -->
+    <daemons>
+        <daemon>
+            <daemon-id>odsIndexer</daemon-id>
+            <daemon-name>ods.daemon.odsIndexer.name</daemon-name>
+            <daemon-description>ods.daemon.odsIndexer.description</daemon-description>
+            <daemon-class>fr.paris.lutece.plugins.ods.service.search.ODSSearchIndexerDaemon</daemon-class>
+        </daemon>
+    	<daemon>
+            <daemon-id>odsPublicationParisfr</daemon-id>
+            <daemon-name>ods.daemon.publicationparisfr.name</daemon-name>
+            <daemon-description>ods.daemon.publicationparisfr.description</daemon-description>
+            <daemon-class>fr.paris.lutece.plugins.ods.service.publicationparisfr.DaemonPublication</daemon-class>
+        </daemon>
+     </daemons>
+    
+        
+      
+    
+	<!-- RBAC Resources -->
+    <rbac-resource-types>
+    	<!-- Projets de la Prochaine Seance --> 
+        <rbac-resource-type>
+            <rbac-resource-type-class>fr.paris.lutece.plugins.ods.service.role.ProjetProchaineSeanceResourceIdService</rbac-resource-type-class>
+        </rbac-resource-type>
+    	<!-- Propositions de la Prochaine Seance -->
+        <rbac-resource-type>
+            <rbac-resource-type-class>fr.paris.lutece.plugins.ods.service.role.PropositionProchaineSeanceResourceIdService</rbac-resource-type-class>
+        </rbac-resource-type>
+    	<!-- Administration sauf Ordre du Jour -->
+        <rbac-resource-type>
+            <rbac-resource-type-class>fr.paris.lutece.plugins.ods.service.role.AdminSaufOdjResourceIdService</rbac-resource-type-class>
+        </rbac-resource-type>        
+    	<!-- Consituton de l'Ordre du Jour -->
+        <rbac-resource-type>
+            <rbac-resource-type-class>fr.paris.lutece.plugins.ods.service.role.ConstitutionOdjResourceIdService</rbac-resource-type-class>
+        </rbac-resource-type>
+    	<!-- Voeux et Amendements -->
+        <rbac-resource-type>
+            <rbac-resource-type-class>fr.paris.lutece.plugins.ods.service.role.VoeuxAmendementsResourceIdService</rbac-resource-type-class>
+        </rbac-resource-type>
+    	<!-- Fichiers -->
+        <rbac-resource-type>
+            <rbac-resource-type-class>fr.paris.lutece.plugins.ods.service.role.FichiersResourceIdService</rbac-resource-type-class>
+        </rbac-resource-type>
+    	<!-- Modèles d'ordre du Jour -->
+        <rbac-resource-type>
+            <rbac-resource-type-class>fr.paris.lutece.plugins.ods.service.role.ModelesOdjResourceIdService</rbac-resource-type-class>
+        </rbac-resource-type>
+    	<!-- Relevés des Travaux -->
+        <rbac-resource-type>
+            <rbac-resource-type-class>fr.paris.lutece.plugins.ods.service.role.RelevesDesTravauxResourceIdService</rbac-resource-type-class>
+        </rbac-resource-type>
+    	<!-- PDD de la Gestion Aval -->
+        <rbac-resource-type>
+            <rbac-resource-type-class>fr.paris.lutece.plugins.ods.service.role.PddGestionAvalResourceIdService</rbac-resource-type-class>
+        </rbac-resource-type>
+    </rbac-resource-types>    
+    
+</plug-in>

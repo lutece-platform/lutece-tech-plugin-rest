@@ -1,0 +1,149 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+	  <artifactId>lutece-plugins-pom</artifactId>
+	  <groupId>fr.paris.lutece.tools</groupId>
+	  <version>1.4</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>fr.paris.lutece.plugins</groupId>
+	<artifactId>module-formengine-evac</artifactId>
+	<packaging>lutece-plugin</packaging>
+	<version>2.0.3-SNAPSHOT</version>
+	<name>Lutece formengine evac module</name>
+
+	<repositories>
+	  <repository>
+	    <id>lutece</id>
+	    <name>luteceRepository</name>
+	    <url>http://dev.lutece.paris.fr/maven_repository</url>
+	    <layout>default</layout>
+	  </repository>
+	</repositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>fr.paris.lutece</groupId>
+			<artifactId>lutece-core</artifactId>
+			<version>2.1.0-SNAPSHOT</version>
+			<type>lutece-core</type>
+		</dependency>
+		
+		<dependency>
+			<groupId>fr.paris.lutece.plugins</groupId>
+			<artifactId>plugin-formengine</artifactId>
+			<version>2.0.8-SNAPSHOT</version>
+			<type>lutece-plugin</type>
+		</dependency>
+
+		<dependency>
+			<groupId>axis</groupId>
+			<artifactId>axis</artifactId>
+			<version>1.4</version>
+		</dependency>
+		 
+		<dependency>
+			<groupId>commons-discovery</groupId>
+			<artifactId>commons-discovery</artifactId>
+			<version>0.4</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>wsdl4j</groupId>
+			<artifactId>wsdl4j</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.3</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.0.1</version>
+		</dependency>
+		
+	</dependencies>
+
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxb2-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>compileModule</id>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+						<configuration>
+							<packageName>fr.paris.lutece.plugins.formengine.modules.evac.business.jaxb</packageName>
+							<schemaFiles>evac.xsd</schemaFiles>
+							<bindingDirectory>${basedir}/src/xjc</bindingDirectory>
+							<bindingFiles>bindingEVac.xjb</bindingFiles>
+							<staleFile>${project.build.directory}/generated-sources/jaxb/modules/.staleFlag</staleFile>
+							<outputDirectory>${project.build.directory}/generated-sources/jaxb/modules</outputDirectory>
+						</configuration>
+					</execution>
+					
+					<execution>
+						<id>webServiceReponseFicheAdresse</id>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+						<configuration>
+							<packageName>fr.paris.lutece.plugins.formengine.modules.evac.business.jaxb.wsFicheAdresse</packageName>
+							<schemaFiles>fiche_adresse.xsd</schemaFiles>
+							<staleFile>${project.build.directory}/generated-sources/jaxb/wsFicheAdresse/.staleFlag</staleFile>
+							<outputDirectory>${project.build.directory}/generated-sources/jaxb/wsFicheAdresse</outputDirectory>
+						</configuration>
+					</execution>
+					
+					<execution>
+						<id>webServiceReponseSearchAdresse</id>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+						<configuration>
+							<packageName>fr.paris.lutece.plugins.formengine.modules.evac.business.jaxb.wsSearchAdresse</packageName>
+							<schemaFiles>recherche_adresse.xsd</schemaFiles>
+							<staleFile>${project.build.directory}/generated-sources/jaxb/wsSearchAdresse/.staleFlag</staleFile>
+							<outputDirectory>${project.build.directory}/generated-sources/jaxb/wsSearchAdresse</outputDirectory>
+						</configuration>
+					</execution>
+					
+				</executions>
+				<configuration>
+					<schemaDirectory>${basedir}/src/xjc</schemaDirectory>
+				</configuration>
+			</plugin>
+
+            <plugin>
+               <groupId>org.codehaus.mojo</groupId>
+               <artifactId>axistools-maven-plugin</artifactId>
+               <configuration>
+               		<packageSpace>fr.paris.lutece.plugins.formengine.modules.evac.business.axis</packageSpace>
+               		<sourceDirectory>${basedir}/src/wsdl</sourceDirectory>   	
+               </configuration>
+               <executions>
+                 <execution>
+                   <goals>
+                     <goal>wsdl2java</goal>  
+                   </goals>
+                 </execution>
+               </executions>
+            </plugin>
+
+         </plugins>
+         
+	</build>
+	
+	<properties>
+		<jiraProjectName>EVAC</jiraProjectName>
+	</properties>
+</project>

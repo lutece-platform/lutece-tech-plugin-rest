@@ -1,0 +1,363 @@
+<div id="page-content-left">
+	<#include "page_content_left.html">
+</div>
+<div id="page-content-right">
+ <div id="out-min-height">
+    <div id="in-min-height">
+     <div id="one-zone-first">
+      <div id="one-zone-first-content">
+			<#function isEqualCommissions listCommission1  listCommission2 >
+				<#local bEqual=true>
+				<#if listCommission1?size!=listCommission2?size>
+					<#local bEqual=false>
+				<#else>
+					<#list  listCommission1 as commission1>
+				  		<#list  listCommission2 as commission2>
+				  			<#if commission1_index==commission2_index &&commission1.idCommission!=commission2.idCommission>
+								 <#local bEqual=false>
+							</#if>
+				  		</#list>
+				  	</#list>	
+				</#if>
+				<#return bEqual>
+			</#function>
+			
+			
+			<#function isEqualRapporteurs listElus1  listElus2 >
+				<#local bEqual=true>
+				<#if listElus1?size!=listElus2?size>
+					<#local bEqual=false>
+				<#else>
+					<#list  listElus1 as elu1>
+				  		<#list  listElus2 as elu2>
+				  			<#if elu1_index==elu2_index &&elu1.idElu!=elu2.idElu>
+								 <#local bEqual=false>
+							</#if>
+				  		</#list>
+				  	</#list>	
+				</#if>
+				<#return bEqual>
+			</#function>
+
+			<#function writeRapporteur rapporteurs>
+				<#if rapporteurs?size == 1>
+					<#list rapporteurs as rapporteur>
+						<#if rapporteur.civilite == "M." >
+							<#return "#i18n{ods.odj.modificationOdj.label.rapporteur}.">
+						</#if>
+					</#list>
+					<#return "#i18n{ods.odj.modificationOdj.label.rapporteure}.">
+				<#else>
+					<#list rapporteurs as rapporteur>
+						<#if rapporteur.civilite == "M." >
+							<#return "#i18n{ods.odj.modificationOdj.label.rapporteurs}.">
+						</#if>
+					</#list>
+					<#return "#i18n{ods.odj.modificationOdj.label.rapporteures}.">	
+				</#if>
+			</#function>
+
+			<#function writeNeme numero>
+				<#if numero == 1>
+					<#return "#i18n{ods.all.label.ere}">
+				<#else>
+					<#return "#i18n{ods.all.label.eme}">			      
+				</#if>
+			</#function>
+			
+			
+			
+			 <div class="ods-odj">
+				<#if entete?exists&&entete.entreeEntete?exists&&entete.entreeEntete?size!=0>
+    				<div class="ods-odj-header">
+     					<#list entete.entreeEntete as entree>
+     		 				<#if entree.style?exists>
+      		   					<h${entree.style}>${entree.texteLibre}</h${entree.style}>
+      		   				<#else>
+      		   					${entree.texteLibre}
+      		   				</#if>
+      					</#list>   		
+     				</div>
+    			</#if>
+			    <#list odj.listEntrees as entree >
+					
+					
+					<#if odj.modeClassement='A'>
+						<!-- affichage de la nature des dossiers -->
+						<#if  !nature?exists && entree.nature?exists>
+							<#if  rapporteurs?exists && bRapporteurs>
+									 
+									 
+											<h4>
+												<#list rapporteurs as elu>
+												    	${elu.civilite} ${elu.prenomElu} ${elu.nomElu} 
+												     	(${elu.commission.numero}${writeNeme(elu.commission.numero)})
+												        <#if elu_has_next>
+														     	,
+														  <#else>   		
+																${writeRapporteur(rapporteurs)}
+													   	 </#if>
+												</#list>
+											</h4>
+									 <#assign bRapporteurs=false> 
+								</#if>
+						<#assign nature=entree.nature>
+							
+								<h2>${entree.nature.libelleNature}</h2>
+								 
+								 
+						</#if>
+						<!-- avant d'afficher une nouvelle nature des dossiers ,on affiche si elles en ont les rapporteurs
+						 des entrées précédentes -->
+						
+						<#if  entree.nature?exists && (nature.idNature != entree.nature.idNature)>
+								
+								<#if  rapporteurs?exists && bRapporteurs>
+									
+									
+											<h4>
+											<#list rapporteurs as elu>
+												    	${elu.civilite} ${elu.prenomElu} ${elu.nomElu} 
+												     	(${elu.commission.numero}${writeNeme(elu.commission.numero)})
+												        <#if elu_has_next>
+														     	,
+														  <#else>   		
+															${writeRapporteur(rapporteurs)}
+													   	 </#if>
+												</#list>
+											  </h4>
+									
+									 <#assign bRapporteurs=false> 
+								</#if>
+								 <#assign bCommissions=true> 
+								<#assign nature=entree.nature>
+							
+								<h2>${entree.nature.libelleNature}</h2>
+								
+						</#if>
+						
+								<!-- affichage des commissions-->
+								<!-- si aucune liste de commissions n'a été affiché ou si la nature des dossiers a changée
+								  et que l'entrée posséde une liste de commissions, on affiche cette liste -->
+						<#if  (!commissions?exists|bCommissions==true)&&entree.commissions?exists&&entree.commissions?size!=0>
+							
+							<#if  rapporteurs?exists&& bRapporteurs>
+							 		
+									
+											<h4>
+											<#list rapporteurs as elu>
+												    	${elu.civilite} ${elu.prenomElu} ${elu.nomElu} 
+												     	(${elu.commission.numero}${writeNeme(elu.commission.numero)})
+												        <#if elu_has_next>
+														     	,
+														  <#else>   		
+															${writeRapporteur(rapporteurs)}
+													   	 </#if>
+												</#list>
+											  </h4>
+										
+									 <#assign bRapporteurs=false> 
+								</#if>
+							
+							
+							
+							<#assign commissions=entree.commissions>
+							 <#assign bCommissions=false> 
+							
+									<h3>
+										<#list commissions as commission>
+											${commission.numero}${writeNeme(commission.numero)}
+									         <#if commission_has_next>
+									      		,	
+									      	 <#else>   
+									         	<#if  commissions?size==1>
+									         		#i18n{ods.odj.creation.label.commission}
+									         	<#else>
+									         		#i18n{ods.odj.creation.label.commissions}	
+									         	</#if>
+									         </#if>
+									   	</#list>
+									</h3>
+									
+						
+						<#elseif  commissions?exists&&entree.commissions?exists>
+							<#if  !isEqualCommissions(commissions,entree.commissions)>
+								<#assign commissions=entree.commissions>
+								<!-- avant d'afficher une nouvelle liste de commissions  ,on affiche si elles en ont les rapporteurs
+						 		des entrées précédentes -->
+						 		<#if  rapporteurs?exists&& bRapporteurs>
+						 			 
+									
+									 
+												<h4>
+											<#list rapporteurs as elu>
+												    	${elu.civilite} ${elu.prenomElu} ${elu.nomElu} 
+												     	(${elu.commission.numero}${writeNeme(elu.commission.numero)})
+												        <#if elu_has_next>
+														     	,
+														  <#else>   		
+															${writeRapporteur(rapporteurs)}
+													   	 </#if>
+												</#list>
+											  </h4>
+										
+									 <#assign bRapporteurs=false> 
+								</#if>
+								
+									<h3>
+									<#list entree.commissions as commission>
+								    	${commission.numero}${writeNeme(commission.numero)}
+								        <#if commission_has_next>
+								      		,	
+								      	 <#else>   
+								         	<#if  commissions?size==1>
+								         		#i18n{ods.odj.creation.label.commission}
+								         	<#else>
+								         		#i18n{ods.odj.creation.label.commissions}	
+								         	</#if>
+								         </#if>
+								      </#list>
+									</h3>
+								
+							</#if>
+						</#if>
+						  	<!--affichage des rapporteurs de l'entrée    -->
+									<#if  !rapporteurs?exists&&entree.elus?exists&&entree.elus?size!=0>
+											<#assign rapporteurs=entree.elus>
+											<#assign id_entree_rapporteurs=entree.idEntreeOrdreDuJour>
+											<#assign bRapporteurs=true> 
+									</#if>
+									
+									<#if  rapporteurs?exists>
+									  <#if (bRapporteurs&&entree.elus?exists&&!isEqualRapporteurs(rapporteurs,entree.elus))
+									  		||(bRapporteurs&&!entree.elus?exists)>
+											 
+											
+													<h4>
+														<#list rapporteurs as elu>
+													    	${elu.civilite} ${elu.prenomElu} ${elu.nomElu} 
+													     	(${elu.commission.numero}${writeNeme(elu.commission.numero)})
+													        <#if elu_has_next>
+															     	,
+															  <#else>   		
+																${writeRapporteur(rapporteurs)}
+														   	 </#if>
+														   </#list>
+													</h4>
+													
+										</#if>
+										<#if entree.elus?exists>
+											<#assign rapporteurs=entree.elus>
+											<#assign id_entree_rapporteurs=entree.idEntreeOrdreDuJour>
+											<#assign bRapporteurs=true>
+										<#elseif bRapporteurs&&!entree.elus?exists >
+											<#assign bRapporteurs=false>
+										</#if>
+									</#if>	
+							</#if>		
+						 
+						<#if entree.type=='T'>
+			      			<#if entree.style?exists>
+			      		   		<h${entree.style}>${entree.objet}</h${entree.style}>
+			      		   	<#else>
+			      		   		${entree.objet}
+			      		   	</#if>	
+			        	</#if>
+					
+					<#if entree.type=='P'>
+						<div class="ods-odj-pdd">
+			    		  
+			      		  <#if entree.pdd?exists&&entree.pdd.enLigne>
+				      		  	 	<a href="jsp/site/Portal.jsp?page=ods_pdd&id_pdd=${entree.pdd.idPdd}">
+				      		</#if>
+				      		  	 
+				      		  	 	<#if entree.reference?exists>
+				      		   			${entree.reference}
+				      		   		</#if>				      		   	
+			      		  		<#if entree.pdd?exists&&entree.pdd.enLigne>
+					      		   	</a> 
+					      		</#if>
+				      		   	<span class="ods-notes">(
+				                <#if entree.pdd?exists&&entree.pdd.enLigne == true>
+						    		#i18n{ods.front.deliberations.label.publierle} ${entree.pdd.datePublication?string("dd/MM/yyyy")}
+						    	<#else>
+						    		#i18n{ods.odj.liste.label.nonPublie}
+						  		</#if>
+						  			)
+					  			</span>
+				        	   	<p>
+				        	   		<#if entree.objet?exists>
+					      				${entree.objet}<br />
+				        	   		</#if>
+						  			<#if entree.pdd?exists&&odj.typeOrdreDuJour.idTypeOrdreDuJour==2>
+						  				<#list  entree.pdd.voeuxAmendements as va>
+			      		  					<#if va.enLigne>						  				
+				  								<a href="jsp/site/plugins/ods/DoDownload.jsp?id_fichier=${va.fichier.id}" target="_blank">   
+				  							</#if>
+				  								${va.referenceComplete} 
+			      		  					<#if entree.pdd.enLigne>
+	           		 	 						</a> 
+	           		 	 					</#if>
+						  					<#if va_has_next>
+						  						-
+						  					</#if>
+						  				</#list>
+						  			</#if>
+					      	</p> 
+					 </div>
+				</#if>
+					
+					<#if entree.type=='V'>
+						<div class="ods-odj-vnr">
+			      				 <#if  entree.voeuAmendement?exists>
+			      				 	<#if entree.voeuAmendement.enLigne>
+				      					<a href="jsp/site/plugins/ods/DoDownload.jsp?id_fichier=${entree.voeuAmendement.fichier.id}" target="_blank">   
+				      				</#if>
+				      				<#if entree.voeuAmendement.reference?exists>
+					  					${entree.voeuAmendement.referenceComplete}
+					  				<#else>
+										#i18n{ods.all.label.v}
+								 	</#if>	
+									<#if  entree.voeuAmendement?exists&&entree.voeuAmendement.enLigne>
+				      					</a> 
+		           		 	 		</#if>
+		           		 	 	</#if>
+								 <#if entree.objet?exists>	
+				      			 	<p>${entree.objet}</p>
+				      			 </#if>
+				      	</div>	
+			      	 </#if>   
+					<#if odj.modeClassement='A'>
+						 <!--affichage des rapporteurs de la derniere entrée    --> 
+				    	<#if  !entree_has_next&&rapporteurs?exists&&bRapporteurs>
+												<h4>
+													<#list rapporteurs as elu>
+												    	${elu.civilite} ${elu.prenomElu} ${elu.nomElu} 
+												     	(${elu.commission.numero}${writeNeme(elu.commission.numero)})
+												        <#if elu_has_next>
+														     	,
+														  <#else>   		
+															${writeRapporteur(rapporteurs)}
+													   	 </#if>
+													   </#list>
+												</h4>
+											
+									</#if>	
+								</#if>	
+				    </#list>
+				    <#if piedDePage?exists&piedDePage.entreePiedDePage?exists&&piedDePage.entreePiedDePage?size!=0>
+				    	<div class="ods-odj-footer">
+				     		<#list piedDePage.entreePiedDePage as entree>
+				     		 	<#if entree.style?exists>
+				      		   		<h${entree.style}>${entree.texteLibre}</h${entree.style}>
+				      		   	<#else>
+				      		   		${entree.texteLibre}
+				      		   	</#if>
+				      		</#list>   		
+				     	</div>
+				    </#if>
+			 </div>
+		</div>
+  	</div>
+ </div>
+ </div>

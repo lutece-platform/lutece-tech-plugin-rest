@@ -1,0 +1,54 @@
+<div class="content-box" >
+    <h2>#i18n{myapps.manage_myapps.tableLabel}</h2>
+     <form method="post" rm action="jsp/admin/plugins/myapps/ManageMyApps.jsp">
+        <@pagination paginator=paginator />
+        
+        <!-- Number of myapps per page selector -->
+        #i18n{myapps.manage_myapps.labelItemsPerPage} :
+        <select name="items_per_page">
+            <#list [ "5" , "10" , "20" , "50" ] as nb>
+                <#if nb_items_per_page = nb >
+                    <option selected="selected" value="${nb}">${nb}</option>
+                <#else>
+                    <option value="${nb}">${nb}</option>
+                </#if>
+            </#list>
+        </select>
+        <input type="submit" class="button" value="#i18n{myapps.manage_myapps.buttonItemsPerPage}" />
+    </form> 
+    <table>
+        <tr>
+            <th width="40%">#i18n{myapps.manage_myapps.columnTitleIcon}</th>
+            <th width="40%">#i18n{myapps.manage_myapps.columnTitleName}</th>
+            <th width="30%">#i18n{myapps.manage_myapps.columnTitleDescription}</th>
+            <th width="30%">#i18n{myapps.manage_myapps.columnTitleAction}</th>
+        </tr>  
+        <#list myapps_list as myapp >            
+        <tr>
+            <td>
+                <img src="image?resource_type=myapps_icon&id=${myapp.idApplication}" alt="${myapp.description}" width="36" height="36"/>
+            </td>
+            <td width="40%">
+                <a href="jsp/admin/plugins/myapps/ModifyMyApp.jsp?app_id=${myapp.idApplication}" class="admin-menu">
+                    ${myapp.name}
+                </a>
+            </td>
+            <td width="40%">
+                ${myapp.description}
+            </td>    
+            
+            <td>
+                <a href="jsp/admin/plugins/myapps/RemoveMyApp.jsp?app_id=${myapp.idApplication}">
+                    <img src="images/admin/skin/actions/delete.png" alt="#i18n{myapps.manage_myapps.actionDelete}" title="#i18n{myapps.manage_myapps.actionDelete}" />
+                </a>
+            </td>
+        </tr>					
+        </#list> 
+    </table>
+    <form method="post"  action="jsp/admin/plugins/myapps/CreateMyApp.jsp">
+        <input type="submit" value="#i18n{myapps.manage_myapps.buttonAddMyApp}" class="button" />
+    </form>
+</div>
+
+
+

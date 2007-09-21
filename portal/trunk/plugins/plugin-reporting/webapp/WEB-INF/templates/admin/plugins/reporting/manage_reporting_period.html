@@ -1,0 +1,26 @@
+<div class="content-box" >
+    <h2>#i18n{reporting.manage_period.tableTitle}</h2>
+    
+    <div class="highlight-box">
+        <form method="post" action="jsp/admin/plugins/reporting/CreatePeriod.jsp">
+            <p>
+                <label for="Reporting_current_period" >#i18n{reporting.create_period.labelPeriodName} * :</label>
+                <input type="text" id="Reporting_current_period" name="period_name" maxlength="256" />
+                <input type="submit" class="button" value="#i18n{reporting.create_period.buttonCreate}" />
+            </p>
+        </form>
+    </div>
+
+        <table>
+            <tr>
+                <th>#i18n{reporting.create_period.colunmPeriodName}</th>
+            </tr>
+            
+            <#list reporting_period_list as period >
+            <tr>
+                <td ><img src="images\admin\skin\bullet.gif"  alt="" />  ${period.name}</td>
+            </tr>
+            </#list>     
+        </table>
+    
+</div>

@@ -1,0 +1,74 @@
+<div id="one-zone-first">
+    <div id="one-zone-first-content">
+        <h2 class="page-title">#i18n{myapps.page_app_insert.pageTitle}</h2>
+        <div class="myapps-content">
+            <div class="backto"> <a href="jsp/site/Portal.jsp?page=myapps" title="#i18n{myapps.page_app_insert.labelBackToManagement}">
+                <img src="images/local/skin/goback.png" alt="#i18n{myapps.page_app_insert.labelBackToManagement}" height="32" width="32">
+            </a></div>
+            
+            
+            
+            
+            
+            
+            <table summary="#i18n{myapps.page_app_insert.tableSummary}" class="myapps-table-one">
+            <thead>
+                <tr>
+                    <th colspan="2">${myapps.name}-${myapps.description}</th>
+                </tr>
+                
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <form method="post" action="">
+                    <div>
+                    <#if myapps?exists>
+                    <input type="hidden" name="page" value="myapps" />
+                    <input type="hidden" name="action" value="create" />
+                    <input type="hidden" name="id_app" value="${myapps.idApplication}" />
+                    
+                    <label for="user_login">
+                        #i18n{myapps.page_app_modify.labelLogin}
+                        &nbsp;
+                        <#if myapps.codeHeading?exists && myapps.codeHeading !="">
+                        ${myapps.codeHeading}
+                        </#if>
+                    </label>
+                    
+                </td>
+                <td>             <input name="user_login" id="user_login" tabindex="1" type="text"  />      
+                </td>
+                
+            </tr>
+            <tr>
+                <td>               <label for="user_password">#i18n{myapps.page_app_insert.labelPassword}</label>  
+                </td>
+                <td>  <input name="user_password" id="user_password" tabindex="2" type="password" />  
+                <#if myapps.data?exists && myapps.data !=""></td>
+            </tr>
+            <tr>
+                <td>                        <label for="user_extra_data">#i18n{myapps.page_app_insert.labelExtraField}
+                        <#if myapps.dataHeading?exists && myapps.dataHeading !="">
+                        (${myapps.dataHeading})
+                        </#if>
+                </label></td>
+                <td>       <input name="user_extra_data" id="user_extra_data" tabindex="3" type="password" />
+                </#if></td>
+            </tr>
+            <tr>
+            <td align="right">               <input class="button" value="#i18n{myapps.page_app_insert.buttonValidate}"  type="submit" />     
+            </td>
+        </div>
+        </form>
+        </td>
+        <td>    
+            
+        </#if> </td>
+        </tr>
+        </tbody>
+        </table>
+    </div>
+</div>
+</div>
+

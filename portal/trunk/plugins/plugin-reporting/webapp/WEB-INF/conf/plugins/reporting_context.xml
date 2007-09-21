@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+  
+  <bean id="reportingFicheDAO"  class="fr.paris.lutece.plugins.reporting.business.ReportingFicheDAO" />
+  <bean id="reportingMonthlyDAO"  class="fr.paris.lutece.plugins.reporting.business.ReportingMonthlyDAO" />
+  <bean id="reportingPeriodDAO"  class="fr.paris.lutece.plugins.reporting.business.ReportingPeriodDAO" />
+  <bean id="reportingProjectDAO"  class="fr.paris.lutece.plugins.reporting.business.ReportingProjectDAO" />
+    
+</beans>

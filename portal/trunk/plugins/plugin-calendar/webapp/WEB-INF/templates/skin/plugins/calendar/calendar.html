@@ -1,0 +1,45 @@
+<div id="calendar-left">
+    <div id="calendar-left-content">
+	<table width="100%">
+	    <tr>
+		<th align="center" width="5%">
+		    <a href="${jsp_url}?page=calendar&amp;date=${previous}">
+			<img src="images/local/skin/plugins/calendar/previous.png" alt="Previous" border="0" />
+		    </a>
+		</th>
+		<th align="center" width="90%">
+		    <a href="${jsp_url}?page=calendar&amp;date=${date}&amp;view=day">
+			<img src="images/local/skin/plugins/calendar/viewday.png" alt="View Day" border="0" />
+		    </a>
+		    <a href="${jsp_url}?page=calendar&amp;date=${date}&amp;view=week">
+			<img src="images/local/skin/plugins/calendar/viewweek.png" alt="View Week" border="0" />
+		    </a>
+		    <a href="${jsp_url}?page=calendar&amp;date=${date}&amp;view=month">
+			<img src="images/local/skin/plugins/calendar/viewmonth.png" alt="View Month" border="0" />
+		    </a>
+		</th>
+		<th align="center" width="5%">
+		    <a href="${jsp_url}?page=calendar&amp;date=${next}">
+			<img src="images/local/skin/plugins/calendar/next.png" alt="Next" border="0" />
+
+		    </a>
+		</th>
+	    </tr>
+	</table>
+	<div class="portlet">
+	    <h3 class="portlet-header">${title}</h3>
+	    <div class="portlet-content">
+		${view_calendar} <br />
+	    </div>
+	</div>
+    ${event_list}
+    </div>
+</div>
+<div id="calendar-right">
+    <div id="calendar-right-content">
+	${small_month_calendar1}<br />
+	${small_month_calendar2}<br />
+	${small_month_calendar3}<br />
+    ${legend}<br />
+    </div>
+</div>

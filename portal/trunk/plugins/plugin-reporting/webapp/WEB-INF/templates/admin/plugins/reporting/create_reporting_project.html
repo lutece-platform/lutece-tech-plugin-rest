@@ -1,0 +1,35 @@
+<div class="content-box" >
+    <h2>#i18n{reporting.create_project.title}</h2>
+    
+    <form method="post" id="create_reporting_project" action="jsp/admin/plugins/reporting/DoCreateProject.jsp">
+        
+        <p>
+            <label for="reporting_project_name" >#i18n{reporting.create_project.rowTitleName} * : </label> 
+            <input type="text" id="reporting_project_name" name="project_name" maxlength="256" size="80"/>
+        </p>
+        
+        <p>
+            <label for="reporting_project_manager" >#i18n{reporting.create_project.rowTitleProjectManager} * :</label>  
+            <input type="text" id="reporting_project_manager" name="project_manager_name" maxlength="256" size="80"/>
+        </p>
+        
+        <p>
+            <label for="reporting_project_workgroup" >#i18n{reporting.create_project.rowWorkgroup} :</label>  
+            <@combo name="workgroupKey" default_value="" items=workgroups_list />
+        </p>
+        
+        <p>
+            <label for="reporting_project_idCatia" >#i18n{reporting.create_project.idCatia} * :</label>  
+            <input type="text" id="reporting_project_idCatia" name="project_idCatia" maxlength="4"/>
+        </p>
+        
+         <p>
+            <label for="reporting_project_followUp" >#i18n{reporting.create_project.rowFollowUp} :</label>  
+            <input type="checkbox" id="reporting_project_followUp" name="project_follow_up"/>
+        </p>
+        
+        <input type="submit" value="#i18n{reporting.create_project.buttonValidate}" class="button"/>
+      	<input class="button" onclick="javascript:history.go(-1)" value="#i18n{reporting.create_project.buttonCancel}" type="button">  
+    </form>
+    
+</div>

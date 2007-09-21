@@ -1,0 +1,60 @@
+<hr>
+<center>
+    <form name="addCommentForm" action="jsp/site/plugins/document/DoAddComment.jsp" method="post">    
+        <input type="hidden" name="document_id" value="${document_id}">
+        <input type="hidden" name="portlet_id" value="${portlet_id}">
+        <input type="hidden" name="mailinglist" value="${mailinglist}">
+
+        <#if mandatory_field_message = "1" >
+            <h3>#i18n{document.add_document_comment.messageMandatoryField}</h3>
+        </#if>        
+        
+        <#if xss_error_message = "1" >
+            <h3>#i18n{document.add_document_comment.messageXssError}</h3>
+        </#if>
+
+        <#if check_email_message = "1" >
+            <h3>#i18n{document.add_document_comment.messageCheckEmail}</h3>
+        </#if>        
+
+        
+        <table cellpadding="0" cellspacing="0"  border="0">
+            <tr>
+                <td>
+                    <table cellpadding="1" cellspacing="1" border="0" >
+                        <tr>
+                            <th height="30" colspan="2">#i18n{document.add_document_comment.labelAddComment}</th>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                #i18n{document.add_document_comment.labelMandatoryFields}.
+                            </td>
+                        </tr>
+                        <tr>
+                            <th align="left" width="30%">&nbsp;&nbsp;#i18n{document.add_document_comment.labelEmail} :</th>
+                            <td align="left" width="70%">
+                                &nbsp;&nbsp;<input type="text" name="email" maxlength="80" size="60">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th align="left" width="30%">&nbsp;&nbsp;#i18n{document.add_document_comment.labelName} :</th>
+                            <td align="left" width="70%">
+                                &nbsp;&nbsp;<input type="text" name="name" size="60" maxlength="100">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th align="left" width="30%">&nbsp;&nbsp;#i18n{document.add_document_comment.labelComment} :</th>
+                            <td align="left" width="70%">
+                                &nbsp;&nbsp;<textarea name="content"  rows="8" cols="45"></textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        
+        <br />
+        <input type="submit" value="#i18n{document.add_document_comment.buttonAddComment}" />
+    </form>
+</center>
+

@@ -1,0 +1,43 @@
+<div class="content-box" >
+     <form method="post" action="jsp/admin/plugins/helpdesk/SubjectsList.jsp">
+        <@pagination paginator=paginator />
+
+        <!-- Number of documents per page selector -->
+        #i18n{helpdesk.subjects.labelItemsPerPage} :
+        <select name="items_per_page">
+            <#list [ "5" , "10" , "20" , "50" ] as nb>
+            <#if nb_items_per_page = nb >
+            <option selected="selected" value="${nb}">${nb}</option>
+            <#else>
+            <option value="${nb}">${nb}</option>
+            </#if>
+            </#list>
+        </select>                            
+        <input type="submit" class="button" value="#i18n{helpdesk.subjects.buttonItemsPerPage}" />
+    </form>    
+    
+    <h2>#i18n{helpdesk.subjects.adminTitle}</h2>
+
+    
+    <table>
+        <#list helpdesk_subject_list as subject_list >
+        <tr>
+            <td>
+                <a href="jsp/admin/plugins/helpdesk/ModifySubject.jsp?subject_id=${subject_list.idSubject}" class="bullet-link">${subject_list.subject}</a>
+                &nbsp;-&nbsp;${subject_list.questions?size}&nbsp;#i18n{helpdesk.subjects.LabelQuestion}<br/>
+<br /><br />
+            </td>
+            <td>
+                <a href="jsp/admin/plugins/helpdesk/ConfirmRemoveSubject.jsp?subject_id=${subject_list.idSubject}" >
+                <img src="images/admin/skin/plugins/helpdesk/delete.png" alt="#i18n{helpdesk.modify_subject.buttonLabelDelete}" title="#i18n{helpdesk.modify_subject.buttonLabelDelete}" />
+                </a>
+            </td>            
+        </tr>
+        </#list>    
+    </table>
+
+<form action="jsp/admin/plugins/helpdesk/CreateSubject.jsp">
+    <input type="submit" value="#i18n{helpdesk.subjects.buttonLabelCreate}" tabindex="10" class="button">
+</form>
+
+</div>

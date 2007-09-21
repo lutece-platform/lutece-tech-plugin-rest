@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+    <properties>
+        <title>
+           Module des applications favorites
+        </title>
+    </properties>
+    <body>
+	
+	    	
+    	<section name="Introduction">
+    	
+    		 	<p>Ce document décrit le fonctionnement du module "MyApps".</p>
+    		    	<p>Ce dernier fournit à chaque utilisateur une liste de liens vers
+			 des sites où les exigences d'authentification ont été préalablement 
+			stockés et cryptés par Lutèce.  Ce  n’est plus nécessaire  de saisir 
+			chaque fois les identifiants et les mots de passe correspondant à 
+			chacune des sites cible.
+			</p>
+    		
+		</section>
+    	
+
+	</body>
+</document>  

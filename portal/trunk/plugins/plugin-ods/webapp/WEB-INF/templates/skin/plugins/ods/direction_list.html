@@ -1,0 +1,63 @@
+<div id="page-content-left">
+   <#include "page_content_left.html">
+ </div>
+ 
+<div id="page-content-right">
+
+ <#if formation_conseil?exists&&seance?exists&&dsp_nb_pdd?exists>  
+   <div id="out-min-height">
+    <div id="in-min-height">
+     <div id="one-zone-first">
+      <div id="one-zone-first-content">
+       <h1>	#i18n{ods.front.directionlist.label.title}</h1>
+       <!--bloc-->
+        <#if formation_conseil?exists>
+       		<h2> ${formation_conseil.libelle} #i18n{ods.front.directionlist.label.seance.des} 
+       		 <#if seance?exists>
+           			<#if seance.dateSeance?string("MMMM") != seance.dateCloture?string("MMMM")>
+						${seance.dateSeance?string("EEEE dd MMMM ")}
+					<#else>
+						${seance.dateSeance?string("EEEE dd ")}
+					</#if>
+			 		#i18n{ods.front.calendrier.listeSeances.and}
+		     		${seance.dateCloture?string(" EEEE dd MMMM yyyy")}
+		   	 </#if>   
+       		
+       		</h2>
+        </#if>
+       <ul class="list">
+     	<li>
+     	 <#if  dsp_nb_pdd==0>
+     		 #i18n{ods.front.directionlist.label.delegation}
+     	 	(${dsp_nb_pdd} #i18n{ods.front.directionlist.label.projet})
+     	 <#else>
+     	 	<a href="jsp/site/Portal.jsp?page=ods_pdd_list&id_seance=${seance.idSeance}&id_formation_conseil=${formation_conseil.idFormationConseil}&type=PJ&pdd_deleg_service_public=1">#i18n{ods.front.directionlist.label.delegation}</a> 
+     	 	<#if dsp_nb_pdd==1 >
+     	 		(${dsp_nb_pdd} #i18n{ods.front.directionlist.label.projet})
+     	 	<#else>
+     	 		(${dsp_nb_pdd} #i18n{ods.front.directionlist.label.projets})
+     	 	</#if>
+     	 </#if>
+     	 </li>
+       </ul>
+       <h3> #i18n{ods.front.directionlist.label.directions}</h3>
+       <ul class="list">
+        
+        <#list liste_couple_direction_nb_pdd as couple_direction_nb_pdd>
+        	<#if couple_direction_nb_pdd[1]==0>
+        		<li>${couple_direction_nb_pdd[0].libelleLong} (${couple_direction_nb_pdd[1]} #i18n{ods.front.directionlist.label.projet})</li>
+        	<#else>
+        		<li><a href="jsp/site/Portal.jsp?page=ods_pdd_list&id_seance=${seance.idSeance}&id_formation_conseil=${formation_conseil.idFormationConseil}&type=PJ&id_direction=${couple_direction_nb_pdd[0].idDirection}"> ${couple_direction_nb_pdd[0].libelleLong}</a> (${couple_direction_nb_pdd[1]} <#if couple_direction_nb_pdd[1] <= 1 >#i18n{ods.front.directionlist.label.projet}<#else>#i18n{ods.front.directionlist.label.projets}</#if>)</li>
+        	</#if>
+        </#list>
+        </ul>
+       <!--bloc-->
+      </a></div>
+     </div>
+    </div>
+   </div>
+   <div class="ods-top"> <a href="jsp/site/Portal.jsp?page=ods_direction_list&id_seance=${seance.idSeance}&id_formation_conseil=${formation_conseil.idFormationConseil}#TOP">  #i18n{ods.front.directionlist.href.hautpage}</a></div>
+  <#else>
+     <h1> Probleme de parametres</h1>
+  </#if>
+  </div>

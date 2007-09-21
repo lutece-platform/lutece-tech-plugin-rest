@@ -1,0 +1,19 @@
+<div class="content-box">
+
+<h2>#i18n{helpdesk.modify_subject.adminTitle}</h2>
+    <form name="modify_subject" action="jsp/admin/plugins/helpdesk/DoModifySubject.jsp" method="post">        
+        <p>
+            <label><strong>#i18n{helpdesk.modify_subject.LabelSubject}</strong></label>
+            <input type="text" name="subject" id="subject" value="${subject.subject}" size="50" maxlength="50"/>
+        </p>           
+        <table>
+                <tr>
+                    <input type="hidden" name="subject_id" value="${subject.idSubject}" />
+                    <input type="submit" tabindex="1" value="#i18n{helpdesk.modify_subject.buttonLabelModify}" class="button" />                
+                </tr>
+        </table>
+    </form> 
+</div>
+
+
+

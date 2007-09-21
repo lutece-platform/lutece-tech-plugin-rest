@@ -1,0 +1,46 @@
+<div class="content-box" >
+     <form method="post" action="jsp/admin/plugins/helpdesk/ManageHelpdeskAdmin.jsp">
+        <@pagination paginator=paginator />
+
+        <!-- Number of documents per page selector -->
+        #i18n{helpdesk.question_type_list.labelItemsPerPage} :
+        <select name="items_per_page">
+            <#list [ "5" , "10" , "20" , "50" ] as nb>
+            <#if nb_items_per_page = nb >
+            <option selected="selected" value="${nb}">${nb}</option>
+            <#else>
+            <option value="${nb}">${nb}</option>
+            </#if>
+            </#list>
+        </select>                            
+        <input type="submit" class="button" value="#i18n{helpdesk.question_type_list.buttonItemsPerPage}" />
+    </form>    
+    <h2>#i18n{helpdesk.question_type_list.adminTitle}</h2>   
+    <table>
+
+        <#list helpdesk_question_type_list as question_list >
+        <tr>
+            <td>
+                <a href="jsp/admin/plugins/helpdesk/ModifyQuestionType.jsp?question_type_id=${question_list.idQuestionType}" class="bullet-link">${question_list.questionType}</a>
+                <br /><br />
+            </td>           
+            <td>
+                <a href="jsp/admin/plugins/helpdesk/ConfirmRemoveQuestionType.jsp?question_type_id=${question_list.idQuestionType}" >
+                <img src="images/admin/skin/plugins/helpdesk/delete.png" alt="#i18n{helpdesk.modify_question_type.delete}" title="#i18n{helpdesk.modify_question_type.delete}" />
+                </a>            
+                <a href="jsp/admin/plugins/helpdesk/QuestionTopicList.jsp?question_type_id=${question_list.idQuestionType}" >
+                <img src="images/admin/skin/plugins/helpdesk/goto.png" alt="#i18n{helpdesk.question_type_list.goto}" title="#i18n{helpdesk.question_type_list.goto}" />
+                </a>             
+                <a href="jsp/admin/plugins/helpdesk/CreateQuestionTopic.jsp?question_type_id=${question_list.idQuestionType}" >                
+                <img src="images/admin/skin/plugins/helpdesk/create_topic.png" alt="#i18n{helpdesk.question_type_list.create_topic}" title="#i18n{helpdesk.question_type_list.create_topic}" />            
+                </a>
+            </td>             
+        </tr>
+        </#list>
+    </table>
+
+
+<form action="jsp/admin/plugins/helpdesk/CreateQuestionType.jsp">
+    <input type="submit" tabindex="10" value="#i18n{helpdesk.question_type_list.questionAdd}" class="button" />
+</form>
+</div>

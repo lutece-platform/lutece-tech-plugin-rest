@@ -1,0 +1,453 @@
+<#include "utils.ftl" >
+
+<div id="page-content-left">
+	<#include "page_content_left.html">
+</div>
+<div id="page-content-right">
+	<div id="out-min-height">
+		<div id="in-min-height">
+			<div id="one-zone-first">
+				<div id="one-zone-first-content">
+					<h1>#i18n{ods.front.recherche.label.titre}</h1>
+					<!--bloc-->
+					<p>
+						#i18n{ods.front.recherche.label.help}
+						<a href="jsp/site/Portal.jsp?page=ods_recherche_archives">#i18n{ods.front.recherche.label.archive}</a>.
+					</p>
+					<input id="ods-btn-affichercriteres" type="button" value="#i18n{ods.front.rechercheresultats.button.afficher}" onclick="javascript:displayId('ods-criteria');hideId('ods-btn-affichercriteres');">
+					<div id="ods-criteria" style="display:none">
+						<p>
+							<input id="ods-btn-masquercriteres" type="button" value="#i18n{ods.front.rechercheresultats.button.masquer}" onclick="javascript:hideId('ods-criteria');displayId('ods-btn-affichercriteres');">
+						</p>
+						<form class="default-form" action="jsp/site/Portal.jsp?page=ods_recherche" method=post>
+							<fieldset>
+								<p>
+									<input type="hidden" id="result" name="result" value="oui" />
+									<input type="hidden" id="type" name="type" value="reference"/>
+									<label class="text-label" for="code_pdd">
+										 #i18n{ods.front.recherche.label.codeProjet}/<br/>
+										 #i18n{ods.front.recherche.label.codeProposition}
+									</label>
+									<input type="text" name="code_pdd" <#if user_search.typeRequete = "reference">value="${user_search.champRecherche}"</#if> />
+									<input type="submit" value="#i18n{ods.front.recherche.button.submit}" title="rechercher" id="ods-btn-rechercher" />
+									<br/>
+									<span class="ods-notes">#i18n{ods.front.recherche.label.formatComment}</span>
+								</p>
+							</fieldset>
+						</form>
+						<p class="espace_10"></p>
+						<form class="default-form" action="jsp/site/Portal.jsp?page=ods_recherche" method=post>
+							<fieldset>
+								<input type="hidden" id="result" name="result" value="oui" />
+								<input type="hidden" id="type" name="type" value="multi"/>
+								<label class="text-label" for="">#i18n{ods.front.recherche.label.typeDoc}</label>
+								<table cellpadding="0" cellspacing="0">
+									<tr>
+										<td>
+											<#if user_search.typeRequete = "simple">
+												<input id="projet" name="projet" type="checkbox" checked="checked" />
+												<label class="checkbox-label" for="projet">#i18n{ods.front.recherche.label.projetDelib}</label>
+												<input id="proposition" name="proposition" type="checkbox" checked="checked" />
+												<label class="checkbox-label" for="proposition">#i18n{ods.front.recherche.label.propDelib}</label>
+												<br />
+												<input id="amendement" name="amendement" type="checkbox" checked="checked" />
+												<label class="checkbox-label" for="amendement">#i18n{ods.front.recherche.label.amendement}</label>
+												<input id="voeu" name="voeu" type="checkbox" checked="checked" />
+												<label class="checkbox-label" for="voeu">#i18n{ods.front.recherche.label.voeu}</label>
+											<#else>
+												<#assign selected = 0>
+												<#list user_search.listeTypesDocumentFromRepresentation as selected_type_document>
+													<#if selected_type_document = "projet">
+														<#assign selected = 1>
+														<#break>
+													</#if>
+												</#list>
+												<input id="projet" name="projet" type="checkbox" <#if selected = 1>checked="checked"</#if> />
+												<label class="checkbox-label" for="projet">#i18n{ods.front.recherche.label.projetDelib}</label>
+												<#assign selected = 0>
+												<#list user_search.listeTypesDocumentFromRepresentation as selected_type_document>
+													<#if selected_type_document = "proposition">
+														<#assign selected = 1>
+														<#break>
+													</#if>
+												</#list>
+												<input id="proposition" name="proposition" type="checkbox" <#if selected = 1>checked="checked"</#if> />
+												<label class="checkbox-label" for="proposition">#i18n{ods.front.recherche.label.propDelib}</label>
+												<br />
+												<#assign selected = 0>
+												<#list user_search.listeTypesDocumentFromRepresentation as selected_type_document>
+													<#if selected_type_document = "amendement">
+														<#assign selected = 1>
+														<#break>
+													</#if>
+												</#list>
+												<input id="amendement" name="amendement" type="checkbox" <#if selected = 1>checked="checked"</#if> />
+												<label class="checkbox-label" for="amendement">#i18n{ods.front.recherche.label.amendement}</label>
+												<#assign selected = 0>
+												<#list user_search.listeTypesDocumentFromRepresentation as selected_type_document>
+													<#if selected_type_document = "voeu">
+														<#assign selected = 1>
+														<#break>
+													</#if>
+												</#list>
+												<input id="voeu" name="voeu" type="checkbox" <#if selected = 1>checked="checked"</#if> />
+												<label class="checkbox-label" for="voeu">#i18n{ods.front.recherche.label.voeu}</label>
+											</#if>
+										</td>
+									</tr>
+								</table>
+								<p>
+									<label class="text-label" for="search">#i18n{ods.front.recherche.label.mots}</label>
+									<input type="text" name="search" id="search" size="30" <#if user_search.typeRequete = "multi" || user_search.typeRequete = "simple">value="${user_search.champRecherche}"</#if> /> 
+								</p>
+								<p>
+									<label class="text-label" for="conseil">#i18n{ods.front.recherche.label.formation}</label>
+									<#list liste_conseils as conseil>
+										<#assign selected=0>
+										<#list liste_selected_conseils as selected_conseil>
+											<#if conseil.idFormationConseil = selected_conseil.idFormationConseil>
+												<#assign selected=1>
+												<#break>
+											</#if>
+										</#list>
+										<input id="conseil" name="conseil" type="checkbox" value="${conseil.idFormationConseil}" <#if selected=1>checked="checked"</#if> />
+										<label class="checkbox-label" for="conseil">${conseil.libelle}</label>
+									</#list>
+								</p>
+								<p>
+									<label class="text-label" for="commission">#i18n{ods.front.recherche.label.commission}</label>
+									<select id="commission" name="commission" size="3" multiple="multiple" >
+										<#list liste_commissions as commission>
+											<#assign selected=0>
+											<#list liste_selected_commissions as selected_commission>
+												<#if commission.idCommission = selected_commission.idCommission>
+													<#assign selected=1>
+													<#break>
+												</#if>
+											</#list>
+											<option value="${commission.idCommission}" <#if selected = 1>selected="selected"</#if> >${commission.libelle}</option>
+										</#list>
+									</select>
+									<label class="ods-text-label-2" for="">#i18n{ods.front.recherche.label.rapporteur}</label>
+									<select id="rapporteur" name="rapporteur" size="3" multiple="multiple" >
+										<#list liste_elus_rapporteurs as rapporteur>
+											<#assign selected=0>
+											<#list liste_selected_elus_rapporteurs as selected_elu_rapporteur>
+												<#if rapporteur.idElu = selected_elu_rapporteur.idElu>
+													<#assign selected=1>
+													<#break>
+												</#if>
+											</#list>
+											<option value="${rapporteur.idElu}" <#if selected = 1>selected="selected"</#if> >
+												${rapporteur.civilite} ${rapporteur.prenomElu} ${rapporteur.nomElu}
+											</option>
+										</#list>
+									</select>
+								</p>
+								<p>
+									<label class="text-label" for="arrondissement">#i18n{ods.front.recherche.label.arrondissement}</label>
+									<select id="arrondissement" name="arrondissement" size="3" multiple="multiple" >
+										<#list 1..20 as arrondissement>
+											<#assign selected=0>
+											<#list liste_selected_arrondissements as selected_arrondissement>
+												<#if arrondissement = selected_arrondissement>
+													<#assign selected=1>
+													<#break>
+												</#if>
+											</#list>
+											<option value="${arrondissement}" <#if selected = 1>selected="selected"</#if> >${arrondissement}</option>
+											
+										</#list>
+									</select>
+									<label class="ods-text-label-2" for="">#i18n{ods.front.recherche.label.direction}</label>
+									<select id="direction" name="direction" size="3" multiple="multiple" >	
+										<#list liste_directions as direction>
+											<#assign selected=0>
+											<#list liste_selected_directions as selected_direction>
+												<#if direction.idDirection = selected_direction.idDirection>
+													<#assign selected=1>
+													<#break>
+												</#if>
+											</#list>
+											<option value="${direction.idDirection}" <#if selected = 1>selected="selected"</#if> >${direction.libelleCourt}</option>
+										</#list>
+									</select>
+								</p>
+								<p>
+									<label class="text-label" for="categorie">#i18n{ods.front.recherche.label.catDelib}</label>
+									<select id="categorie" name="categorie" size="3" multiple="multiple" >
+										<#list liste_categories as categorie>
+											<#assign selected=0>
+											<#list liste_selected_categories as selected_categorie>
+												<#if categorie.idCategorie = selected_categorie.idCategorie>
+													<#assign selected=1>
+													<#break>
+												</#if>
+											</#list>
+											<option value="${categorie.idCategorie}" <#if selected = 1>selected="selected"</#if> >${categorie.libelle}</option>
+										</#list>
+									</select>
+								</p>
+								<p>
+									<label class="text-label" for="groupe">#i18n{ods.front.recherche.label.depositaire}</label>
+									<select id="groupe" name="groupe" size="3" multiple="multiple" >
+										<#list liste_groupes as groupe>
+											<#assign selected=0>
+											<#list liste_selected_groupes as selected_groupe>
+												<#if groupe.idGroupe = selected_groupe.idGroupe>
+													<#assign selected=1>
+													<#break>
+												</#if>
+											</#list>
+											<option value="${groupe.idGroupe}" <#if selected = 1>selected="selected"</#if> >${groupe.nomGroupe}</option>
+										</#list>
+									</select>
+									<label class="ods-text-label-2" for="elu">#i18n{ods.front.recherche.label.elu}</label>
+									<select id="elu" name="elu" size="3" multiple="multiple" >
+										<#list liste_elus as elu>
+											<#assign selected=0>
+											<#list liste_selected_elus as selected_elu>
+												<#if elu.idElu = selected_elu.idElu>
+													<#assign selected=1>
+													<#break>
+												</#if>
+											</#list>
+											<option value="${elu.idElu}" <#if selected = 1>selected="selected"</#if> >
+												${elu.nomElu} ${elu.prenomElu} (${elu.groupe.nomGroupe})
+											</option>
+										</#list>
+									</select>
+								</p>
+								<p class="buttons">
+									<input  name="ods-btn-rechercher" type="submit" value="#i18n{ods.front.recherche.button.search}" title="Rechercher" id="ods-btn-rechercher" />
+									<input name="ods-btn-reinit" type="button" value="#i18n{ods.front.recherche.button.reinit}" id="ods-btn-reinit" onclick="location='${url_formulaire}'" />
+								</p>
+							</fieldset>
+						</form>
+						<p class="espace_10"></p>
+					</div>
+					<!-- fiche -->
+					<p>
+						#i18n{ods.front.rechercheresultats.label.resultCount} : ${nombre_fichiers}
+					</p>
+					<script language="JavaScript" type="text/javascript">
+						<!--
+						    function displayId( baliseId ) {
+								if (document.getElementById && document.getElementById(baliseId) != null) {
+									document.getElementById( baliseId ).style.visibility='visible';
+									document.getElementById( baliseId ).style.display='block';
+								}
+							}
+							function hideId( baliseId ) {
+								if (document.getElementById && document.getElementById(baliseId) != null) {
+									document.getElementById( baliseId ).style.visibility='hidden';
+									document.getElementById( baliseId ).style.display='none';
+								}
+							}
+							function displayDetail(id) {
+								hideId('ods-list-item-btn-plus-' + id);
+								displayId('ods-list-item-btn-moins-' + id);
+								displayId('ods-list-item-detail-' + id);
+							}
+							function hideDetail(id) {
+								displayId('ods-list-item-btn-plus-' + id);
+								hideId('ods-list-item-btn-moins-' + id);
+								hideId('ods-list-item-detail-' + id);
+							}
+							
+							function minimize() {
+								var lastId = ${nombre_objets};
+								hideId('ods-btn-minimize');
+								displayId('ods-btn-maximize');
+								for (var id = 1; id <= lastId; id++) {
+									hideDetail(id);
+								}
+							}
+							function maximize() {
+								var lastId = ${nombre_objets};
+								hideId('ods-btn-maximize');
+								displayId('ods-btn-minimize');
+								for (var id = 1; id <= lastId; id++) {
+									displayDetail(id);
+								}
+							}
+							function saveCriteria() {
+						    	var myForm = document.getElementById('actions');
+						    	myForm.action='jsp/site/Portal.jsp?page=ods_mes_criteres';
+						    	myForm.save.value='next';
+						    	myForm.submit();
+						    }
+						    function addToCart(){
+						    	var myForm = document.getElementById('actions');
+						    	myForm.action='jsp/site/Portal.jsp?page=ods_panier';
+						    	myForm.save.value='panier';
+						    	myForm.submit();
+						    }
+						//-->
+			        </script>
+					<form id="actions" action="jsp/site/Portal.jsp?page=ods_mes_criteres" method="post">
+						<input type="hidden" name="save" id="save" value=""/>
+						
+						<input type="hidden" name="type_requete" id="type_requete" value="${user_search.typeRequete}" />
+						<input type="hidden" name="champ_recherche" id="champ_recherche" value="${user_search.champRecherche}" />
+						<input type="hidden" name="selected_types_document" id="selected_types_document" value="${user_search.listeTypesDocument}" />
+						<input type="hidden" name="selected_formations_conseil" id="selected_formations_conseil" value="${user_search.listeFormationsConseil}" />
+						<input type="hidden" name="selected_commissions" id="selected_commissions" value="${user_search.listeCommissions}" />
+						<input type="hidden" name="selected_rapporteurs" id="selected_rapporteurs" value="${user_search.listeRapporteurs}" />
+						<input type="hidden" name="selected_arrondissements" id="selected_arrondissements" value="${user_search.listeArrondissements}" />
+						<input type="hidden" name="selected_directions" id="selected_directions" value="${user_search.listeDirections}" />
+						<input type="hidden" name="selected_categories_deliberation" id="" value="${user_search.listeCategoriesDeliberation}" />
+						<input type="hidden" name="selected_groupes_depositaires" id="" value="${user_search.listeGroupesDepositaires}" />
+						<input type="hidden" name="selected_elus_depositaires" id="" value="${user_search.listeElusDepositaires}" />
+						
+						<p class="buttons">
+							<label for="nom_requete">#i18n{ods.front.rechercheresultats.label.saveCriteria} : </label>
+							<input id="nom_requete" name="nom_requete" type="text" value="" size="40" maxlength="60" />
+							<input name="ods-btn-enregistrercriteres" type="button" id="ods-btn-enregistrercriteres"
+								value="#i18n{ods.front.rechercheresultats.button.saveCriteria}"
+								onclick="javascript:saveCriteria();" />
+						</p>
+						<#if nombre_objets != 0>
+							<!--bloc-->
+							<#include "bandeau_action_panier.html">
+							<p class="buttons">
+								<input name="ods-btn-minimize" type="button" value="#i18n{ods.front.rechercheresultats.button.minimize}" id="ods-btn-minimize" onclick="javascript:minimize();" />
+								<input name="ods-btn-maximize" type="button" value="#i18n{ods.front.rechercheresultats.button.maximize}" id="ods-btn-maximize" style="display:none" onclick="javascript:maximize();" />
+							</p>
+		    				<!-- bloc -->
+	   						<div class="ods-list">
+							<!--bloc-->
+								<#assign index=1>
+								<#if liste_pdds?has_content>
+									<#list liste_pdds as pdd>
+										<div class="ods-list-item">
+											<input name="" type="button" value="" class="ods-list-item-btn-moins" id="ods-list-item-btn-moins-${index}" onclick="hideDetail('${index}');" />
+		          							<input name="" type="button" value="" class="ods-list-item-btn-plus" id="ods-list-item-btn-plus-${index}" onclick="displayDetail('${index}');" style="display:none" />
+											<a href="${url_pdd}&id_pdd=${pdd.idPdd}">${pdd.reference}</a>
+								        	<#if liste_pdds_nouveaux?exists && estPddDansListe(pdd,liste_pdds_nouveaux)>
+												<#if pdd.version?exists && ( pdd.version > 1 )>
+								 					<span class="ods-flag-M" title="#i18n{ods.front.deliberations.title.modifie}">#i18n{ods.front.deliberations.label.modifie}</span>
+								 				<#else>
+													<span class="ods-flag-N" title="#i18n{ods.front.deliberations.title.nouveau}">#i18n{ods.front.deliberations.label.nouveau}</span>
+								 				</#if>
+											</#if>
+											<#if liste_pdds_rattache_odj?exists && estPddDansListe(pdd,liste_pdds_rattache_odj)>
+												<span class="ods-flag-O" title="#i18n{ods.front.rechercheresultats.titre.inscrit}">#i18n{ods.front.rechercheresultats.label.inscrit}</span>
+											</#if>
+											<span class="ods-notes">(#i18n{ods.front.rechercheresultats.label.publie} ${pdd.datePublication?string("dd/MM/yyyy")}, #i18n{ods.front.rechercheresultats.label.version} ${pdd.version})</span>
+											<div class="ods-list-item-detail" id="ods-list-item-detail-${index}">
+												<p class="ods-list-row-txt">${pdd.objet}</p>
+												<#assign listFichiers = pdd.fichiers>
+												<#if listFichiers?has_content>
+				        							<ul class="ods-list-item-docs">
+														<#list listFichiers as fichier>
+															<li>
+																<input id="fichier" name="fichier" type="checkbox" value="${fichier.id}" />
+																<a href="jsp/site/plugins/ods/DoDownload.jsp?id_fichier=${fichier.id}" target="_blank">${fichier.titre}</a>
+																<span class="ods-notes">(#i18n{ods.front.rechercheresultats.label.publie} ${fichier.datePublication?string("dd/MM/yyyy")})</span>
+																<br/>
+															</li>
+														</#list>
+													</ul>
+												</#if>
+											</div>
+										</div>
+	          							<#assign index=index+1>
+									</#list>
+								</#if>
+								<#if liste_amendements?has_content>
+									<#list liste_amendements as amendement>
+										<div class="ods-list-item">
+											<input name="" type="button" value="" class="ods-list-item-btn-moins" id="ods-list-item-btn-moins-${index}" onclick="hideDetail('${index}');" />
+		          							<input name="" type="button" value="" class="ods-list-item-btn-plus" id="ods-list-item-btn-plus-${index}" onclick="displayDetail('${index}');" style="display:none" />
+											<input id="fichier" name="fichier" type="checkbox" value="${amendement.fichier.id}" />
+											<span class="ods-list-item-a">&nbsp;&nbsp;</span>
+											<a href="jsp/site/plugins/ods/DoDownload.jsp?id_fichier=${amendement.fichier.id}">
+												<#if amendement.reference?has_content>
+													[${amendement.type}${amendement.reference} ${amendement.fascicule.codeFascicule}] 
+												</#if>
+												${amendement.objetLimit}
+											</a>
+											<span class="ods-notes">(${amendement.fichier.extension} - ${amendement.fichier.tailleKo} ko)</span>
+											<span class="ods-notes">(#i18n{ods.front.rechercheresultats.label.publie} ${amendement.datePublication}, #i18n{ods.front.rechercheresultats.label.version} ${amendement.version})</span>
+											<#if liste_vas_nouveaux?exists && estVADansListe(amendement,liste_vas_nouveaux)>
+												<#if amendement.version?exists && ( amendement.version > 1 )>
+									 				<span class="ods-flag-M" title="#i18n{ods.front.deliberations.title.modifie}">#i18n{ods.front.deliberations.label.modifie}</span>
+									 			<#else>
+													<span class="ods-flag-N" title="#i18n{ods.front.deliberations.title.nouveau}">#i18n{ods.front.deliberations.label.nouveau}</span>
+									 			</#if>
+											</#if>
+											<#assign pdds=amendement.pdds>
+											<#if pdds?has_content>
+												<div class="ods-list-item-detail" id="ods-list-item-detail-${index}">
+													<p class="ods-list-row-txt">
+														#i18n{ods.front.rechercheresultats.label.confer} 
+														<#list pdds as pdd>
+															<a href="jsp/site/Portal.jsp?page=ods_pdd&id_pdd=${pdd.idPdd}">${pdd.reference}</a>
+															<#if pdd_has_next>, </#if>
+														</#list>
+													</p>
+												</div>
+											</#if>
+										</div>
+	          							<#assign index=index+1>
+									</#list>
+								</#if>
+								<#if liste_voeux?has_content>
+									<#list liste_voeux as voeu>
+										<div class=ods-list-item>
+											<input type="button" value="" class="ods-list-item-btn-moins" id="ods-list-item-btn-moins-${index}" onclick="hideDetail('${index}');" />
+		          							<input type="button" value="" class="ods-list-item-btn-plus" id="ods-list-item-btn-plus-${index}" onclick="displayDetail('${index}');" style="display:none" />
+											<input id="fichier" name="fichier" type="checkbox" value="${voeu.fichier.id}" />
+											<span class="ods-list-item-v">&nbsp;&nbsp;</span>
+											<a href="jsp/site/plugins/ods/DoDownload.jsp?id_fichier=${voeu.fichier.id}">
+												<#if voeu.reference?has_content>
+													[V${voeu.reference} ${voeu.fascicule.codeFascicule}] 
+												</#if>
+												${voeu.objetLimit}
+											</a>
+											<span class="ods-notes">(${voeu.fichier.extension} - ${voeu.fichier.tailleKo} ko)</span>
+											<span class="ods-notes">(#i18n{ods.front.rechercheresultats.label.publie}  ${voeu.datePublication}, #i18n{ods.front.rechercheresultats.label.version} ${voeu.version})</span>
+											<#if liste_vas_nouveaux?exists && estVADansListe(voeu,liste_vas_nouveaux)>
+												<#if voeu.version?exists && ( voeu.version > 1 )>
+									 				<span class="ods-flag-M" title="#i18n{ods.front.deliberations.title.modifie}">#i18n{ods.front.deliberations.label.modifie}</span>
+									 			<#else>
+													<span class="ods-flag-N" title="#i18n{ods.front.deliberations.title.nouveau}">#i18n{ods.front.deliberations.label.nouveau}</span>
+									 			</#if>
+											</#if>
+											<#assign pdds=voeu.pdds>
+											<#if pdds?has_content>
+												<div class="ods-list-item-detail" id="ods-list-item-detail-${index}">
+													<p class="ods-list-row-txt">
+														#i18n{ods.front.rechercheresultats.label.confer} 
+														<#list pdds as pdd>
+															<a href="jsp/site/Portal.jsp?page=ods_pdd&id_pdd=${pdd.idPdd}">${pdd.reference}</a>
+															<#if pdd_has_next>, </#if>
+														</#list>
+													</p>
+												</div>
+											</#if>
+										</div>
+	          							<#assign index=index+1>
+									</#list>
+								</#if>
+							</div>
+							<!--bloc-->
+						</#if>
+					</form>
+					<div class="ods-legend">
+						<strong>#i18n{ods.front.rechercheresultats.legende.label.titre}</strong>
+						<ul>
+							<li><span class="ods-flag-N" title="#i18n{ods.front.rechercheresultats.titre.nouveau}">#i18n{ods.front.rechercheresultats.label.nouveau}</span> = #i18n{ods.front.rechercheresultats.legende.label.nouveau}</li>
+							<li><span class="ods-flag-M" title="#i18n{ods.front.rechercheresultats.titre.modifie}">#i18n{ods.front.rechercheresultats.label.modifie}</span> = #i18n{ods.front.rechercheresultats.legende.label.modifie}</li>
+							<li><span class="ods-list-item-a">&nbsp;&nbsp;</span> = #i18n{ods.front.rechercheresultats.legende.label.amendement}</li>
+							<li><span class="ods-list-item-v">&nbsp;&nbsp;</span> = #i18n{ods.front.rechercheresultats.legende.label.voeu}</li>
+							<li><span class="ods-flag-O" title="#i18n{ods.front.rechercheresultats.titre.inscrit}">#i18n{ods.front.rechercheresultats.label.inscrit}</span> = #i18n{ods.front.rechercheresultats.legende.label.inscrit}</li>
+						</ul>
+					</div>
+					<!--bloc-->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

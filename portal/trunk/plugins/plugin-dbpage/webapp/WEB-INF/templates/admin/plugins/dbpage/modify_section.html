@@ -1,0 +1,41 @@
+<div class="content-box">
+    <form method="post" enctype="multipart/form-data" action="jsp/admin/plugins/dbpage/DoModifySection.jsp">
+        <h2>#i18n{dbpage.modify_section.tableLabel}</h2>
+        <p>
+            <label for="section_title" >#i18n{dbpage.modify_section.rowTitleTitle} * :</label>
+            <input type="text" id="section_title" name="section_title" size="60" maxlength="50" tabindex="1" value="${section.title}"/>
+            <input type="hidden" name="dbpage_id" value="${dbpage_id}" />
+            <input type="hidden" name="section_id" value="${section_id}" />
+        </p>  
+        <p>
+            <label for="template_default" >#i18n{dbpage.modify_section.rowTitleTemplateDefault}</label>
+            <input name="template_default" id="template_default" tabindex="5" type="checkbox" class="checkbox" checked="checked" />                                                                                         </p>   
+        <p>
+        <p>
+            <label for="section_template" >#i18n{dbpage.modify_section.rowTitleTemplate}  :</label>
+            <input type="file" name="section_template" size="60" maxlength="100" />
+        </p>
+            <label for="type_id" >#i18n{dbpage.modify_section.rowTitleType}  :</label>
+            <@combo name="type_id" default_value="${section.idType}" items=type_list />
+        </p>
+        <p>
+            <label for="section_desc_column" >#i18n{dbpage.modify_section.rowTitleColumn}  :</label>
+            <input type="text" id="section_desc_column" name="section_desc_column" size="60" maxlength="255" tabindex="1" value="${section.column}"/>
+            
+        </p>
+        <p><label for="section_desc_sql" >#i18n{dbpage.modify_section.rowTitleSql}  :</label>
+            <textarea rows="3" cols="100" name="section_desc_sql" >${section.sql}</textarea>
+        </p>
+        <p>
+            <label for="section_pool" >#i18n{dbpage.modify_section.rowTitlePool}  :</label>
+            <@combo name="section_pool" default_value="${section.pool}" items=pool_list />
+        </p>
+        <p>
+            <label for="role" >#i18n{dbpage.create_section.rowTitleRole}  :</label>
+            <@combo name="role" default_value="${section.role}" items=role_list />
+        </p>
+        <p>   
+            <input type="submit" value="#i18n{dbpage.modify_section.buttonModify}" class="button" tabindex="3" />
+        </p>
+    </form>
+</div>

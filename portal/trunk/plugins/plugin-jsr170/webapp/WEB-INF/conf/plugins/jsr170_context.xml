@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+<!-- 
+	Admin beans
+ -->
+<bean id="adminViewDAO" class="fr.paris.lutece.plugins.jcr.business.admin.AdminViewDAO" />
+<bean id="adminViewRoleDAO" class="fr.paris.lutece.plugins.jcr.business.admin.AdminViewRoleDAO" />
+<bean id="adminWorkspaceDAO" class="fr.paris.lutece.plugins.jcr.business.admin.AdminWorkspaceDAO" />
+
+<!-- 
+	Common JCR configuration
+ -->
+<bean id="jsr170.JCRlist" class="java.util.ArrayList">
+	<constructor-arg>
+		<list>
+			<value>alfresco</value>
+			<value>jackrabbit</value>
+		</list>
+	</constructor-arg>
+</bean>
+
+<!--  
+ !
+ !	Jackrabbit JCR configuration
+ !
+ -->
+<!--
+	Configurable beans:
+		- jsr170SessionFactory
+		- password
+		- jackrabbitRepository
+		- defaultWorkspaceName
+ -->
+<!--
+	The session factory that connects to the repository.
+	Here you can set the credentials used to connect to the repository.
+ -->
+<bean id="jackrabbit.SessionFactory" class="org.springmodules.jcr.JcrSessionFactory">
+ <property name="repository" ref="jackrabbit.Repository"/>
+	<property name="credentials">
+    <!-- alfresco credentials -->
+   <bean class="javax.jcr.SimpleCredentials">
+    <constructor-arg index="0" value="guest"/>
+    <constructor-arg index="1">
+     <bean factory-bean="password"
+          factory-method="toCharArray"/>
+    </constructor-arg>
+   </bean>
+ </property>
+</bean>
+
+<!-- create the password to return it as a char[] -->
+<bean id="password" class="java.lang.String">
+  <constructor-arg index="0" value="guest"/>
+</bean>
+
+<!--
+	Jackrabbit connection
+ -->
+<!--  defines an instance of a jackrabbit repository -->
+<bean id="jackrabbit.Repository" class="org.springmodules.jcr.jackrabbit.TransientRepositoryFactoryBean">
+  <property name="configuration" value="repository.xml"/>
+  <property name="homeDir" ref="jackrabbit.absolutePath"/>
+</bean>
+
+<!--  set this to the wanted path relative to the webapp path
+	Notice that this folder MUST exist
+ -->
+<bean id="jackrabbit.relativePath" class="java.lang.String">
+	<constructor-arg value="/repo" />
+</bean>
+
+<!--  can be set to classpath: or file: -->
+<bean id="jackrabbit.prefixUrl" class="java.lang.String">
+	<constructor-arg value="file:" />
+</bean>
+
+<!-- return the absolute path according to AppPathService -->
+<bean id="jackrabbit.absolutePath" factory-bean="jackrabbit.prefixUrl" factory-method="concat">
+	<constructor-arg>
+		<bean class="fr.paris.lutece.portal.service.util.AppPathService"
+		factory-method="getAbsolutePathFromRelativePath">
+			<constructor-arg ref="jackrabbit.relativePath" />
+		</bean>
+	</constructor-arg>
+</bean>
+
+<!-- 
+	Default workspace name
+ -->
+<bean id="jackrabbit.defaultWorkspaceName" class="java.lang.String">
+  <constructor-arg index="0" value="default"/>
+</bean>
+
+<!-- 
+	Pre-defined beans
+ -->
+<!--
+	The repository initializer.
+-->
+<bean id="jackrabbit.repositoryInitializer" class="fr.paris.lutece.plugins.jcr.business.JackrabbitRepositoryInitializer">
+</bean>
+
+<!--
+	The workspace DAO used to list available workspace.
+ -->
+<bean id="jackrabbit.workspaceDAO" class="fr.paris.lutece.plugins.jcr.business.JcrRepositoryWorkspaceDAO"
+	factory-method="getInstance">
+	<constructor-arg ref="jackrabbit.jcrTemplate" />
+	<constructor-arg ref="jackrabbit.repositoryInitializer"/>
+	<constructor-arg ref="jackrabbit.defaultWorkspaceName"/>
+	<constructor-arg value="true"/>
+</bean>
+
+<!--
+	The repository DAO to access repository nodes.
+ -->
+<bean id="jackrabbit.repositoryFileDAO" class="fr.paris.lutece.plugins.jcr.business.JcrRepositoryFileDAO"
+	factory-method="getInstance">
+	<constructor-arg ref="jackrabbit.jcrTemplate" />
+	<constructor-arg ref="jackrabbit.repositoryInitializer"/>
+	<constructor-arg ref="jackrabbit.defaultWorkspaceName"/>
+</bean>
+
+<!--
+	The template used to encapsulate jcr request.
+	It requires a JcrSessionFactory
+ -->
+<bean id="jackrabbit.jcrTemplate" class="org.springmodules.jcr.JcrTemplate">
+  <property name="sessionFactory" ref="jackrabbit.SessionFactory"/>
+  <property name="allowCreate" value="true"/>
+</bean>
+
+<!--  
+ !
+ !	Alfresco JCR configuration
+ !
+ -->
+<!--
+	Configurable beans:
+		- alfrescoSessionFactory
+		- password
+		- jndiAlfrescoRepository
+		- defaultWorkspaceName
+ -->
+<!--
+	The session factory that connects to the repository.
+	Here you can set the credentials used to connect to the repository.
+ -->
+<bean id="alfresco.SessionFactory" class="org.springmodules.jcr.JcrSessionFactory">
+ <property name="repository" ref="alfresco.jndiRepository"/>
+	<property name="credentials">
+    <!-- alfresco credentials -->
+   <bean class="javax.jcr.SimpleCredentials">
+    <constructor-arg index="0" value="guest"/>
+    <constructor-arg index="1">
+     <bean factory-bean="alfresco.password"
+          factory-method="toCharArray"/>
+    </constructor-arg>
+   </bean>
+ </property>
+</bean>
+
+<!-- create the password to return it as a char[] -->
+<bean id="alfresco.password" class="java.lang.String">
+  <constructor-arg index="0" value="guest"/>
+</bean>
+
+<bean id="alfresco.defaultWorkspaceName" class="java.lang.String">
+  <constructor-arg index="0" value="SpacesStore"/>
+</bean>
+
+<!--
+	Alfresco connection using JCR-RMI extension
+ -->
+<bean id="alfresco.rmiClientFactory" class="org.apache.jackrabbit.rmi.client.ClientRepositoryFactory"/>
+<!-- rmi client, works like a repository -->
+<bean id="alfresco.rmiClient" factory-bean="alfresco.rmiClientFactory" factory-method="getRepository">
+  <constructor-arg value="rmi://localhost:1099/javaContentRepository"/>
+</bean>
+
+<!--
+	Alfresco connection using JCR-JNDI extension
+ -->
+<bean id="alfresco.jndiRepository"
+	class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiName" value="jcr/baseRepository" />
+    <property name="resourceRef" value="true" />
+</bean>
+
+<!-- 
+	Pre-defined beans
+ -->
+<bean id="alfresco.repositoryInitializer" class="fr.paris.lutece.plugins.jcr.business.AlfrescoRepositoryInitializer">
+</bean>
+
+<bean id="alfresco.workspaceDAO" class="fr.paris.lutece.plugins.jcr.business.AlfrescoRepositoryWorkspaceDAO"
+	factory-method="getInstance">
+	<constructor-arg ref="alfresco.jcrTemplate" />
+	<constructor-arg ref="alfresco.repositoryInitializer"/>
+	<constructor-arg ref="alfresco.defaultWorkspaceName"/>
+</bean>
+
+<!--<bean id="alfresco.repositoryFileDAO" class="fr.paris.lutece.plugins.jcr.business.RemoteAlfrescoRepositoryFileDAO"-->
+<!--	factory-method="getInstance">-->
+<!--	<constructor-arg ref="alfresco.jcrTemplate" />-->
+<!--	<constructor-arg ref="alfresco.repositoryInitializer"/>-->
+<!--	<constructor-arg ref="alfresco.defaultWorkspaceName"/>-->
+<!--</bean>-->
+
+<bean id="alfresco.repositoryFileDAO" class="fr.paris.lutece.plugins.jcr.business.AlfrescoRepositoryFileDAO"
+	factory-method="getInstance">
+	<constructor-arg ref="alfresco.jcrTemplate" />
+	<constructor-arg ref="alfresco.repositoryInitializer"/>
+	<constructor-arg ref="alfresco.defaultWorkspaceName"/>
+</bean>
+ 
+<!--
+	The template used to encapsulate jcr request.
+	It requires a JcrSessionFactory
+ -->
+<bean id="alfresco.jcrTemplate" class="org.springmodules.jcr.JcrTemplate">
+  <property name="sessionFactory" ref="alfresco.SessionFactory"/>
+  <property name="allowCreate" value="true"/>
+</bean>
+
+
+<bean id="pdfFileIndexer" class="fr.paris.lutece.plugins.indexer.service.PdfFileIndexer" />
+<bean id="fileIndexerFactory"  class="fr.paris.lutece.plugins.indexer.service.FileIndexerFactory" >
+    <property name="indexersMap" >
+        <map>
+            <entry>
+                <key><value>application/pdf</value></key>
+                <ref bean="pdfFileIndexer" />
+            </entry>
+        </map>
+    </property>
+</bean>
+
+</beans>

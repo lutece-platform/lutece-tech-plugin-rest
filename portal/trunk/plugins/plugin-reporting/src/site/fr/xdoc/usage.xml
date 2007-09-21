@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC "//UNKNOWN/" "http://maven.apache.org/dtd/xdoc_1_0.dtd">
+<document>
+	<properties>
+		<title>Utilisation</title>
+	</properties>
+	<body>
+		<section name="Utilisation">
+			<p>
+				Une fois installé et déployé sur une application web, la
+				premère étape consiste à activer le plugin dans
+				l'interface d'administration de Lutèce, rubrique Gestion
+				des plugins.
+			</p>
+			<p>
+				Les sections suivantes décrivent l'utilisation avancée
+				des fonctionnalités offertes par le plugin.
+			</p>
+			<p>
+				<subsection name="Fonctionnalités d'administration">
+					<subsection name="Gestion des périodes">
+						<p>
+							Cette fonctionnalité permet à l'administrateur de l'application de définir la période en cours pour le suivi mensuel des projets. La création d'une nouvelle période permet de réinitialiser les données de reporting par période des projets et verrouille la saisie des anciennes périodes.
+						</p>
+					</subsection>
+					<subsection name="Gestion des projets">
+						<p>
+							Cette fonctionnalité permet aux Chefs de Projet, Chefs de Section et Chefs de Bureau de gérer la liste des projets et leurs propriétés.
+							L'option "suivi de projet" permet d'associer ou non un suivi mensuel au projet.
+							Les actions possibles sont : création, modification et suppression de projets.
+						</p>
+					</subsection>
+					<subsection name="Gestion des reportings de projet">
+						<p>
+							C'est la principale fonctionnalité de l'application. Elle permet de saisir les données de reporting des projets.
+						</p>
+						<ul>
+							<li>
+								<p>
+									Reporting de projet SDDP :
+								</p>
+								<p>
+									Cette fonctionnalité permet la création des fiches de reporting du projet. A chaque enregistrement une nouvelle fiche est créée. La dernière mise à jour est affiché.
+								Elle permet aussi l'accès à l'historique des fiches de reporting du projet, ainsi qu'au détail de chaque fiche.	
+								</p>
+							</li>
+							<li>
+								<p>
+									Reporting mensuel :
+								</p>
+								<p>
+									Cette fonctionnalité est disponible seulement si l'option de suivi mensuel a été choisie dans l'interface de gestion des projets.
+									Cette fonctionnalité permet la création des fiches de reporting mensuel du projet. A chaque enregistrement la fiche mensuel de la période est mise à jour. La dernière mise à jour est affichée.
+								Elle permet aussi l'accès à l'historique des fiches de reporting mensuel du projet.	
+								</p>
+							</li>
+						</ul>
+					</subsection>
+				</subsection>
+				<subsection name="Utilisation de la Xpage">
+					<p>
+				L'affichage des tableaux de données de reporting sont
+				accessibles via la XPage du plugin Reporting :
+			</p>
+			<ul>
+				<li>
+					<p>
+						Pour accéder à la page d'accueil :
+					</p>
+					<p>
+						<code>
+							http://&lt;base_url&gt;/jsp/site/Portal.jsp?page=reporting
+						</code>
+					</p>
+				</li>
+				<li>
+					<p>
+						Pour accéder directement au tableau de suivi standard :
+					</p>
+					<p>
+						<code>
+							http://&lt;base_url&gt;/jsp/site/Portal.jsp?page=reporting&amp;table=standard
+						</code>
+					</p>
+				</li>
+				<li>
+					<p>
+						Pour accéder directement au tableau de suivi standard d'une section :
+					</p>
+					<p>
+						<code>
+							http://&lt;base_url&gt;/jsp/site/Portal.jsp?page=reporting&amp;table=standard&amp;workgroup=&lt;identifiant workgroup&gt;
+						</code>
+					</p>
+				</li>
+				<li>
+					<p>
+						Pour accéder directement au tableau de suivi standard de plusieurs sections :
+					</p>
+					<p>
+						<code>
+							http://&lt;base_url&gt;/jsp/site/Portal.jsp?page=reporting&amp;table=standard&amp;workgroup=&lt;identifiant workgroup 1&gt;&amp;workgroup=&lt;identifiant workgroup 2&gt;
+						</code>
+					</p>
+				</li>
+				<li>
+					<p>
+						Pour accéder directement au tableau de suivi mensuel :
+					</p>
+					<p>
+						<code>
+							http://&lt;base_url&gt;/jsp/site/Portal.jsp?page=reporting&amp;table=monthly
+						</code>
+					</p>
+				</li>
+			</ul>
+				</subsection>
+			</p>
+		</section>
+	</body>
+</document>

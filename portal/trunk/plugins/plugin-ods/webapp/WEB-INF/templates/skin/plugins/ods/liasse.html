@@ -1,0 +1,256 @@
+<#include "utils.ftl" >
+
+<#function isEqualCommissions listCommission1  listCommission2 >
+				<#local bEqual=true>
+				<#if listCommission1?size!=listCommission2?size>
+					<#local bEqual=false>
+				<#else>
+					<#list  listCommission1 as commission1>
+				  		<#list  listCommission2 as commission2>
+				  			<#if commission1_index==commission2_index &&commission1.idCommission!=commission2.idCommission>
+								 <#local bEqual=false>
+							</#if>
+				  		</#list>
+				  	</#list>	
+				</#if>
+				<#return bEqual>
+			</#function>
+			
+			
+<#function isEqualRapporteurs listElus1  listElus2 >
+	<#local bEqual=true>
+	<#if listElus1?size!=listElus2?size>
+		<#local bEqual=false>
+	<#else>
+		<#list  listElus1 as elu1>
+	  		<#list  listElus2 as elu2>
+	  			<#if elu1_index==elu2_index &&elu1.idElu!=elu2.idElu>
+					 <#local bEqual=false>
+				</#if>
+	  		</#list>
+	  	</#list>	
+	</#if>
+	<#return bEqual>
+</#function>
+			
+
+<div id="page-content-left">
+   <#include "page_content_left.html">
+</div>
+
+<div id="page-content-right">
+   <div id="out-min-height">
+    <div id="in-min-height">
+     <div id="one-zone-first">
+      <div id="one-zone-first-content">
+       <#if formation_conseil?exists>
+       		<h1>#i18n{ods.front.liasse.label.title} ${formation_conseil.libelle}</h1>
+       <#else>
+         	 <h1>#i18n{ods.front.liasse.label.title}-</h1>
+       </#if>
+       <!--bloc-->
+         
+       <#if liasse?exists>
+	       <p>
+	       	<a href="jsp/site/plugins/ods/DoDownload.jsp?id_fichier=${liasse.id}">    
+	       		#i18n{ods.front.liasse.href.telechargeliasse}
+			 </a> 
+      		 <span class="ods-notes">
+       		 	   	 (${liasse.extension} - ${liasse.tailleKo}#i18n{ods.front.liasse.label.ko})
+       		  </span> 	
+       		  <#if liasse.enLigne=true>
+   				<span class="ods-notes">
+       		 	   	 (#i18n{ods.front.liasse.label.publie} ${liasse.datePublication?string("dd/MM/yyyy")})
+       		 		</span>
+			   </#if>
+			</p>
+	  </#if>
+       
+       
+       
+       <h2>#i18n{ods.front.liasse.label.fascicules}</h2>
+       <ul class="ods-anchors">
+       <#if formation_conseil?exists>
+        	<#list liste_fascicule as fascicule>	
+       			<li><a href="jsp/site/Portal.jsp?page=ods_liasse&id_seance=${fascicule.seance.idSeance}&id_formation_conseil=${formation_conseil.idFormationConseil}#ANC_${fascicule.idFascicule}">${fascicule.nomFascicule}</a></li>
+        	</#list>
+        </#if>	
+        </ul>
+       <!--bloc-->
+       <form>
+		<#include "bandeau_action_panier.html">
+        <#list liste_fascicule as fascicule>	
+        	<#assign bCommissions=true> 
+        	<#assign bRapporteurs=true> 
+	        <a name="ANC_${fascicule.idFascicule}" id="ANC_${fascicule.idFascicule}"></a>
+	        <h3>${fascicule.nomFascicule}</h3>
+	        <div class="ods-fascicule">
+	          <div class="ods-list">
+	          <#list liste_voeuamendement as voeuamendement>
+	          		<#if voeuamendement.fascicule.idFascicule=fascicule.idFascicule>
+		          		<!-- affichage des commissions-->
+							<!-- si aucune liste de commissions n'a été affichée 
+								 ou si le fascicule a changé et que l'entrée posséde une liste de commissions
+								 ou si la liste des commissions du VA est différente de la liste des commissions 
+								 des VAS precedemments affichés => on affiche cette liste -->
+						<#if  ((!commissions?exists || bCommissions==true)
+							  	&& voeuamendement.groupeCommissions?exists
+							  	&& voeuamendement.groupeCommissions?size!=0)
+							  ||
+							  	(commissions?exists
+							  	&& voeuamendement.groupeCommissions?exists
+							  	&& !isEqualCommissions(commissions,voeuamendement.groupeCommissions))>
+									
+							 <#assign commissions=voeuamendement.groupeCommissions>
+							 <#assign bCommissions=false> 
+									<h3>
+										<#list voeuamendement.groupeCommissions as commission>
+									    	<#if commission.numero==1>		
+									    	  	${commission.numero}#i18n{ods.all.label.ere} 
+									    	 <#else>
+									    	    ${commission.numero}#i18n{ods.all.label.eme}
+									    	 </#if>   
+									         <#if commission_has_next>
+									      		,	
+									      	 <#else>   
+									         	<#if commissions?size==1>
+									         		#i18n{ods.odj.creation.label.commission}
+									         	<#else>
+									         		#i18n{ods.odj.creation.label.commissions}	
+									         	</#if>
+									         </#if>
+									   	</#list>
+									</h3>
+							</#if>
+								
+									
+	          			
+	          			<!--affichage des rapporteurs de l'entrée    -->
+								<!-- si aucune liste de rapporteurs n'a été affichée 
+								 ou si le fascicule a change et que l'entrée posséde une liste de rapporteurs
+								 ou si la liste des rapporteurs du VA est différente de la liste des rapporteurs 
+								 des VAs précédemment affichés => on affiche cette liste -->
+								<#if  (!rapporteurs?exists|bRapporteurs==true)
+											&& voeuamendement.groupeRapporteurs?exists
+											&& voeuamendement.groupeRapporteurs?size!=0 
+										||rapporteurs?exists
+									 		&& voeuamendement.groupeRapporteurs?exists
+									 		&&!isEqualRapporteurs(rapporteurs, voeuamendement.groupeRapporteurs)>
+								  			 
+										<h4>
+											<#list voeuamendement.groupeRapporteurs as elu>
+										    	${elu.civilite} ${elu.prenomElu} ${elu.nomElu} 
+										        <#if elu_has_next>
+												     ,
+											   	</#if>
+											</#list>
+										</h4>
+										<#assign rapporteurs=voeuamendement.groupeRapporteurs>
+										<#assign bRapporteurs=false>
+								</#if>
+							<div class="ods-list-item">
+							<#if voeuamendement.enLigne&&!voeuamendement.deliberation?exists>
+		           			 	<input name="" type="checkbox" value="${voeuamendement.fichier.id}" />
+		           			<#elseif !voeuamendement.deliberation?exists>
+		           			 	<input name="" type="checkbox" disabled="disabled" value=""/>
+		   					</#if>
+		           			 <#if voeuamendement.type='V'||voeuamendement.type='VNR' >
+		           			 	<span class="ods-list-item-v">&nbsp;&nbsp;</span> 
+		           		 	 <#else>
+		           		 	  	<span class="ods-list-item-a">&nbsp;&nbsp;</span>
+		           		 	 </#if>
+		           		 	 <#if voeuamendement.enLigne&&!voeuamendement.deliberation?exists>
+		           		 	 	<a href="jsp/site/plugins/ods/DoDownload.jsp?id_fichier=${voeuamendement.fichier.id}">
+		           		 	 </#if>
+		           		 	 [${voeuamendement.type}${voeuamendement.reference} ${voeuamendement.fascicule.codeFascicule}] 
+		           		 	   ${voeuamendement.objetLimit}
+		           		 	 <#if voeuamendement.enLigne&&!voeuamendement.deliberation?exists>
+		           		 	 	</a>
+		           		 	 </#if>
+		           		 	 <#if voeuamendement.enLigne&&!voeuamendement.deliberation?exists>
+			           		 	 <span class="ods-notes">
+				           		 	   	 (${voeuamendement.fichier.extension} - ${voeuamendement.fichier.tailleKo}#i18n{ods.front.liasse.label.ko})
+				           		  </span>
+				           	</#if>
+				        	<#if liste_vas_nouveaux?exists && estVADansListe(voeuamendement,liste_vas_nouveaux)>
+								<#if voeuamendement.version?exists && ( voeuamendement.version > 1 )>
+					 				<span class="ods-flag-M" title="#i18n{ods.front.deliberations.title.modifie}">#i18n{ods.front.deliberations.label.modifie}</span>
+					 			<#else>
+									<span class="ods-flag-N" title="#i18n{ods.front.deliberations.title.nouveau}">#i18n{ods.front.deliberations.label.nouveau}</span>
+					 			</#if>
+							</#if>
+		           		 	  </span> 
+		           		 	  <#if voeuamendement.enLigne=true>
+							   		<span class="ods-notes">
+			           		 	   	 (#i18n{ods.front.liasse.label.publie} ${voeuamendement.datePublication?string("dd/MM/yyyy")})
+			           		 		</span>
+			           		 </#if>
+		           		 	  
+		        		 	 <p class="ods-list-item-txt">
+		           		 	  <#if voeuamendement.pdds?exists && (voeuamendement.pdds?size > 0)>
+		           		 	  		#i18n{ods.front.liasse.label.cf}
+		    				   		<#list voeuamendement.pdds as pdd>	
+		    							<a href="jsp/site/Portal.jsp?page=ods_pdd&id_pdd=${pdd.idPdd}"> ${pdd.reference}</a>
+		    				 			<#if pdd_has_next>,</#if>
+		             		 		</#list>
+		            	      </#if>
+		           			  </p>
+		           			   <#if voeuamendement.enLigne&&voeuamendement.deliberation?exists>
+			           			  <ul class="ods-list-item-docs">
+									<li>
+										<input id="fichier" name="fichier" value="${voeuamendement.fichier.id}" type="checkbox" />
+										<a href="jsp/site/plugins/ods/DoDownload.jsp?id_fichier=${voeuamendement.fichier.id}">
+											${voeuamendement.fichier.titre}
+										</a>
+										<span class="ods-notes">(${voeuamendement.fichier.extension} - ${voeuamendement.fichier.tailleKo} ko)</span>
+										<#if liste_fichiers_nouveaux?exists && estFichierDansListe(voeuamendement.fichier,liste_fichiers_nouveaux)>
+											<#if voeuamendement.fichier.version?exists && ( voeuamendement.fichier.version > 1 )>
+						 						<span class="ods-flag-M" title="#i18n{ods.front.deliberations.title.modifie}">#i18n{ods.front.deliberations.label.modifie}</span>
+						 					<#else>
+												<span class="ods-flag-N" title="#i18n{ods.front.deliberations.title.nouveau}">#i18n{ods.front.deliberations.label.nouveau}</span>
+						 					</#if>
+						 				</#if>	
+									   	<span class="ods-notes">(#i18n{ods.front.rechercheresultats.label.publie}  ${voeuamendement.fichier.datePublication?string("dd/MM/yyyy")}, #i18n{ods.front.rechercheresultats.label.version} ${voeuamendement.fichier.version})</span>
+								</li>
+									<li>
+										<input id="fichier" name="fichier" value="${voeuamendement.deliberation.id}" type="checkbox" />
+										<a href="jsp/site/plugins/ods/DoDownload.jsp?id_fichier=${voeuamendement.deliberation.id}">
+											${voeuamendement.deliberation.titre}
+										</a>
+											<span class="ods-notes">(${voeuamendement.deliberation.extension} - ${voeuamendement.deliberation.tailleKo} ko)</span>
+											<#if liste_fichiers_nouveaux?exists && estFichierDansListe(voeuamendement.deliberation,liste_fichiers_nouveaux)>
+												<#if voeuamendement.deliberation.version?exists && (voeuamendement.deliberation.version > 1 )>
+						 							<span class="ods-flag-M" title="#i18n{ods.front.deliberations.title.modifie}">#i18n{ods.front.deliberations.label.modifie}</span>
+						 						<#else>
+												<span class="ods-flag-N" title="#i18n{ods.front.deliberations.title.nouveau}">#i18n{ods.front.deliberations.label.nouveau}</span>
+						 						</#if>
+						 					</#if>	
+									   		<span class="ods-notes">(#i18n{ods.front.rechercheresultats.label.publie}  ${voeuamendement.deliberation.datePublication?string("dd/MM/yyyy")}, #i18n{ods.front.rechercheresultats.label.version} ${voeuamendement.deliberation.version})</span>
+										
+									</li>
+								</ul>
+							</#if>	
+	          			 </div>
+	          		</#if>
+	          	 </#list>
+	          	</div>
+	         </div>
+         	</#list>
+       <#if seance?exists&&formation_conseil?exists>
+       	<div class="ods-top"><a href="jsp/site/Portal.jsp?page=ods_liasse&id_seance=${seance.idSeance}&id_formation_conseil=${formation_conseil.idFormationConseil}#TOP">#i18n{ods.front.liasse.href.hautdelapage}</a></div>
+       </#if>
+       </form>
+       <div class="ods-legend"><strong>#i18n{ods.front.liasse.label.legende}</strong>
+         <ul>
+          <li><span class="ods-flag-N" title="#i18n{ods.front.liasse.title.nouveau}">#i18n{ods.front.liasse.label.nouveau}</span>#i18n{ods.front.liasse.nouveaudocument}</li>
+          <li><span class="ods-flag-M" title="#i18n{ods.front.liasse.title.modifie}">#i18n{ods.front.liasse.label.modifie}</span>#i18n{ods.front.liasse.nouvelleversion}</li>
+          <li><img src="images/local/skin/plugins/ods/a.gif" alt="#i18n{ods.front.liasse.img.amendement}" /> =#i18n{ods.front.liasse.img.amendement}</li>
+          <li><img src="images/local/skin/plugins/ods/v.gif" alt="#i18n{ods.front.liasse.img.voeu}" /> =#i18n{ods.front.liasse.img.voeu}</li>
+         </ul>
+       </div>
+       <!--bloc-->
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>

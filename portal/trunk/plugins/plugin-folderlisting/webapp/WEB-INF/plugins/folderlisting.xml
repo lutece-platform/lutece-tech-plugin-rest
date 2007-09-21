@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<plug-in>
+    <name>folderlisting</name>
+    <class>fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation</class>
+    <version>2.0</version>
+    <documentation></documentation>
+    <installation></installation>
+    <changes></changes>
+    <user-guide></user-guide>
+    <description>folderlisting.plugin.description</description>
+    <provider>folderlisting.plugin.provider</provider>
+    <provider-url>http://lutece.paris.fr</provider-url>
+    <icon-url>images/admin/skin/plugins/folderlisting/folderlisting.png</icon-url>
+    <copyright>Copyright 2001-2006 Mairie de Paris</copyright>
+    <db-pool-required>1</db-pool-required>
+    
+    <!-- Specific javascript -->
+    <javascript-file>folderlisting/folderlisting.js</javascript-file>
+    
+    <!-- Administration interface parameters -->
+    <admin-features>
+        <admin-feature>
+            <feature-id>FOLDERLISTING_MANAGEMENT</feature-id>
+            <feature-title>folderlisting.adminFeature.folderlisting_management.name</feature-title>
+            <feature-description>folderlisting.adminFeature.folderlisting_management.description</feature-description>
+            <feature-level>1</feature-level>
+            <feature-url>jsp/admin/plugins/folderlisting/ManageFolders.jsp</feature-url>
+        </admin-feature>
+    </admin-features>
+    
+    <!-- Portlet parameters -->
+    <portlets>
+        <portlet>
+            <portlet-class>fr.paris.lutece.plugins.folderlisting.business.portlet.FolderListingPortletHome</portlet-class>
+            <portlet-type-id>FOLDERLISTING_PORTLET</portlet-type-id>
+            <portlet-type-name>folderlisting.portlet.name</portlet-type-name>
+            <portlet-creation-url>plugins/folderlisting/CreatePortletFolderListing.jsp</portlet-creation-url>
+            <portlet-update-url>plugins/folderlisting/ModifyPortletFolderListing.jsp</portlet-update-url>
+            <portlet-create-action-url>plugins/folderlisting/DoCreatePortletFolderListing.jsp</portlet-create-action-url>
+            <portlet-modify-action-url>plugins/folderlisting/DoModifyPortletFolderListing.jsp</portlet-modify-action-url>
+            <!-- optional entries -->
+            <portlet-create-script-template>/admin/portlet/script_create_portlet.html</portlet-create-script-template>
+            <portlet-modify-script-template>/admin/portlet/script_modify_portlet.html</portlet-modify-script-template>
+            <portlet-create-specific-template>/admin/plugins/folderlisting/portlet/create_folderlisting.html</portlet-create-specific-template>
+            <portlet-modify-specific-template>/admin/plugins/folderlisting/portlet/modify_folderlisting.html</portlet-modify-specific-template>
+            <portlet-create-specific-form-template></portlet-create-specific-form-template>
+            <portlet-modify-specific-form-template></portlet-modify-specific-form-template>
+        </portlet>
+    </portlets>
+    
+</plug-in>

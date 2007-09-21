@@ -1,0 +1,35 @@
+<div class="content-box" >
+    
+    <h2>#i18n{module.mylutece.ldapdatabase.manage_users.tableTitle}</h2>
+    
+    <table>
+        <tr>
+            <th>#i18n{module.mylutece.ldapdatabase.manage_users.colLastName}</th>
+            <th>#i18n{module.mylutece.ldapdatabase.manage_users.colFirstName}</th>
+            <th>#i18n{module.mylutece.ldapdatabase.manage_users.colEmail}</th>
+			<th>#i18n{module.mylutece.ldapdatabase.manage_users.colActions}</th>
+        </tr>
+        <#list user_list as user >
+        <tr>
+	        <td>${user.lastName}</td>
+	        <td>${user.firstName}</td>
+	        <td>${user.email}</td>
+	        <td>
+	        	<a href="jsp/admin/plugins/mylutece/modules/ldapdatabase/ManageRolesUser.jsp?plugin_name=${plugin_name}&mylutece_ldap_user_id=${user.userId}">
+		        	<img src="images/admin/skin/actions/roles.png" class="icon" alt="#i18n{module.mylutece.ldapdatabase.manage_users.linkManageRoles}" title="#i18n{module.mylutece.ldapdatabase.manage_users.linkManageRoles}" />
+				</a>
+	            <a href="jsp/admin/plugins/mylutece/modules/ldapdatabase/RemoveUser.jsp?plugin_name=${plugin_name}&mylutece_ldap_user_id=${user.userId}">
+	                <img src="images/admin/skin/actions/delete.png" class="icon" alt="#i18n{module.mylutece.ldapdatabase.manage_users.linkRemoveUser}" title="#i18n{module.mylutece.ldapdatabase.manage_users.linkRemoveUser}" />
+	            </a>
+	        </td>
+        </tr>
+        </#list>
+    </table>
+    
+    <p>
+        <form action="jsp/admin/plugins/mylutece/modules/ldapdatabase/CreateUser.jsp">
+            <input type="hidden" name="plugin_name" value="${plugin_name}" />
+            <input type="submit" class="button" value="#i18n{module.mylutece.ldapdatabase.manage_users.btnCreateUser}" />
+        </form>
+    </p>
+</div>

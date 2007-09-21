@@ -1,0 +1,56 @@
+<div id="one-zone-first">
+    <div id="one-zone-first-content">
+        <h2 class="page-title">#i18n{myapps.page_myapps.myapps_management.title}</h2>
+        <div class="myapps-content">
+            <table summary="#i18n{myapps.page_myapps.myapps_management.tableSummary}" class="myapps-table">
+                <tr>
+                    <th>#i18n{myapps.page_myapps.columnTitleIcon}</th>
+                    <th>#i18n{myapps.page_myapps.columnTitleName}</th>
+                    <th>#i18n{myapps.page_myapps.columnTitleState}</th>
+                    <th>#i18n{myapps.page_myapps.columnTitleDescription}</th>  
+                    <th>#i18n{myapps.page_myapps.columnTitleAction}</th>         
+                </tr>
+                <#if myapps_list?exists>
+                <#list myapps_list as myapp>
+                <tr > 
+                    <#assign button="disable">
+                    <#if myapps_list_user?exists>
+                    <#list myapps_list_user as myapp_user>
+                    <#assign idApplicationUser=myapp_user.idApplication>
+                    <#if idApplicationUser=myapp.idApplication>
+                    <#assign button="enable">
+                    </#if>
+                    </#list>
+                    </#if>
+                    <td><img src="image?resource_type=myapps_icon&id=${myapp.idApplication}" alt="${myapp.description}" width="36" height="36"/></td>
+                    <td> <strong>${myapp.name}</strong> </td>
+                    <td><img src="images/admin/skin/${button}.png" alt="<#if button="enable">#i18n{myapps.page_myapps.buttonEnabled}<#else>#i18n{myapps.page_myapps.buttonDisabled}</#if>" /></td>
+                    <td>${myapp.description}</td>
+                    <td>
+                        <#if button="enable">
+                        <form method="post" action="">
+                            <div>
+                                <input type="hidden" name="page" value="myapps" />
+                                <input type="hidden" name="action" value="modify" />
+                                <input type="hidden" name="id_app" value="${myapp.idApplication}" />
+                                <input type="submit" value="#i18n{myapps.page_myapps.buttonModifyMyApp}" class="button" />
+                            </div>
+                        </form>
+                        <#else>
+                        <form method="post" action="">
+                            <div>
+                                <input type="hidden" name="page" value="myapps" />
+                                <input type="hidden" name="action" value="insert" />
+                                <input type="hidden" name="id_app" value="${myapp.idApplication}" />
+                                <input type="submit" value="#i18n{myapps.page_myapps.buttonAddMyApp}" class="button" />
+                            </div>
+                        </form>
+                        </#if>
+                    </td>
+                </tr>	
+                </#list>
+                </#if>   
+            </table>
+        </div>
+    </div>
+</div>

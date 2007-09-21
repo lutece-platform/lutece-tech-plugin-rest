@@ -1,0 +1,169 @@
+<script>
+function checkFiltreSearch( ) 
+{
+	var filtreProjet = document.getElementById('projet').checked;
+	var filtreProposition = document.getElementById('proposition').checked;
+	var filtreAmendement = document.getElementById('amendement').checked;
+	var filtreVoeu = document.getElementById('voeu').checked;
+	
+	document.getElementById('direction').disabled = !filtreProjet;
+	
+	document.getElementById('categorie').disabled = ( !filtreProjet && !filtreProposition );
+	document.getElementById('arrondissement').disabled = ( !filtreProjet && !filtreProposition );
+
+	document.getElementById('rapporteur').disabled = ( !filtreProjet && !filtreProposition && !filtreVoeu )
+	
+	document.getElementById('groupe').disabled = ( !filtreAmendement && !filtreProposition && !filtreVoeu );
+	document.getElementById('elu').disabled = ( !filtreAmendement && !filtreProposition && !filtreVoeu );
+	
+	document.getElementById('commission').disabled = ( !filtreProjet && !filtreProposition && !filtreAmendement && !filtreVoeu );
+	var listeConseil = document.getElementById('formulaireSearch').elements['conseil'];
+	var isOk = ( !filtreProjet && !filtreProposition && !filtreAmendement && !filtreVoeu );
+	for ( i = 0; i < listeConseil.length; i++ )
+	{
+		listeConseil[i].disabled = isOk;
+	}
+}
+</script>
+
+<div id="page-content-left">
+	<#include "page_content_left.html">
+</div>
+<div id="page-content-right">
+	<div id="out-min-height">
+		<div id="in-min-height">
+			<div id="one-zone-first">
+				<div id="one-zone-first-content">
+					<h1>#i18n{ods.front.recherchearchives.label.titre}</h1>
+					<!--bloc-->
+					<form class="default-form" action="jsp/site/Portal.jsp?page=ods_recherche_archives" method=post>
+						<fieldset>
+							<p>
+								<input type="hidden" id="result" name="result" value="oui" />
+								<input type="hidden" id="type" name="type" value="reference"/>
+								<label class="text-label" for="code_pdd">
+									 #i18n{ods.front.recherchearchives.label.codeProjet}/<br/>
+									 #i18n{ods.front.recherchearchives.label.codeProposition}
+								</label>
+								<input type="text" id="code_pdd" name="code_pdd" />
+								<input type="submit" value="#i18n{ods.front.recherchearchives.button.submit}" title="rechercher" id="ods-btn-rechercher" />
+								<br/>
+								<span class="ods-notes">#i18n{ods.front.recherchearchives.label.formatComment}</span>
+							</p>
+						</fieldset>
+					</form>
+					<p class="espace_10"></p>
+					<form class="default-form" action="jsp/site/Portal.jsp?page=ods_recherche_archives" method=post id="formulaireSearch">
+						<fieldset>
+							<input type="hidden" id="result" name="result" value="oui" />
+							<input type="hidden" id="type" name="type" value="multi"/>
+							<label class="text-label" for="">#i18n{ods.front.recherchearchives.label.typeDoc}</label>
+							<table cellpadding="0" cellspacing="0">
+								<tr>
+									<td>
+										<input id="projet" name="projet" type="checkbox" checked="checked" onClick="javascript: checkFiltreSearch();" />
+										<label class="checkbox-label" for="projet">#i18n{ods.front.recherchearchives.label.projetDelib}</label>
+										<br/>
+										<input id="proposition" name="proposition" type="checkbox" checked="checked" onClick="javascript: checkFiltreSearch();" />
+										<label class="checkbox-label" for="proposition">#i18n{ods.front.recherchearchives.label.propDelib}</label>
+										<br />
+										<input id="amendement" name="amendement" type="checkbox" checked="checked" onClick="javascript: checkFiltreSearch();" />
+										<label class="checkbox-label" for="amendement">#i18n{ods.front.recherchearchives.label.amendement}</label>
+										<input id="voeu" name="voeu" type="checkbox" checked="checked" onClick="javascript: checkFiltreSearch();" />
+										<label class="checkbox-label" for="voeu">#i18n{ods.front.recherchearchives.label.voeu}</label>
+										<input id="seance" name="seance" checked="checked" type="checkbox">
+										<label class="checkbox-label" for="seance">#i18n{ods.front.recherchearchives.label.ficheSeance}</label>
+										<input id="autres" name="autres" checked="checked" type="checkbox">
+										<label class="checkbox-label" for="autres">#i18n{ods.front.recherchearchives.label.autres}</label>
+									</td>
+								</tr>
+							</table>
+							<p>
+								<label class="text-label" for="date_start">#i18n{ods.front.recherchearchives.label.dates}</label>
+								<input id="j_date1" name="j_date1" size="2" maxlength="2" type="text">
+								<input id="m_date1" name="m_date1" size="2" maxlength="2" type="text">
+								<input id="a_date1" name="a_date1" size="4" maxlength="4" type="text">
+								#i18n{ods.front.recherchearchives.label.and}
+								<input id="j_date2" name="j_date2" size="2" maxlength="2" type="text">
+								<input id="m_date2" name="m_date2" size="2" maxlength="2" type="text">
+								<input id="a_date2" name="a_date2" size="4" maxlength="4" type="text">
+								<span class="ods-notes">#i18n{ods.front.recherchearchives.label.dateFormat}</span>
+							</p>
+							<p></p>
+							<p>
+								<label class="text-label" for="search">#i18n{ods.front.recherchearchives.label.mots}</label>
+								<input type="text" name="search" id="search" size="30" value="" /> 
+							</p>
+							<p>
+								<label class="text-label" for="conseil">#i18n{ods.front.recherchearchives.label.formation}</label>
+								<#list liste_conseils as conseil>
+									<input id="conseil" name="conseil" type="checkbox" value="${conseil.idFormationConseil}" checked="checked" />
+									<label class="checkbox-label" for="conseil">${conseil.libelle}</label>
+								</#list>
+							</p>
+							<p>
+								<label class="text-label" for="commission">#i18n{ods.front.recherchearchives.label.commission}</label>
+								<select id="commission" name="commission" size="3" multiple="multiple" >
+									<#list liste_commissions as commission>
+										<option value="${commission.idCommission}">${commission.libelle}</option>
+									</#list>
+								</select>
+								<label class="ods-text-label-2" for="">#i18n{ods.front.recherchearchives.label.rapporteur}</label>
+								<select id="rapporteur" name="rapporteur" size="3" multiple="multiple" >
+									<#list liste_elus_rapporteurs as rapporteur>
+										<option value="${rapporteur.idElu}">
+											${rapporteur.civilite} ${rapporteur.prenomElu} ${rapporteur.nomElu}
+										</option>
+									</#list>
+								</select>
+							</p>
+							<p>
+								<label class="text-label" for="arrondissement">#i18n{ods.front.recherchearchives.label.arrondissement}</label>
+								<select id="arrondissement" name="arrondissement" size="3" multiple="multiple" >
+									<#list 1..20 as arrondissement>
+										<option value="${arrondissement}">${arrondissement}</option>
+									</#list>
+								</select>
+								<label class="ods-text-label-2" for="">#i18n{ods.front.recherchearchives.label.direction}</label>
+								<select id="direction" name="direction" size="3" multiple="multiple" >	
+									<#list liste_directions as direction>
+										<option value="${direction.idDirection}">${direction.libelleCourt}</option>
+									</#list>
+								</select>
+							</p>
+							<p>
+								<label class="text-label" for="categorie">#i18n{ods.front.recherchearchives.label.catDelib}</label>
+								<select id="categorie" name="categorie" size="3" multiple="multiple" >
+									<#list liste_categories as categorie>
+										<option value="${categorie.idCategorie}">${categorie.libelle}</option>
+									</#list>
+								</select>
+							</p>
+							<p>
+								<label class="text-label" for="groupe">#i18n{ods.front.recherchearchives.label.depositaire}</label>
+								<select id="groupe" name="groupe" size="3" multiple="multiple" >
+									<#list liste_groupes as groupe>
+										<option value="${groupe.idGroupe}">${groupe.nomGroupe}</option>
+									</#list>
+								</select>
+								<label class="ods-text-label-2" for="elu">#i18n{ods.front.recherchearchives.label.elu}</label>
+								<select id="elu" name="elu" size="3" multiple="multiple" >
+									<#list liste_elus as elu>
+										<option value="${elu.idElu}">
+											${elu.nomElu} ${elu.prenomElu} (${elu.groupe.nomGroupe})
+										</option>
+									</#list>
+								</select>
+							</p>
+							<p class="buttons">
+								<input  name="submit" type="submit" value="#i18n{ods.front.recherchearchives.button.search}" title="Rechercher" id="ods-btn-rechercher" />
+								<input name="reset" type="reset" value="#i18n{ods.front.recherchearchives.button.reinit}" id="ods-btn-reinit" />
+							</p>
+						</fieldset>
+					</form>
+					<p class="espace_10"> </p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

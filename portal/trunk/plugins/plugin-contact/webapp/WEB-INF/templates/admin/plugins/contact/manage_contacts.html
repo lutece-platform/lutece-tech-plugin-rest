@@ -1,0 +1,48 @@
+
+<div class="content-box" >
+    <h2>#i18n{contact.manage_contacts.tableLabel}</h2>
+        
+    <table>
+        <tr>
+            <th width="40%">#i18n{contact.manage_contacts.columnTitleLabel}</th>
+            <th width="30%">#i18n{contact.manage_contacts.columnTitleEmail}</th>
+            <th width="20%">#i18n{contact.manage_contacts.columnTitleOrder}</th>
+            <th width="10%">#i18n{contact.manage_contacts.columnTitleActions}</th>
+        </tr>
+                
+        <#list contact_list as contact >
+	                
+        <tr>
+            <td width="40%">
+                <a href="jsp/admin/plugins/contact/ModifyContact.jsp?contact_id=${contact.id}" class="admin-menu">
+                    ${contact.name}
+                </a>
+            </td>
+            <td width"40%">
+                ${contact.email}
+            </td>
+            <td>
+                <form method="post"  action="jsp/admin/plugins/contact/DoModifyContactsOrder.jsp">
+                    <input type="hidden" name="contact_id" value="${contact.id}" />			
+                    <@combo name="contacts_order" default_value="${contact.contactOrder}" items=order_list />
+                    <input type="submit" class="button" value="#i18n{contact.manage_contacts.buttonChangeOrder}" />
+                </form>
+            </td>           
+            <td>
+                <a href="jsp/admin/plugins/contact/RemoveContact.jsp?contact_id=${contact.id}">
+                    <img src="images/admin/skin/actions/delete.png" alt="#i18n{contact.manage_contacts.actionDelete}" title="#i18n{contact.manage_contacts.actionDelete}" />
+                </a>
+            </td>
+        </tr>					
+        </#list>
+                
+    </table>
+
+    <form method="post"  action="jsp/admin/plugins/contact/CreateContact.jsp">
+        <input type="submit" value="#i18n{contact.manage_contacts.buttonAddContact}" class="button" />
+    </form>
+
+</div>
+
+
+

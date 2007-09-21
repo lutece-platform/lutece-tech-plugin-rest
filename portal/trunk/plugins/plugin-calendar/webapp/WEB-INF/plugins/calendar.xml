@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<plug-in>
+
+    <!-- Plugin Informations -->
+    <name>calendar</name>
+    <class>fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation</class>
+    <version>2.0</version>
+    <documentation></documentation>
+    <installation></installation>
+    <changes></changes>
+    <user-guide></user-guide>
+    <description>calendar.plugin.description</description>
+    <provider>calendar.plugin.provider</provider>
+    <provider-url>http://lutece.paris.fr</provider-url>
+    <icon-url>images/admin/skin/plugins/calendar/calendar.png</icon-url>
+    <copyright>Copyright 2001-2005 Mairie de Paris</copyright>
+
+    <!-- if the plugin must have a connection pool with parameter : 1 - yes, 0 - no -->
+    <db-pool-required>1</db-pool-required>
+    
+    <admin-features>
+        <admin-feature>
+            <feature-id>CALENDAR_MANAGEMENT</feature-id>
+            <feature-title>calendar.adminFeature.calendar_management.name</feature-title>
+            <feature-description>calendar.adminFeature.calendar_management.description</feature-description>
+            <feature-level>3</feature-level>
+            <feature-url>jsp/admin/plugins/calendar/ManageCalendars.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/calendar/calendar.png</feature-icon-url>
+        </admin-feature>
+    </admin-features>
+    
+    
+    <!-- Specific plugin CSS stylesheet -->
+    <css-stylesheet>calendar/calendar.css</css-stylesheet>
+
+
+    <!-- Xpage configuration -->
+    <applications>
+        <application>
+            <application-id>calendar</application-id>
+            <application-class>fr.paris.lutece.plugins.calendar.web.CalendarApp</application-class>
+        </application>
+    </applications>   
+        <!-- Portlet parameters -->
+    <portlets>
+        <portlet>
+            <portlet-class>fr.paris.lutece.plugins.calendar.business.portlet.CalendarPortletHome</portlet-class>
+            <portlet-type-id>CALENDAR_PORTLET</portlet-type-id>
+            <portlet-type-name>calendar.portlet.name</portlet-type-name>
+            <portlet-creation-url>plugins/calendar/CreatePortletCalendar.jsp</portlet-creation-url>
+            <portlet-update-url>plugins/calendar/ModifyPortletCalendar.jsp</portlet-update-url>
+            <portlet-create-action-url>plugins/calendar/DoCreatePortletCalendar.jsp</portlet-create-action-url>
+            <portlet-modify-action-url>plugins/calendar/DoModifyPortletCalendar.jsp</portlet-modify-action-url>
+            <!-- optional entries -->
+            <portlet-create-script-template>/admin/portlet/script_create_portlet.html</portlet-create-script-template>
+            <portlet-modify-script-template>/admin/portlet/script_modify_portlet.html</portlet-modify-script-template>
+            <portlet-create-specific-template></portlet-create-specific-template>
+            <portlet-modify-specific-template>/admin/plugins/calendar/portlet_modify_calendar.html</portlet-modify-specific-template>
+            <portlet-create-specific-form-template></portlet-create-specific-form-template>
+            <portlet-modify-specific-form-template></portlet-modify-specific-form-template>    
+        </portlet>
+
+    </portlets>
+
+</plug-in>
+

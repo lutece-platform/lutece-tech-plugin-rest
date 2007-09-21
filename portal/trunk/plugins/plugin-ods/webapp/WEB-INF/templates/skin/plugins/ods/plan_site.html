@@ -1,0 +1,74 @@
+
+
+
+  <#if seance?exists>  
+   <div id="out-min-height">
+    <div id="in-min-height">
+     <div id="one-zone-first">
+      <div id="one-zone-first-content">
+       <h1>#i18n{ods.front.label.plansite}</h1>
+	   <h2>#i18n{ods.front.menu.aconsulter}</h2>
+		<ul>
+			<li>
+				<a href="jsp/site/Portal.jsp?page=ods_prochain_conseil">#i18n{ods.front.menu.prochainconseil}</a></a>
+				<ul>
+					<li>#i18n{ods.front.prochainconseil.label.projet}
+				         <#list liste_formation_conseil_pj as formationConseil>
+				         	<#if formationConseil_has_next>
+				       			<a href="jsp/site/Portal.jsp?page=ods_direction_list&id_seance=${seance.idSeance}&id_formation_conseil=${formationConseil.idFormationConseil}">${formationConseil.libelle}</a>,
+				        	<#else>
+				        		<a href="jsp/site/Portal.jsp?page=ods_direction_list&id_seance=${seance.idSeance}&id_formation_conseil=${formationConseil.idFormationConseil}">${formationConseil.libelle}</a>
+				        	</#if>
+				        </#list>
+					</li>
+					<li>#i18n{ods.front.prochainconseil.label.proposition}
+						<#list liste_formation_conseil_pp as formationConseil>
+							<#if formationConseil_has_next>
+								<a href="jsp/site/Portal.jsp?page=ods_pdd_list&id_seance=${seance.idSeance}&id_formation_conseil=${formationConseil.idFormationConseil}&type=PP">${formationConseil.libelle}</a>,
+							<#else>
+								<a href="jsp/site/Portal.jsp?page=ods_pdd_list&id_seance=${seance.idSeance}&id_formation_conseil=${formationConseil.idFormationConseil}&type=PP">${formationConseil.libelle}</a>
+							</#if>
+						</#list>
+					</li>
+					<li>#i18n{ods.front.prochainconseil.label.amendement}
+						<#list liste_formation_conseil_va as formationConseil>
+							<#if formationConseil_has_next>
+								<a href="jsp/site/Portal.jsp?page=ods_liasse&id_seance=${seance.idSeance}&id_formation_conseil=${formationConseil.idFormationConseil}">${formationConseil.libelle}</a>,
+							<#else>
+								<a href="jsp/site/Portal.jsp?page=ods_liasse&id_seance=${seance.idSeance}&id_formation_conseil=${formationConseil.idFormationConseil}">${formationConseil.libelle}</a>
+							</#if>
+						</#list>
+					</li>
+				</ul>
+				<ul class="ods-anchors">
+			      <li><a href="jsp/site/Portal.jsp?page=ods_prochain_conseil&id_commission=${id_commission}#ANC_1">#i18n{ods.front.prochainconseil.label.odj}</a>: #i18n{ods.front.prochainconseil.label.odj.def}</li>
+			      <li><a href="jsp/site/Portal.jsp?page=ods_prochain_conseil&id_commission=${id_commission}#ANC_2">#i18n{ods.front.prochainconseil.label.autreDocumentSeance}</a>: #i18n{ods.front.prochainconseil.label.autreDocumentSeance.def}</li>
+			      <li><a href="jsp/site/Portal.jsp?page=ods_prochain_conseil&id_commission=${id_commission}#ANC_3">#i18n{ods.front.prochainconseil.label.documentscommissions}</a>: #i18n{ods.front.prochainconseil.label.documentscommissions.def}</li>
+				</ul>
+			</li>
+		</ul>
+     <ul>        
+     
+     	<li><a href="jsp/site/Portal.jsp?page=ods_recherche">#i18n{ods.front.menu.rechercheavancee}</a></li>
+     	<li><a href="jsp/site/Portal.jsp?page=ods_calendrier">#i18n{ods.front.menu.calendrier}</a></li>
+        <li><a href="jsp/site/Portal.jsp?page=ods_recherche_archives">#i18n{ods.front.menu.archives}</a></li>
+        <li><a href="jsp/site/Portal.jsp?page=ods_derniers_conseils">#i18n{ods.front.menu.derniersconseils}</a></li>
+     </ul>
+     <h2>#i18n{ods.front.menu.espaceperso}</h2>
+       <ul>
+
+        <li ><a href="jsp/site/Portal.jsp?page=ods_mon_profil">#i18n{ods.front.menu.profil}</a></li>
+		<li ><a href="jsp/site/Portal.jsp?page=ods_mes_criteres">#i18n{ods.front.menu.criteres}</a></li>
+		<li ><a href="jsp/site/Portal.jsp?page=ods_panier">#i18n{ods.front.menu.panier}</a></li>
+	
+       </ul>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+
+  <#else>
+  <h1>Probleme de parametres</h1>
+  </#if>
+ 

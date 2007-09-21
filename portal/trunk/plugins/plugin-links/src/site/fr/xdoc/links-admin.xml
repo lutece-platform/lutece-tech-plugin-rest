@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<properties>
+		<title>Guide utilisateur du plugin Newsletter</title>
+	</properties>
+	<body>
+		<section name="Gestion des liens utiles">
+			<subsection name="Description">
+				<p>
+					Les utilisateurs ayant les droits nécessaires
+					peuvent accéder à la page de gestion des liens
+					utiles. Cette page présente à l'aide d'un tableau
+					l'ensemble des liens.
+
+					<img src="../../../src/site/resources/images/links_manual_001.gif" alt="Image" />
+				</p>
+			</subsection>
+			<subsection name="Les actions possibles">
+				<p>
+					<ul>
+						<li>
+							Le bouton «
+							<u>Ajouter un lien</u>
+							» redirige l'utilisateur vers la page de
+							création d'un lien utile.
+						</li>
+						<li>
+							Le bouton «
+							<u>Gérer la page des liens utiles</u>
+							» redirige l'utilisateur vers la page de
+							gestion de la page spéciale du site.
+						</li>
+						<li>
+							Le clic sur le nom d'un lien redirige vers
+							la page de modification d'un lien.
+						</li>
+						<li>
+							Le clic sur une url d'un lien ouvre cette
+							url dans une nouvelle fenêtre.
+						</li>
+					</ul>
+				</p>
+			</subsection>
+
+		</section>
+
+		<section name="Création d'un lien utile">
+			<subsection name="Description">
+				<p>
+					Cette page permet de créer un nouveau lien à partir
+					des informations suivantes:
+					<ul>
+						<li>Nom</li>
+						<li>Url par défaut</li>
+						<li>Url externe</li>
+						<li>Description</li>
+						<li>Image</li>
+					</ul>
+					<img src="../../../src/site/resources/images/links_manual_002.gif" alt="Image" />
+				</p>
+			</subsection>
+			<subsection name="Les actions possibles">
+				<p>
+					<ul>
+						<li>
+							Le bouton «
+							<u>Browse</u>
+							» permet de sélectionner une image à
+							associer au lien
+						</li>
+						<li>
+							Le bouton «
+							<u>Créer</u>
+							» permet de créer le lien.
+						</li>
+					</ul>
+				</p>
+				<p>
+					Dans les lignes de saisie d'url alternatives, les
+					boutons radio permettent d'effectuer les actions
+					suivantes :
+					<ul>
+						<li>
+							la sélection du premier bouton radio permet
+							une saisie libre de l'url;
+						</li>
+						<li>
+							la sélection du bouton radio « Url par
+							défaut » permet de renseigner automatiquemt
+							l'url avec l'url par défaut;
+						</li>
+						<li>
+							la sélection du bouton radio « Non définie »
+							permet de ne pas renseigner d'url.
+						</li>
+					</ul>
+				</p>
+			</subsection>
+
+		</section>
+
+		<section name="Modification d'un lien utile">
+			<subsection name="Description">
+				<p>
+					Cette page permet de modifier les informations d'un
+					lien.
+					<img src="../../../src/site/resources/images/links_manual_003.gif" alt="Image" />
+				</p>
+			</subsection>
+			<subsection name="Les actions possibles">
+				<p>
+					<ul>
+						<li>
+							Le bouton «
+							<u>Modifier</u>
+							» permet d'enregistrer les modifications.
+						</li>
+						<li>
+							Le bouton «
+							<u>Supprimer</u>
+							» permet de demander la suppression du lien.
+						</li>
+					</ul>
+				</p>
+			</subsection>
+
+		</section>
+
+		<section name="Suppression d'un lien utile">
+			<subsection name="Description">
+				<p>
+					Lors de la demande de suppression d'un lien utile,
+					une page de confirmation est affichée, permettant à
+					l'utilisateur d'annuler sa demande.
+					<img src="../../../src/site/resources/images/links_manual_004.gif" alt="Image" />
+				</p>
+			</subsection>
+			<subsection name="Les actions possibles">
+				<p>
+					<ul>
+						<li>
+							Le bouton «
+							<u>Confirmer</u>
+							» supprime le lien de la base et
+							redirige l' utilisateur vers la page de
+							gestion des liens utiles.
+						</li>
+						<li>
+							Le bouton «
+							<u>Annuler</u>
+							» ne modifie pas les données et redirige l'
+							utilisateur vers la page du lien.
+						</li>
+					</ul>
+				</p>
+			</subsection>
+
+		</section>
+			<section name="Gestion de la page spéciale du site">
+			<subsection name="Description">
+			<p>
+			Cette page permet de sélectionner les rubriques liens utiles du site à afficher sur la page spéciale.
+			<img src="../../../src/site/resources/images/links_manual_007.gif" alt="Image" />
+			</p>
+			</subsection>
+			<subsection name="Les actions possibles">
+			<p>
+			<ul>
+			<li>Le bouton « Ajouter » permet d'ajouter une rubrique sur la page spéciale</li>
+			<li>Le bouton « Modifier » permet de modifier le rang de la rubrique dans la page</li>
+			<li>Le bouton <img src="../../../src/site/resources/images/links_manual_006.gif" /> permet de supprimer un rubrique de la page</li>
+			</ul>
+			</p>
+			</subsection>
+			
+			</section>
+
+		<section name="Portlet liens utiles">
+			<subsection name="Description">
+				<p>
+					L'ajout d'une rubrique « Liens utiles »
+					dirige l'utilisateur vers une page de création de
+					rubrique contenant les informations générales d'une
+					rubrique :
+					<ul>
+						<li>
+							Titre de la rubrique (obligatoire), le type
+							d'affichage (avec ou sans titre), l'ordre,
+							la colonne, le style, l'acceptation ou non
+							des alias.
+						</li>
+					</ul>
+
+					La modification d'une rubrique Liens utiles ajoute à ces informations :
+					<ul>
+						<li>
+						La liste des liens retenus
+						</li>
+						<li>
+							Une liste des liens disponibles (titre
+							et url) dans une liste déroulante pour l'insertion dans la
+							portlet Liens utiles.
+						</li>
+					</ul>
+					<img src="../../../src/site/resources/images/links_manual_005.gif" alt="Image" />
+				</p>
+			</subsection>
+			<subsection name="Les actions possibles">
+				<p>
+									<ul>
+						<li>
+							Le bouton « 
+							<u>Valider</u>
+							 » permet d'enregistrer les changements
+							effectués et de prendre en compte les
+							liens ajoutés par l'utilisateur.
+						</li>
+						<li>
+							Le bouton « 
+							<u>Retour</u>
+							 » redirige l'utilisateur vers la page
+							contenant le portlet.
+						</li>
+						<li>Le bouton « Modifier » permet de modifier l'ordre d'apparition du lien dans la portlet</li>
+						<li>Le bouton <img src="../../../src/site/resources/images/links_manual_006.gif" /> permet de retirer le lien de la portlet</li>
+						<li>Le bouton « Ajouter » permet d'ajouter le lien sélectionné au rang voulu</li>
+						
+					</ul>
+				
+				</p>
+			</subsection>
+
+		</section>
+		<!--  modele
+			<section name="Gestion des modèles">
+			<subsection name="Description">
+			<p></p>
+			</subsection>
+			<subsection name="Les actions possibles">
+			<p></p>
+			</subsection>
+			
+			</section>
+		-->
+	</body>
+</document>

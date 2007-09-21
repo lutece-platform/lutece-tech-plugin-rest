@@ -1,0 +1,54 @@
+<div id="barre">
+	<ul>
+	  <li id="ocritere">1. #i18n{pollingstationsearch.search_page.sub_title2}</li>
+	  <li id="ochoix2">2. #i18n{pollingstationsearch.street_list.your_address}</li>
+	  <li id="olisteon">3. #i18n{pollingstationsearch.result_page.your_polling_station}</li>
+	</ul>
+</div>
+
+<div id="cadre">
+<p align="center"><b>#i18n{pollingstationsearch.result_page.your_polling_station}</b></p>
+	<form class="default-form" name="searchForm" method="post" action="${mark_url_jsp}?page=${mark_plugin_name}">
+		<input type="hidden" name="number_suffix" value="${mark_number_suffix}" />
+		<input type="hidden" name="street_number" value="${mark_street_number}" />
+		<input type="hidden" name="short_street_type" value="${mark_street_type}" />
+		<input type="hidden" name="street_name" value="${mark_street_name}" />
+		<input type="hidden" name="street_urban_district" value="${mark_street_urban_district}" />
+		
+		<fieldset>
+			<legend>#i18n{pollingstationsearch.result_page.address_selected} :</legend>
+			<p>
+				<strong>${mark_street_number}&nbsp;${mark_number_suffix_in_database}&nbsp;${mark_street_name_in_database}&nbsp;${mark_city}&nbsp;${mark_street_urban_district_in_database?number}</strong>
+			</p>
+		</fieldset>
+
+		<br/>
+		
+		<#if mark_polling_station?has_content>
+			<fieldset>
+				<legend>#i18n{pollingstationsearch.result_page.pollingstation_found} :</legend>		
+				<ul>
+					<li>
+						#i18n{pollingstationsearch.result_page.pollingstation_number}${mark_polling_station.pollingStationNumber}
+						<br>
+						${mark_polling_station.pollingStationName}
+						<br>
+						${mark_polling_station.pollingStationAddrNumber}&nbsp;${mark_polling_station.pollingStationAddr}&nbsp;#i18n{pollingstationsearch.result_page.city_name}&nbsp;${mark_polling_station.pollingStationAddrUrbanDistrict}&nbsp;
+						<br>
+						<p>${mark_message_result_info}</p>
+					</li>
+				</ul>
+			</fieldset>
+		<#else>
+			<p align="center"><strong>${mark_message}</strong></p>
+		</#if>
+		
+		<p>#i18n{pollingstationsearch.result_page.info.complementary}</p>
+		<p><a href="http://www.paris.fr/portail/vosdemarches/Portal.lut?page_id=5474&amp;document_type_id=5&amp;document_id=8030&amp;portlet_id=11812" target="_blank"><span class="aquo">» </span>#i18n{pollingstationsearch.result_page.district.links}</a></p>
+		
+		<p align="center">
+			<input type="button" class="button" value="#i18n{pollingstationsearch.result_page.return.button}" onclick="history.go(-1)" target="" />
+			<input type="submit" class="button" name="action_reset" value="#i18n{pollingstationsearch.result_page.new_search.button}"/>
+		 </p>
+	</form>
+</div>

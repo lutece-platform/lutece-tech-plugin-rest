@@ -1,0 +1,47 @@
+<div id="barre">
+	<ul>
+      <li id="ocritere2">1. #i18n{pollingstationsearch.search_page.sub_title2}</li>
+      <li id="ochoixon">2. #i18n{pollingstationsearch.street_list.your_address}</li>
+      <li id="oliste">3. #i18n{pollingstationsearch.result_page.your_polling_station}</li>
+    </ul>
+</div>
+
+<div id="cadre">
+
+<p align="center"><b>#i18n{pollingstationsearch.street_list.your_address}</b></p>
+
+<div><strong><#if mark_message?has_content>[${mark_message}]</#if></strong></div>
+<p/>
+	<form class="default-form" name="searchForm" method="post" action="${mark_url_jsp}?page=${mark_plugin_name}">
+		<input type="hidden" name="number_suffix" value="${mark_number_suffix_id}" />
+		<input type="hidden" name="street_number" value="${mark_street_number}" />
+		<input type="hidden" name="short_street_type" value="${mark_street_type.shortStreetType}" />
+		<input type="hidden" name="street_name" value="${mark_street_name}" />
+		<input type="hidden" name="street_urban_district" value="${mark_street_urban_district}" />
+		<fieldset>
+			<legend>#i18n{pollingstationsearch.street_list.your_search}&nbsp;:</legend>
+			<p>
+			#i18n{pollingstationsearch.street_list.urban_district}&nbsp;:&nbsp;<b>${mark_street_urban_district?number}</b>
+			<br/>
+			#i18n{pollingstationsearch.street_list.street_number}&nbsp;:&nbsp;<b>${mark_street_number}&nbsp;${mark_number_suffix}</b>
+			<br/>
+			#i18n{pollingstationsearch.street_list.street_type}&nbsp;:&nbsp;<b>${mark_street_type.longStreetType}</b>
+			<br/>
+			#i18n{pollingstationsearch.street_list.street_name}&nbsp;:&nbsp;<b>${mark_street_name}</b>
+			</p>
+		</fieldset>
+		<br/>
+		<fieldset>
+			<legend>#i18n{pollingstationsearch.street_list.select_street.label} :</legend>
+			
+			<#list mark_street_list as street>
+				<input class="radio" type="radio" name="street_code" value="${street.streetId}">${street.longStreetName}<br />
+			</#list>
+			
+		 </fieldset>
+		 <p align="center">
+				 <input type="submit" class="button" name="action_select" value="#i18n{pollingstationsearch.street_list.select_street.select.button}"/>
+				<input type="submit" class="button" name="action_newsearch" value="#i18n{pollingstationsearch.street_list.back.button}"/>
+		 </p>
+	</form>
+</div>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+    <properties>
+        <title>
+           Module des applications favorites : Guide utilisateur
+        </title>
+    </properties>
+    <body>
+    	    	
+    	
+		<section name="Ecran de gestion des sites myapps">
+        	<subsection name="Description">
+	    			
+	    				<p>
+	    				Après avoir installer le plugin myapps.Cet écran est dans l'interface d'administration et permet d'ajouter un site et ses propriétés auquel
+	    				les utilisateurs autorisés auront la possibilité de se connecter.
+						</p>
+						
+						<center><img src="images/myapps_admin_screen.jpg"  border="1" alt="" />			</center>
+            <p>	
+						Le bouton « Ajouter une application » permet d'ajouter une application.
+	          </p>         
+	           </subsection>	
+	           
+	           <subsection name="Ajout d'une application">
+	           	<center><img src="images/myapps_add_application_screen.jpg"  border="1" alt="" /></center>
+	   			    <p>L'ajout d'une application favorite et l'affectation les propriétés de connexion au site de l'application se font
+	   			    en utilisant l'interface au dessus.
+	   			    L'exemple concerne l'interface d'administration du site de démo de Lutèce. Mais tous les sites nécessitant un login et un code
+	   			    d'accès peuvent utiliser ce dispositif.
+							</p>
+							<ul>
+							    <li>Nom : Nom affiché sur le portail</li>
+							    <li>URL: Url de l'application</li>
+								  <li>Description : Description affiché sur le portail</li>
+								  <li>Champs Login: Champs dépendant au champ de login sur le site de l'application</li>
+								  <li>Libellé du Champs Login:Libellé affiché sur le portail</li>
+								  <li>Champs Code d'accès: Champs dépendant au champs de code d'accès sur le site de l'application</li>
+								  <li>Champs supplémentaire: Champs optionnel </li>
+							    <li>Libellé du Champs supplémentaire: Champs optionnel</li>
+							</ul>
+							<p>Le bouton « Valider » permet de sauvegarder cette application</p>
+						<p>Le bouton « Annuler » permet d'annuler l'ajout.</p>
+				
+					         
+	           </subsection>		
+		</section>
+		
+		<section name="Gestion des applications à travers du portlet">
+			<subsection name="Ajout d'une application favorite">
+				<p>
+				Après avoir insérer un portlet myapps, on pourra accéder à la gestion des applications par chaque utilisateur 
+        qui renseigne son identifiant et code d'accès à chacun des sites déclaré dans l'interface d'administration.Ces informations sont stockées et cryptées par Lutèce.
+				Dans l'image en dessous, l'utilisateur n'a pas encore configuré ses applications favorites.
+        </p>
+        <center><img src="images/myapps_portlet.jpg"  border="1" alt="" /></center>
+        <center><img src="images/myapps_front_management.jpg"  border="1" alt="" /></center>
+        
+        <p>
+        Le bouton « Ajouter » permet d'insérer une application. Le bouton « Ajouter » permet de modifier ses login et mot de
+        passe pour accéder à l'application « Email ».Dans l'image en dessous les données sont saisies à travers de l'inteface
+        d'ajout d'identifiant et mot de passe.
+        </p>
+        <center><img src="images/myapps_front_management_add.jpg"  border="1" alt="" /></center>
+        </subsection>
+		    
+			<subsection name="Naviguer sans identification supplémentaire">
+			  <center><img src="images/myapps_portlet_configured.jpg"  border="1" alt="" /></center>
+				<p>
+        Le lien « Lutèce Demo Admin  » permet de naviguer sans identification vers 
+        l'interface admin du site de démo de Lutèce.
+        </p>
+        </subsection>
+         </section>
+    </body>
+</document>  
+  

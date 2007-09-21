@@ -1,0 +1,480 @@
+<script language="JavaScript" type="text/javascript">
+
+Elus=new Array();
+<#list liste_elu_a_afficher as elu>	 
+	Elus[${elu_index}] = new Array();
+	Elus[${elu_index}][0]=${elu.idElu}
+	Elus[${elu_index}][1]=${elu.groupe.idGroupe}
+	Elus[${elu_index}][2]="${elu.civilite} ${elu.prenomElu} ${elu.nomElu} (${elu.groupe.nomGroupe})";
+</#list>      
+function updateElusList() 
+{
+	var id_groupe=document.getElementById("id_groupe").value;
+	<#if voeuamendement.parent?exists>
+		window.location = '${webapp}/jsp/admin/plugins/ods/voeuamendement/RemoveParentCreationInAmendement.jsp?id_seance=' + id_seance;
+	<#else>
+		var selectElus = document.getElementById("id_elu");
+		selectElus.options.length = 0;
+	    selectElus.options[selectElus.length] = new Option("","-1");
+	    for (i=0;i<Elus.length;i++) 
+	    {
+			if(id_groupe!=-1)
+			{
+				if(Elus[i][1]==id_groupe)
+				{
+		   			selectElus.options[selectElus.length] = new Option(Elus[i][2],Elus[i][0]);
+		   		}
+	       	}
+			else 
+			{
+				selectElus.options[selectElus.length] = new Option(Elus[i][2],Elus[i][0]);
+			}
+		}
+	</#if>
+}
+
+Fascicules=new Array();
+<#list liste_fascicule_a_afficher as fascicule>	 
+	Fascicules[${fascicule_index}] =new Array();
+	Fascicules[${fascicule_index}][0]=${fascicule.idFascicule}
+	Fascicules[${fascicule_index}][1]=${fascicule.seance.idSeance}
+	Fascicules[${fascicule_index}][2]="${fascicule.codeFascicule} ( ${fascicule.nomFascicule} )";
+</#list>  
+function updateFasciculeList() 
+{
+	var id_seance=document.getElementById("id_seance").value;
+	var selectFascicules = document.getElementById("id_fascicule");
+    selectFascicules.options.length = 0;
+    selectFascicules.options[selectFascicules.length] = new Option("","-1");
+    for (i=0;i<Fascicules.length;i++) 
+    {
+    	if(id_seance!=-1)
+      	{
+ 			if(Fascicules[i][1]==id_seance)
+			{
+         		selectFascicules.options[selectFascicules.length] = new Option(Fascicules[i][2],Fascicules[i][0]);
+            }
+       	}
+		else 
+		{
+			selectFascicules.options[selectFascicules.length] = new Option(Fascicules[i][2],Fascicules[i][0]);
+		}
+	}
+}
+
+function applyModificationAmendement() 
+{
+	var myForm = document.getElementById('modification_voeuamendement');
+	var myAction = document.getElementById('afaire');
+	myAction.value='apply';
+   	myForm.submit();
+}
+
+function cancelModification() 
+{
+	var myForm = document.getElementById('modification_voeuamendement');
+	var myAction = document.getElementById('afaire');
+	myAction.value='cancel';
+   	myForm.submit();
+}
+function doCheckboxSideEffect(isChecked) 
+{
+	if (isChecked) 
+	{
+		hideId('ods-furtive');
+	}
+	else 
+	{
+		displayId('ods-furtive');
+	}
+}
+
+function addEluInAmendement() 
+{
+	var myForm = document.getElementById('modification_voeuamendement');
+	myForm.action = "jsp/admin/plugins/ods/voeuamendement/AddEluModificationInAmendement.jsp";
+	myForm.submit();
+}
+    
+function removeEluInAmendement(id) 
+{
+	document.getElementById('idEluToRemove').value=id;
+	var myForm = document.getElementById('modification_voeuamendement');
+	myForm.action = "jsp/admin/plugins/ods/voeuamendement/RemoveEluModificationInAmendement.jsp";
+	myForm.submit();
+}
+
+function RedirectParentList()
+{
+	var selectSeance = document.getElementById('id_seance');
+	var selectFormationConseil = document.getElementById('id_formation_conseil');
+	var id_seance;
+	var id_formation_conseil;
+	var index;
+
+	for(index=0; index<selectSeance.options.length; index++)
+	{
+    	if(selectSeance.options[index].selected)
+      	{
+        	if(selectSeance.options[index].value!="")
+          	id_seance = selectSeance.options[index].value;
+        	break;
+      	}
+	}
+
+	for(index=0; index<selectFormationConseil.options.length; index++)
+	{
+    	if(selectFormationConseil.options[index].selected)
+      	{
+        	if(selectFormationConseil.options[index].value!="")
+          	id_formation_conseil = selectFormationConseil.options[index].value;
+        	break;
+      	}
+	}
+	window.location = '${webapp}/jsp/admin/plugins/ods/voeuamendement/AmendementsForParentModification.jsp?plugin_name=ods&id_seance=' + id_seance + '&id_formation_conseil=' + id_formation_conseil;
+}
+</script>
+
+<div class="content-box">
+	<#if gestion_aval=true>
+		<h2>#i18n{ods.modificationamendement.label.titleAval}</h2>
+	<#else>
+		<h2>#i18n{ods.modificationamendement.label.title}</h2>
+	</#if>
+  <form action="jsp/admin/plugins/ods/voeuamendement/DoModificationAmendement.jsp" method="post"  id="modification_voeuamendement"  enctype="multipart/form-data" >
+   <input type="hidden" id="idEluToRemove" name="id_elu_to_remove" value="">
+   <input type="hidden" id="id_voeuamendement" name="id_voeuamendement" value="${voeuamendement.idVoeuAmendement}"  />
+   <input type="hidden" name="id_fichier" value="${voeuamendement.fichier.id}"  />
+   <input type="hidden" name="afaire" id="afaire" value="save" />
+   
+   <p>
+   		<label>#i18n{ods.modificationamendement.label.seance} * : </label>
+   		<#if gestion_aval >
+			<#if !voeuamendement.enLigne || permission_modification >
+				<select name="id_seance" id="id_seance" onchange='updateFasciculeList()'>
+				<#list liste_seances as theseance>
+					<#if theseance.idSeance=seance.idSeance>
+						<option value=${theseance.idSeance} selected>
+					<#else>
+						<option value=${theseance.idSeance}>
+					</#if>	
+						#i18n{ods.listeamendements.label.from}
+			            ${theseance.dateSeance?string("dd/MM/yyyy")}
+		 				<#if theseance.dateSeance?string("ddMMyyyy") != theseance.dateCloture?string("ddMMyyyy") >
+							#i18n{ods.listeamendements.label.to}
+							${theseance.dateCloture?string("dd/MM/yyyy")}
+						</#if>
+					</option> 
+				</#list>
+				</select>
+			<#else>
+		     	#i18n{ods.listeamendements.label.from}
+				${seance.dateSeance?string("dd/MM/yyyy")}
+				<#if seance.dateSeance?string("ddMMyyyy") != seance.dateCloture?string("ddMMyyyy") >
+					#i18n{ods.listeamendements.label.to}
+					${seance.dateCloture?string("dd/MM/yyyy")} 	
+				</#if>
+			</#if>
+		<#else>
+	     	#i18n{ods.modificationamendement.label.from} ${seance.dateSeance?string("dd/MM/yyyy")}
+			<#if seance.dateSeance?string("ddMMyyyy") != seance.dateCloture?string("ddMMyyyy") >
+	     		#i18n{ods.modificationamendement.label.to} ${seance.dateCloture?string("dd/MM/yyyy")}
+	     	</#if>
+    	</#if> 
+   </p>
+   
+	<p>
+		<label for="">#i18n{ods.modificationamendement.label.conseil} * : </label>
+		<#if !voeuamendement.enLigne || permission_modification >
+		   	<#if voeuamendement.formationConseil?exists>
+		    	<@combo name="id_formation_conseil"  items=liste_formation_conseil default_value=voeuamendement.formationConseil.idFormationConseil />
+		   	<#else>
+		   		<@combo name="id_formation_conseil"  items=liste_formation_conseil default_value=-1 />
+		   	</#if>
+		<#else>
+			${voeuamendement.formationConseil.libelle}
+		</#if>
+	</p>
+   
+	<#if gestion_aval >
+       	<p>
+    	   	<label for="">#i18n{ods.modificationvoeuamendement.label.parent} : </label>
+    	   	<#if !voeuamendement.enLigne || permission_modification >
+	    	   	<#if voeuamendement.parent?exists>
+	    	   		<input name="id_parent" id="id_parent" type="hidden" value="${voeuamendement.parent.idVoeuAmendement}" />
+	    	   		<a href="jsp/admin/plugins/ods/voeuamendement/ModificationAmendement.jsp?id_voeuamendement=${voeuamendement.parent.idVoeuAmendement}">${voeuamendement.parent.referenceComplete}</a>
+	    	   		<input name="" type="button" value="#i18n{ods.all.button.deselect}" class="button" onclick="location='${webapp}/jsp/admin/plugins/ods/voeuamendement/RemoveParentModificationInAmendement.jsp'" />
+	    	   	<#else>
+	    	   		<input name="" type="button" value="#i18n{ods.all.button.select}" class="button" onclick='RedirectParentList()' />
+	    	   	</#if>
+	    	<#elseif voeuamendement.parent?exists>
+				${voeuamendement.parent.referenceComplete}
+			<#else>-</#if>
+       	</p>
+	</#if>
+    
+	<p>
+		<label for="">#i18n{ods.modificationamendement.label.reference} : </label>    
+		#i18n{ods.modificationamendement.label.reference.a}
+		<#if !voeuamendement.enLigne || permission_modification >
+			<#if voeuamendement.reference?exists>
+				<input type="text" name="reference" id="" size="10" maxlength="10" value=" ${voeuamendement.reference}" />
+			<#else>
+				<input type="text" name="reference" id="" size="10" maxlength="10" value="" />
+			</#if>
+		<#elseif voeuamendement.reference?exists>
+			${voeuamendement.reference}
+		<#else>-</#if>
+	</p>
+
+	<p>
+		<label for="">#i18n{ods.modificationamendement.label.fascicule} * : </label>
+		<#if !voeuamendement.enLigne || permission_modification >
+			<#if voeuamendement.fascicule?exists>
+				<@combo name="id_fascicule"  items=liste_fascicule default_value=voeuamendement.fascicule.idFascicule />
+			<#else>
+				<@combo name="id_fascicule"  items=liste_fascicule default_value=-1 />
+			</#if>
+		<#else>
+			${voeuamendement.fascicule.codeFascicule} (${voeuamendement.fascicule.nomFascicule})
+		</#if>
+	</p>
+   
+	<p>
+    	<label for="">#i18n{ods.modificationamendement.label.objet} * : </label>
+		<#if !voeuamendement.enLigne || permission_modification >
+	    	<#if voeuamendement.objet?exists>
+	    		<textarea name="objet" cols="80" rows="6">${voeuamendement.objet}</textarea>
+	    	<#else>
+	      		<textarea name="objet" cols="80" rows="6"></textarea>
+	   		</#if>
+		<#else>
+			${voeuamendement.objet}
+		</#if>
+   	</p>
+   
+    <p>
+    	<label for="">#i18n{ods.releve.label.commission} : </label>
+		<#if !voeuamendement.enLigne || permission_modification >
+    		<#if voeuamendement.commission?exists>
+     			<@combo name="id_commission"   items=liste_commission default_value=voeuamendement.commission.idCommission />
+    		<#else>
+      			<@combo name="id_commission"  items=liste_commission default_value=-1 />
+      		</#if>
+		<#elseif voeuamendement.commission?exists>
+			${voeuamendement.commission.numero}
+		<#else>-</#if>
+  	 </p>
+  
+   	<p>
+    	<label >#i18n{ods.modificationamendement.label.lettrerectificative} : </label>
+		<#if !voeuamendement.enLigne || permission_modification >
+	    	<#if voeuamendement.type?exists&&voeuamendement.type=="LR">
+	    		<input name="lettre_rectificative" type="checkbox" value=1  checked/>
+	   		<#else>
+	   			<input name="lettre_rectificative" type="checkbox" value=1  />
+	   		</#if>
+		<#elseif voeuamendement.type?exists && voeuamendement.type=="LR">
+	    	#i18n{ods.all.label.yes}
+	    <#else>
+	    	#i18n{ods.all.label.no}	   			
+	   	</#if>	   		
+   	</p>
+   
+   	<p>
+    	<label >#i18n{ods.modificationamendement.label.deposeparexecutif} : </label>
+		<#if !voeuamendement.enLigne || permission_modification >
+	    	<#if voeuamendement.deposeExecutif?exists&&voeuamendement.deposeExecutif==true>
+	    		<input name="depose_executif" type="checkbox" value=1 onclick="doCheckboxSideEffect(this.checked)" checked />
+	   		<#else>
+	   			<input name="depose_executif" type="checkbox" value=1 onclick="doCheckboxSideEffect(this.checked)" />
+	  		</#if> 
+	  	<#elseif voeuamendement.deposeExecutif?exists && voeuamendement.deposeExecutif==true>
+	    	#i18n{ods.all.label.yes}
+	   	<#else>
+	    	#i18n{ods.all.label.no}	   			
+	   	</#if>		
+   	</p>
+   	   
+	<#if !voeuamendement.enLigne || permission_modification >
+	   	<#if voeuamendement.deposeExecutif?exists&&voeuamendement.deposeExecutif==true>
+	    	<div id="ods-furtive" style="display:none">
+	    <#else>
+	    	<div id="ods-furtive">
+	    </#if>  
+	    <h3>#i18n{ods.modificationamendement.label.elusdepositaire}</h3>
+	
+		    
+		<#if voeuamendement.elus?exists && voeuamendement.elus?size!=0>
+		 	<table>
+	     		<tr>
+	      			<th>#i18n{ods.modificationamendement.label.elusdepositaire.nom}</th>
+	      			<th>#i18n{ods.modificationamendement.label.elusdepositaire.action}</th>
+	     		</tr>
+	     		<#list voeuamendement.elus as elu>	                
+			     	<a name="ANC_LAST" id="ANC_LAST"></a>
+			     	<tr>
+	    	 	   		<td nowrap="nowrap"> ${elu.nomElu} ${elu.prenomElu} (${elu.groupe.nomGroupe})</td>
+	    		   		<td nowrap="nowrap" class="ods-actions"> 
+	    		   			<a href="javascript:removeEluInAmendement(${elu.idElu})">
+	    		   				<img src="images/admin/skin/plugins/ods/action/delete.png" alt="#i18n{ods.listeelus.title.delete}" title="#i18n{ods.listeelus.title.delete}" />
+	    		   			</a>
+	    		   		</td>
+	   		     	</tr>
+	    		</#list>	    	
+	    	</table>
+	 	</#if>
+	   
+		<p>
+	     	<label for="">#i18n{ods.modificationamendement.label.groupeelu} : </label>
+	     	<@comboWithParams name="id_groupe"  items=liste_groupe default_value="-1"  additionalParameters="onchange='updateElusList()'"/>
+	     	<@combo name="id_elu"  items=liste_elu default_value=-1/>
+	      	<input type="button" value="#i18n{ods.modificationamendement.button.insert}" class="button"  onclick="addEluInAmendement()"/>
+		</p>
+	</div>
+	<#elseif voeuamendement.deposeExecutif?exists && voeuamendement.deposeExecutif==true && voeuamendement.elus?exists && voeuamendement.elus?size!=0>
+		<label>#i18n{ods.modificationamendement.label.elusdepositaire} :</label>
+		<p>
+		<#list voeuamendement.elus as elu>
+			${elu.civilite} ${elu.prenomElu} ${elu.nomElu} (${elu.groupe.nomGroupe})<#if elu_has_next>,</#if>
+		</#list>
+		</p>
+	<#else><label>#i18n{ods.modificationamendement.label.elusdepositaire} :</label> <p>-</p></#if>
+	
+	<div class="highlight-box">
+		<h3>#i18n{ods.creationamendement.label.amendement}</h3>
+	    <p>
+	     	<label>#i18n{ods.modificationamendement.label.fichier} * : </label>
+	    	<a href="jsp/admin/plugins/ods/voeuamendement/DoDownloadFichierAmendement.jsp?id_fichier=${voeuamendement.fichier.id}">${voeuamendement.fichier.nom}.${voeuamendement.fichier.extension}</a>
+			<#if !voeuamendement.enLigne || permission_modification >
+	    		<input type="file" id="fichier_physique" name="fichier_physique"/>
+	    	</#if>
+	    </p>
+	    <p>
+	    	<label for="">#i18n{ods.modificationamendement.label.textepourrecherche} : </label>
+			<#if !voeuamendement.enLigne || permission_modification >
+	     		<textarea name="fichier_txt_recherche" id="fichier_txt_recherche" cols="80" rows="6">${voeuamendement.fichier.texte}</textarea>
+	     	<#elseif voeuamendement.fichier?exists && voeuamendement.fichier.texte?exists && (voeuamendement.fichier.texte?trim != "")>
+	     		${voeuamendement.fichier.texte}
+	     	<#else>-</#if>
+		</p>
+	</div>
+
+   <#if gestion_aval=true>   
+       <p>
+    		<label for="">#i18n{ods.listevoeuxnonrattaches.label.statut} : </label>
+    		<@combo name="id_statut"  items=liste_statuts  default_value=id_statut_selected />
+       </p>
+       <p>
+    	    <label for="">#i18n{ods.modificationvoeuamendement.label.datevote} : </label>
+    	    <input type="text" name="date_vote" id="date_vote" size="10" <#if voeuamendement.dateVote?exists>value=${voeuamendement.dateVote?string("dd/MM/yyyy")}</#if> />
+    	    <input type="button" class="button" id="button_date_vote" value="..." />
+       </p>
+   </#if>
+   
+   	<p>
+   		<#if gestion_aval || !voeuamendement.enLigne || permission_modification >
+    		<input type="submit" value="#i18n{ods.modificationamendement.button.create}" class="button" />
+    		<input type="button" value="#i18n{ods.modificationamendement.button.apply}" class="button" onclick="applyModificationAmendement()" />
+			<input type="button" value="#i18n{ods.modificationamendement.button.cancel}" class="button" onclick="cancelModification()"/>
+		<#else>
+			<input type="button" value="#i18n{ods.modificationamendement.button.retour}" class="button" onclick="cancelModification()"/>
+    	</#if>
+   		
+   	</p>
+   
+   <#if gestion_aval || !voeuamendement.enLigne || permission_modification >
+   <p> <strong>#i18n{ods.modificationamendement.label.create} : </strong>#i18n{ods.modificationamendement.label.create.value} <br/>
+     <strong>#i18n{ods.modificationamendement.label.apply} : </strong>#i18n{ods.modificationamendement.label.apply.value}<br/>
+     <strong>#i18n{ods.modificationamendement.label.cancel} : </strong>#i18n{ods.modificationamendement.label.cancel.value} 
+   </p>
+   </#if>
+  </form>
+ </div>
+ 
+ <div class="content-box">
+  <h2>#i18n{ods.modificationamendement.label.pdd.title} </h2>
+  <table>
+   <tr>
+    <th>#i18n{ods.modificationamendement.label.pdd.code}</th>
+    <th>#i18n{ods.modificationamendement.label.pdd.publie}</th>
+    <th>#i18n{ods.modificationamendement.label.pdd.formation}</th>
+    <th>#i18n{ods.modificationamendement.label.pdd.introduction}</th>
+    <th>#i18n{ods.modificationamendement.label.pdd.categorie}</th>
+    <th>#i18n{ods.modificationamendement.label.pdd.action}</th>
+   </tr>
+  <#if voeuamendement.pdds?exists> 
+   <#list voeuamendement.pdds as pdd>
+	  	<tr class="ods-noborder">
+	     <td nowrap="nowrap">${pdd.reference}</td>
+	     <#if pdd.enLigne = true>
+		    <td>${pdd.datePublication?string("dd/MM/yyyy")}</td>
+		 <#else>
+	    	<td></td>
+		 </#if>
+	     <#if pdd.formationConseil?exists>
+		    <td>${pdd.formationConseil.libelle}</td>
+		 <#else>
+	    	<td></td>
+		 </#if>
+	     <#if pdd.modeIntroduction?exists>
+		    <td>${pdd.modeIntroduction}</td>
+		 <#else>
+	    	<td></td>
+		 </#if>
+		<#if pdd.categorieDeliberation.libelle?exists>
+		    <td>${pdd.categorieDeliberation.libelle}</td>
+		 <#else>
+	    	<td></td>
+		 </#if>
+		 
+     	<td nowrap="nowrap" class="ods-actions">
+     		<a href="jsp/admin/plugins/ods/voeuamendement/SuppressionPddInAmendement.jsp?id_pdd=${pdd.idPdd}"><img src="images/admin/skin/plugins/ods/action/delete.png" alt="#i18n{ods.modificationamendement.title.pdd.delete}" title="#i18n{ods.modificationamendement.title.pdd.delete}" /></a>
+     	</td>
+	    </tr>
+	    <tr class="ods-noborder">
+	     <#if pdd.objet?exists>
+		    <td colspan="6">${pdd.objet}</td>
+		 <#else>
+	    	<td></td>
+		 </#if>
+	    </tr>
+</#list>
+<#else>
+	  <tr class="ods-noborder">
+	        <td colspan="5"></td>
+	   </tr>    
+</#if>  
+</table>
+  <form method="" action="">
+   <p>
+   	<#if gestion_aval >
+		    <input type="button" value="#i18n{ods.modificationamendement.button.pdd.projet}" class="button" onclick="window.location='${webapp}/jsp/admin/plugins/ods/projetdeliberation/ProjetDeliberationForVaGestionAval.jsp?plugin_name=ods&id_voeuamendement=${voeuamendement.idVoeuAmendement}'" />
+		    <input type="button" value="#i18n{ods.modificationamendement.button.pdd.proposition}" class="button" onclick="window.location='${webapp}/jsp/admin/plugins/ods/projetdeliberation/PropositionDeliberationForVaGestionAval.jsp?plugin_name=ods&id_voeuamendement=${voeuamendement.idVoeuAmendement}'" />
+    <#else>
+	    <input type="button" value="#i18n{ods.modificationamendement.button.pdd.projet}" class="button" onclick="window.location='${webapp}/jsp/admin/plugins/ods/projetdeliberation/ProjetDeliberationForVa.jsp?plugin_name=ods&id_voeuamendement=${voeuamendement.idVoeuAmendement}'" />
+	    <input type="button" value="#i18n{ods.modificationamendement.button.pdd.proposition}" class="button" onclick="window.location='${webapp}/jsp/admin/plugins/ods/projetdeliberation/PropositionDeliberationForVa.jsp?plugin_name=ods&id_voeuamendement=${voeuamendement.idVoeuAmendement}'" />
+    </#if>
+   </p>
+  </form>
+ </div>
+
+<#if gestion_aval=true>
+	<!-- main calendar program -->
+	<script type="text/javascript" src="js/jscalendar/calendar.js"></script>
+	<!-- language for the calendar -->
+	<script type="text/javascript" src="js/jscalendar/lang/calendar-fr.js"></script>
+	<!-- the following script defines the Calendar.setup helper function, which makes
+	       adding a calendar a matter of 1 or 2 lines of code. -->
+	<script type="text/javascript" src="js/jscalendar/calendar-setup.js"></script>
+	<script type="text/javascript">
+	    Calendar.setup({
+	    inputField     :    "date_vote",      // id of the input field
+	    ifFormat       :    "%d/%m/%Y",       // format of the input field
+	    showsTime      :    false,            // will display a time selector
+	    button         :    "button_date_vote",   // trigger for the calendar (button ID)
+	    singleClick    :    true,           // double-click mode
+	    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
+	    });
+	</script>
+</#if>

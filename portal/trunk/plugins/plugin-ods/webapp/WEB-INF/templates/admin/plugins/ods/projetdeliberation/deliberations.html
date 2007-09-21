@@ -1,0 +1,248 @@
+<SCRIPT>
+	function publication( idpdd, isPublier) {
+   		var myForm = document.getElementById('FormListPDDs');
+   		
+   		myForm.id_pdd.value=idpdd;
+   		myForm.pdd_is_publier_or_depublier.value=isPublier;
+    	
+    	myForm.submit();
+    }
+</SCRIPT>
+
+<div class="content-box">
+	<#if fonctionnalite_is_projet?exists && fonctionnalite_is_projet >
+		<#if gestion_aval=true>
+  			<h2>#i18n{ods.projetDeDeliberation.list.label.titleAval}</h2>
+  		<#else>
+  			<h2>#i18n{ods.projetDeDeliberation.list.label.title}</h2>
+  		</#if>
+	<#else>	
+		<#if gestion_aval=true>
+  			<h2>#i18n{ods.propositionDeDeliberation.list.label.titleAval}</h2>
+  		<#else>
+  			<h2>#i18n{ods.propositionDeDeliberation.list.label.title}</h2>
+  		</#if>
+	</#if>
+	
+  	<#if !prochaine_seance?exists && !gestion_aval>
+		<div class="highlight-box">
+			#i18n{ods.listenaturedossier.label.noRef}
+		</div>
+  	<#elseif gestion_aval && !prochaine_seance?exists && (!liste_seances?exists || (liste_seances?size=0)) >
+		<div class="highlight-box">
+			#i18n{ods.listenaturedossier.label.noRefAval}
+		</div>
+	<#else>
+   		<div class="highlight-box">
+   		
+	  	<#if fonctionnalite_is_projet?exists && fonctionnalite_is_projet >
+			<#if gestion_aval=true>
+   				<form method="post" action="jsp/admin/plugins/ods/projetdeliberation/ProjetsdeliberationGestionAval.jsp">
+   			<#else>
+   				<form method="post" action="jsp/admin/plugins/ods/projetdeliberation/Deliberation.jsp">
+   			</#if>
+  		<#else>
+			<#if gestion_aval=true>
+   				<form method="post" action="jsp/admin/plugins/ods/propositiondedeliberation/PropositiondeliberationGestionAval.jsp">
+   			<#else>
+   				<form method="post" action="jsp/admin/plugins/ods/propositiondedeliberation/Deliberation.jsp">
+   			</#if>
+  		</#if>
+    
+    	<p>
+		<#if gestion_aval=true>
+     		<label for="prochaine_seance">#i18n{ods.pdd.label.seance} * :</label>
+		 	<select name="id_seance">
+		 	<#list liste_seances as theseance>
+		   		<#if theseance.idSeance=id_seance_selected>
+			   		<option value=${theseance.idSeance} selected>
+			  	<#else>
+					<option value=${theseance.idSeance}>
+				</#if>	
+				#i18n{ods.pdd.label.du}
+				${theseance.dateSeance?string("dd/MM/yyyy")}
+				<#if theseance.dateSeance?string("ddMMyyyy") != theseance.dateCloture?string("ddMMyyyy") >
+					#i18n{ods.pdd.label.au} 
+					${theseance.dateCloture?string("dd/MM/yyyy")} 	
+				</#if>
+				</option> 
+		 	</#list>
+		 	</select>
+     	<#else>
+     		<label for="prochaine_seance">#i18n{ods.pdd.label.seance} :</label>
+     		#i18n{ods.pdd.label.du}
+			${prochaine_seance.dateSeance?string("dd/MM/yyyy")}
+			<#if prochaine_seance.dateSeance?string("ddMMyyyy") != prochaine_seance.dateCloture?string("ddMMyyyy") >
+				#i18n{ods.pdd.label.au} 
+				${prochaine_seance.dateCloture?string("dd/MM/yyyy")} 	
+			</#if>
+     	</#if>     
+    	</p>
+    	
+    	<p>
+     		<label for="id_formation_conseil">#i18n{ods.pdd.label.formationConseil} : </label>
+     		<@combo name="id_formation_conseil"  items=liste_formation_conseil default_value=id_formation_conseil_selected/>
+    	</p>
+    	
+    	<#if fonctionnalite_is_projet?exists && !fonctionnalite_is_projet && (gestion_aval=false)>
+	    	<p>
+	     		<label for="pdd_is_publier">#i18n{ods.pdd.label.publication} : </label>
+	     		<@combo name="pdd_is_publier"  items=liste_publication default_value=id_publication_selected/>
+	    	</p>
+		</#if>
+		
+		<#if gestion_aval=false>
+    	<p>
+     		<label for="id_pdd_inscrit_odj">#i18n{ods.pdd.label.inscritODJ} : </label>
+     		<@combo name="id_pdd_inscrit_odj"  items=liste_inscrit_odj default_value=id_inscrit_odj_selected/>
+    	</p>
+    	</#if>
+    	
+    	<p>
+     		<label for="id_pdd_mode_intro">#i18n{ods.pdd.label.modeIntroduction} : </label>
+     		<@combo name="id_pdd_mode_intro"  items=liste_mode_intro default_value=id_mode_intro_selected/>
+    	</p>
+    	
+    	<p>
+     		<label for="id_categorie">#i18n{ods.pdd.label.categorieDeDeliberation} : </label>
+     		<@combo name="id_categorie"  items=liste_categorie_deliberation default_value=id_categorie_deliberation_selected/>
+    	</p>
+    	
+		<#if fonctionnalite_is_projet?exists && fonctionnalite_is_projet >
+	    <p>
+	     	<label for="id_direction">#i18n{ods.pdd.label.direction} : </label>
+	     	<@combo name="id_direction"  items=liste_direction default_value=id_direction_selected/>
+	    </p>
+		<#else>
+	    <p>
+	     	<label for="id_groupe">#i18n{ods.pdd.label.groupe} : </label>
+	     	<@combo name="id_groupe"  items=liste_groupe_depositaire default_value=id_groupe_depositaire_selected/>
+	    </p>
+		</#if>
+	    
+	    <#if gestion_aval=true>
+	    <p>
+	    	<label for="">#i18n{ods.listevoeuxnonrattaches.label.statut} : </label>
+			<@combo name="id_statut"  items=liste_statuts  default_value=id_statut_selected />
+	  	</p>
+  	    </#if>
+		
+    	<p align="center">
+     		<input type="submit" class="button" value="#i18n{ods.pdd.list.button.rechercher}" />
+    	</p>
+		</form>
+		</div>
+
+	<p>#i18n{ods.pdd.label.nbresult} ${nb_results}</p>
+		<form id="paginatorForm" name="paginatorForm" method="post" action="jsp/admin/plugins/ods/projetdeliberation/ManagePaginator.jsp">
+		<@pagination paginator=paginator />
+	
+			<!-- Number of files per page selector -->
+		    #i18n{ods.pdd.label.nbligneparpage}
+		    <select name="items_per_page">
+		        <#list [ "5" , "10" , "20" , "50" ] as nb>
+			        <#if nb_items_per_page = nb >
+			        	<option selected="selected" value="${nb}">${nb}</option>
+			        <#else>
+			        	<option value="${nb}">${nb}</option>
+			        </#if>
+		        </#list>
+		    </select>
+		    <input type="submit" class="button" value="modifier" />
+		</form>
+		
+	  	<form method="POST" id="FormListPDDs" name="FormListPDDs" action="jsp/admin/plugins/ods/projetdeliberation/DoPublicationPDD.jsp">
+	   		<table>
+	    		<tr>
+	    		 	<th>#i18n{ods.pdd.list.label.code}</th>
+	     			<th>#i18n{ods.pdd.list.label.publierle}</th>
+	     			<th>#i18n{ods.pdd.list.label.formationDuConseil}</th>
+	     			<th>#i18n{ods.pdd.list.label.modeIntro}</th>
+	     			<th>#i18n{ods.pdd.list.label.action}</th>
+	    		</tr>
+		
+				<#if liste_pdds?size=0>
+		  		<tr>
+		    		<td colspan="5">#i18n{ods.releve.label.modification.pdd.noPDD}</td>
+		  		</tr>
+				<#else>
+		  			<#list liste_pdds as pdd>	  			
+		  			<tr class="ods-noborder">	  			
+		     			<td nowrap="nowrap">${pdd.reference}</td>
+		     			
+		     			<#if pdd.enLigne = true>
+			    			<td>${pdd.datePublication?string("dd/MM/yyyy")}</td>
+			 			<#else>
+		    				<td></td>
+			 			</#if>
+			 			
+		     			<#if pdd.formationConseil?exists>
+			    			<td>${pdd.formationConseil.libelle}</td>
+			 			<#else>
+		    				<td></td>
+			 			</#if>
+			 			
+		     			<#if pdd.modeIntroduction?exists>
+			    			<td>${pdd.modeIntroduction}</td>
+			 			<#else>
+		    				<td></td>
+			 			</#if>
+			 			
+		     			<td nowrap="nowrap" class="ods-actions">
+				    		<#if !pdd.enLigne >
+				    			<#if permission_publication >
+				    			<input type="submit" value="#i18n{ods.pdd.list.button.publier}" class="button" onclick="javascript: publication(${pdd.idPdd}, '1');"/>
+				    			</#if>
+							<#else>
+								<#if permission_depublication >
+				    			<input type="submit" value="#i18n{ods.pdd.list.button.depublier}" class="button" onclick="javascript: publication(${pdd.idPdd}, '0');"/>
+				    			</#if>
+							</#if>		
+		     				<#if gestion_aval >
+								<a href="jsp/admin/plugins/ods/projetdeliberation/ModificationCompletePDD.jsp?id_pdd=${pdd.idPdd}">
+					  				<img src="images/admin/skin/plugins/ods/action/modify.png" alt="#i18n{ods.pdd.list.button.modifier}" title="#i18n{ods.pdd.list.button.modifier}" />
+					  			</a>
+							<#else>
+								<a href="jsp/admin/plugins/ods/projetdeliberation/ModificationPDD.jsp?id_pdd=${pdd.idPdd}&id_seance=${prochaine_seance.idSeance}">
+					  				<img src="images/admin/skin/plugins/ods/action/modify.png" alt="#i18n{ods.pdd.list.button.modifier}" title="#i18n{ods.pdd.list.button.modifier}" />
+					  			</a>
+					  		</#if>
+				      		<a href="jsp/admin/plugins/ods/projetdeliberation/HistoriquePDD.jsp?id_pdd=${pdd.idPdd}">
+				      			<img src="images/admin/skin/plugins/ods/action/history.png" alt="#i18n{ods.pdd.list.button.historique}" title="#i18n{ods.pdd.list.button.historique}" />
+				      		</a> 
+		     				<#if (!gestion_aval && !fonctionnalite_is_projet && !pdd.enLigne) || ((gestion_aval || fonctionnalite_is_projet || pdd.enLigne ) && permission_suppression) >
+		     					<a href="jsp/admin/plugins/ods/projetdeliberation/SuppressionPDD.jsp?id_pdd=${pdd.idPdd}">
+		     						<img src="images/admin/skin/plugins/ods/action/delete.png" alt="#i18n{ods.pdd.list.button.supprimer}" title="#i18n{ods.pdd.list.button.supprimer}" />
+		     					</a>
+		     				</#if>
+		     			</td>
+		    		</tr>
+		    		
+		    		<tr>
+		     			<#if pdd.objet?exists>
+			    			<td colspan="5">${pdd.objet}</td>
+			 			<#else>
+		    				<td></td>
+			 			</#if>
+		    		</tr>
+		  			</#list>
+	    		</#if>
+	   		</table>
+		
+			<input type="hidden" id="id_pdd" name="id_pdd" value="">
+			<input type="hidden" id="pdd_is_publier_or_depublier" name="pdd_is_publier_or_depublier" value="">
+	  	</form>
+		
+		<#if permission_creation >
+		<form method="post" action="jsp/admin/plugins/ods/projetdeliberation/CreationPDD.jsp">
+			<p>
+			<#if fonctionnalite_is_projet?exists && fonctionnalite_is_projet >
+			    <input type="submit" value="#i18n{ods.projetDeDeliberation.list.button.ajouter}" class="button" />
+			<#else>
+			    <input type="submit" value="#i18n{ods.propositionDeDeliberation.list.button.ajouter}" class="button" />
+			</#if>
+		   	</p>
+		</form>
+		</#if>
+	</#if>
+</div>

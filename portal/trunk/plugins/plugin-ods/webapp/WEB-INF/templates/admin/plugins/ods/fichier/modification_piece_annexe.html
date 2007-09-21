@@ -1,0 +1,37 @@
+<div class="content-box">
+  <h2>#i18n{ods.creationfichier.label.title}</h2>
+  <form id="modificationPieceAnnexe" name="modificationPieceAnnexe" action="jsp/admin/plugins/ods/projetdeliberation/doModificationPieceAnnexe.jsp" method="POST" enctype="multipart/form-data">
+    <input type="hidden" id="id_pdd" name="id_pdd" size="80" value="${id_pdd}"/>
+    <input type="hidden" id="id_fichier" name="id_fichier" size="80" value="${fichier.id}"/>
+   <p>
+    <label>#i18n{ods.creationfichier.label.seance}</label>
+    <#if prochaine_seance?exists>
+	     #i18n{ods.creationfichier.label.du} ${prochaine_seance.dateSeance?string("dd/MM/yyyy")} #i18n{ods.creationfichier.label.au} ${prochaine_seance.dateCloture?string("dd/MM/yyyy")}
+    <#else>
+	    #i18n{ods.creationfichier.label.du} ... #i18n{ods.creationfichier.label.au} ... 
+    </#if>
+   </p>
+   <p>
+    <label>#i18n{ods.creationfichier.label.typededocument} * :</label>
+    <input type="TEXT" size="80" value="${liste_type_document.libelle}" DISABLED/>
+   </p>
+   <p>
+    <label for="">#i18n{ods.creationfichier.label.intitule} * :</label>
+    <input type="text" name="fichier_intitule" id="fichier_intitule" size="80" value="${fichier.titre}" />
+   </p>
+   <p>
+    <label for="">#i18n{ods.creationfichier.label.fichier} * :</label>
+    <a href="jsp/admin/plugins/ods/fichiers/DoDowloadFichier.jsp?id_fichier=${fichier.id}">${fichier.nom}.${fichier.extension}</a>
+    <input type="file" id="fichier_physique" name="fichier_physique"/>
+   </p>
+   <p>
+    <label for="">#i18n{ods.creationfichier.label.txtrecherche}</label>
+    <textarea name="fichier_txt_recherche" id="fichier_txt_recherche" cols="80" rows="6">${fichier.texte}</textarea>
+   </p>
+   <p>
+    <input type="submit" value="#i18n{ods.creationfichier.button.enregistrer}" class="button" />
+    <input type="button" value="#i18n{ods.creationfichier.button.annuler}" class="button" onclick="javascript:history.go(-1)" />
+   </p>
+  </form>
+
+ </div>

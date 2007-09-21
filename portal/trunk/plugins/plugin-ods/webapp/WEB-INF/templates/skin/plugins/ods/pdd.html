@@ -1,0 +1,303 @@
+<#include "utils.ftl" >
+
+<div id="page-content-left">
+	<#include "page_content_left.html">
+</div>
+<div id="page-content-right">
+<#if pdd?exists && liste_historiques?exists && liste_documents?exists &&seance?exists>
+   <form>
+    <div id="out-min-height">
+     <div id="in-min-height">
+      <div id="one-zone-first">
+       	<div id="one-zone-first-content">
+       	<#if est_adopte?exists && est_adopte>
+       		<h1>#i18n{ods.front.pdd.deliberation.title} ${pdd.reference}</h1>
+        <#elseif pdd.typePdd = "PJ">
+	        <h1>#i18n{ods.front.pdd.projetdedeliberation.title} ${pdd.reference}</h1>
+	    <#else>
+        	<h1>#i18n{ods.front.pdd.propositiondedeliberation.title} ${pdd.reference}</h1>
+		</#if>
+       
+        <!--bloc-->
+		<#include "bandeau_action_panier.html">
+        <p class="espace_10"></p>
+       </div>
+      </div>
+      <div id="two-zones-equals-first">
+       <div id="two-zones-first-content">
+        <p>
+        	${pdd.reference}
+        	<#if liste_pdds_nouveaux?exists && estPddDansListe(pdd,liste_pdds_nouveaux)>
+				<#if pdd.version?exists && ( pdd.version > 1 )>
+ 					<span class="ods-flag-M" title="#i18n{ods.front.deliberations.title.modifie}">#i18n{ods.front.deliberations.label.modifie}</span>
+ 				<#else>
+					<span class="ods-flag-N" title="#i18n{ods.front.deliberations.title.nouveau}">#i18n{ods.front.deliberations.label.nouveau}</span>
+ 				</#if>
+			</#if>
+        	<#if liste_pdds_rattache_odj?exists && estPddDansListe(pdd, liste_pdds_rattache_odj)>
+        		<span class="ods-flag-O" title="Inscrit &agrave; l'Ordre du Jour">#i18n{ods.front.pdd.label.aodj}</span> 
+        	</#if>
+        	<#if !pdd.enLigne >
+	        	<span class="ods-notes">(#i18n{ods.front.pdd.label.publierle} ${pdd.datePublication?string("dd/MM/yyyy")}, #i18n{ods.front.pdd.label.version} ${pdd.version})</span>
+			</#if>
+        </p>
+
+        <!--bloc-->
+        <strong>#i18n{ods.front.pdd.label.versionprecedentes} :</strong>
+		  <#if liste_historiques?exists && liste_historiques?size=0>
+			  <p><strong>#i18n{ods.visualisationhistorique.label.noversion}</strong></p>
+		  <#else>
+	        <ul>
+			  <#list liste_historiques as version>
+		         <li>#i18n{ods.visualisationhistorique.label.version} ${version.version}, ${version.datePublication?string(" EEEE dd MMMM yyyy HH:mm")}</li>
+			  </#list>
+	        </ul>
+		  </#if>
+
+        <p><strong>#i18n{ods.front.pdd.label.objet} :</strong> ${pdd.objet}</p>
+
+        <p>
+        	<strong>#i18n{ods.front.pdd.label.seance} :</strong> 
+        	<#if bIsArchive?exists &&!bIsArchive && seance?exists>
+	        	<a href="jsp/site/Portal.jsp?page=ods_prochain_conseil">${seance.dateSeance?string(" EEEE dd MMMM ")} #i18n{ods.front.pdd.label.et} ${seance.dateCloture?string(" EEEE dd MMMM yyyy ")}</a>.
+        	<#else>	
+        		<a href="jsp/site/Portal.jsp?page=ods_seance_archives&id_seance=${seance.idSeance}">${seance.dateSeance?string(" EEEE dd MMMM ")} #i18n{ods.front.pdd.label.et} ${seance.dateCloture?string(" EEEE dd MMMM yyyy ")}</a>.
+    		</#if>
+        </p>
+        
+		<#if bIsArchive?exists && bIsArchive>
+		<!--bloc-->
+        <div class="portlet-background-colored-title">
+         	<h3 class="portlet-background-colored-title-header">#i18n{ods.front.pdd.label.deliberation}</h3>
+         	<div class="portlet-background-colored-title-content">
+          		<div class="ods-list">
+           			<div class="ods-list-item">#i18n{ods.front.pdd.deliberation.vote} ${pdd.dateVote?string("dd/MM/yyyy")}</div>
+          			<div class="ods-list-item">#i18n{ods.front.pdd.deliberation.retourControleLegalite} ${pdd.dateRetourCtrlLegalite?string("dd/MM/yyyy")}</div>
+           			<#if fichier_deliberation?exists>
+	           			<div class="ods-list-item">
+	            			
+	            			<#if fichier_deliberation.enLigne>
+	            				<input name="" type="checkbox" value="fichier_deliberation.id" />
+	            				<a href="jsp/site/plugins/ods/DoDownload.jsp?id_fichier=${fichier_deliberation.id}" target="_blank">
+	            					${fichier_deliberation.titre}
+	            				</a>
+	            			<#else>
+	            				<input name="" type="checkbox" value="" disabled="disabled" />	
+	            					${fichier_deliberation.titre}
+	            			</#if>	
+	            			<span class="ods-notes">(${fichier_deliberation.extension} - ${fichier_deliberation.tailleKo} #i18n{ods.listefichiers.label.ko})</span>
+	            			<#if liste_fichiers_nouveaux?exists && estFichierDansListe(fichier_deliberation, liste_fichiers_nouveaux)>
+								<#if fichier_deliberation.version?exists && ( fichier_deliberation.version > 1 )>
+					 				<span class="ods-flag-M" title="#i18n{ods.front.deliberations.title.modifie}">#i18n{ods.front.deliberations.label.modifie}</span>
+					 			<#else>
+									<span class="ods-flag-N" title="#i18n{ods.front.deliberations.title.nouveau}">#i18n{ods.front.deliberations.label.nouveau}</span>
+					 			</#if>
+							</#if>
+							<#if fichier_deliberation?exists && fichier_deliberation.enLigne >
+								<span class="ods-notes">(#i18n{ods.front.pdd.label.publierle}  ${fichier_deliberation.datePublication?string("dd/MM/yyyy")})</span> 
+							</#if>
+	            		</div>
+            		</#if>
+          		</div>
+         	</div>
+        </div>
+        </#if>
+        
+        <!--bloc-->
+        <div class="portlet-background-colored-title">
+         <h3 class="portlet-background-colored-title-header">#i18n{ods.front.pdd.label.documents}</h3>
+         <div class="portlet-background-colored-title-content">
+          <div class="ods-list">
+			<#if liste_documents?exists>
+				<#list liste_documents as document>
+					<#if document?exists>
+						<div class="ods-list-item">
+							<#if document.enLigne >
+								<input name="" type="checkbox" value="${document.id}" />
+								<a href="jsp/site/plugins/ods/DoDownload.jsp?id_fichier=${document.id}">
+								${document.titre}</a> 
+							<#else>
+								<input name="" type="checkbox" value="" disabled="disabled" />			
+								${document.titre}	
+							</#if>	
+								<span class="ods-notes">(${document.extension} - ${document.tailleKo} #i18n{ods.listefichiers.label.ko})</span>
+				        	<#if liste_fichiers_nouveaux?exists && estFichierDansListe(document,liste_fichiers_nouveaux)>
+								<#if document.version?exists && ( document.version > 1 )>
+					 				<span class="ods-flag-M" title="#i18n{ods.front.deliberations.title.modifie}">#i18n{ods.front.deliberations.label.modifie}</span>
+					 			<#else>
+									<span class="ods-flag-N" title="#i18n{ods.front.deliberations.title.nouveau}">#i18n{ods.front.deliberations.label.nouveau}</span>
+					 			</#if>
+							</#if>
+							<#if document.enLigne >
+								<span class="ods-notes">(#i18n{ods.front.pdd.label.publierle}  ${document.datePublication?string("dd/MM/yyyy")})</span> 
+							</#if>
+						</div>
+					</#if>
+				</#list>
+			</#if>
+			
+			<#if pdd.piecesManuelles >
+				<div class="ods-list-item">#i18n{ods.front.pdd.label.piecesmanuelles}</div>
+			</#if>
+			
+          </div>
+         </div>
+        </div>
+        <!--bloc-->
+       	<div class="ods-legend"><strong>#i18n{ods.front.deliberations.label.legende}</strong>
+         	<ul>
+         		<#if !bIsArchive?exists || !bIsArchive>
+	          		<li><span class="ods-flag-N" title="#i18n{ods.front.deliberations.title.nouveau}">#i18n{ods.front.deliberations.label.nouveau}</span> = #i18n{ods.front.deliberations.nouveaudocument}</li>
+	          		<li><span class="ods-flag-M" title="#i18n{ods.front.deliberations.title.modifie}">#i18n{ods.front.deliberations.label.modifie}</span> = #i18n{ods.front.deliberations.nouvelleversion}</li>
+	          	</#if>
+          		<li><span class="ods-list-item-a">&nbsp;&nbsp;</span> = #i18n{ods.front.rechercheresultats.legende.label.amendement}</li>
+				<li><span class="ods-list-item-v">&nbsp;&nbsp;</span> = #i18n{ods.front.rechercheresultats.legende.label.voeu}</li>
+				<#if !bIsArchive?exists || !bIsArchive>
+          			<li><span class="ods-flag-O" title="#i18n{ods.front.deliberations.label.aodj}">#i18n{ods.front.deliberations.label.aodj}</span>=#i18n{ods.front.deliberations.label.legende.odj}</li>
+          		</#if>
+         	</ul>
+       	</div>
+        <!-- bloc -->
+       </div>
+      </div>
+      <div id="two-zones-equals-second">
+       <div id="two-zones-second-content">
+        <!--bloc-->
+        <div class="portlet-background-colored-title">
+
+         <h3 class="portlet-background-colored-title-header">#i18n{ods.front.pdd.label.amandements}</h3>
+         <div class="portlet-background-colored-title-content">
+          <div class="ods-list">
+			<#if pdd.amendements?exists >
+				<#list pdd.amendements as amendement>
+						<div class="ods-list-item">
+						  <#if amendement.enLigne >
+							  <input name="" type="checkbox" value="${amendement.fichier.id}" />
+							  <span class="ods-list-item-a">&nbsp;&nbsp;</span>
+						  		<a href="jsp/site/plugins/ods/DoDownload.jsp?id_fichier=${amendement.fichier.id}">
+							<#else>
+								<input name="" type="checkbox" value="" disabled="disabled" />
+							  	<span class="ods-list-item-a">&nbsp;&nbsp;</span>
+							</#if>
+							[${amendement.referenceComplete}] ${amendement.objetLimit}
+							<#if amendement.enLigne >
+								</a>
+							</#if>	
+							<span class="ods-notes">(${amendement.fichier.extension} - ${amendement.fichier.tailleKo} #i18n{ods.listefichiers.label.ko})</span> 
+							<#if liste_vas_nouveaux?exists && estVADansListe(amendement,liste_vas_nouveaux)>
+								<#if amendement.version?exists && ( amendement.version > 1 )>
+					 				<span class="ods-flag-M" title="#i18n{ods.front.deliberations.title.modifie}">#i18n{ods.front.deliberations.label.modifie}</span>
+					 			<#else>
+									<span class="ods-flag-N" title="#i18n{ods.front.deliberations.title.nouveau}">#i18n{ods.front.deliberations.label.nouveau}</span>
+					 			</#if>
+							</#if>
+							<#if amendement.enLigne >
+								<span class="ods-notes">(#i18n{ods.front.pdd.label.publierle}  ${amendement.datePublication?string("dd/MM/yyyy")})</span> 
+							</#if>
+							<#if bIsArchive?exists && bIsArchive && amendement.statut?exists >
+								${amendement.statut.libelle}
+							</#if>
+						</div>		
+				
+				</#list>
+			</#if>
+          </div>
+         </div>
+        </div>
+        <!--bloc-->
+        <div class="portlet-background-colored-title">
+         <h3 class="portlet-background-colored-title-header">#i18n{ods.front.pdd.label.voeux}</h3>
+         <div class="portlet-background-colored-title-content">
+          <div class="ods-list">
+
+			<#if pdd.voeuxRattaches?exists >
+				<#list pdd.voeuxRattaches as voeux>
+					
+						<div class="ods-list-item">
+							<#if voeux.enLigne&&!voeux.deliberation?exists >
+								<input name="" type="checkbox" value="${voeux.fichier.id}" />
+								<span class="ods-list-item-v">&nbsp;&nbsp;</span>
+								<a href="jsp/site/plugins/ods/DoDownload.jsp?id_fichier=${voeux.fichier.id}">
+							<#else>
+								<input name="" type="checkbox" value="" disabled="disabled" />
+								<span class="ods-list-item-v">&nbsp;&nbsp;</span>
+							
+							</#if>
+							[${voeux.referenceComplete}]
+							<#if (voeux.objet?length >= 100)>  
+								${voeux.objet[0..100]}...
+							<#else>
+								${voeux.objet}
+							</#if>
+							<#if voeux.enLigne&&!voeux.deliberation?exists  >
+								</a>
+							</#if>	
+							<#if voeux.enLigne&&!voeux.deliberation?exists >
+								<span class="ods-notes">(${voeux.fichier.extension} - ${voeux.fichier.tailleKo} #i18n{ods.listefichiers.label.ko})</span> 
+							</#if>
+							<#if liste_vas_nouveaux?exists && estVADansListe(voeux,liste_vas_nouveaux)>
+								<#if voeux.version?exists && ( voeux.version > 1 )>
+					 				<span class="ods-flag-M" title="#i18n{ods.front.deliberations.title.modifie}">#i18n{ods.front.deliberations.label.modifie}</span>
+					 			<#else>
+									<span class="ods-flag-N" title="#i18n{ods.front.deliberations.title.nouveau}">#i18n{ods.front.deliberations.label.nouveau}</span>
+					 			</#if>
+							</#if>
+							<#if voeux.enLigne >
+								<span class="ods-notes">(#i18n{ods.front.pdd.label.publierle}  ${voeux.datePublication?string("dd/MM/yyyy")})</span> 
+							</#if>
+							<#if bIsArchive?exists && bIsArchive && voeux.statut?exists >
+								${voeux.statut.libelle}
+							</#if>
+							<#if voeux.enLigne&&voeux.deliberation?exists>
+			           			  <ul class="ods-list-item-docs">
+									<li>
+										<input id="fichier" name="fichier" value="${voeux.fichier.id}" type="checkbox" />
+										<a href="jsp/site/plugins/ods/DoDownload.jsp?id_fichier=${voeux.fichier.id}">
+											${voeux.fichier.titre}
+										</a>
+										<span class="ods-notes">(${voeux.fichier.extension} - ${voeux.fichier.tailleKo} #i18n{ods.listefichiers.label.ko})</span>
+										<#if liste_fichiers_nouveaux?exists && estFichierDansListe(voeux.fichier,liste_fichiers_nouveaux)>
+											<#if voeux.fichier.version?exists && ( voeux.fichier.version > 1 )>
+						 						<span class="ods-flag-M" title="#i18n{ods.front.deliberations.title.modifie}">#i18n{ods.front.deliberations.label.modifie}</span>
+						 					<#else>
+												<span class="ods-flag-N" title="#i18n{ods.front.deliberations.title.nouveau}">#i18n{ods.front.deliberations.label.nouveau}</span>
+						 					</#if>
+						 				</#if>	
+									   <span class="ods-notes">(#i18n{ods.front.rechercheresultats.label.publie}  ${voeux.fichier.datePublication?string("dd/MM/yyyy")}, #i18n{ods.front.rechercheresultats.label.version} ${voeux.fichier.version})</span>
+												
+									</li>
+									<li>
+										<input id="fichier" name="fichier" value="${voeux.deliberation.id}" type="checkbox" />
+										<a href="jsp/site/plugins/ods/DoDownload.jsp?id_fichier=${voeux.deliberation.id}">
+											${voeux.deliberation.titre}
+										</a>
+											<span class="ods-notes">(${voeux.deliberation.extension} - ${voeux.deliberation.tailleKo} #i18n{ods.listefichiers.label.ko})</span>
+											<#if liste_fichiers_nouveaux?exists && estFichierDansListe(voeux.deliberation,liste_fichiers_nouveaux)>
+												<#if voeux.deliberation.version?exists && (voeux.deliberation.version > 1 )>
+						 							<span class="ods-flag-M" title="#i18n{ods.front.deliberations.title.modifie}">#i18n{ods.front.deliberations.label.modifie}</span>
+						 						<#else>
+												<span class="ods-flag-N" title="#i18n{ods.front.deliberations.title.nouveau}">#i18n{ods.front.deliberations.label.nouveau}</span>
+						 						</#if>
+						 					</#if>	
+									   		<span class="ods-notes">(#i18n{ods.front.rechercheresultats.label.publie}  ${voeux.deliberation.datePublication?string("dd/MM/yyyy")}, #i18n{ods.front.rechercheresultats.label.version} ${voeux.deliberation.version})</span>
+										
+									</li>
+								</ul>
+							</#if>	
+						</div>		
+					
+				</#list>
+			</#if>
+          </div>
+         </div>
+        </div>
+        <!--bloc-->
+       </div>
+      </div>
+     </div>
+    </div>
+   </form>
+<#else>
+	<h1>Probleme de parametres</h1>
+</#if>
+</div>

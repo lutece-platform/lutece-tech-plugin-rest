@@ -1,0 +1,44 @@
+<div class="content-box">
+	<h2>#i18n{ods.listefascicule.label.title}</h2>
+	<div class="highlight-box">
+		<p>
+			<label for="">#i18n{ods.listefascicule.label.seance} </label>
+				#i18n{ods.listefascicule.label.from} ${seance.dateSeance?string("dd/MM/yyyy")}
+				#i18n{ods.listefascicule.label.to} ${seance.dateCloture?string("dd/MM/yyyy")}
+		</p>
+	</div>
+	<#if liste_fascicules?size=0>
+		<div class="highlight-box">
+			#i18n{ods.listefascicule.label.noFascicule}
+		</div>
+	<#else>
+		<p>#i18n{ods.listefascicule.label.resultCount} ${liste_fascicules_count}</p>
+		<table>
+			<tr>
+				<th>#i18n{ods.listefascicule.label.code}</th>
+				<th>#i18n{ods.listefascicule.label.libelle}</th>
+				<th>#i18n{ods.listefascicule.label.actions}</th>
+			</tr>
+			<#list liste_fascicules as fascicule>
+			<a name="ANC_LAST" id="ANC_LAST"></a>
+			<tr>
+				<td>${fascicule.codeFascicule}</td>
+				<td>${fascicule.nomFascicule}</td>
+				<td nowrap="nowrap" class="ods-actions">
+					<a href="jsp/admin/plugins/ods/fascicule/ModificationFascicule.jsp?id_fascicule=${fascicule.idFascicule}">
+						<img src="images/admin/skin/plugins/ods/action/modify.png"
+							alt="Modifier" title="#i18n{ods.listefascicule.button.modify}" />
+					</a>
+					<a href="jsp/admin/plugins/ods/fascicule/SuppressionFascicule.jsp?id_fascicule=${fascicule.idFascicule}">
+						<img src="images/admin/skin/plugins/ods/action/delete.png"
+							alt="Supprimer" title="#i18n{ods.listefascicule.button.delete}" />
+					</a>
+				</td>
+			</tr>
+			</#list>
+		</table>
+	</#if>
+	<form method="" action="jsp/admin/plugins/ods/fascicule/CreationFascicule.jsp">
+		<p> <input type="submit" value="#i18n{ods.listefascicule.button.create}" class="button" /> </p>
+	</form>
+</div>

@@ -1,0 +1,24 @@
+<SCRIPT> window.setTimeout('window.location.reload()',10000); </SCRIPT>
+
+<div id="page-content">
+ <div id="ods-popup-page">
+  <div class="portlet-background-colored-title">
+   <h3 class="portlet-background-colored-title-header">
+   	#i18n{ods.front.confirmationpanier.telechargement.title}
+   	<#if isZipFinished?exists && !isZipFinished && urlImage?exists>
+   	 	#i18n{ods.front.confirmationpanier.encours.label} <img src="${urlImage}" border="0">
+  	 <#else>
+  	 	#i18n{ods.front.confirmationpanier.termine.label}.
+   	 </#if>
+   </h3>
+   <div class="portlet-background-colored-title-content">
+    <p>#i18n{ods.front.confirmationpanier.demandetermnine.label}.</p>
+    <#if isZipFinished?exists && isZipFinished && idToDownload?exists>
+    	<p>#i18n{ods.front.confirmationpanier.archivedisponible.label}. <a href="${url_download_panier}${idToDownload}">#i18n{ods.front.confirmationpanier.telechargmentarchive.label}</a></p>
+    <#else>
+    	<p>#i18n{ods.front.confirmationpanier.archiveencours.label}.</p>
+    </#if>
+   </div>
+  </div>
+ </div>
+</div>

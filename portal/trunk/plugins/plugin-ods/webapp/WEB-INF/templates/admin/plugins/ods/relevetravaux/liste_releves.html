@@ -1,0 +1,88 @@
+<div class="content-box">
+	<h2>#i18n{ods.releve.label.title}</h2>
+	<#if prochaine_seance="-1">
+		<div class="highlight-box">
+			#i18n{ods.listenaturedossier.label.noRef}
+		</div>
+	<#else>
+		<div class="highlight-box">
+			<p>
+				<label>#i18n{ods.releve.label.seance} : </label> 
+				#i18n{ods.releve.label.from} ${prochaine_seance.dateSeance?string("dd/MM/yyyy")} 
+				#i18n{ods.releve.label.to} ${prochaine_seance.dateCloture?string("dd/MM/yyyy")}  
+			</p>
+		</div>
+		<#if liste_releves?size=0>
+			<div class="highlight-box">
+				#i18n{ods.releve.label.noReleve}
+			</div>
+		<#else>
+			<p>#i18n{ods.liasse.label.nbresult} ${liste_releves?size}</p>
+			<form method="post"  action="jsp/admin/plugins/ods/relevetravaux/DoModificationReleveTravaux.jsp">
+				<input type="hidden" name="id_releve" id="id_releve" value="" />
+				<table>
+					<tr>
+						<th>#i18n{ods.releve.label.intitule}</th>
+						<th>#i18n{ods.releve.label.actions}</th>
+					</tr>
+					<#list liste_releves as releve>
+						<a name="ANC_LAST" id="ANC_LAST"></a>
+						<tr>
+							<td nowrap="nowrap"> ${releve.intitule}</td>
+							<td nowrap="nowrap" class="ods-actions">
+								<#if releve.enLigne = false>
+									<input type="submit" class="button" name="publication_releve" id="publication_releve" 
+										value="#i18n{ods.releve.button.publier}"  onClick="javascript: getElementById('id_releve').value=${releve.idReleveDesTravaux}" />
+								<#elseif permission_depublication >
+									<input type="submit" class="button" name="depublication_releve" id="depublication_releve" 
+										value="#i18n{ods.releve.button.depublier}" onClick="javascript: getElementById('id_releve').value=${releve.idReleveDesTravaux}" />
+								</#if>
+								<#if !releve.enLigne || permission_modification >
+									<a href="jsp/admin/plugins/ods/relevetravaux/ModificationReleveTravaux.jsp?id_releve=${releve.idReleveDesTravaux}">
+										<img src="images/admin/skin/plugins/ods/action/modify.png" 
+											alt="#i18n{ods.releve.title.modify}" 
+											title="#i18n{ods.releve.title.modify}" />
+									</a>
+								</#if>
+								<#if !releve.enLigne || permission_suppression >
+									<a href="jsp/admin/plugins/ods/relevetravaux/SuppressionReleveTravaux.jsp?id_releve=${releve.idReleveDesTravaux}">
+										<img src="images/admin/skin/plugins/ods/action/delete.png" 
+											alt="#i18n{ods.releve.title.delete}" 
+											title="#i18n{ods.releve.title.delete}" />
+									</a>
+								</#if>
+							</td>
+						</tr>
+					</#list>
+				</table>
+			</form>
+		</#if>
+		<#if liste_commissions?size=0>
+			<div class="highlight-box">
+				#i18n{ods.releve.label.noCommission}
+			</div>
+		<#else>
+			<form method="post" action="jsp/admin/plugins/ods/relevetravaux/CreationReleveTravaux.jsp"
+				onSubmit="javascript: if (document.getElementById('numero_commission').selectedIndex == 0) {return false;}">
+				<p>
+					<input type="hidden" name="id_seance" id="id_seance"  value="${prochaine_seance.idSeance}" />
+					<label>#i18n{ods.releve.label.listeCommissions} : </label>
+					<select name="numero_commission" id="numero_commission">
+						<option></option>
+						<#list liste_commissions as comm>
+							<option value="${comm.numero}">
+								#i18n{ods.releve.label.relevecommission.first} ${comm.numero}
+								<#if comm.numero=1>
+									#i18n{ods.releve.label.relevecommission.end1}
+								<#else>
+									#i18n{ods.releve.label.relevecommission.end2} 
+								</#if>
+							</option>
+						</#list>
+					</select>
+					<input type="submit" value="#i18n{ods.releve.button.create}" class="button" />
+				</p>
+			</form>
+		</#if>
+	</#if>
+</div>

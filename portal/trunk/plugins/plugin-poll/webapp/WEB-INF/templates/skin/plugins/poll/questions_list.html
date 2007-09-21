@@ -1,0 +1,35 @@
+<div id="one-zone-first">
+    <div id="one-zone-first-content">
+
+		<h2 class="page-title" >#i18n{poll.xpage.questions_list.title}</h2>
+		<h3>${poll.name}</h3>
+		<form action="" method="post" >
+		    <input type="hidden" name="page" value="poll" />
+		    <input type="hidden" name="action" value="evaluate" />
+		    <input type="hidden" name="poll_id" value="${poll.id}" />
+		    <#list poll.questions as question>
+		        <table border="1" width="60%" cellpadding="2">
+		            <tr>
+		                <th colspan="2">
+		                    ${question.label}
+		                </th>
+		            </tr>               
+		            <#list question.choices as choice>    
+		                <tr>
+		                    <td width="10">
+		                        <input class="radio" type="radio" name="q${question.id}" id="q${question.id}r${choice.id}" value="${choice.id}" />
+		                    </td>
+		                    <td>
+		                        <label for="q${question.id}r${choice.id}" >${choice.label}</label>
+		                    </td>
+		                </tr>
+		            </#list>            
+		        </table>  
+		        <br><br>
+		    </#list>
+		    <input type="submit" value="#i18n{poll.xpage.questions.buttonValidate}" class="button" />
+		</form>
+	
+	</div>
+</div>
+

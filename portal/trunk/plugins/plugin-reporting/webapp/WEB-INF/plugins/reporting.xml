@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<plug-in>
+    
+        
+    <!-- Plugin Informations --> 
+    <name>reporting</name>
+    <class>fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation</class>
+    <version>2.0</version>
+    <description>reporting.plugin.description</description>
+    <documentation></documentation>
+    <installation></installation>
+    <changes></changes>
+    <user-guide></user-guide>
+    <description>reporting.plugin.description</description>
+    <provider>reporting.plugin.provider</provider>
+    <provider-url>http://lutece.paris.fr</provider-url>
+    <icon-url>images/admin/skin/plugins/reporting/reporting.png</icon-url>
+    <copyright>Copyright 2001-2007 Mairie de Paris</copyright>
+    <db-pool-required>1</db-pool-required>
+    
+     <!-- Specific plugin CSS stylesheet -->
+    <css-stylesheet>reporting/reporting.css</css-stylesheet>
+    
+    <!--Administration interface parameters-->
+    <admin-features>	
+        <admin-feature>
+            <feature-id>REPORTING_MANAGEMENT</feature-id>
+            <feature-title>reporting.adminFeature.reporting_management.name</feature-title>
+            <feature-description>reporting.adminFeature.reporting_management.description</feature-description>
+            <feature-level>1</feature-level>
+            <feature-url>jsp/admin/plugins/reporting/ManageReporting.jsp</feature-url>
+           	<feature-icon-url>images/admin/skin/plugins/reporting/reporting.png</feature-icon-url>
+        </admin-feature>
+        
+		<admin-feature>
+            <feature-id>REPORTING_PROJECT_MANAGEMENT</feature-id>
+            <feature-title>reporting.adminFeature.project_management.name</feature-title>
+            <feature-description>reporting.adminFeature.project_management.description</feature-description>
+            <feature-level>1</feature-level>
+            <feature-url>jsp/admin/plugins/reporting/ManageProject.jsp</feature-url>
+            <feature-icon-url>images/admin/skin/plugins/reporting/project.png</feature-icon-url>
+        </admin-feature>
+        
+		<admin-feature>
+            <feature-id>REPORTING_PERIOD_MANAGEMENT</feature-id>
+            <feature-title>reporting.adminFeature.period_management.name</feature-title>
+            <feature-description>reporting.adminFeature.period_management.description</feature-description>
+            <feature-level>1</feature-level>
+            <feature-url>jsp/admin/plugins/reporting/ManagePeriod.jsp</feature-url>
+             <feature-icon-url>images/admin/skin/plugins/reporting/period.png</feature-icon-url>
+        </admin-feature>
+    </admin-features>
+    
+        <!-- Applications -->
+    <applications>
+        <application>
+            <application-id>reporting</application-id>
+            <application-class>fr.paris.lutece.plugins.reporting.web.ReportingApp</application-class>
+        </application>
+    </applications>
+
+</plug-in>

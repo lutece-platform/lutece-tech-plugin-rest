@@ -1,0 +1,31 @@
+/******************************************************************************/
+/*                          STYLES DES PLUGINS                                */
+/******************************************************************************/
+
+
+
+
+td.plugins-highlight {
+	background-color: #FBCA6D;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+}
+
+
+td.plugin-td {
+	background-color: #1E2A63;
+	border: 1px solid #1E2A63;
+	color: #FFFFFF;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	font-weight: bold;
+	text-align: center;
+}
+
+/* cell style of chat list */
+td.plugin-td-content {
+	background-color: #FFFFFF;
+	border: 1px solid #1E2A63;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+}

@@ -1,0 +1,267 @@
+<#function isOdjReference odj  listOdjReference >
+	<#local bOdjReference=false>
+		<#list listOdjReference as odjReference >
+	  		<#if odjReference.idOrdreDuJour==odj.idOrdreDuJour>
+					 <#local bOdjReference=true>
+			</#if>
+	  	</#list>	
+	<#return bOdjReference>
+</#function>
+<a name="TOP" id="TOP"></a>
+<div id="page-content-left">
+	<#include "page_content_left.html">
+</div>
+<div id="page-content-right">
+	<#if seance?exists>
+		<div id="out-min-height">
+			<div id="in-min-height">
+				<div id="one-zone-first">
+					<div id="one-zone-first-content">
+						<h1>#i18n{ods.front.seancearchives.page.title}</h1>
+						<h2>
+							<#if seance.dateSeance?string("ddMMyyyy") = seance.dateCloture?string("ddMMyyyy") >
+								#i18n{ods.front.prochainconseil.label.seance.le}
+								${seance.dateSeance?string(" EEEE dd MMMM yyyy")}
+							<#else>
+								#i18n{ods.front.prochainconseil.label.seance.du}
+								<#if seance.dateSeance?string("MMMM") != seance.dateCloture?string("MMMM")>
+									${seance.dateSeance?string("EEEE dd MMMM ")}
+								<#else>
+									${seance.dateSeance?string("EEEE dd ")}
+								</#if>
+								#i18n{ods.front.prochainconseil.label.seance.au}
+								${seance.dateCloture?string(" EEEE dd MMMM yyyy")}
+							</#if>
+						</h2>
+					
+						<ul  class="list">
+							<li>
+								#i18n{ods.front.prochainconseil.label.amendement}
+								<#list liste_formation_conseil_va as formationConseil>
+									<a href="jsp/site/Portal.jsp?page=ods_liasse&id_seance=${seance.idSeance}&id_formation_conseil=${formationConseil.idFormationConseil}">${formationConseil.libelle}</a>
+									<#if formationConseil_has_next>,</#if>
+								</#list>
+							</li>
+						</ul>
+						
+						<ul class="ods-anchors">
+						<#if liste_documents_apres_seance?size!=0>
+							<li>
+								<a href="jsp/site/Portal.jsp?page=ods_seance_archives&id_seance=${seance.idSeance}#ANC_1">
+									#i18n{ods.front.seancearchives.label.documentapresseance}
+								</a>
+								#i18n{ods.front.seancearchives.label.documentapresseance.def}
+							</li>
+						</#if>
+						
+						<#if liste_document_seance?size!=0>
+							<li>
+								<a href="jsp/site/Portal.jsp?page=ods_seance_archives&id_seance=${seance.idSeance}#ANC_2">
+									#i18n{ods.front.prochainconseil.label.odj}
+								</a>
+								#i18n{ods.front.prochainconseil.label.odj.def}
+							</li>
+						</#if>
+						
+						<#if liste_autres_documents_seance?size!=0>	
+							<li>
+								<a href="jsp/site/Portal.jsp?page=ods_seance_archives&id_seance=${seance.idSeance}#ANC_3">
+									#i18n{ods.front.prochainconseil.label.autreDocumentSeance}
+								</a>
+								#i18n{ods.front.prochainconseil.label.autreDocumentSeance.def}
+							</li>
+						</#if>
+						
+							<li>
+								<a href="jsp/site/Portal.jsp?page=ods_seance_archives&id_commission=${id_commission}&id_seance=${seance.idSeance}#ANC_4">
+									#i18n{ods.front.prochainconseil.label.documentscommissions}
+								</a>
+								#i18n{ods.front.prochainconseil.label.documentscommissions.def}
+							</li> 
+						</ul>
+						
+						<#if liste_documents_apres_seance?size!=0>
+							<!--bloc-->
+							<a name="ANC_1" id="ANC_1"></a>
+							<h3>#i18n{ods.front.seancearchives.label.documentapresseance}</h3>
+							<table class="data-table">
+								<tr>
+									<td nowrap="nowrap">#i18n{ods.front.prochainconseil.label.datepublication}</td>
+									<td>#i18n{ods.front.prochainconseil.label.document}</td>
+								</tr>
+								<#list liste_documents_apres_seance as doc>
+									<#if doc.fichier?exists>
+										<tr class="even-row">
+											<td nowrap="nowrap">${doc.fichier.datePublication?string(" EEEE dd MMMM yyyy")} </td>
+											<td>
+												<img src="images/local/skin/plugins/ods/icon-pdf.gif" alt="Pdf">
+												<a href="jsp/site/plugins/ods/DoDownload.jsp?id_fichier=${doc.fichier.id}" target="_blank">
+													${doc.fichier.titre}
+												</a>
+												<span class="ods-notes">
+													(${doc.fichier.extension} - ${doc.fichier.tailleKo}#i18n{ods.front.liasse.label.ko})
+												</span>
+											</td>
+										</tr>
+									</#if>
+								</#list>
+							</table>
+						</#if>
+						
+						<#if liste_document_seance?size!=0>
+							<a name="ANC_2" id="ANC_2"></a>
+							<h3>#i18n{ods.front.prochainconseil.label.odj}</h3>
+							<table class="data-table">
+								<tr>
+									<td nowrap="nowrap">#i18n{ods.front.prochainconseil.label.datepublication}</td>
+									<td>#i18n{ods.front.prochainconseil.label.document}</td>
+								</tr>
+								<#list liste_document_seance as docOdj>
+									<#if docOdj.ordreDuJour?exists>
+										<tr class="even-row">
+											<td nowrap="nowrap">${docOdj.ordreDuJour.datePublication?string(" EEEE dd MMMM yyyy")}</td>
+											<#if isOdjReference(docOdj.ordreDuJour,liste_ordre_du_jour_reference)>
+												<td>
+													<a href="jsp/site/Portal.jsp?page=ods_odj&id_odj=${docOdj.ordreDuJour.idOrdreDuJour}">
+														${docOdj.ordreDuJour.intitule}
+													</a>
+												</td>
+											<#else>
+												<td>${docOdj.ordreDuJour.intitule}</td>
+											</#if>
+										</tr>
+									<#elseif  docOdj.fichier?exists>
+										<tr class="even-row">
+											<td nowrap="nowrap">${docOdj.fichier.datePublication?string(" EEEE dd MMMM yyyy")} </td>
+											<td>
+												<img src="images/local/skin/plugins/ods/icon-pdf.gif" alt="Pdf">
+												<a href="jsp/site/plugins/ods/DoDownload.jsp?id_fichier=${docOdj.fichier.id}" target="_blank">
+													${docOdj.fichier.titre}
+												</a>
+												<span class="ods-notes">
+													(${docOdj.fichier.extension} - ${docOdj.fichier.tailleKo}#i18n{ods.front.liasse.label.ko})
+												</span>
+											</td>
+										</tr>
+									</#if>
+								</#list>
+							</table>
+							<div class="ods-top">
+								<a href="jsp/site/Portal.jsp?page=ods_seances_archives&id_commission=${id_commission}&id_seance=${seance.idSeance}#TOP">
+									#i18n{ods.front.prochainconseil.label.hautPage}
+								</a>
+							</div>
+						</#if>
+						
+						<!--bloc-->
+						<#if liste_autres_documents_seance?size!=0>	
+							<a name="ANC_3" id="ANC_3"></a>
+							<h3>#i18n{ods.front.prochainconseil.label.autreDocumentSeance}</h3>
+							<table class="data-table">
+								<tr>
+									<td nowrap="nowrap">#i18n{ods.front.prochainconseil.label.datepublication}</td>
+									<td>#i18n{ods.front.prochainconseil.label.document}</td>
+								</tr>
+								<#list liste_autres_documents_seance as docOdj>
+									<#if docOdj.fichier?exists>
+										<tr class="even-row">
+											<td nowrap="nowrap">${docOdj.fichier.datePublication?string(" EEEE dd MMMM yyyy")} </td>
+											<td>
+												<img src="images/local/skin/plugins/ods/icon-pdf.gif" alt="Pdf">
+												<a href="jsp/site/plugins/ods/DoDownload.jsp?id_fichier=${docOdj.fichier.id}" target="_blank">
+													${docOdj.fichier.titre}
+												</a>
+												<span class="ods-notes">
+													(${docOdj.fichier.extension} - ${docOdj.fichier.tailleKo}#i18n{ods.front.liasse.label.ko})
+												</span>
+											</td>
+										</tr>
+									</#if>
+								</#list>
+							</table>
+							<div class="ods-top">
+								<a href="jsp/site/Portal.jsp?page=ods_seance_archives&id_commission=${id_commission}&id_seance=${seance.idSeance}#TOP">
+									#i18n{ods.front.prochainconseil.label.hautPage}
+								</a>
+							</div>
+						</#if>
+						<!--bloc-->
+						
+						<a name="ANC_4" id="ANC_4"></a>
+						<h3>#i18n{ods.front.prochainconseil.label.documentscommissions}</h3>
+						<p>#i18n{ods.front.prochainconseil.label.pourafficherdocument}</p>
+						<form action="jsp/site/Portal.jsp?page=ods_seance_archives&id_seance=${seance.idSeance}#ANC_4" method="post">
+							<#if !liste_commission?exists || (liste_commission?size < 1)>
+								<strong>#i18n{ods.front.prochainconseil.message.noCommission}</strong>
+							<#else>
+								<label for="">#i18n{ods.front.prochainconseil.label.numerocommission} </label>
+								<@combo name="id_commission"  items=liste_commission  default_value=id_commission />
+								<input name="" type="submit" value="Afficher" id="ods-btn-affiche" />
+							</#if>
+						</form>
+						
+						<p class="espace_10"></p>
+						<table class="data-table">
+							<tr>
+								<td  nowrap="nowrap">#i18n{ods.front.prochainconseil.label.datepublication}</td>
+								<td>#i18n{ods.front.prochainconseil.label.document}</td>
+							</tr>
+							<#list liste_ordre_du_jour_commission as docOdj>
+								<#if docOdj.ordreDuJour?exists>
+									<tr class="even-row">
+										<td nowrap="nowrap">${docOdj.ordreDuJour.datePublication?string(" EEEE dd MMMM yyyy")}</td>
+										<td><a href="jsp/site/Portal.jsp?page=ods_odj&id_odj=${docOdj.ordreDuJour.idOrdreDuJour}">${docOdj.ordreDuJour.intitule}</a>  </td>
+									</tr>
+								<#elseif  docOdj.fichier?exists>
+									<tr class="even-row">
+										<td nowrap="nowrap">${docOdj.fichier.datePublication?string(" EEEE dd MMMM yyyy")} </td>
+										<td>
+											<img src="images/local/skin/plugins/ods/icon-pdf.gif" alt="Pdf">	
+											<a href="jsp/site/plugins/ods/DoDownload.jsp?id_fichier=${docOdj.fichier.id}" target="_blank">
+												${docOdj.fichier.titre}
+											</a>
+											<span class="ods-notes">
+												(${docOdj.fichier.extension} - ${docOdj.fichier.tailleKo}#i18n{ods.front.liasse.label.ko})
+											</span>
+										</td>
+									</tr>
+								</#if>
+							</#list>
+						</table>
+						
+						<ul class="list">
+							<#if releve?exists>
+								<li>
+									<a href="jsp/site/Portal.jsp?page=ods_releve_travaux_comm&id_releve=${releve.idReleveDesTravaux}">
+										${releve.intitule}
+									</a>
+								</li>
+							</#if>
+						</ul>
+						
+						<div class="ods-top">
+							<a href="jsp/site/Portal.jsp?page=ods_seance_archives&id_commission=${id_commission}&id_seance=${seance.idSeance}#TOP">
+								#i18n{ods.front.prochainconseil.label.hautPage}
+							</a>
+						</div>
+
+						<div class="ods-legend"><strong>#i18n{ods.front.prochainconseil.label.legende}</strong>
+							<ul>
+								<li>
+									<span class="ods-flag-N" title="#i18n{ods.front.deliberations.title.nouveau}">#i18n{ods.front.deliberations.label.nouveau}</span>
+									 = #i18n{ods.front.deliberations.nouveaudocument}
+								</li>
+								<li>
+									<span class="ods-flag-M" title="#i18n{ods.front.deliberations.title.modifie}">#i18n{ods.front.deliberations.label.modifie}</span>
+									 = #i18n{ods.front.deliberations.nouvelleversion}
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<#else>
+		<h1>Probleme de parametres</h1>
+	</#if>
+</div>

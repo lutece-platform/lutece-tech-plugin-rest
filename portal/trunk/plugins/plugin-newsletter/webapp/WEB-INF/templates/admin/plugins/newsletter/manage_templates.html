@@ -1,0 +1,34 @@
+<div class="content-box">
+    <h2>#i18n{newsletter.manage_templates.boxTitle}</h2>
+    
+    <table>
+        <tr>
+            <th>#i18n{newsletter.manage_templates.columnTitleLabel}</th>
+            <th>#i18n{newsletter.manage_templates.columnTitleType}</th>
+            <th>#i18n{newsletter.manage_templates.columnTitleFile}</th>
+            <th>#i18n{newsletter.manage_templates.columnTitleImage}</th>
+            <th>#i18n{newsletter.manage_templates.columnTitleDelete}</th>
+        </tr>
+        <#list template_list as template >
+        <tr>
+            <td>
+                &nbsp;&nbsp;<img src="images/admin/skin/bullet.gif" border="0">
+                <a href="jsp/admin/plugins/newsletter/ModifyNewsLetterTemplate.jsp?newsletter_template_id=${template.id}" class="admin-menu" >${template.description}</a>
+            </td>
+            <td>&nbsp;#i18n{${plugin.name}.${template.name}}</td>
+            <td>&nbsp;${template.fileName}</td>
+            <td>&nbsp;${template.picture}</td>
+            <td>
+                <a href="jsp/admin/plugins/newsletter/RemoveNewsLetterTemplate.jsp?newsletter_template_id=${template.id}">
+                    <img src="images/admin/skin/actions/delete.png" border="0">
+                </a>
+            </td>
+        </tr>
+        </#list>
+    </table>
+    
+    <form method="post" action="jsp/admin/plugins/newsletter/AddNewsLetterTemplate.jsp">
+        <input type="submit" value="#i18n{newsletter.manage_templates.buttonAddTemplate}" class="button" />
+    </form>
+    
+</div>

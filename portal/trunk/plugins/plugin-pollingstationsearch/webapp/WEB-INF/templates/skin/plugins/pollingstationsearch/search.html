@@ -1,0 +1,89 @@
+<div id="barre">
+	<ul>
+		<li id="ocritereon">1. #i18n{pollingstationsearch.search_page.sub_title2}</li>
+	    <li id="ochoix">2. #i18n{pollingstationsearch.street_list.your_address}</li>
+		<li id="oliste">3. #i18n{pollingstationsearch.result_page.your_polling_station}</li>
+	</ul>
+</div>
+
+<div id="cadre">
+<p>
+	#i18n{pollingstationsearch.search_page.info.line1}
+	<br/>
+	#i18n{pollingstationsearch.search_page.info.line2}
+	<br/>
+	#i18n{pollingstationsearch.search_page.info.line3}
+</p>
+<p align="center"><b>#i18n{pollingstationsearch.search_page.sub_title2}</b></p>
+
+<div><strong><#if mark_message?has_content>[${mark_message}]</#if></strong></div>
+
+<p><em>#i18n{pollingstationsearch.search_page.requiered_fields}</em></p>
+
+<form class="default-form" name="searchForm" method="post" action="${mark_url_jsp}?page=${mark_plugin_name}">
+
+	<fieldset>
+		<legend>#i18n{pollingstationsearch.search_page.address}&nbsp;:</legend>
+		<br/>
+		<p>
+	 		<label class="combo-label">*&nbsp;#i18n{pollingstationsearch.search_page.urban_district.legend}&nbsp;: </label>
+			<select name="street_urban_district">
+					
+				<#assign x=20>
+				<#list 0..x as i>
+					<#assign currentValue=i?string("00") >
+					<#if (currentValue!=mark_street_urban_district)>
+						<#if (i=0)>
+							<option value="0">#i18n{pollingstationsearch.search_page.urban_district.combo}</option>
+						<#elseif (i=1)>
+							<option value="${currentValue}" >${i}er</option>
+						<#else>
+							<option value="${currentValue}" >${i}e</option>
+						</#if>
+					<#else>
+						<#if (i=0)>
+							<option selected="selected" value="0">#i18n{pollingstationsearch.search_page.urban_district.combo}</option>
+						<#elseif (i=1)>
+							<option selected="selected" value="${currentValue}" >${i}er</option>
+						<#else>
+							<option selected="selected" value="${currentValue}" >${i}e</option>
+						</#if>
+					</#if>
+	    		</#list>
+			</select>
+		</p>
+		<br/>
+		<p>
+	 		<label class="text-label" for="street_number">*&nbsp;#i18n{pollingstationsearch.search_page.street_number.label}&nbsp;:
+	 			<br/>#i18n{pollingstationsearch.search_page.street_number.example}
+	 		</label>
+			<input type="text" name="street_number" id="street_number" value="${mark_street_number}" size="3" maxlength="10" />
+			<@combo name="number_suffix" default_value="${mark_number_suffix}" items=mark_suffix_list />
+		</p>
+		<br/>
+		<p>
+	 		<label class="text-label" for="short_street_type">*&nbsp;#i18n{pollingstationsearch.search_page.street_type.label}&nbsp;:
+	 			<br/>#i18n{pollingstationsearch.search_page.street_type.example}
+	 		</label>
+			<@combo name="short_street_type" default_value="${mark_street_type}" items=mark_street_type_list />
+		</p>
+		<br/>
+		<p>
+	 		<label class="text-label" for="street_name">*&nbsp;#i18n{pollingstationsearch.search_page.street_name.label}&nbsp;:
+	 		</label>
+			<input type="text" name="street_name" id="street_name" value="${mark_street_name}" size="50" maxlength="255" />
+		</p>
+		<p align="center">
+			#i18n{pollingstationsearch.search_page.street_name.info}
+			<br/>
+			#i18n{pollingstationsearch.search_page.street_name.example}
+		</p>
+		<br/>
+	</fieldset>
+	
+  	 <p align="center">
+       	<input type="submit" class="button" name="action_search" value="#i18n{pollingstationsearch.search_page.search.button}"/>
+		<input type="submit" class="button" name="action_reset" value="#i18n{pollingstationsearch.search_page.reset.button}"/>
+  	 </p>
+</form>
+</div>

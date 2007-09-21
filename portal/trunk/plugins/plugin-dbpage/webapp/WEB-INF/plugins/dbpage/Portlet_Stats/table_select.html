@@ -1,0 +1,10 @@
+    <form method="post" action="jsp/site/Portal.jsp?page=dbpage&dbpage=Portlet Stats">
+    <#if result_dataset?exists>
+        <select id="value1" name="value1">
+             <#list result_dataset as row>
+                <option value="${row[0]}"> #i18n{${row[1]}}</option>
+             </#list> 
+        </select>
+    </#if>
+    <input class="button" value="Submit" type="submit">
+    </form>

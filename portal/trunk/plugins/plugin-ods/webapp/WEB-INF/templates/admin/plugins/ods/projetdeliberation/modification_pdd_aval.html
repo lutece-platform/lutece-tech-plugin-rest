@@ -1,0 +1,483 @@
+<script>
+    
+function doAppliquer()
+{
+	var myForm = document.getElementById('ModificationPDD');
+	myForm.afaire.value='apply';    	
+   	myForm.submit();
+}
+
+function annuler( ) 
+{
+	var myForm = document.getElementById('ModificationPDD');
+	myForm.afaire.value='cancel';    	
+   	myForm.submit();
+}
+
+function addItem( what ) {
+	var myForm = document.getElementById('ModificationPDD');
+	
+	if(what == 1){
+		document.forms['ModificationPDD'].action='jsp/admin/plugins/ods/projetdeliberation/DoAjoutDirectionCoEmetrice.jsp';
+   	}else{
+		document.forms['ModificationPDD'].action='jsp/admin/plugins/ods/projetdeliberation/DoAjoutArrondissement.jsp';
+   	}
+	myForm.submit();
+}
+    
+</script>
+
+<div class="content-box">
+	<#if fonctionnalite_is_projet?exists && fonctionnalite_is_projet >
+		<h2>#i18n{ods.projetDeDeliberation.modification.label.titleAval}</h2>
+	<#else>
+		<h2>#i18n{ods.propositionDeDeliberation.modification.label.titleAval}</h2>
+	</#if>
+	<#if pdd?exists>
+	  	<form action="jsp/admin/plugins/ods/projetdeliberation/DoModificationPDD.jsp" method="POST" name="ModificationPDD" id="ModificationPDD" enctype="multipart/form-data">
+	   		<input type="hidden" name="id_pdd" id="id_pdd" value="${pdd.idPdd}" />
+	   		<input type="hidden" name="pdd_ecran" id="pdd_ecran" value="pdd_ecran_modification" />
+			<input type="hidden" id="afaire" name="afaire" value="save" />
+	   		<p>
+	    		<label>#i18n{ods.pdd.label.seance} : </label>
+				<#if seance?exists>
+					<input id="id_seance" name="id_seance" type="hidden" value="${seance.idSeance}" />
+	    			#i18n{ods.pdd.label.du}
+					${seance.dateSeance?string("dd/MM/yyyy")}
+					<#if seance.dateSeance?string("ddMMyyyy") != seance.dateCloture?string("ddMMyyyy") >
+						#i18n{ods.pdd.label.au} 
+						${seance.dateCloture?string("dd/MM/yyyy")} 	
+					</#if>
+	    		<#else>-</#if>
+	    	</p>
+	    	
+	   		<p>	   		
+	     		<label for="id_formation_conseil">#i18n{ods.pdd.label.formationConseil} * :</label>
+	     		<#if permission_modification >
+	     			<@combo name="id_formation_conseil"  items=liste_formation_conseil default_value=id_formation_conseil_selected/>
+	     		<#elseif pdd.formationConseil?exists>
+	     			${pdd.formationConseil.libelle}
+	     		<#else>-</#if>
+	   		</p>
+	   		
+	   		<p>
+	    		<label for="">#i18n{ods.pdd.label.annee} * : </label>	    
+	    		<#if permission_modification >
+		    		<#if pdd.annee?exists>
+			    		<input type="text" name="pdd_annee" id="pdd_annee" size="5" value="${pdd.annee}" />
+					<#else>
+						<input type="text" name="pdd_annee" id="pdd_annee" size="5" value="" />
+					</#if>
+	    		<#elseif pdd.annee?exists>
+	    			${pdd.annee}
+	    		<#else>-</#if>
+	   		</p>
+	   		
+			<#if fonctionnalite_is_projet?exists && fonctionnalite_is_projet >
+	   		<p>
+	    		<label for="">#i18n{ods.pdd.label.direction} * : </label>		     
+	     	 	<#if permission_modification >
+		     		<@combo name="id_direction"  items=liste_direction default_value=id_direction_selected />
+	    		<#elseif pdd.direction?exists & pdd.direction.code?exists>
+					${pdd.direction.code} (${pdd.direction.libelleLong})
+	    		<#else>-</#if>
+	   		</p>
+	   		<#else>
+			<p>
+		     	<label for="id_groupe">#i18n{ods.pdd.label.groupe} * : </label>	     
+	     	 	<#if permission_modification >
+		     		<@combo name="id_groupe"  items=liste_groupe_depositaire default_value=id_groupe_depositaire_selected/>
+		     	<#elseif pdd.groupePolitique?exists>		     	
+					${pdd.groupePolitique.nomGroupe}
+		     	<#else>-</#if>
+		   	</p>
+			</#if>
+	   		
+	   		<p>
+	    		<label for="">#i18n{ods.pdd.label.numero} * : </label>
+	    		<#if permission_modification >
+		    		<#if pdd.numero?exists>
+			    		<input type="text" name="pdd_numero" id="pdd_numero" size="5" value="${pdd.numero}" />
+					<#else>
+			    		<input type="text" name="pdd_numero" id="pdd_numero" size="5" value="" />
+					</#if>
+	    		<#elseif pdd.numero?exists>
+	    			${pdd.numero}
+	    		<#else>-</#if>
+	   		</p>
+	   		
+	  		<#if fonctionnalite_is_projet?exists && fonctionnalite_is_projet >
+		    	<#if permission_modification >
+				   	<div class="highlight-box">
+				    <h3>#i18n{ods.pdd.label.directionCoEmetrice}</h3>
+				    <#if liste_direction_co_emetrice_added?exists>
+				    	<input type="hidden" id="code_direction_co_emetrice_added" name="code_direction_co_emetrice_added" value="">
+					    <table>
+					     	<tr>
+					      		<th>#i18n{ods.pdd.label.codeDirection}</th>
+					      		<th>#i18n{ods.pdd.label.numeroProjet}</th>
+					      		<th>#i18n{ods.pdd.list.label.action}</th>
+					     	</tr>
+					     
+					     	<#list liste_direction_co_emetrice_added as directionCoEmetrice>
+						    <tr>
+						      	<td>${directionCoEmetrice.direction.code}</td>
+						      	<td>${directionCoEmetrice.codeProjet}</td>
+						      	<td nowrap="nowrap" class="ods-actions">
+									<span style="cursor:'hand';" onclick="javascript: deleteItem(1,'${directionCoEmetrice.direction.code}');">
+							      		<img src="images/admin/skin/actions/delete.png" alt="Supprimer l'association" title="Supprimer l'association"/>
+								   	</span>	
+						      	</td>
+						   	</tr>
+							</#list>
+					    </table>
+					</#if>
+				    <p>
+			   	     	<label for="id_direction_co_emetrice">#i18n{ods.pdd.label.direction} :</label>
+				     	<@combo name="id_direction_co_emetrice"  items=liste_direction_co_emetrice default_value=id_direction_co_emetrice_selected/>
+				     	#i18n{ods.pdd.label.numeronumero}
+				     	<input id="pdd_ref_co_emetrice" name="pdd_ref_co_emetrice" type="text" size="5" />
+				     	<input type="button" value="#i18n{ods.pdd.creation.label.ajouter}" class="button" onclick="javascript: addItem(1);"/>
+				    </p>
+					</div>
+				<#else>		
+		   	 		<label for="pdd_objet">#i18n{ods.pdd.label.directionCoEmetrice} :</label>		
+		    		<#if pdd.directionsCoEmetrices?exists>
+		    			<#list pdd.directionsCoEmetrices as co>
+		    				${co.direction.code} ${co.codeProjet}<#if co_has_next>,</#if>
+		    			</#list>
+		    		<#else>-</#if>
+				</#if>
+			</#if>
+	   		
+	   		<p>
+	    		<label for="">#i18n{ods.pdd.label.objet} : </label>
+	    		<#if permission_modification >
+		    		<#if pdd.objet?exists>
+			    		<textarea name="pdd_objet" id="pdd_objet" cols="80" rows="6">${pdd.objet}</textarea>
+					<#else>
+			   			<textarea name="pdd_objet" id="pdd_objet" cols="80" rows="6"></textarea>
+					</#if>
+				<#else>
+	    			<#if pdd.objet?exists>
+	    				${pdd.objet}
+	    			<#else>-</#if>
+	    		</#if>
+	   		</p>
+	   
+	   		<p>
+	     		<label for="id_pdd_mode_intro">#i18n{ods.pdd.label.modeIntroduction} * :</label>
+	     		<#if permission_modification >
+	     			<@combo name="id_pdd_mode_intro"  items=liste_mode_intro default_value=id_mode_intro_selected/>
+	     		<#else>
+    				<#if pdd.modeIntroduction?exists>
+	    				<#if pdd.modeIntroduction = "S">
+	    					#i18n{ods.pdd.modification.modeIntroduction.soumisConseilArrondissement}
+	    				<#else>
+	    					#i18n{ods.pdd.modification.modeIntroduction.introductionDirecte}
+	    				</#if>
+    				<#else>-</#if>	     	
+	     		</#if>
+	   		</p>
+	   		
+	   		<#if permission_modification >
+	   		<div class="highlight-box">
+	   			<h3>#i18n{ods.pdd.label.arrondissements}</h3>
+	   			<#if liste_arrondissement_added?exists>
+	    		<input type="hidden" id="id_arrondissement_added" name="id_arrondissement_added" value="">
+		    	<table>
+		    		<tr>
+		     			<th>#i18n{ods.pdd.label.numero}</th>
+		     			<th>#i18n{ods.pdd.list.label.action}</th>
+		    		</tr>
+		     		<#list liste_arrondissement_added as arrondissement>
+			   		<tr>
+			     		<td>${arrondissement.arrondissement}</td>
+			     		<td nowrap="nowrap" class="ods-actions">
+							<span style="cursor:hand;" onclick="javascript: deleteItem(2, ${arrondissement.arrondissement});">
+					     		<img src="images/admin/skin/actions/delete.png" alt="#i18n{ods.pdd.link.deleteAssociation}" title="#i18n{ods.pdd.link.deleteAssociation}"/>
+					     	</span>	
+			     		</td>
+			   		</tr>
+					</#list>
+		    	</table>
+	    		</#if>
+	   			<p>
+	    			<label for="id_arrondissement">#i18n{ods.pdd.label.arrondissement} :</label>
+	     			<@combo name="id_arrondissement"  items=liste_arrondissement default_value=id_arronddissement_selected/>
+	    			<input name="" type="button" value="Ajouter" class="button" onclick="javascript: addItem(2);"/>
+	   			</p>
+	   		</div>
+	    	<#else>
+	   		<p>
+	    		<label for="">#i18n{ods.pdd.label.arrondissements} : </label>
+	   			<#if liste_arrondissement_added?exists && (liste_arrondissement_added?size > 0)>
+	    			<#list liste_arrondissement_added as arr>
+	    				${arr.arrondissement}<#if arr_has_next>,</#if>
+	    			</#list>
+	    		<#else>-</#if>
+	   		</p>
+	   		</#if>
+	   		
+	   		
+		   	<p>
+		    	<label for="id_categorie">#i18n{ods.pdd.label.categorieDeDeliberation} * :</label>
+	   			<#if permission_modification >
+		    		<@combo name="id_categorie"  items=liste_categorie_deliberation default_value=id_categorie_deliberation_selected/>
+		   		<#else>
+	    			<#if pdd.categorieDeliberation?exists && pdd.categorieDeliberation.libelle?exists>
+	    				${pdd.categorieDeliberation.libelle}
+	     			<#else>-</#if>
+	     		</#if>
+	   		</p>
+	   		
+	   		<p>
+	    		<label for="">#i18n{ods.pdd.label.pieceManuellesDispo} :</label>
+			    <#if permission_modification >
+				    <#if pdd.piecesManuelles?exists && pdd.piecesManuelles >
+					    <input name="pdd_piece_manuel" id="pdd_piece_manuel" type="checkbox" value="Vrai" CHECKED/>
+					<#else>
+						<input name="pdd_piece_manuel" id="pdd_piece_manuel" type="checkbox" value="Vrai" />
+					</#if>	 
+			   	<#else>
+		    		<#if pdd.piecesManuelles?exists && pdd.piecesManuelles>
+			    		#i18n{ods.all.label.yes}
+			    	<#else>
+			    		#i18n{ods.all.label.no}
+			    	</#if>
+				</#if>   
+	   		</p>
+	   			
+	   		<p>
+	    		<label for="">#i18n{ods.pdd.label.delegationDesServicesPublics} :</label>
+				<#if permission_modification >
+				    <#if pdd.delegationsServices?exists && pdd.delegationsServices >
+					    <input name="pdd_deleg_service_public" id="pdd_deleg_service_public" type="checkbox" value="Vrai" CHECKED/>
+					<#else>
+						<input name="pdd_deleg_service_public" id="pdd_deleg_service_public" type="checkbox" value="Vrai" />
+					</#if>
+				<#else>
+		    		<#if pdd.delegationsServices?exists && pdd.delegationsServices>
+			    		#i18n{ods.all.label.yes}
+			    	<#else>
+			    		#i18n{ods.all.label.no}
+			    	</#if>
+				</#if>
+	   		</p>
+	   		
+	   		<p>
+	    		<label for="">#i18n{ods.pdd.label.exposeDesMotifs} * :</label>	    		
+	    		<#if fichier_expose_des_motifs?exists>
+		    		<a href="jsp/admin/plugins/ods/projetdeliberation/DoDowloadFichier.jsp?id_fichier=${fichier_expose_des_motifs.id}">${fichier_expose_des_motifs.nom}.${fichier_expose_des_motifs.extension}</a>
+	    		</#if>
+				<#if permission_modification >
+					<input name="pdd_xpose_motif" id="pdd_xpose_motif" type="file" value=""/>
+				<#elseif !fichier_expose_des_motifs?exists>-</#if>
+	   		</p>
+	   		
+	   		<p>
+			    <label for="pdd_projet_de_delibere">#i18n{ods.pdd.label.projetDeDelibere} * :</label>
+			    <#if fichier_projet_de_delibere?exists>
+				    <a href="jsp/admin/plugins/ods/projetdeliberation/DoDowloadFichier.jsp?id_fichier=${fichier_projet_de_delibere.id}">${fichier_projet_de_delibere.nom}.${fichier_projet_de_delibere.extension}</a>
+			    </#if>
+				<#if permission_modification >
+					<input name="pdd_projet_de_delibere" id="pdd_projet_de_delibere" type="file" />
+				<#elseif !fichier_projet_de_delibere?exists>-</#if>
+	   		</p>
+	   		
+	   		<p>
+	    		<label for="">#i18n{ods.pdd.label.statut} :</label>
+	    		<@combo name="id_statut"  items=liste_statuts  default_value=id_statut_selected />
+	   		</p>
+	   		
+	   		<p>
+	    		<label for="">#i18n{ods.pdd.label.deliberation} :</label>
+	    		<#if fichier_deliberation?exists>
+		    		<a href="jsp/admin/plugins/ods/projetdeliberation/DoDowloadFichier.jsp?id_fichier=${fichier_deliberation.id}">${fichier_deliberation.nom}.${fichier_deliberation.extension}</a>
+	    		</#if>
+	    		<input name="fichier_deliberation" type="file" id="fichier_deliberation" />
+	   		</p>
+	   		
+	   		<p>
+	    		<label for="">#i18n{ods.pdd.label.dateVote} :</label>
+	    		<input type="text" name="date_vote" id="date_vote" size="10" 
+	    			<#if pdd.dateVote?exists>value=${pdd.dateVote?string("dd/MM/yyyy")}</#if> />
+    	    	<input type="button" class="button" id="button_date_vote" value="..." />
+	   		</p>
+	   		
+	   		<p>
+	    		<label for="">#i18n{ods.pdd.label.dateControleLegalite} :</label>
+        		<input type="text" name="date_retour_controle_legalite" id="date_retour_controle_legalite" size="10" 
+        			<#if pdd.dateRetourCtrlLegalite?exists>value=${pdd.dateRetourCtrlLegalite?string("dd/MM/yyyy")}</#if> />
+        		<input type="button" class="button" id="button_date_retour_controle_legalite" value="..." />
+   			</p>
+	   		
+	   		<p>
+	    		<input type="submit" value="#i18n{ods.pdd.button.enregistrer}" class="button" />
+	    		<input type="button" value="#i18n{ods.pdd.button.appliquer}" class="button" onclick="javascript: doAppliquer();" />
+	    		<input type="button" value="#i18n{ods.all.button.cancel}" class="button" onclick="javascript: annuler();" />
+	   		</p>
+	   		
+		   	<p>
+		   		<strong>#i18n{ods.pdd.button.enregistrer} :</strong> #i18n{ods.pdd.label.enregistrer}<br/>
+		    	<strong>#i18n{ods.pdd.button.appliquer} :</strong> #i18n{ods.pdd.label.appliquer}<br/>
+		    	<strong>#i18n{ods.pdd.button.annuler} :</strong> #i18n{ods.pdd.label.annuler}
+		   	</p>
+		</form>
+    </#if>
+</div>
+
+ <div class="content-box">
+  <h2>#i18n{ods.pdd.label.pieceAnnexes}</h2>
+  <table>
+   <tr>
+    <th>#i18n{ods.listefichiers.label.intitule}</th>
+	<th>#i18n{ods.listefichiers.label.extension}</th>
+	<th>#i18n{ods.listefichiers.label.taille}</th>
+	<th>#i18n{ods.listefichiers.label.publierle}</th>
+	<th>#i18n{ods.listefichiers.label.actions}</th>
+   </tr>
+   <#if liste_pieces_annexes?exists>
+	   <#list liste_pieces_annexes as piece_annexe>
+		   <a name="ANC_LAST" id="ANC_LAST"></a>
+		   <tr>
+		    <td>
+    		    <a href="jsp/admin/plugins/ods/projetdeliberation/DoDowloadFichier.jsp?id_fichier=${piece_annexe.id}">${piece_annexe.titre}</a>
+		    </td>
+		    <td>${piece_annexe.extension}</td>
+		    <td>${piece_annexe.tailleKo} #i18n{ods.listefichiers.label.ko}</td>
+		    	<#if piece_annexe.enLigne = true>
+				    <td>${piece_annexe.datePublication?string("dd/MM/yyyy")}</td>
+				<#else>
+			    	<td></td>
+				</#if>
+		    <td nowrap="nowrap" class="ods-actions">
+				<#if permission_modification >
+				  	<a href="jsp/admin/plugins/ods/fichiers/ModificationFichierForPDD.jsp?plugin_name=ods&id_pdd=${pdd.idPdd}&id_fichier=${piece_annexe.id}"><img src="images/admin/skin/plugins/ods/action/modify.png" alt="#i18n{ods.pdd.list.button.modifier}" title="#i18n{ods.pdd.list.button.modifier}" /></a>
+			    </#if>
+			    <a href="jsp/admin/plugins/ods/projetdeliberation/HistoriquePieceAnnexe.jsp?id_fichier=${piece_annexe.id}"><img src="images/admin/skin/plugins/ods/action/history.png" alt="#i18n{ods.pdd.list.button.historique}" title="#i18n{ods.pdd.list.button.historique}" /></a> 
+				<#if permission_modification >
+					<a href="jsp/admin/plugins/ods/projetdeliberation/SuppressionPieceAnnexe.jsp?id_pdd=${pdd.idPdd}&id_fichier=${piece_annexe.id}"><img src="images/admin/skin/plugins/ods/action/delete.png" alt="#i18n{ods.pdd.list.button.supprimer}" title="#i18n{ods.pdd.list.button.supprimer}" /></a>
+			    </#if>
+		    </td>
+		   </tr>
+		</#list>
+   	</#if>
+  	</table>
+	<#if permission_modification >
+   	<p>
+    	<input type="button" value="#i18n{ods.listefichiers.button.ajoutfichier}" class="button" onclick="window.location='${webapp}/jsp/admin/plugins/ods/fichiers/CreationFichierForPDD.jsp?plugin_name=ods&id_pdd=${pdd.idPdd}'" />
+   	</p>
+   	</#if>
+</div>
+
+<div class="content-box">
+  	<h2>#i18n{ods.pdd.label.amandementsRataches}</h2>
+  	<table>
+   
+   		<tr>
+    		<th>#i18n{ods.pdd.label.amandementsRataches.code}</th>
+    		<th>#i18n{ods.pdd.label.amandementsRataches.type}</th>
+    		<th>#i18n{ods.pdd.label.amandementsRataches.taille}</th>
+    		<th>#i18n{ods.pdd.label.amandementsRataches.publierle}</th>
+    		<th>#i18n{ods.pdd.label.amandementsRataches.actions}</th>
+   		</tr>
+   
+		<#if pdd.amendements?exists>
+			<#list pdd.amendements as amendement>
+		   		<tr class="ods-noborder">
+		    		<td><a href="jsp/admin/plugins/ods/voeuamendement/ModificationAmendement.jsp?plugin_name=ods&id_voeuamendement=${amendement.idVoeuAmendement}&id_seance=${seance.idSeance}" class="bullet-link">${amendement.referenceComplete}</a></td>
+		    		<td>${amendement.fichier.extension}</td>
+		    		<td>${amendement.fichier.tailleKo} #i18n{ods.listefichiers.label.ko}</td>
+		    		<#if amendement.enLigne = true>
+			    		<td>${amendement.datePublication?string("dd/MM/yyyy")}</td>
+					<#else>
+		    			<td>-</td>
+					</#if>
+		    		<td nowrap="nowrap" class="ods-actions">
+		    			<a href="jsp/admin/plugins/ods/projetdeliberation/doChangeNumOrdreAmendements.jsp?id_pdd=${pdd.idPdd}&id_voeuamendement=${amendement.idVoeuAmendement}&index=${amendement_index}&id_seance=${seance.idSeance}&dir=up"><img src="images/admin/skin/actions/up.png" alt="#i18n{ods.pdd.link.amandementsRataches.monter}" title="#i18n{ods.pdd.link.amandementsRataches.monter}" /></a>
+		    			<a href="jsp/admin/plugins/ods/projetdeliberation/doChangeNumOrdreAmendements.jsp?id_pdd=${pdd.idPdd}&id_voeuamendement=${amendement.idVoeuAmendement}&index=${amendement_index}&id_seance=${seance.idSeance}&dir=down"><img src="images/admin/skin/actions/down.png" alt="#i18n{ods.pdd.link.amandementsRataches.descendre}" title="#i18n{ods.pdd.link.amandementsRataches.descendre}" /></a>
+		    			<a href="jsp/admin/plugins/ods/projetdeliberation/doChangeNumOrdreAmendements.jsp?id_pdd=${pdd.idPdd}&id_voeuamendement=${amendement.idVoeuAmendement}&index=${amendement_index}&id_seance=${seance.idSeance}&dir=remove"><img src="images/admin/skin/actions/delete.png" alt="#i18n{ods.pdd.link.amandementsRataches.deleteAssociation}" title="#i18n{ods.pdd.link.amandementsRataches.deleteAssociation}" /></a>
+		    		</td>
+		   		</tr>
+		   		<tr>
+		    		<td colspan="5">${amendement.objet}</td>
+		   		</tr>
+			</#list>
+		</#if>
+  	</table>
+  	<form method="" action="">
+   		<p>
+    		<input type="button" value="#i18n{ods.pdd.button.amandementsRataches.selectAmandement}" class="button" onclick="window.location='${webapp}/jsp/admin/plugins/ods/voeuamendement/AmendementsForPDDGestionAval.jsp?plugin_name=ods&id_seance=${seance.idSeance}&id_pdd=${pdd.idPdd}'" />
+   		</p>
+  	</form>
+</div>
+
+<div class="content-box">
+  	<h2>#i18n{ods.pdd.label.voeuxRataches}</h2>
+  	<table>
+   		<tr>
+    		<th>#i18n{ods.pdd.label.voeuxRataches.code}</th>
+    		<th>#i18n{ods.pdd.label.voeuxRataches.type}</th>
+    		<th>#i18n{ods.pdd.label.voeuxRataches.taille}</th>
+    		<th>#i18n{ods.pdd.label.voeuxRataches.publierle}</th>
+    		<th>#i18n{ods.pdd.label.voeuxRataches.actions}</th>
+   		</tr>
+
+		<#if pdd.voeuxRattaches?exists>
+			<#list pdd.voeuxRattaches as voeuxRattaches>
+		   		<tr class="ods-noborder">
+		    		<td><a href="jsp/admin/plugins/ods/voeuamendement/ModificationVoeuRattache.jsp?plugin_name=ods&id_voeuamendement=${voeuxRattaches.idVoeuAmendement}&id_seance=${seance.idSeance}" class="bullet-link">${voeuxRattaches.referenceComplete}</a></td>
+		    		<td>${voeuxRattaches.fichier.extension}</td>
+		    		<td>${voeuxRattaches.fichier.tailleKo} #i18n{ods.listefichiers.label.ko}</td>
+		    		<#if voeuxRattaches.enLigne = true>
+			    		<td>${voeuxRattaches.datePublication?string("dd/MM/yyyy")}</td>
+					<#else>
+		    			<td>-</td>
+					</#if>
+		    		<td nowrap="nowrap" class="ods-actions">
+		    			<a href="jsp/admin/plugins/ods/projetdeliberation/doChangeNumOrdreVoeux.jsp?id_pdd=${pdd.idPdd}&id_voeuamendement=${voeuxRattaches.idVoeuAmendement}&index=${voeuxRattaches_index}&id_seance=${seance.idSeance}&dir=up"><img src="images/admin/skin/actions/up.png" alt="#i18n{ods.pdd.link.voeuxRataches.monter}" title="#i18n{ods.pdd.link.voeuxRataches.monter}" /></a>
+		    			<a href="jsp/admin/plugins/ods/projetdeliberation/doChangeNumOrdreVoeux.jsp?id_pdd=${pdd.idPdd}&id_voeuamendement=${voeuxRattaches.idVoeuAmendement}&index=${voeuxRattaches_index}&id_seance=${seance.idSeance}&dir=down"><img src="images/admin/skin/actions/down.png" alt="#i18n{ods.pdd.link.voeuxRataches.descendre}" title="#i18n{ods.pdd.link.voeuxRataches.descendre}" /></a>
+		    			<a href="jsp/admin/plugins/ods/projetdeliberation/doChangeNumOrdreVoeux.jsp?id_pdd=${pdd.idPdd}&id_voeuamendement=${voeuxRattaches.idVoeuAmendement}&index=${voeuxRattaches_index}&id_seance=${seance.idSeance}&dir=remove"><img src="images/admin/skin/actions/delete.png" alt="#i18n{ods.pdd.link.voeuxRataches.deleteAssociation}" title="#i18n{ods.pdd.link.voeuxRataches.deleteAssociation}" /></a>
+		    		</td>
+		   		</tr>
+		   		<tr>
+		    		<td colspan="5">${voeuxRattaches.objet}</td>
+		   		</tr>
+			</#list>
+		</#if>
+	</table>
+	<form method="" action="">
+   		<p>
+    		<input type="button" value="#i18n{ods.pdd.button.voeuxRataches.selectAmandement}" class="button" onclick="window.location='${webapp}/jsp/admin/plugins/ods/voeuamendement/VoeuxRattachesForPDDGestionAval.jsp?plugin_name=ods&id_seance=${seance.idSeance}&id_pdd=${pdd.idPdd}'" />
+   		</p>
+	</form>
+</div>
+
+<!-- main calendar program -->
+<script type="text/javascript" src="js/jscalendar/calendar.js"></script>
+<!-- language for the calendar -->
+<script type="text/javascript" src="js/jscalendar/lang/calendar-fr.js"></script>
+<!-- the following script defines the Calendar.setup helper function, which makes
+       adding a calendar a matter of 1 or 2 lines of code. -->
+<script type="text/javascript" src="js/jscalendar/calendar-setup.js"></script>
+<script type="text/javascript">
+    Calendar.setup({
+    inputField     :    "date_vote",      // id of the input field
+    ifFormat       :    "%d/%m/%Y",       // format of the input field
+    showsTime      :    false,            // will display a time selector
+    button         :    "button_date_vote",   // trigger for the calendar (button ID)
+    singleClick    :    true,           // double-click mode
+    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
+    });
+</script>
+<script type="text/javascript">
+    Calendar.setup({
+    inputField     :    "date_retour_controle_legalite",      // id of the input field
+    ifFormat       :    "%d/%m/%Y",       // format of the input field
+    showsTime      :    false,            // will display a time selector
+    button         :    "button_date_retour_controle_legalite",   // trigger for the calendar (button ID)
+    singleClick    :    true,           // double-click mode
+    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
+    });
+</script>

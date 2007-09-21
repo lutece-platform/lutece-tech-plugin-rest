@@ -1,0 +1,52 @@
+<div class="content-box" >
+    <h2>#i18n{reporting.publishingReportingMonthly.title} ${reporting_period_name}</h2>
+    
+    <#if last_Monthly?exists>
+        <form method="post" id="create_reporting_project" action="jsp/admin/plugins/reporting/ComfirmUpdateMonthly.jsp">
+        <input type="hidden" name="monthly_id" value="${last_Monthly.idMonthly}"/>
+        <input type="hidden" name="period_id" value="${last_Monthly.idPeriod}"/>
+    <#else>
+        <form method="post" id="create_reporting_project" action="jsp/admin/plugins/reporting/ComfirmUpdateMonthly.jsp">
+    	<input type="hidden" name="monthly_id" value=""/>
+    	<input type="hidden" name="period_id" value=""/>
+    </#if>
+        
+        <input type="hidden" name="project_id" value=${project_id}>
+
+        <p>
+            <label for="reporting_monthly_fact" >#i18n{reporting.publishingReportingMonthly.labelFact} : </label> 
+            <textarea id="reporting_monthly_fact" name="monthly_fact" rows="8" cols="80"><#if last_Monthly?exists>${last_Monthly.fact}</#if></textarea>
+        </p>
+        
+        <p>
+            <label for="reporting_monthly_event" >#i18n{reporting.publishingReportingMonthly.labelEvenement} :</label>  
+            <textarea id="reporting_monthly_event" name="monthly_event" rows="8" cols="80"><#if last_Monthly?exists>${last_Monthly.event}</#if></textarea>
+        </p>
+       
+      	<p>
+            <label for="reporting_risk" >#i18n{reporting.publishingReportingFiche.labelRisk} :</label>
+            <#if last_Monthly?exists>
+          		 <@combo name="risk" default_value="${last_Monthly.risk}" items=risk_list />
+           <#else>
+             	<@combo name="risk" default_value="" items=risk_list />
+           </#if> 
+         </p>
+         
+        <p>
+            <label for="reporting_tendency" >#i18n{reporting.publishingReportingFiche.labelTendency} :</label>  
+            <#if last_Monthly?exists>
+             	<@combo name="tendency" default_value="${last_Monthly.tendency}" items=tendency_list />
+             <#else>
+             	<@combo name="tendency" default_value="" items=tendency_list />
+             </#if>
+         </p>
+      		
+	        <input type="submit" value="#i18n{reporting.publishingReportingMonthly.buttonValidate}" class="button"/></td>
+	      	<input class="button" onclick="javascript:history.go(-1)" value="#i18n{reporting.publishingReportingMonthly.buttonCancel}" type="button"/></td>
+	      	<a target="blank" href="jsp/admin/plugins/reporting/ManageHistoryMonthly.jsp?project_id=${project_id}">
+	      		<img src="images/admin/skin/plugins/reporting/actions/history.png" alt="#i18n{reporting.publishingReportingMonthly.history}"  title="#i18n{reporting.publishingReportingMonthly.history}"/>
+	      	</a>
+      	  
+    </form>
+    
+</div>

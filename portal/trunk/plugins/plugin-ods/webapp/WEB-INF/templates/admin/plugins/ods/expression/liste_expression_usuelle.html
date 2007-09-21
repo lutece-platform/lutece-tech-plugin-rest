@@ -1,0 +1,53 @@
+<div class="content-box">
+	<h2>#i18n{ods.listeexpressionusuelle.label.title}</h2>
+	<#if liste_expression_count=0>
+		<div class="highlight-box">
+			#i18n{ods.listeexpressionusuelle.label.noExpression}
+		</div>
+	<#else>
+		<p>
+			#i18n{ods.listeexpressionusuelle.label.resultCount} ${liste_expression_count}
+		</p>
+		<form method="post" action="jsp/admin/plugins/ods/expression/ManagePaginator.jsp">
+			<@pagination paginator=paginator />
+			
+			#i18n{ods.listeexpressionusuelle.label.lineCount}
+			<select name="items_per_page">
+		        <#list [ "5" , "10" , "20" , "50" ] as nb>
+			        <#if nb_items_per_page = nb >
+			        <option selected="selected" value="${nb}">${nb}</option>
+			        <#else>
+			        <option value="${nb}">${nb}</option>
+			        </#if>
+		        </#list>
+		    </select>
+			<input type="submit" class="button" value=#i18n{ods.listeexpressionusuelle.button.modify} />
+		</form>
+		<table>
+			<tr>
+				<th>#i18n{ods.listeexpressionusuelle.label.nom}</th>
+				<th>#i18n{ods.listeexpressionusuelle.label.actions}</th>
+			</tr>
+			<#list liste_expressions as expression>
+			<a name="ANC_LAST" id="ANC_LAST"></a>
+				<tr>
+					<td>${expression.expression}</td>
+					<td nowrap="nowrap" class="ods-actions">
+						<a href="jsp/admin/plugins/ods/expression/ModificationExpressionUsuelle.jsp?id_expression=${expression.idExpression}">
+							<img src="images/admin/skin/plugins/ods/action/modify.png" alt="Modifier" title="Modifier" />
+						</a>
+						<a href="jsp/admin/plugins/ods/expression/SuppressionExpressionUsuelle.jsp?id_expression=${expression.idExpression}">
+							<img src="images/admin/skin/plugins/ods/action/delete.png" alt="Supprimer" title="Supprimer" />
+						</a>
+					</td>
+				</tr>
+			</#list>
+		</table>
+	</#if>	
+	
+	<form method="post" action="jsp/admin/plugins/ods/expression/CreationExpressionUsuelle.jsp">
+		<p>
+			<input type="submit" value="#i18n{ods.listeexpressionusuelle.button.create}" class="button" />
+		</p>
+	</form>
+</div>

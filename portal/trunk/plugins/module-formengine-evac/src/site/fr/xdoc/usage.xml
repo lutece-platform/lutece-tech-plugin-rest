@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC "//UNKNOWN/" "http://maven.apache.org/dtd/xdoc_1_0.dtd">
+<document>
+	<properties>
+		<title>Module Formengine - E-Vac : Utilisation</title>
+	</properties>
+	<body>
+		<section name="Utilisation">
+			<p>
+				Une fois installé et déployé sur une application web, la
+				premère étape consiste à activer le plugin dans
+				l'interface d'administration de Lutèce, rubrique Gestion des
+				plugins.
+			</p>
+			<p>
+				Le formulaire généré par le module E-Vac est
+				accessible via la XPage du plugin Formengine :
+			</p>
+			<ul>
+				<li>
+					<p>
+						L'url suivant permet d'acceder au formulaire du module E-Vac :
+					</p>
+					<p>
+						<code>
+							http://&lt;base_url&gt;/jsp/site/Portal.jsp?page=formengine&amp;form=evac
+						</code>
+					</p>
+				</li>
+			<li>
+			<p>
+				<p>
+				Dans le cas d'une utilisation du module en mode
+				<strong>standalone</strong>, l'url de base :
+				</p>
+				<p>
+				<code>
+					http://&lt;base_url&gt;/jsp/site/<strong>Portal.jsp</strong>
+				</code>
+				</p>
+				<p>
+				est à remplacer par l'url suivante :
+				</p>
+				<p>
+				<code>
+					http://&lt;base_url&gt;/jsp/site/<strong>RunStandaloneApp.jsp</strong>
+				</code>
+				</p>
+			</p>
+			</li>
+			</ul>
+			<p>
+				Après validation de la saisie du formulaire,
+				l'écran de confirmation fournit un identifiant de
+				demande. La concaténation du label "evac_" et de cet identifiant, correspond au nom du fichier
+				xml généré dans le répertoire indiqué dans le fichier
+				<code>formengine-evac.properties.</code>
+			</p>
+			<p>
+				La définition de ce répertoire est indiquée dans la propriété :
+			</p>
+			<ul>
+				<li>evac.xml.directory</li>
+			</ul>
+		</section>
+	</body>
+</document>

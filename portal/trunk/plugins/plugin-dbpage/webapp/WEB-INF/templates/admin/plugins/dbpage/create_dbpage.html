@@ -1,0 +1,25 @@
+<div class="content-box" >
+    
+    <h2>#i18n{dbpage.create_dbpage.tableLabel}</h2>
+    
+    <form method="post" form name="create_dbpage" id="create_dbpage" action="jsp/admin/plugins/dbpage/DoCreateDbPage.jsp">    
+        <p>
+            <label for="dbpage_name" >#i18n{dbpage.create_dbpage.rowTitleName} * : </label> 
+            <input type="text" name="dbpage_name" size="60" maxlength="50" tabindex="1" />
+        </p>
+        
+        <p>
+            <label for="dbpage_title" >#i18n{dbpage.create_dbpage.rowTitleTitle} * :</label>  
+            <input type="text" name="dbpage_title" size="60" maxlength="200" tabindex="2" />
+        </p>
+        <p>
+            <label for="dbpage_workgroup" >#i18n{dbpage.create_dbpage.rowTitleWorkgroup} * :</label>  
+			<@combo name="dbpage_workgroup" default_value="" items=workgroup_list />
+        </p>
+        <p>   
+            <input type="submit" value="#i18n{dbpage.create_dbpage.buttonSaveAndAddSections}" class="button" />
+            <input class="button" type="button" onclick="javascript:history.go(-1)" value="#i18n{portal.admin.message.buttonCancel}" />
+        </p> 
+    </form>
+    
+</div>

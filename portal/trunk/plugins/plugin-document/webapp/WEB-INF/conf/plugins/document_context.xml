@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    <!--                  Data Access Objects (DAO)                   -->
+
+    <bean id="documentDAO" class="fr.paris.lutece.plugins.document.business.DocumentDAO" />
+    <bean id="documentCommentDAO" class="fr.paris.lutece.plugins.document.business.DocumentCommentDAO" />
+    <bean id="documentTypeDAO" class="fr.paris.lutece.plugins.document.business.DocumentTypeDAO" />
+	<bean id="documentPageTemplateDAO" class="fr.paris.lutece.plugins.document.business.DocumentPageTemplateDAO" />
+    <bean id="attributeTypeDAO" class="fr.paris.lutece.plugins.document.business.attributes.AttributeTypeDAO" />
+    <bean id="documentAttributeDAO" class="fr.paris.lutece.plugins.document.business.attributes.DocumentAttributeDAO" />
+    <bean id="historyEventDAO" class="fr.paris.lutece.plugins.document.business.history.HistoryEventDAO" />
+    <bean id="documentListPortletDAO" class="fr.paris.lutece.plugins.document.business.portlet.DocumentListPortletDAO" />
+    <bean id="documentSpaceDAO" class="fr.paris.lutece.plugins.document.business.spaces.DocumentSpaceDAO" />
+    <bean id="spaceActionDAO" class="fr.paris.lutece.plugins.document.business.spaces.SpaceActionDAO" />
+    <bean id="documentStateDAO" class="fr.paris.lutece.plugins.document.business.workflow.DocumentStateDAO" />
+    <bean id="documentActionDAO" class="fr.paris.lutece.plugins.document.business.workflow.DocumentActionDAO" />    
+    <bean id="ruleDAO" class="fr.paris.lutece.plugins.document.business.rules.RuleDAO" />    
+    <bean id="categoryDAO" class="fr.paris.lutece.plugins.document.business.category.CategoryDAO" />
+    
+
+    <!--                       Metadata Handlers                      -->
+
+    <bean id="metadataDublinCore" class="fr.paris.lutece.plugins.document.modules.metadatadublincore.DublinCoreMetadataHandler" />
+
+    <!--                       Document Search                        -->
+
+    <bean id="docSearchIndexer" class="fr.paris.lutece.plugins.document.service.docsearch.DefaultDocSearchIndexer" />
+    
+    <bean id="pdfFileIndexer" class="fr.paris.lutece.plugins.document.service.fileindexing.PdfFileIndexer" />
+    <bean id="fileIndexerFactory"  class="fr.paris.lutece.plugins.document.service.fileindexing.FileIndexerFactory" >
+        <property name="indexersMap" >
+            <map>
+                <entry>
+                    <key><value>application/pdf</value></key>
+                    <ref bean="pdfFileIndexer" />
+                </entry>
+            </map>
+        </property>
+    </bean>
+    
+    <!--                   Documents Event Listeners                  -->
+
+    <!-- Listeners -->
+    <bean id="ruleEngine" class="fr.paris.lutece.plugins.document.service.rules.RuleEngine" factory-method="getInstance" />
+    <bean id="documentHistoryService" class="fr.paris.lutece.plugins.document.service.history.DocumentHistoryService" factory-method="getInstance" />
+    
+    <!-- Manager -->
+    <bean id="documentEventListernersManager" class="fr.paris.lutece.plugins.document.service.DocumentEventListernersManager" >
+        <property name="listeners" >
+            <list>
+                <ref bean="ruleEngine" />
+                <ref bean="documentHistoryService" />    
+            </list>
+        </property>
+    </bean>
+
+    <!--                  Publishing Event Listeners                  -->
+    <!-- Listeners -->
+    <bean id="portletInvalider" class="fr.paris.lutece.plugins.document.service.publishing.PortletInvalider" />
+    
+    
+    <!-- Manager -->
+    <bean id="publishingEventListenersManager" class="fr.paris.lutece.plugins.document.service.publishing.PublishingEventListenersManager" >
+        <property name="listeners" >
+            <list>
+                <ref bean="portletInvalider" />
+            </list>
+        </property>
+    </bean>
+    
+    <!--                           Rules                              -->
+
+    <bean id="ruleTypesSet"  class="fr.paris.lutece.plugins.document.business.rules.RuleTypesSet" >
+        <property name="ruleTypesMap" >
+            <map>
+                <entry>
+                    <key><value>moveSpace</value></key>
+                    <ref bean="ruleMoveSpace" />
+                </entry>
+                <entry>
+                    <key><value>notifyUsers</value></key>
+                    <ref bean="ruleNotifyUsers" />
+                </entry>
+            </map>
+            
+        </property>
+    </bean>
+    
+    <bean id="ruleMoveSpace" class="fr.paris.lutece.plugins.document.modules.rulemovespace.business.MoveSpaceRule" />
+    <bean id="ruleNotifyUsers" class="fr.paris.lutece.plugins.document.modules.rulenotifyusers.business.NotifyUsersRule" />
+    
+  </beans>

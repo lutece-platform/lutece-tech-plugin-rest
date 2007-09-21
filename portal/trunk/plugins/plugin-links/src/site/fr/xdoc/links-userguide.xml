@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<properties>
+		<title>Guide utilisateur du plugin Newsletter</title>
+	</properties>
+	<body>
+		<section name="Portlet Liens utiles">
+			<subsection name="Description">
+				<p>
+					Cette portlet permet d'afficher la liste des liens
+					utiles. Chaque lien est affiché sous la forme :
+					<ul>
+						<li>Image éventuellement associée au lien</li>
+						<li>Libellé du lien sous forme d'url</li>
+						<li>Description du lien</li>
+					</ul>
+					<img src="../../../src/site/resources/images/links_manual_008.gif" alt="Image" />
+				</p>
+			</subsection>
+			<subsection name="Les actions possibles">
+				<p>
+					<ul>
+						<li>
+							Le libellé du lien est cliquable et permet
+							d'afficher le contenu du lien dans une
+							nouvelle fenêtre.
+						</li>
+					</ul>
+				</p>
+			</subsection>
+
+		</section>
+
+		<section name="Page spéciale Liens utiles">
+			<subsection name="Description">
+				<p>
+				Cette page permet d'afficher tous les liens utiles présents dans des rubriques à travers le site.
+				
+					<img src="../../../src/site/resources/images/links_manual_009.gif" alt="Image" />
+				</p>
+			</subsection>
+			<subsection name="Les actions possibles">
+				<p>
+					<ul>
+						<li>
+							Le libellé du lien est cliquable et permet
+							d'afficher le contenu du lien dans une
+							nouvelle fenêtre.
+						</li>
+					</ul>
+				</p>
+			</subsection>
+
+		</section>
+	</body>
+</document>

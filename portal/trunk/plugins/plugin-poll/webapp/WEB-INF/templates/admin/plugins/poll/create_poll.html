@@ -1,0 +1,19 @@
+<div class="content-box" >
+
+    <h2>#i18n{poll.create_poll.boxTitle}</h2>
+			       
+    <form method="post" name="create_poll" action="jsp/admin/plugins/poll/DoCreatePoll.jsp">		
+        <p>
+            <label for="poll_name">#i18n{poll.create_poll.name} * :</label>
+            <input type="text" id="poll_name" name="poll_name" tabindex="1" size="100" maxlength="250" />
+        </p>
+        <p>
+            <label for="poll_name">#i18n{poll.create_poll.workgroup}  :</label>
+            <@combo name="workgroup" default_value="" items=workgroups_list />
+        </p>
+        <p>
+            <input type="submit" value="#i18n{poll.create_poll.buttonLabelCreate}" tabindex="10" class="button" />
+            <input class="button" type="button" onclick="javascript:history.go(-1)" value="#i18n{portal.admin.message.buttonCancel}" />
+        </p>
+    </form>
+</div>

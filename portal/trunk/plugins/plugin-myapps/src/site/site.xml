@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Lutèce">
+	
+    <body>
+        <links>
+	    <item name="FR" href="/fr/index.html" />
+	</links>
+
+        <menu name="Plugin MyApps">
+            <item name="Introduction" href="index.html"/>
+        </menu>
+        
+        <menu name="Manuel d'utilisation">
+            <item name="Interface d'utilisation" href="myapps-userguide.html"/>
+        </menu>
+        
+    </body>
+</project>

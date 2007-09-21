@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Lutèce">
+	
+    <body>
+      
+        <menu name="Plugin Pollingstationsearch">
+            <item name="Introduction" href="index.html"/>
+        </menu>
+        
+        <menu name="Manuel d'utilisation">
+            <item name="Interface d'utilisation" href="pollingstationsearch-userguide.html"/>
+        </menu>
+        
+    </body>
+</project>

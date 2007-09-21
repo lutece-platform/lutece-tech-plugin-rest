@@ -1,0 +1,183 @@
+<script language="JavaScript" type="text/javascript">
+function removeElu(id)
+{    	
+    	document.getElementById('idEluToRemove').value=id;
+    	document.getElementById('TypeSuppression').value='elu';
+    	var myForm = document.getElementById('modification');
+    	myForm.submit();
+}
+function removeCommission(id)
+{    	
+    	document.getElementById('idCommissionToRemove').value=id;
+    	document.getElementById('TypeSuppression').value='commission';
+    	var myForm = document.getElementById('modification');
+    	myForm.submit();
+}
+</script>
+
+<#function writeNeme numero>
+	<#if numero == 1>
+		<#return "#i18n{ods.all.label.ere}">
+	<#else>
+		<#return "#i18n{ods.all.label.eme}">			      
+	</#if>
+</#function>
+
+<#if entree_odj?exists&&entree_odj.type?exists>
+
+	
+	<div class="content-box">
+	 <#if entree_odj.type=="P">
+		 <h2>#i18n{ods.odj.modification.label.creationEntreePDD}</h2>
+	</#if>
+	<#if entree_odj.type=="V" >
+		 <h2>#i18n{ods.odj.creation.label.modificationEntreeVNR}</h2>
+	</#if>
+	 <#if entree_odj.type="T">
+	 	 <h2>#i18n{ods.odj.modification.label.creationEntreeTexte}</h2>
+	 </#if>
+		 <form action="jsp/admin/plugins/ods/ordredujour/DoModificationEntreeOrdreDuJour.jsp"  method="post" id="modification"  >
+		 <input type="hidden" id="TypeSuppression" name="type_suppression" value="">
+		  <input type="hidden" id="idEluToRemove" name="id_elu_to_remove" value="">
+		  <input type="hidden" id="idCommissionToRemove" name="id_commission_to_remove" value="">
+		  <#if entree_odj.type=="P">
+		  	<p>
+		    	 <label for="">#i18n{ods.odj.creation.label.pdd} :</label>
+		    	<#if entree_odj.pdd?exists>
+					<a href='jsp/admin/plugins/ods/projetdeliberation/ModificationPDDForEntreeOdj.jsp?plugin_name=ods&id_pdd=${entree_odj.pdd.idPdd}&id_entree=${entree_odj.idEntreeOrdreDuJour}'>
+					 ${entree_odj.pdd.reference}
+					</a>
+				 <input name="deselectionner_pdd" type="submit" value="#i18n{ods.odj.button.deselect}"class="button" />
+				<#else>
+		   		 <input name="ajouter_projet" type="submit" value="#i18n{ods.odj.button.selectProjet}"  class="button" />
+		    	 <input name="ajouter_proposition" type="submit" value="#i18n{ods.odj.button.selectProposition}" class="button" />
+		   		</#if>
+		   	 </p>
+		   <p>
+		     <label for="">#i18n{ods.odj.creation.label.codeAffiche} * :</label>
+		     <#if entree_odj.reference?exists>
+		  		 <input name="reference" type="text" size="80" value="${entree_odj.reference}" />
+		     <#else>
+				 <input name="reference" type="text" size="80" value="" />
+		    </#if>
+		  </p>
+		   <p>
+		    <label for="">#i18n{ods.odj.creation.label.objetAffiche} * :</label>
+		      <#if entree_odj.objet?exists>
+		      	<textarea name="objet" cols="80" rows="6">${entree_odj.objet}</textarea>
+		     <#else>
+		     	 <textarea name="objet" cols="80" rows="6"></textarea>
+		     </#if>
+		   	</p>
+		   	<p align="center"><input name="ajouter_expression" type="submit" value="#i18n{ods.odj.button.insererExpressionUsuelle}" class="button"  /></p>
+		</#if>
+		<#if entree_odj.type=="V" >
+			<p>
+    			<label for="">#i18n{ods.odj.creation.label.vnr} :</label>
+				<#if entree_odj.voeuAmendement?exists>
+					<a href='jsp/admin/plugins/ods/voeuamendement/ModificationVoeuNonRattache.jsp?plugin_name=ods&id_voeuamendement=${entree_odj.voeuAmendement.idVoeuAmendement}'>
+					<#if !entree_odj.voeuAmendement.reference?exists || entree_odj.voeuAmendement.reference==''>
+						#i18n{ods.all.label.v}
+					<#else>
+						${entree_odj.voeuAmendement.referenceComplete}
+					</#if>	
+					</a>
+				<input name="deselectionner_voeu" type="submit" value="#i18n{ods.odj.button.deselect}" class="button" />
+			  <#else>
+			 	<input name="selectionner_voeu" value="#i18n{ods.odj.button.select}" class="button" type="submit">
+                <input name="ajouter_voeu" value="#i18n{ods.odj.button.add}"  class="button" type="submit">
+			</#if>
+			<p>
+			
+  		</#if>
+  
+		
+		<#if (entree_odj.type=="P") || (entree_odj.type=="V")>
+		   <p>
+		    <label for="">#i18n{ods.odj.creation.label.nature} :</label>
+		    <#if entree_odj.nature?exists>
+		       <@combo name="id_nature"  items=liste_nature_dossier  default_value=entree_odj.nature.idNature/>
+		     <#else>
+		   		<@combo name="id_nature"  items=liste_nature_dossier  default_value=-1 />
+		     </#if>
+		     </p>
+		    
+		    <div class="highlight-box">
+		   <h3>#i18n{ods.odj.creation.label.commissions}</h3>
+				<#if entree_odj.commissions?exists &&entree_odj.commissions?size!=0>		   
+				   <table>
+					    <tr>
+					     <th>#i18n{ods.odj.creation.label.numero}</th>
+					     <th>#i18n{ods.odj.liste.label.actions}</th>
+					    </tr>
+					    <#list entree_odj.commissions as commission>
+					    	<tr>
+					     		<td>${commission.numero}</td>
+					     		<td nowrap="nowrap" class="ods-actions">
+					     		<a href="javascript:removeCommission(${commission.idCommission})"><img src="images/admin/skin/actions/delete.png" alt="#i18n{ods.odj.image.supprimerAssociation}" title="#i18n{ods.odj.image.supprimerAssociation}" /></a> 
+					     		</td>
+					    </tr>
+					   	</#list>
+					   	</table>
+				</#if>	
+			   <p>
+		    <label for="">#i18n{ods.odj.creation.label.commission} :</label>
+		    	<@combo name="id_commission"  items=liste_commission  default_value=-1 />
+		    <input type="submit"  name="ajouter_commission" value="Ajouter" class="button" onclick="location='ModifyOdjEntreePdd.htm'" />
+		   </p>
+		   </div>
+		   
+		   <div class="highlight-box">
+		   <h3>#i18n{ods.odj.creation.label.rapporteurs}</h3>
+		  <#if entree_odj.elus?exists &&entree_odj.elus?size!=0>	
+			   <table>
+				    <tr>
+				     <th>#i18n{ods.odj.creation.label.nom}</th>
+					     <th>#i18n{ods.odj.liste.label.actions}</th>
+				    </tr>
+				    <#list entree_odj.elus as elu>
+					    <tr>
+					     <td> ${elu.civilite} ${elu.prenomElu} ${elu.nomElu} 
+							(${elu.commission.numero}${writeNeme(elu.commission.numero)})
+				       	</td>
+				       	<td nowrap="nowrap" class="ods-actions">    <a href="javascript:removeElu(${elu.idElu})"><img src="images/admin/skin/actions/delete.png" alt="#i18n{ods.odj.image.supprimerAssociation}" title="#i18n{ods.odj.image.supprimerAssociation}" /></a> </td>
+					  	</tr>
+					  </#list>	
+				     </table>
+			</#if> 
+		   <p>
+		    <label>#i18n{ods.odj.creation.label.rapporteur} :</label>
+		    <@combo name="id_elu"  items=liste_rapporteur  default_value=-1 />
+		  <input type="submit" value="#i18n{ods.odj.button.add}" name="ajouter_rapporteur" class="button"  />
+		   </p>
+		   </div>
+		   
+		 </#if> 
+		 <#if entree_odj.type=="T" >
+		 	<p>
+			    <label for="">#i18n{ods.odj.creation.label.texte} :</label>
+			    <#if entree_odj.objet?exists >
+			    	<textarea name="objet" cols="80" rows="6">${entree_odj.objet}</textarea>
+			    <#else>
+			    	<textarea name="objet" cols="80" rows="6"></textarea>
+			    </#if>	
+			</p>
+			<p>
+			    <label for="">#i18n{ods.odj.creation.label.format} :</label>
+			    <select name="style">
+			     	<option  value="-1"  >#i18n{ods.odj.creation.label.aucun}</option>
+			     	<option value="1"  <#if entree_odj.style?exists&&entree_odj.style="1" >selected="selected"</#if> >#i18n{ods.odj.creation.label.entete} 1</option>
+			     	<option value="2" <#if entree_odj.style?exists&&entree_odj.style="2" >selected="selected"</#if> >#i18n{ods.odj.creation.label.entete} 2</option>
+			     	<option value="3" <#if entree_odj.style?exists&&entree_odj.style="3" >selected="selected"</#if> >#i18n{ods.odj.creation.label.entete} 3</option>
+					<option value="4" <#if entree_odj.style?exists&&entree_odj.style="4" >selected="selected"</#if> >#i18n{ods.odj.creation.label.entete} 4</option>
+			    </select>
+			</p>
+		 </#if>
+		   <p>
+		    <input type="submit" value="#i18n{ods.all.button.save}"  name="enregistrer" class="button" />
+		    <input type="submit" value="#i18n{ods.all.button.cancel}"  name="annuler" class="button" />
+		   </p>
+		  </form>
+		 </div>
+		
+	</#if>	

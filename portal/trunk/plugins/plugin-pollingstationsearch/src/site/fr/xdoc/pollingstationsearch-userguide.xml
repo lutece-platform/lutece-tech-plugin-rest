@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+    <properties>
+        <title>
+           Module de recherche des bureaux de vote : Guide utilisateur
+        </title>
+    </properties>
+    <body>
+    	
+    	
+		<section name="Ecran de saisie de l’adresse">
+        	<subsection name="Description">
+	    			
+	    				<p>
+							Cet écran propose la saisie des différents critères nécessaires à la recherche d'une adresse:
+							<ul>
+							    <li>Arrondissement</li>
+							    <li>numéro dans la voie</li>
+								<li>Complément du numéro (libellé non affiché)</li>
+								<li>Type de voie</li>
+								<li>Nom de la voie</li>
+							</ul>
+						</p>
+						
+						<img src="images/ecransaisieadresse.jpg"  border="1" alt="" />
+						
+						<p>Les champs doivent être saisis selon les contraintes ci-dessous:
+							<ul>
+						   		<li>
+									L’arrondissement,le numéro dans la voie,le type de voie,le nom de la voie sont obligatoires.
+								</li>	
+	                    		<li>
+	                    			Le numéro dans la voie  doit etre numérique et strictement supérieur à 0.
+	                    		</li>
+	                    		<li>
+	                    			Le champ « Nom de la voie » doit contenir au moins deux caractères
+	                    		</li>
+	                    	 </ul>		
+	                     </p>
+	            	         
+	           </subsection>	
+	           
+	           <subsection name="Les actions possibles">
+	   			    <p>
+							Le bouton « Continuer » permet de passer à l’étape suivante :
+							<ul>
+								<li>si aucune voie n’est trouvée, retour sur la page de recherche avec un message d’erreur ;</li>
+								<li>si une seule voie est trouvée, affichage du bureau de vote  correspondant;</li>
+								<li>si plusieurs voies correspondent, affichage de la liste des voies.</li>
+							</ul>
+						</p>
+						<p>Le bouton « Réinitialiser » permet de mettre les champs à leur valeur par défaut.</p>
+				
+					         
+	           </subsection>		
+		</section>
+		
+		<section name="Ecran de choix de la voie">
+			<subsection name="Description">
+				<p>
+					Dans le cas où les critères saisis ne permettent pas d’identifier une voie unique,
+					la liste des choix possibles est affichée. Les critères de recherche saisis sont
+					rappelés en début de page.
+				</p>
+				<img src="images/ecranchoixvoie.jpg"  border="1" alt="" />
+				<p>
+					Cette liste comporte toutes les voies dont le nom commence par la chaîne saisie.
+					Elle est classée par ordre alphabétique du nom de voie.
+				</p>
+             </subsection>  
+			<subsection name="Les actions possibles">
+				<p>Chaque adresse est précédée d’une case à cocher permettant de la sélectionner.
+				   Lorsque une adresse a été sélectionnée un clique sur le bouton « Valider » permet
+				   d’accéder à l'affichage du bureau de vote  correspondant.
+				 </p>
+				<p>Le bouton « Retour » permet de revenir à la saisie des critères.
+				   Les champs comportent alors les valeurs préalablement saisies.
+				</p>
+			</subsection>
+          </section>   
+         
+         <section name="Ecran d’affichage des résultats">
+			<subsection name="Description">
+				<p>
+					Cet écran affiche: 
+					<ul>
+						<li>le récapitulatif de l’adresse saisie;</li>
+						<li> les coordonnées du bureau de vote correspondant grâce à l’adresse sélectionnée à l’écran précédant,
+                    	au numéro de la voie saisi à l’écran de recherche et éventuellement au complément de numéro.</li>
+                 	</ul>
+                 </p>
+                 <img src="images/ecranresultat.jpg"  border="1" alt="" />
+             </subsection>
+		    
+			<subsection name="Les actions possibles">
+				<p>Le bouton « Retour » permet de revenir à l’étape de choix du nom de voie.
+					Si on n’est pas passé par cette étape,on revient à l'étape de recherche de voie,
+					les champs sont alors pré-remplis avec les anciens critères.
+				</p>
+				<p>Le bouton « Nouvelle recherche » renvoie sur le formulaire de saisie des critères.
+				   Le formulaire est réinitialisé.
+				</p>
+		    </subsection>
+         </section>
+	</body>
+</document>  
+  

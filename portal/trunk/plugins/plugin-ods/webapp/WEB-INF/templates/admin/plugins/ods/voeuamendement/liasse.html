@@ -1,0 +1,193 @@
+<div class="content-box">
+	<#if gestion_aval=true>
+  		<h2>#i18n{ods.liasse.label.titleGestionAval}</h2>
+	<#else>
+  		<h2>#i18n{ods.liasse.label.title}</h2>
+	</#if>
+	
+  	<#if !seance?exists && !gestion_aval >
+		<div class="highlight-box">
+			#i18n{ods.listenaturedossier.label.noRef}
+		</div>
+  	<#elseif gestion_aval && !seance?exists && (!liste_seances?exists || (liste_seances?size=0)) >
+		<div class="highlight-box">
+			#i18n{ods.listenaturedossier.label.noRefAval}
+		</div>
+  	<#else>
+		<div class="highlight-box">
+			<#if gestion_aval >
+				<form method="post" action="jsp/admin/plugins/ods/voeuamendement/StatutVAGestionAvalNoReinit.jsp">
+			<#else>
+				<form method="post" action="jsp/admin/plugins/ods/voeuamendement/VaNumerotes.jsp">
+			</#if>
+		  
+		    <p>
+		     	<#if gestion_aval >	     	
+		      		<label for="">#i18n{ods.liasse.label.seance} * : </label>
+	  			 	<select name="id_seance">
+	  			 	<#list liste_seances as myseance>
+	  			   		<#if myseance.idSeance=id_seance_selected>
+	  				   		<option value=${myseance.idSeance} selected>
+	  				  	<#else>
+	  						<option value=${myseance.idSeance}>
+	  					</#if>	
+			       		#i18n{ods.listeamendements.label.from}
+			            ${myseance.dateSeance?string("dd/MM/yyyy")}
+	  					<#if myseance.dateSeance?string("ddMMyyyy") != myseance.dateCloture?string("ddMMyyyy") >
+							#i18n{ods.listeamendements.label.to}
+							${myseance.dateCloture?string("dd/MM/yyyy")}
+						</#if>
+	  					</option> 
+	  			 	</#list>
+	  			 	</select>
+				<#else>
+		      		<label for="">#i18n{ods.liasse.label.seance} : </label>
+	          		<#if seance?exists>
+	    		    	#i18n{ods.listeamendements.label.from}
+			            ${seance.dateSeance?string("dd/MM/yyyy")}
+	  					<#if seance.dateSeance?string("ddMMyyyy") != seance.dateCloture?string("ddMMyyyy") >
+							#i18n{ods.listeamendements.label.to}
+							${seance.dateCloture?string("dd/MM/yyyy")}
+						</#if>
+	    	    	<#else>
+	    		    	#i18n{ods.listeamendements.label.from}... #i18n{ods.listeamendements.label.to} ... 
+	    	    	</#if> 
+	    	 	</#if>
+		    </p>
+		    
+		    <p>
+		     	<label for="">#i18n{ods.listeamendements.label.formationduconseil} * : </label>
+		     	<@combo name="id_formation_conseil"  items=liste_formation_conseil  default_value=id_formation_conseil_selected />
+		   	</p>
+		   	
+		   	<p align="center">
+		     	<input type="submit" class="button" value="#i18n{ods.liasse.button.search}" />
+		   	</p>
+		   	
+			</form>
+		</div>
+		
+		<p> #i18n{ods.liasse.label.nbresult} ${nb_results}</p>
+	   		
+	   		<a name="ANC_LAST" id="ANC_LAST"></a>
+	    	<#if liste_voeuamendement?size=0>
+				<div class="highlight-box">#i18n{ods.listevoeuxrattaches.label.novoeurattache}</div>
+			<#else>
+				<table>
+				    <tr>
+				     	<th>#i18n{ods.liasse.label.objet}</th>
+				     	<th>#i18n{ods.liasse.label.depose}</th>
+				     	<th>#i18n{ods.liasse.label.pdd}</th>
+				     	<#if gestion_aval=true>
+				     		<th>#i18n{ods.liasse.label.statut}</th>
+				     	</#if>
+				    </tr>
+		    	
+	    		<#list liste_voeuamendement as voeuamendement>
+					<#if gestion_aval=true>	
+						<form method="post" action="jsp/admin/plugins/ods/voeuamendement/DoAssignStatut.jsp">
+							<input type="hidden" id="id_voeuamendement" name="id_voeuamendement" value=${voeuamendement.idVoeuAmendement} />
+					</#if>
+	    				    		
+			     		<tr>
+			     		
+			      			<td>
+			      				<#if gestion_aval=true>
+				      	 			<a href="jsp/admin/plugins/ods/voeuamendement/ModificationStatutVA.jsp?id_voeuamendement=${voeuamendement.idVoeuAmendement}" class="bullet-link">
+								<#else>
+				      				<#if  voeuamendement.type='A'||voeuamendement.type='LR'>
+				      	 				<a href="jsp/admin/plugins/ods/voeuamendement/ModificationAmendementForLiasse.jsp?id_voeuamendement=${voeuamendement.idVoeuAmendement}" class="bullet-link">
+							      	<#elseif  voeuamendement.type='V'>
+							      	 	<a href="jsp/admin/plugins/ods/voeuamendement/ModificationVoeuRattacheForLiasse.jsp?id_voeuamendement=${voeuamendement.idVoeuAmendement}" class="bullet-link">
+							      	<#elseif  voeuamendement.type='VNR'>
+							      	 	<a href="jsp/admin/plugins/ods/voeuamendement/ModificationVoeuNonRattacheForLiasse.jsp?id_voeuamendement=${voeuamendement.idVoeuAmendement}" class="bullet-link">
+							      	</#if>
+						      	</#if>
+			        			${voeuamendement.referenceComplete}</a>
+			       			</td>
+			       			
+			       			<#if voeuamendement.deposeExecutif?exists&&voeuamendement.deposeExecutif==true>
+			    				<td>#i18n{ods.liasse.label.executif}</td>
+			    			<#else>
+			          			<#if voeuamendement.elus?exists>
+			    	   				<#list voeuamendement.elus as elu>	
+			             				<td>${elu.groupe.nomGroupe}</td>
+			            			</#list>
+			            		<#else>
+			            			<td>-</td>
+			     				</#if>
+			     			</#if>	
+			     			
+			        		<#if voeuamendement.pdds?exists>
+			    				<td>
+			    					<#list voeuamendement.pdds as pdd>	
+				    					${pdd.reference}
+				    					<#if pdd_has_next>
+				    						,
+				    						<#if (pdd_index > 1)>
+				    							...
+				    							<#break>
+				    						</#if>
+				    					</#if>
+			             			</#list>
+			             		</td>
+			         		<#else>
+			         			<td></td>	
+			         		</#if>
+			         		
+			         		<#if gestion_aval=true>
+				         		<td>
+				         			<#if (voeuamendement.type = "V") || (voeuamendement.type = "VNR") >
+					         			<#if voeuamendement.statut?exists>
+						         			<@combo name="id_statut"  items=liste_statuts_voeux  default_value=voeuamendement.statut.idStatut />
+						         		<#else>
+						         			<@combo name="id_statut"  items=liste_statuts_voeux  default_value=-1 />
+						         		</#if>
+					         		<#elseif (voeuamendement.type = "A") || (voeuamendement.type = "LR")>
+					         			<#if voeuamendement.statut?exists>
+						         			<@combo name="id_statut"  items=liste_statuts_amendements  default_value=voeuamendement.statut.idStatut />
+						         		<#else>
+						         			<@combo name="id_statut"  items=liste_statuts_amendements  default_value=-1 />
+						         		</#if>
+						         	<#else>
+					         			<#if voeuamendement.statut?exists>
+						         			<@combo name="id_statut"  items=liste_statuts  default_value=voeuamendement.statut.idStatut />
+						         		<#else>
+						         			<@combo name="id_statut"  items=liste_statuts  default_value=-1 />
+						         		</#if>
+					         		</#if>
+					         		<input type="submit" value=#i18n{ods.all.button.ok} class="button" />
+				         		</td>
+			         		</#if>
+			         		
+			    		</tr>
+					<#if gestion_aval=true>	
+		    			</form>
+		    		</#if>
+	   			</#list>
+	   		</#if>
+	   		</table>
+		</p>
+		
+		<#if gestion_aval=true>
+	   		<p>
+	   			<form method="post" action="jsp/admin/plugins/ods/voeuamendement/ModificationStatutsNonDefinis.jsp">
+	   				<input type="hidden" name="id_seance" id="id_seance" value=${id_seance_selected} />
+	   				<input type="hidden" name="id_formation_conseil" id="id_formation_conseil" value=${id_formation_conseil_selected} />
+		    		<label for="">#i18n{ods.liasse.label.statut} : </label>
+					<@combo name="id_statut"  items=liste_statuts  default_value=-1 />
+		    		<input name="modif_statuts_non_definis" type="submit" value=#i18n{ods.liasse.button.statutsnondefinis} class="button" />
+		    	</form>
+	  		</p>
+  		</#if>
+		 
+		<p>
+			<form method="post" action="jsp/admin/plugins/ods/voeuamendement/DoDownloadLiasse.jsp">
+				<input name="genere_csv" type="submit" value="#i18n{ods.liasse.button.exporter}" class="button" />
+				<#if gestion_aval=false>
+				 	<input name="genere_pdf" type="submit" value="#i18n{ods.liasse.button.visualiser}" class="button" />
+				</#if>
+			</form>
+		</p>
+	</#if>
+</div>

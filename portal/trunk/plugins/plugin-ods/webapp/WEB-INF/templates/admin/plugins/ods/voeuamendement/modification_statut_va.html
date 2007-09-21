@@ -1,0 +1,298 @@
+<script language="JavaScript" type="text/javascript">
+
+function applyModificationStatutVA() 
+{
+	var myForm = document.getElementById('modification_voeuamendement');
+	var myAction = document.getElementById('afaire');
+	myAction.value='apply'
+   	myForm.submit();
+}
+
+function cancelModificationStatutVA() 
+{   	
+	var myForm = document.getElementById('modification_voeuamendement');
+	myForm.action='jsp/admin/plugins/ods/voeuamendement/StatutVAGestionAvalNoReinit.jsp'
+   	myForm.submit();
+}
+
+</script>
+
+<div class="content-box">
+	<#if (voeuamendement.type = "A") || (voeuamendement.type = "LR")>
+		<h2>#i18n{ods.modificationamendement.label.titleAval}</h2>
+	<#elseif voeuamendement.type = "VNR">
+		<h2>#i18n{ods.modificationvoeunonrattache.label.titleAval}</h2>
+	<#else>
+		<h2>#i18n{ods.modificationvoeurattache.label.titleAval}</h2>
+	</#if>
+  	<form action="jsp/admin/plugins/ods/voeuamendement/DoModificationStatutVA.jsp" method="post"  id="modification_voeuamendement"  enctype="multipart/form-data" >
+   		<input type="hidden" id="id_voeuamendement" name="id_voeuamendement" value="${voeuamendement.idVoeuAmendement}"  />
+   		<input type="hidden" name="afaire" id="afaire" value="save" />
+   
+   		<p>
+    		<label>#i18n{ods.modificationvoeunonrattache.label.seance} : </label>
+	     	#i18n{ods.listeamendements.label.from}
+	     	<#assign seance=voeuamendement.fascicule.seance>
+			${seance.dateSeance?string("dd/MM/yyyy")}
+			<#if seance.dateSeance?string("ddMMyyyy") != seance.dateCloture?string("ddMMyyyy") >
+				#i18n{ods.listeamendements.label.to}
+				${seance.dateCloture?string("dd/MM/yyyy")} 	
+			</#if>
+		</p>
+		
+    	<p>
+    		<label for="">#i18n{ods.modificationvoeurattache.label.conseil} : </label>
+    		${voeuamendement.formationConseil.libelle}
+   		</p>
+   
+       	<p>
+    	   	<label for="">#i18n{ods.modificationvoeuamendement.label.parent} : </label>
+    	   	<#if voeuamendement.parent?exists>
+    	   		${voeuamendement.parent.idVoeuAmendement?string}
+    	   	<#else>
+				-
+    	   	</#if>
+       	</p>
+    
+   		<p>
+    		<label for="">#i18n{ods.modificationvoeurattache.label.reference} : </label>
+     		<#if (voeuamendement.reference?exists) && (voeuamendement.reference != "")>
+				${voeuamendement.reference}
+    	   	<#else>
+				-
+    	   	</#if>
+   		</p>
+	
+   		<p>
+    		<label for="">#i18n{ods.modificationvoeunonrattache.label.fascicule} : </label>
+     		${voeuamendement.fascicule.codeFascicule} (${voeuamendement.fascicule.nomFascicule})
+   		</p>
+   
+   		<p>
+    		<label for="">#i18n{ods.modificationvoeunonrattache.label.objet} : </label>
+    		${voeuamendement.objet}
+   		</p>
+   
+    	<p>
+    		<label for="">#i18n{ods.releve.label.commission} : </label>
+    		<#if (voeuamendement.commission?exists)>
+     			${voeuamendement.commission.numero?string}
+    		<#else>
+      			-
+      		</#if>
+  		</p>
+  
+  		<#if (voeuamendement.type="A") || (voeuamendement.type="LR")>
+	   		<p>
+	    		<label >#i18n{ods.modificationamendement.label.lettrerectificative} : </label>
+	    		<#if voeuamendement.type="LR">
+	    			#i18n{ods.all.label.yes}
+	   			<#else>
+	    			#i18n{ods.all.label.no}
+	   			</#if>
+	   		</p>
+	   	</#if>
+  
+    	<p>
+    		<label >#i18n{ods.modificationvoeurattache.label.deposeparexecutif} : </label>
+    		<#if voeuamendement.deposeExecutif?exists && voeuamendement.deposeExecutif >
+    			#i18n{ods.all.label.yes}
+   			<#else>
+   				#i18n{ods.all.label.no}
+  			</#if> 
+   		</p>
+  
+    	<p>
+    		<label >#i18n{ods.modificationvoeurattache.label.elusdepositaire} : </label>
+    		<#if voeuamendement.elus?exists && ( voeuamendement.elus?size > 0 )>
+    			<#list voeuamendement.elus as elu>
+    				${elu.civilite} ${elu.prenomElu} ${elu.nomElu} (${elu.groupe.nomGroupe})<#if elu_has_next>,</#if>
+    			</#list>
+   			<#else>
+   				-
+  			</#if> 
+   		</p>
+   		
+   		<div class="highlight-box">
+			<#if (voeuamendement.type = "A") || (voeuamendement.type = "LR")>
+    			<h3>#i18n{ods.creationamendement.label.amendement}</h3>
+			<#else>
+	    		<h3>#i18n{ods.creationvoeunonrattache.label.voeunonrattache}</h3>
+			</#if>
+			
+    		<p>
+     			<label>#i18n{ods.modificationvoeurattache.label.fichier} : </label>
+				<#if (voeuamendement.type = "A") || (voeuamendement.type = "LR")>
+    				<a href="jsp/admin/plugins/ods/voeuamendement/DoDownloadFichierAmendement.jsp?id_fichier=${voeuamendement.fichier.id}">${voeuamendement.fichier.nom}.${voeuamendement.fichier.extension}</a>
+				<#elseif voeuamendement.type = "VNR">
+    				<a href="jsp/admin/plugins/ods/voeuamendement/DoDownloadFichierVoeuNonRattache.jsp?id_fichier=${voeuamendement.fichier.id}">${voeuamendement.fichier.nom}.${voeuamendement.fichier.extension}</a>
+				<#else>
+    				<a href="jsp/admin/plugins/ods/voeuamendement/DoDownloadFichierVoeuRattache.jsp?id_fichier=${voeuamendement.fichier.id}">${voeuamendement.fichier.nom}.${voeuamendement.fichier.extension}</a>
+				</#if>
+    		</p>
+    
+    		<p>
+     			<label for="">#i18n{ods.modificationvoeurattache.label.textepourrecherche} : </label>
+				<#if (voeuamendement.fichier.texte?exists) && (voeuamendement.fichier.texte != "")>
+					${voeuamendement.fichier.texte}
+				<#else>
+					-
+				</#if>
+     		</p>
+   		</div>
+   
+       	<p>
+    		<label for="">#i18n{ods.listevoeuxnonrattaches.label.statut} : </label>
+    		<#if voeuamendement.statut?exists>
+    			<@combo name="id_statut"  items=liste_statuts  default_value=voeuamendement.statut.idStatut />
+    		<#else>
+    			<@combo name="id_statut"  items=liste_statuts  default_value="-1" />
+    		</#if>
+       	</p>
+       
+  		<#if (voeuamendement.type="V") || (voeuamendement.type="VNR")>
+       		<p>
+	    	    <label for="">#i18n{ods.modificationvoeuamendement.label.numVoeuAdopte} : </label>
+	    	    <#if (voeuamendement.numeroDeliberation?exists) && (voeuamendement.numeroDeliberation != "")>
+	    	    	<input type="text" name="num_voeu_adopte" id="num_voeu_adopte" size="10" value=${voeuamendement.numeroDeliberation} />
+	    	    <#else>
+	    	    	<input type="text" name="num_voeu_adopte" id="num_voeu_adopte" size="10" value=""} />
+	    	    </#if>
+	    	    	
+       		</p>
+       	</#if>
+       
+  		<#if (voeuamendement.type="V") || (voeuamendement.type="VNR")>
+	       	<p>
+	    	    <label for="">#i18n{ods.modificationvoeuamendement.label.deliberation} : </label>
+	    	    <#if voeuamendement.deliberation?exists>
+	    			<a href="jsp/admin/plugins/ods/voeuamendement/DoDownloadFichierVoeuRattache.jsp?id_fichier=${voeuamendement.deliberation.id}">${voeuamendement.deliberation.nom}.${voeuamendement.deliberation.extension}</a>
+	    		</#if>
+	    	    <input name="fichier_deliberation" type="file" id="fichier_deliberation" />
+	       	</p>
+       	</#if>
+       
+       	<p>
+    	    <label for="">#i18n{ods.modificationvoeuamendement.label.datevote} : </label>
+    	    <input type="text" name="date_vote" id="date_vote" size="10" <#if voeuamendement.dateVote?exists>value=${voeuamendement.dateVote?string("dd/MM/yyyy")}</#if> />
+    		<input type="button" class="button" id="button_date_vote" value="..." />
+       	</p>
+       
+  		<#if (voeuamendement.type="V") || (voeuamendement.type="VNR")>       
+	       	<p>
+	        	<label for="">#i18n{ods.modificationvoeuamendement.label.dateRetourControleLegalite} : </label>
+	        	<input type="text" name="date_retour_controle_legalite" id="date_retour_controle_legalite" size="10" <#if voeuamendement.dateRetourControleLegalite?exists>value=${voeuamendement.dateRetourControleLegalite?string("dd/MM/yyyy")}</#if> />
+	        	<input type="button" class="button" id="button_date_retour_controle_legalite" value="..." />
+	      	</p>
+      	</#if>
+      	
+   
+   		<p>
+    		<input type="submit" value="#i18n{ods.modificationvoeurattache.button.create}" class="button" />
+    		<input type="button" value="#i18n{ods.modificationvoeurattache.button.apply}" class="button" onclick="applyModificationStatutVA()" />
+    		<input type="button" value="#i18n{ods.modificationvoeurattache.button.cancel}" class="button" onclick="cancelModificationStatutVA()" />
+   		</p>
+   		
+   		<p>
+   			<strong>#i18n{ods.modificationvoeurattache.label.create} : </strong>#i18n{ods.modificationvoeurattache.label.create.value} <br/>
+     		<strong>#i18n{ods.modificationvoeurattache.label.apply} : </strong>#i18n{ods.modificationvoeurattache.label.apply.value}<br/>
+     		<strong>#i18n{ods.modificationvoeurattache.label.cancel} : </strong>#i18n{ods.modificationvoeurattache.label.cancel.value} 
+   		</p>
+   		
+	</form>
+</div>
+
+
+<#if voeuamendement.type != "VNR">
+	<div class="content-box">
+	  	<h2>#i18n{ods.modificationvoeurattache.label.pdd.title} </h2>
+	  	<table>
+	  	
+	   		<tr>
+			    <th>#i18n{ods.modificationvoeurattache.label.pdd.code}</th>
+			    <th>#i18n{ods.modificationvoeurattache.label.pdd.publie}</th>
+			    <th>#i18n{ods.modificationvoeurattache.label.pdd.formation}</th>
+			    <th>#i18n{ods.modificationvoeurattache.label.pdd.introduction}</th>
+			    <th>#i18n{ods.modificationvoeurattache.label.pdd.categorie}</th>
+	   		</tr>
+	   		
+	  		<#if voeuamendement.pdds?exists> 
+	   			<#list voeuamendement.pdds as pdd>
+		  			<tr class="ods-noborder">
+		     			<td nowrap="nowrap">${pdd.reference}</td>
+		     			
+		     			<#if pdd.enLigne = true>
+			    			<td>${pdd.datePublication?string("dd/MM/yyyy")}</td>
+			 			<#else>
+		    				<td></td>
+			 			</#if>
+		     
+		     			<#if pdd.formationConseil?exists>
+			    			<td>${pdd.formationConseil.libelle}</td>
+			 			<#else>
+		    				<td></td>
+			 			</#if>
+			 			
+		     			<#if pdd.modeIntroduction?exists>
+			    			<td>${pdd.modeIntroduction}</td>
+			 			<#else>
+		    				<td></td>
+			 			</#if>
+			 			
+						<#if pdd.categorieDeliberation.libelle?exists>
+			    			<td>${pdd.categorieDeliberation.libelle}</td>
+			 			<#else>
+		    				<td></td>
+			 			</#if>
+			 
+		    		</tr>
+		    		
+		    		<tr class="ods-noborder">
+		     			<#if pdd.objet?exists>
+			    			<td colspan="6">${pdd.objet}</td>
+			 			<#else>
+		    				<td></td>
+			 			</#if>
+		    		</tr>
+	
+				</#list>
+			<#else>
+		  		<tr class="ods-noborder">
+		        	<td colspan="5"></td>
+		   		</tr>    
+			</#if>  
+		</table>
+	</div>
+</#if>
+
+
+<!-- main calendar program -->
+<script type="text/javascript" src="js/jscalendar/calendar.js"></script>
+<!-- language for the calendar -->
+<script type="text/javascript" src="js/jscalendar/lang/calendar-fr.js"></script>
+<!-- the following script defines the Calendar.setup helper function, which makes
+       adding a calendar a matter of 1 or 2 lines of code. -->
+<script type="text/javascript" src="js/jscalendar/calendar-setup.js"></script>
+<script type="text/javascript">
+    Calendar.setup({
+    inputField     :    "date_vote",      // id of the input field
+    ifFormat       :    "%d/%m/%Y",       // format of the input field
+    showsTime      :    false,            // will display a time selector
+    button         :    "button_date_vote",   // trigger for the calendar (button ID)
+    singleClick    :    true,           // double-click mode
+    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
+    });
+</script>
+
+<#if (voeuamendement.type != "A") && ( voeuamendement.type != "LR" )>
+	<script type="text/javascript">
+	    Calendar.setup({
+	    inputField     :    "date_retour_controle_legalite",      // id of the input field
+	    ifFormat       :    "%d/%m/%Y",       // format of the input field
+	    showsTime      :    false,            // will display a time selector
+	    button         :    "button_date_retour_controle_legalite",   // trigger for the calendar (button ID)
+	    singleClick    :    true,           // double-click mode
+	    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
+	    });
+	</script>
+</#if>

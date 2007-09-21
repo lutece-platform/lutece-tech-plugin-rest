@@ -1,0 +1,28 @@
+<div class="content-box">
+	<h2>#i18n{ods.modificationfascicule.label.title}</h2>
+	<form action="jsp/admin/plugins/ods/fascicule/DoModificationFascicule.jsp" method="post">
+		<p>
+			<label>#i18n{ods.modificationfascicule.label.seance} </label>
+			#i18n{ods.modificationfascicule.label.from} ${seance.dateSeance?string("dd/MM/yyyy")}
+			#i18n{ods.modificationfascicule.label.to} ${seance.dateCloture?string("dd/MM/yyyy")}
+		</p>
+		<input type="hidden" name="id_fascicule" value="${fascicule.idFascicule}" />
+		<input type="hidden" name="id_seance" value="${seance.idSeance}" />
+		<p>
+			<label for="code">#i18n{ods.modificationfascicule.label.code}</label>
+			<input id="code" type="text" name="code" size="3" maxlenght="6" value="${fascicule.codeFascicule}" />
+		</p>
+		<p>
+			<label for="numero">#i18n{ods.modificationfascicule.label.numero}</label>
+			<input id="numero" type="text" name="numero" size="3" value="${fascicule.numeroOrdre}" />
+		</p>
+		<p>
+			<label for="libelle">#i18n{ods.modificationfascicule.label.libelle}</label>
+			<input id="libelle" type="text" name="libelle" size="80" value="${fascicule.nomFascicule}" />
+		</p>
+		<p>
+			<input type="submit" value="#i18n{ods.modificationfascicule.button.create}" class="button" />
+			<input type="button" value="#i18n{ods.modificationfascicule.button.cancel}" class="button" onclick="javascript:history.go(-1)" />
+		</p>
+	</form>
+ </div>

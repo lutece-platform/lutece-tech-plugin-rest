@@ -1,0 +1,74 @@
+<div id="one-zone-first">
+    <div id="one-zone-first-content">
+
+		<h2 class="page-title" >#i18n{reporting.xpage.ProjectMonthly.title}</h2>
+	
+	<table class="data-table" border="1px">
+        <tr>
+            <th><center>#i18n{reporting.xpage.ProjectMonthly.columnTitleName}</center></th>
+            <th><center>#i18n{reporting.xpage.ProjectMonthly.columnTitleCP}</center></th>
+            <th><center>#i18n{reporting.xpage.ProjectMonthly.columnTitleLinkCatia}</center></th>
+            <th><center>#i18n{reporting.xpage.ProjectMonthly.columnTitleDateCreation}</center></th>
+            <th><center>#i18n{reporting.xpage.ProjectMonthly.columnTitleDateSituation}</center></th>
+         	<th><center>#i18n{reporting.xpage.ProjectMonthly.columnTitleFact}</center></th>
+         	<th><center>#i18n{reporting.xpage.ProjectMonthly.columnTitleEvenement}</center></th>
+			<th><center>#i18n{reporting.xpage.ProjectMonthly.columnTitleTendance}</center></th>
+        </tr>
+
+        <#list reporting_project_list as project >
+        <tr class= "odd-row">
+        	
+        	<td>
+        		<center>${project.name}</center>
+        	</td>
+        	<td>
+        		<center>${project.projectManager}</center>
+        	</td>
+        	<td>
+        		<center>
+        		<a href="http://catia.mdp/catia/detail.do?method=refresh&amp;view.t_application_ID=${project.idCatia}">
+        		#i18n{reporting.xpage.ProjectMonthly.labelProjectCatia}
+        		</a>
+        		</center>
+        	</td>
+        	<td>
+        		<center>${project.dateCreation}</center>
+        	</td>
+        	<td>
+        	<#if project.lastReportingMonthly?exists>
+        		<center>${project.lastReportingMonthly.dateModification}</center>
+        	</#if>
+        	</td>
+			<td>
+			
+				<#if project.lastReportingMonthly?exists>
+        			${project.lastReportingMonthly.fact}
+        		</#if>
+        		
+        	</td>
+        	
+        	<td>
+				<#if project.lastReportingMonthly?exists>
+        			${project.lastReportingMonthly.event}
+        		</#if>
+        		
+        	</td>
+        	
+        	<#if project.lastReportingMonthly?exists>
+        		<#assign riskValue = project.lastReportingMonthly.risk >
+        		<#assign tendencyValue = project.lastReportingMonthly.tendency >
+        		<td class="risk${riskValue}">
+        		<center>
+        			<img alt="#i18n{reporting.publishingReportingFiche.labelTendency${tendencyValue}}" title="#i18n{reporting.publishingReportingFiche.labelTendency${tendencyValue}}" src="images/local/skin/plugins/reporting/tendency-${tendencyValue}.png"/>
+        		</center>
+        		</td>
+        	<#else>
+        		<td>
+        		</td>
+        	</#if>
+        </tr>
+         
+        </#list>
+    </table>
+	</div>
+</div>

@@ -1,0 +1,176 @@
+<script>
+	function publication(idVoeuAmendement) {
+   		var myForm = document.getElementById('liste_voeuamendement');
+   		myForm.id_voeuamendement.value=idVoeuAmendement;
+  		myForm.submit();
+    }
+</script>
+
+<div class="content-box">
+	<#if gestion_aval=true>
+		<h2>#i18n{ods.listeamendements.label.titleAval}</h2>
+	<#else>
+		<h2>#i18n{ods.listeamendements.label.title}</h2>
+	</#if>
+	
+  	<#if !seance?exists && !gestion_aval >
+		<div class="highlight-box">
+			#i18n{ods.listenaturedossier.label.noRef}
+		</div>
+  	<#elseif gestion_aval && !seance?exists && (!liste_seances?exists || (liste_seances?size=0)) >
+		<div class="highlight-box">
+			#i18n{ods.listenaturedossier.label.noRefAval}
+		</div>
+  	<#else>
+	  <div class="highlight-box">
+	     <#if gestion_aval=true>	
+	     	<form method="post" action="jsp/admin/plugins/ods/voeuamendement/AmendementsGestionAvalNoReinit.jsp">
+		 <#else>
+	     	<form method="post" action="jsp/admin/plugins/ods/voeuamendement/AmendementsNoReinit.jsp">
+	     </#if>	
+	  	<p>
+	     	<#if gestion_aval=true>	     
+  			 	<label for="">#i18n{ods.listevoeuxnonrattaches.label.seance} * : </label>
+  			 	<select name="id_seance">
+  			 	 	<#list liste_seances as theseance>
+  			   		<#if theseance.idSeance=id_seance_selected>
+  				   		<option value=${theseance.idSeance} selected>
+  				  	<#else>
+  						<option value=${theseance.idSeance}>
+  					</#if>
+  					#i18n{ods.listeamendements.label.from}
+					${theseance.dateSeance?string("dd/MM/yyyy")}
+					<#if theseance.dateSeance?string("ddMMyyyy") != theseance.dateCloture?string("ddMMyyyy") >
+						#i18n{ods.listeamendements.label.to}
+						${theseance.dateCloture?string("dd/MM/yyyy")} 	
+					</#if>
+  					</option> 
+  			 	</#list>
+  			 	</select>
+			<#else>
+    	    	<label for="">#i18n{ods.listeamendements.label.seance}</label>
+          		<#if seance?exists>
+    		    	#i18n{ods.listeamendements.label.from}
+					${seance.dateSeance?string("dd/MM/yyyy")}
+					<#if seance.dateSeance?string("ddMMyyyy") != seance.dateCloture?string("ddMMyyyy") >
+						#i18n{ods.listeamendements.label.to}
+						${seance.dateCloture?string("dd/MM/yyyy")} 	
+					</#if>
+    	    	<#else>
+    		    	#i18n{ods.listeamendements.label.from}... #i18n{ods.listeamendements.label.to} ... 
+    	    	</#if> 
+    	 	</#if>
+	     </p>
+	     
+	    <p>
+	     	<label for="">#i18n{ods.listeamendements.label.conseil} : </label>
+	     	<@combo name="id_formation_conseil"  items=liste_formation_conseil  default_value=id_formation_conseil_selected />
+	    </p>
+	    
+	    <p>
+	       	<#if gestion_aval=true>
+	     		 <label for="">#i18n{ods.listevoeuxnonrattaches.label.statut} : </label>
+			     <@combo name="id_statut"  items=liste_statuts  default_value=id_statut_selected />
+	       	<#else>
+  	       		<label for="">#i18n{ods.listeamendements.label.publie}</label>
+  	       		<@combo name="id_publication"  items=liste_publie  default_value=id_publication_selected />
+  	     	</#if>
+	  	</p>
+	  	
+	    <p align="center">
+	     	<input type="submit" class="button" value="#i18n{ods.listeamendements.button.search}" />
+	    </p>
+	   </form>
+	  </div>
+	  
+	  <p>#i18n{ods.listeamendements.label.nbresult} ${nb_results}</p>
+			     <#if gestion_aval=true>	
+			     	<form method="post" action="jsp/admin/plugins/ods/voeuamendement/AmendementsGestionAvalNoReinit.jsp">
+				 <#else>
+			     	<form method="post" action="jsp/admin/plugins/ods/voeuamendement/AmendementsNoReinit.jsp">
+			     </#if>	
+			<@pagination paginator=paginator />
+			
+				<!-- Number of files per page selector -->
+			    #i18n{ods.listeamendements.label.nbligneparpage}
+			    <select name="items_per_page">
+			        <#list [ "5" , "10" , "20" , "50" ] as nb>
+				        <#if nb_items_per_page = nb >
+				        <option selected="selected" value="${nb}">${nb}</option>
+				        <#else>
+				        <option value="${nb}">${nb}</option>
+				        </#if>
+			        </#list>
+			    </select>
+			    <input type="submit" class="button" value="#i18n{ods.listeamendements.button.modify}" />
+			  </form>
+	  
+	   <a name="ANC_LAST" id="ANC_LAST"></a>&nbsp;
+	   <form method="post" id="liste_voeuamendement" name="list_voeuamendement" action="jsp/admin/plugins/ods/voeuamendement/DoPublicationAmendement.jsp">
+		<#if liste_voeuamendement?size=0>
+			<div class="highlight-box">#i18n{ods.listeamendements.label.noamendement}</div>
+		<#else>
+			<table>
+	   		<tr>
+	   			<th>#i18n{ods.listeamendements.label.reference}</th>
+	    		<th>#i18n{ods.listeamendements.label.publiele}</th>
+	    		<th>#i18n{ods.listeamendements.label.formationduconseil}</th>
+	    		<th>#i18n{ods.listeamendements.label.actions}</th>
+	   		</tr>
+			<#list liste_voeuamendement as voeuamendement>	     
+		  		 <tr class="ods-noborder">
+		    		<td nowrap="nowrap">${voeuamendement.referenceComplete} </td>
+		   			<#if voeuamendement.enLigne?exists&&voeuamendement.enLigne=true>
+			   			 <td> ${voeuamendement.datePublication?string("dd/MM/yyyy")} </td>
+		    		<#else>
+			   		<td>-</td>
+		    		</#if> 
+		   			<#if voeuamendement.formationConseil?exists>
+		         		<td>${voeuamendement.formationConseil.libelle}</td> 
+		     		<#else>
+		         		<td>-</td>
+		     		</#if>
+		    		<td nowrap="nowrap" class="ods-actions">
+		    			<#if voeuamendement.enLigne=false>
+							<input type="button" value="#i18n{ods.listeamendements.button.publie}" class="button" onclick="javascript: publication(${voeuamendement.idVoeuAmendement});"/>
+						<#elseif permission_depublication>
+							<input type="button" value="#i18n{ods.listeamendements.button.depublie}" class="button" onclick="javascript: publication(${voeuamendement.idVoeuAmendement});"/>
+						</#if>
+	
+						<#if gestion_aval=true>
+	      	     			<a href="jsp/admin/plugins/ods/voeuamendement/ModificationAmendement.jsp?id_voeuamendement=${voeuamendement.idVoeuAmendement}&id_seance=${id_seance_selected}"><img src="images/admin/skin/plugins/ods/action/modify.png" alt="#i18n{ods.listeamendements.title.modify}" title="#i18n{ods.listeamendements.title.modify}" /></a> 
+	      	     			<a href="jsp/admin/plugins/ods/voeuamendement/HistoriqueAmendement.jsp?id_voeuamendement=${voeuamendement.idVoeuAmendement}&id_seance=${id_seance_selected}"><img src="images/admin/skin/plugins/ods/action/history.png" alt="#i18n{ods.listeamendements.title.historique}" title="#i18n{ods.listeamendements.title.historique}" /></a> 
+	      	     			<#if !voeuamendement.enLigne || permission_suppression >
+	      	     				<a href="jsp/admin/plugins/ods/voeuamendement/SuppressionAmendement.jsp?id_voeuamendement=${voeuamendement.idVoeuAmendement}&id_seance=${id_seance_selected}"><img src="images/admin/skin/plugins/ods/action/delete.png" alt="#i18n{ods.listeamendements.title.delete}" title="Supprimer#i18n{ods.listeamendements.title.delete}" /></a>
+	      	     			</#if>
+	      	  			<#else>
+	      	     			<a href="jsp/admin/plugins/ods/voeuamendement/ModificationAmendement.jsp?id_voeuamendement=${voeuamendement.idVoeuAmendement}"><img src="images/admin/skin/plugins/ods/action/modify.png" alt="#i18n{ods.listeamendements.title.modify}" title="#i18n{ods.listeamendements.title.modify}" /></a> 
+	      	     			<a href="jsp/admin/plugins/ods/voeuamendement/HistoriqueAmendement.jsp?id_voeuamendement=${voeuamendement.idVoeuAmendement}"><img src="images/admin/skin/plugins/ods/action/history.png" alt="#i18n{ods.listeamendements.title.historique}" title="#i18n{ods.listeamendements.title.historique}" /></a> 
+	      	     			<#if !voeuamendement.enLigne || permission_suppression >
+	      	     				<a href="jsp/admin/plugins/ods/voeuamendement/SuppressionAmendement.jsp?id_voeuamendement=${voeuamendement.idVoeuAmendement}"><img src="images/admin/skin/plugins/ods/action/delete.png" alt="Supprimer#i18n{ods.listeamendements.title.delete}" title="Supprimer#i18n{ods.listeamendements.title.delete}" /></a>
+	      	     			</#if>
+			      	  	</#if>
+		    		</td>
+		   	</tr>
+		   <tr>
+		   <#if voeuamendement.objet?exists>
+		         <td colspan="4">${voeuamendement.objet}</td> 
+		     <#else>
+		         <td colspan="4">-</td>
+		     </#if>
+		    </tr>
+	   	</#list>
+	  </#if>	
+	  <input type="hidden" id="id_voeuamendement" name="id_voeuamendement" value="">
+	  <#if gestion_aval=true>
+		  <input type="hidden" id="id_seance" name="id_seance" value=${id_seance_selected}>
+	  </#if>
+	  </form> 
+	  </table>
+	  <form action="jsp/admin/plugins/ods/voeuamendement/CreationAmendement.jsp" method="post"  >
+	  <p>
+	    <input type="submit" value="#i18n{ods.listeamendements.button.insert}" class="button" />
+	   </p>
+	   </form>
+	 </div>
+ </#if>

@@ -1,0 +1,15 @@
+<div class="content-box" >
+    <h2>#i18n{poll.create_question.boxTitle}</h2>
+			       
+    <form method="post" name="create_question" action="jsp/admin/plugins/poll/DoCreateQuestion.jsp">		
+        <input type="hidden" name="poll_id" value="${poll.id}" />        
+        <p>
+            <label for="question_label" >#i18n{poll.create_question.label}*:</label>
+            <input type="text" id="question_label" name="question_label" tabindex="1" size="100" maxlength="250" />
+        </p>
+        <p>
+            <input type="submit" value="#i18n{poll.create_question.buttonLabelCreate}" tabindex="10" class="button" />
+            <input class="button" type="button" onclick="javascript:history.go(-1)" value="#i18n{portal.admin.message.buttonCancel}" />
+        </p>
+    </form>
+</div>

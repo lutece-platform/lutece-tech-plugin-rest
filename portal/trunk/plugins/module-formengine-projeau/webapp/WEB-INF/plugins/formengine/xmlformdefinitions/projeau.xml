@@ -1,0 +1,190 @@
+<?xml version="1.0" ?>
+<formDefinition name="projeau"
+  className="fr.paris.lutece.plugins.projeau.web.ProjeauForm">
+  <title>Appel à projets solidarité eau et assainissement 2007 </title>
+  
+  <subForms>
+      
+    <!-- ***** Subform for introduction ***** -->
+    <subFormDefinition name="introduction" className="fr.paris.lutece.plugins.projeau.web.IntroductionSubForm">
+      <title>Introduction</title>
+      <formElements>
+        <fields>
+          <field name="confirmRead" type="checkbox">
+            <label>J'ai bien lu les conditions générales d'utilisation</label>
+            <value/>
+            <choiceList>
+              <choice value="1" label="J'ai bien lu l'introduction ci-dessus."/>
+            </choiceList>
+              
+            <checkFieldRules>
+              <checkRule type="fieldRequired" parameter="true"  errorMessage="Vous ne pouvez pas déposer votre dossier sans avoir pris connaissance des conditions." />
+            </checkFieldRules>
+            
+          </field>
+    
+        </fields>
+        <buttons>
+          <button name="Débuter votre démarche" type="submit"/> 
+        </buttons>
+        
+        <notices>
+        	<noticeGroup name="textIntroduction">
+	                <notice>
+	                <![CDATA[
+	          	<p>
+			Ce téléservice vous permet de répondre à l’appel à projet « solidarité eau et assainissement 2007 » par voie électronique. Nous vous rappelons que vous avez également la possibilité de répondre par courrier. 
+                        <br><br>
+                        La remise par voie électronique consiste à transmettre les fichiers informatiques de votre note d'intention (rédigée selon le plan rendu obligatoire par la Ville de Paris) et votre cadre budgétaire. Vous pouvez éventuellement compléter cet envoi par la remise d'autres fichiers, par exemple pour présenter votre association. Nous vous invitons cependant à ne pas surcharger inutilement votre dossier. 
+                        <br><br>
+                        <a title="Fichier note intention" href="../plugins/upload/Note_intention.rtf" target="_blank">» Téléchargez le plan de la note d’intention au format rtf – 28 Ko</a><br>
+                        <a title="Fichier budget" href="../plugins/upload/budget.xls" target="_blank">» Télécharger le cadre budgétaire consituant le dossier au format xls – 24 ko</a>
+                         <br>
+                          <a title="" href="http://www.paris.fr/portail/Environnement/Portal.lut?page_id=134" target="_blank">» Consulter la rubrique eau et assainissement</a>
+                         <br><br><a title="Fichier conditions générales d'utilisation" href="../plugins/upload/conditions_generales.pdf"  target="_blank">» Consulter les conditions générales d'utilisation - 50 ko</a>
+    	                 ]]>
+	                </notice>
+        	</noticeGroup>
+        </notices>
+        
+      </formElements>
+    </subFormDefinition>
+    
+    <!-- ***** Subform for id ***** -->
+    <subFormDefinition name="identification" className="fr.paris.lutece.plugins.projeau.web.IdentificationSubForm">
+      <title>Identité et coordonnées</title>
+      <formElements>
+        <fields>
+                 <field name="Title" type="radio">
+          	<label>Civilité</label>
+          	<value/> 
+          	<choiceList>
+          		<choice value="Mlle" label="Mlle"/>
+          		<choice value="Mme" label="Mme"/>
+          		<choice value="M." label="M."/>
+          	</choiceList>
+          	
+          	<checkFieldRules>
+          		<checkRule type="fieldRequired" parameter="true" errorMessage="Merci de bien vouloir préciser votre civilité ." />
+	        </checkFieldRules>
+          </field>
+          <field name="LastName" type="text">
+          	<label>Nom</label>
+          	<value/> 
+          	<checkFieldRules>         		
+          		<checkRule type="fieldRequired" parameter="true" errorMessage="Merci de bien vouloir préciser votre nom ." />
+          		<checkRule type="maxLength" parameter="60"/>
+          		<checkRule type="xss"/>
+          	</checkFieldRules>
+          </field>
+          <field name="FirstName" type="text">
+	        <label>Prénom</label>
+	        <value/> 
+	        <checkFieldRules>	        	
+	        	<checkRule type="fieldRequired" parameter="true" errorMessage="Merci de bien vouloir préciser votre prénom." />
+	        	<checkRule type="maxLength" parameter="60"/>
+	        	<checkRule type="xss"/>
+	        </checkFieldRules>
+          </field>
+          <field name="email" type="text">
+	  	   <label>Courriel</label>
+	  	   <value/>
+	  	   <additionalInfo>
+	  	   	Indiquer votre courriel notamment pour recevoir votre indentifiant de dépot de dossier par courriel 
+	  	   	au moment de votre confirmation.
+	  	   </additionalInfo>
+	  	   <checkFieldRules>
+		   	<checkRule type="email" errorMessage="Le format du courriel indiqué n'est pas correct." />
+		   	<checkRule type="maxLength" parameter="80"/>
+		   	<checkRule type="xss"/>
+	  	   </checkFieldRules>
+          </field>           
+
+        </fields>
+        <buttons>
+          <button name="Retour" type="submit"/>
+          <button name="Valider" type="submit"/> 
+        </buttons>
+        
+
+      </formElements>
+    </subFormDefinition>
+
+    <!-- ***** Subform for upload  ***** -->
+    <subFormDefinition name="complementaryDocuments" className="fr.paris.lutece.plugins.projeau.web.ComplementaryDocumentsSubForm">
+          <title>Fichiers du projet</title>
+          <formElements>
+        <fields>
+       
+	    <field name="internetComplementaryDocuments" type="upload" >
+			<label>Document</label>
+			<value/>
+			<checkFieldRules>
+				<checkRule type="maxFiles" parameter="5" errorMessage="Le nombre maximal de documents transmis autorisé est atteint." />
+                                <checkRule type="minFiles" parameter="1" errorMessage="Le nombre minimal de documents transmis n'est pas atteint." />
+				<checkRule type="fileTypes" parameter="pdf, jpg, jpeg, txt, rtf, odt, ods, xls, doc" errorMessage="Votre document complémentaire ne peut nous être transmis. Merci de bien vouloir modifier son format (uniquement, pdf, jpg, jpeg, txt, rtf, odt, ods, xls, doc)."/>
+                            </checkFieldRules>
+	     </field>
+       </fields>
+       <buttons>
+          <button name="Retour" type="submit"/>
+          <button name="Accèder au récapitulatif" type="submit"/>
+       </buttons>
+       <notices>
+	              <noticeGroup name="transmissionInternet" >
+	              <notice>
+	            	  <![CDATA[ Attention : vos documents doivent impérativement respecter les regles suivantes :</br>
+	            	<ul><li>les document doivent obligatoirement être au format pdf, jpg, jpeg, txt, rtf, odt, ods, xls, doc</li>
+	            	<li><b>le poids de chaque document ne doit pas excéder 2 Mo</b></li>
+	            	<li>vous ne pouvez transmettre que 5 documents.</li></ul>]]>	
+	              </notice>
+	            </noticeGroup>	            
+        </notices>
+       </formElements>
+     </subFormDefinition>
+
+    
+    <!-- ***** Subform for summary of selection ***** -->
+    <subFormDefinition name="summary" className="fr.paris.lutece.plugins.projeau.web.SummarySubForm">
+       <title>Récapitulatif</title>
+       <formElements>
+        <fields/>
+        <buttons>
+         <button name="Modifier" type="submit"/>
+         <button name="Confirmer" type="submit"/>
+        </buttons>
+            
+       </formElements>
+ 
+    </subFormDefinition>
+    
+    <!-- ***** Subform for confirmation ***** -->
+    <subFormDefinition name="confirmation" className="fr.paris.lutece.plugins.projeau.web.ConfirmationSubForm">
+      <title>Confirmation de la transmission de dossier</title>
+      <formElements>
+        <fields/>
+        <buttons>
+          <button name="Terminer" type="submit"/>
+        </buttons>
+        <notices>
+        	<noticeGroup name="id" >
+		              <notice>
+		            		 Votre demande a bien été enregistrée sous l'identifiant de dépôt de dossier : 
+		              </notice>
+		     </noticeGroup>
+		 
+		  
+	  </notices>   
+       </formElements>
+    </subFormDefinition>
+  </subForms>
+  
+  <!-- ***** Output definitions ***** -->
+   <outputs>
+         <outputSet useTransactionHeaders="false" >
+            <output outputProcessorClassName="fr.paris.lutece.plugins.projeau.service.output.ProjeauFileOutputProcessor" />
+            <output outputProcessorClassName="fr.paris.lutece.plugins.projeau.service.output.ProjeauMailOutputProcessor" />
+        </outputSet>
+   </outputs>
+  
+</formDefinition>

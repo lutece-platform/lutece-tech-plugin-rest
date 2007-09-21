@@ -1,0 +1,40 @@
+<#setting number_format="#0.00"/>           
+
+
+<div id="one-zone-first">
+    <div id="one-zone-first-content">
+
+		<h2 class="page-title" >#i18n{poll.xpage.results.title}&nbsp;:&nbsp;${poll.name}</h2>     
+		
+		<#list poll.questions as question >
+		    <table border="1" width="60%" cellpadding="2">
+		        <tr>
+		            <th>
+		                ${question.label}
+		            </th>
+		        </tr>                                              
+		        <#list question.choices?sort_by('score')?reverse as choice>
+		            <tr>
+		                <td>
+		                    <#if question.votesCount=0>
+		                       <img src="images/local/skin/percent.jpg" width="0" height="10" />&nbsp;0%
+		                    <#else>
+		                        <img src="images/local/skin/percent.jpg" width="${choice.score*100/question.votesCount}" height="10" />&nbsp;${choice.score*100/question.votesCount}%
+		                    </#if>                        
+		                    &nbsp;(&nbsp;${choice.score?string.number}&nbsp;)&nbsp;${choice.label}
+		                </td>            
+		            </tr>
+		        </#list>        
+		        <tr>
+		            <td>
+		                #i18n{poll.xpage.results.votesTotal}:&nbsp;${question.votesCount}
+		            </td>
+		        </tr>
+		    </table>
+		    <br>
+		</#list>                
+		<p>
+			<a href="jsp/site/Portal.jsp?page=poll">#i18n{poll.xpage.results.backToPollList}</a>
+		<p>
+	</div>
+</div>

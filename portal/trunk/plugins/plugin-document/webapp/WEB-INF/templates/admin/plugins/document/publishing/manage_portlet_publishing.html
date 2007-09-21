@@ -1,0 +1,63 @@
+<div id="left">
+    <div class="content-box" >
+        <table>
+            <tr>
+                <th>#i18n{document.manage_portlet_publishing.columnTitleId} -
+                    #i18n{document.manage_portlet_publishing.columnTitleTitle}
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    ${portlet.id} - ${portlet.name}
+                </td>
+            </tr>
+            <tr>
+                <th>#i18n{document.manage_portlet_publishing.columnTitlePage}</th>
+            </tr>
+            <tr>
+                <td>
+                    ${portlet.pageId} - ${page_name}
+                </td>
+            </tr>
+            <tr>
+                <th>#i18n{document.manage_portlet_publishing.columnTitleState}</th>
+            </tr>
+            <tr>
+                <td>
+                    <#if portlet.status = 0>
+                    <img src="images/admin/skin/enable.png" alt="" style="border:0;vertical-align:bottom;" />
+                    #i18n{document.manage_portlet_publishing.labelStatusPublished}
+                    <#else>
+                    <img src="images/admin/skin/disable.png" alt="" style="border:0;vertical-align:bottom;" />
+                    #i18n{document.manage_portlet_publishing.labelStatusUnPublished}
+                    </#if>
+                </td>
+            </tr>
+            <tr>
+                <th>#i18n{document.manage_portlet_publishing.columnAdminSiteAccess}</th>
+            </tr>
+            <tr>
+                <td>
+                    <a href="jsp/admin/site/AdminSite.jsp?page_id=${portlet.pageId}" >
+                        <img src="images/admin/skin/features/admin_site.png" width="24" height="24" alt="#i18n{document.manage_portlet_publishing.labelAdminSiteAccess}" title="#i18n{document.manage_portlet_publishing.labelAdminSiteAccess}"/>
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div id="right">
+    <div class="content-box">
+        <h2>#i18n{document.manage_portlet_publishing.labelDocumentList} « ${portlet.name} »</h2>
+        
+        <strong>#i18n{document.manage_portlet_publishing.labelPublishedDocumentsList}</strong>
+        ${published_document_list}
+    </div>
+    <div class="content-box">
+        <p>
+            <strong>#i18n{document.manage_portlet_publishing.labelAssignedDocumentsList}</strong>
+            ${assigned_document_list}    
+        </p>           
+    </div>
+</div>

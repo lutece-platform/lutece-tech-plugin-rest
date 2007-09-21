@@ -1,0 +1,48 @@
+<div class="insert-service">
+
+<form method="post" name="fenvoi" action="jsp/admin/plugins/library/DoInsertMedia.jsp">
+	<input type="hidden" name="plugin_name" value="${plugin_name}" />
+	<input type="hidden" name="input" value="${input}" />
+	<input type="hidden" name="media" value="${mediatype.mediaId}" />
+	<input type="hidden" name="id_document" value="" />
+	
+	<h3>#i18n{library.insertservice.editMedia} ${mediatype.name}</h3>
+		<p>
+			<label for="title">#i18n{library.insertservice.title} :</label>
+			<span id="title">${document.title}</span>
+		</p>
+		<p>
+			<label for="thumbnail">#i18n{library.insertservice.preview} :</label>
+			<img id="thumbnail" height="32" width="32" src="${document.thumbnail}"/>
+		</p>
+		<#list media_attributes as attribute>
+			<p>
+			<#assign field_name = attribute.code>
+			<label for="${field_name}">${attribute.description} :</label>
+			<#if attribute.typeId = 0>
+				<!-- ATTRIBUTE_TYPE_TEXT_USER -->
+				<input type="text" name="${field_name}" id="${field_name}" value="${attribute.defaultValue}" />
+			<#elseif attributes_associations[attribute.code]?has_content>
+				<#assign doctype_code = attributes_associations[attribute.code]>
+				<#if attribute.typeId = 1>
+					<!-- ATTRIBUTE_TYPE_TEXT_DOCUMENT -->
+					<#if document.getAttribute(doctype_code).textValue?has_content >
+						<textarea name="${field_name}" id="${field_name}">${document.getAttribute(doctype_code).textValue?xml}</textarea>
+					</#if>
+				<#elseif attribute.typeId = 2>
+					<!-- ATTRIBUTE_TYPE_BINARY -->
+					<#if document.getAttribute(doctype_code)?has_content >
+						<#assign attributeId = document.getAttribute(doctype_code).id >
+						<#assign url = "document?id=" + document.id + "&amp;id_attribute=" + attributeId >
+ 						<input type="hidden" name="${field_name}" id="${field_name}" value="${url}" />
+ 						<a href="${url}">${url}</a>
+					</#if>
+				</#if>
+			</#if>
+			</p>
+		</#list>
+
+	<input type="submit" value="#i18n{library.insertservice.insertlink.button}" class="button" />
+</form>
+
+</div>

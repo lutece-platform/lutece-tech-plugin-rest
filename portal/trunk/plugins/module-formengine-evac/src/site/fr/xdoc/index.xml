@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC "//UNKNOWN/" "http://maven.apache.org/dtd/xdoc_1_0.dtd">
+<document>
+	<properties>
+		<title>Module Formengine - E-Vac : Introduction</title>
+	</properties>
+	<body>
+		<section name="Descriptif du plugin">
+			<p>
+			Attention : Le plugin E-Vac est interfacé avec un service d'adresse. 
+			Si vous n'avez pas accès à ce service, il est possible d'utiliser des fichiers de test
+			stockés en local. Pour plus d'information vous référer à la 
+			<a href="configuration.html#evac_context.xml">section suivante</a>
+			</p>
+			
+			<subsection name="Introduction">
+				<p>
+					Le plugin E-Vac est un module du plugin
+					<a
+						href="http://dev.lutece.paris.fr/plugins/plugin-formengine/fr/index.html">
+						Formengine
+					</a>
+					(plugin permettant de générer des formulaires), il
+					lui apporte la fonctionnalités de pré-inscription au programme "vacances arc-en-ciel".
+
+				</p>
+				<p>
+					Le formulaire est décrit sous la forme d'un fichier
+					xml, qui sera utilisé pour générer les écrans
+					correspondants.
+					<br />
+					L'accès au formulaire généré se fait à travers la
+					XPage du plugin Formengine.
+				</p>
+			</subsection>
+			<subsection name="Fonctionnalités">
+				<p>
+					La saisie du formulaire s'effectue en plusieurs
+					étapes, correspondant chacunes à un écran. Le processus de saisie et le suivant :
+				</p>
+				<ul>
+					<li>
+						Acceptation des conditions générales et du règlement.
+					</li>
+					<li>
+						Saisie des Coordonnée de la famille de référence.
+					</li>
+					<li>
+						Saisie de l'adresse de la famille de référence.
+					</li>
+					<li>
+						Récapitulatif des informations saisies.(Optionnel)
+					</li>
+					<li>
+						Saisie des coordonnées d'une deuxième famille qui permet éventuellement aux deux familles, dont les enfants souhaiteraient partir ensemble, de faire une demande en commun. (Optionnel)</li>
+					<li>
+						Saisie de l'adresse de la deuxième famille.(Optionnel)
+					</li>
+					<li>
+						Récapitulatif des informations saisies.
+					</li>
+					<li>
+						Validation des informations saisies.
+					</li>
+					<li>
+						Confirmation de la demande.
+					</li>
+				</ul>
+				<br />
+				<p>
+					La validation du formulaire entraine la
+					création d'un flux xml contenant les informations
+					saisies et pouvant être traité par le service
+					concerné par la demande.
+				</p>
+				<br />
+				<p>
+					Lors de la saisie des coordonnée de la famille de référence,
+					l'utilisateur a l'obligation de fournir un courriel.
+					le module E-Vac gére l'envoi d'un récapitulatif de l'inscription à ce courriel.
+				</p>
+				<br />
+				<p>
+					Une copie de ce mail est envoyé à une boite au lettre générique de la ville de Paris.
+				</p>
+			</subsection>
+			<subsection name="Captcha">
+				<p>
+					Le module-formengine-evac permet d’intégrer un captcha, sur le formulaire d’introduction « Acceptation des conditions générales et du règlement. », afin de lutter contre des soumissions automatisées et intensives réalisées par des robots
+			Malveillants.
+			Pour plus d'information vous référer à l'utilisation du 
+			<a href="http://dev.lutece.paris.fr/plugins/plugin-jcaptcha/fr/index.html">plugin-jcaptcha</a>
+				</p>
+			</subsection>
+		</section>
+	</body>
+</document>

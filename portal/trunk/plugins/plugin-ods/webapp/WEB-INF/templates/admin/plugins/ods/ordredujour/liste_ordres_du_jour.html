@@ -1,0 +1,91 @@
+ <script>
+	
+	function dopublication(idOdj) 
+	{
+		var myForm = document.getElementById('publication');
+	   	myForm.id_odj.value=idOdj;
+	  	myForm.submit();
+	 }
+
+	
+</script>
+ <div class="content-box">
+  <h2>#i18n{ods.odj.liste.label.listeOdjProchaineSeance}</h2>
+  	<#if !seance?exists || (seance="-1") >
+		<div class="highlight-box">
+			#i18n{ods.listenaturedossier.label.noRef}
+		</div>
+	<#else>
+	  <div class="highlight-box">
+	   	<form method="post" action="jsp/admin/plugins/ods/ordredujour/Ordresdujour.jsp?session=session">
+	    <p>
+	     <label for="">#i18n{ods.listeamendements.label.seance}</label>
+	     	<#if seance?exists>
+				#i18n{ods.listeamendements.label.from}
+				${seance.dateSeance?string("dd/MM/yyyy")}
+				<#if seance.dateSeance?string("ddMMyyyy") != seance.dateCloture?string("ddMMyyyy") >
+					#i18n{ods.listeamendements.label.to}
+					${seance.dateCloture?string("dd/MM/yyyy")}
+				</#if>
+			<#else>
+    		    #i18n{ods.listeamendements.label.from}... #i18n{ods.listeamendements.label.to} ... 
+    	    </#if>  
+	      </p>
+	    	    
+	      <p>
+		     <label for="">#i18n{ods.listeamendements.label.conseil} : </label>
+		     <@combo name="id_formation_conseil"  items=liste_formation_conseil  default_value=id_formation_conseil_selected />
+		      <input type="submit" class="button" value="Rechercher" />
+	     </p>
+	   </form>
+	  </div>
+	  <p>#i18n{ods.all.label.nbresult} ${liste_ordre_du_jour?size}</p>
+	  <form method="post" id="publication" name="publication" action="jsp/admin/plugins/ods/ordredujour/PublicationOrdreDuJour.jsp?session=session">
+		 <input type="hidden" id="id_odj" name="id_odj" />
+	  </form> 
+		<table>
+	    <tr>
+	     <th>#i18n{ods.odj.liste.label.intitule}</th>
+	     <th>#i18n{ods.odj.liste.label.publieLe}</th>
+	     <th>#i18n{ods.odj.liste.label.formationConseil}</th>
+	     <th>#i18n{ods.odj.liste.label.type}</th>
+	     <th>#i18n{ods.odj.liste.label.actions}</th>
+	    </tr>
+	   <#list liste_ordre_du_jour as odj>
+	    <a name="ANC_LAST" id="ANC_LAST"></a>
+	 	 <tr>
+	     <td>${odj.intitule}</td>
+	     <#if odj.publie=false >
+			<td>-</td>
+		 <#else>
+	     	 <td>${odj.datePublication?string("dd/MM/yyyy")}</td>
+	     </#if>
+	        
+	     <td>${odj.formationConseil.libelle}</td>
+	     <td>${odj.typeOrdreDuJour.libelle}</td>
+	     <td nowrap="nowrap" class="ods-actions">
+	     <#if odj.publie=false >
+	     	<input type="button" value="#i18n{ods.listeamendements.button.publie}" class="button" onclick="dopublication(${odj.idOrdreDuJour})"/>
+			<a href="jsp/admin/plugins/ods/ordredujour/ModificationOrdreDuJour.jsp?id_odj=${odj.idOrdreDuJour}">
+				<img src="images/admin/skin/plugins/ods/action/modify.png" alt="#i18n{ods.listeamendements.title.modify}" title="#i18n{ods.listeamendements.title.modify}" />
+			</a> 
+	     	<#if permission_suppression >
+	     		<a href="jsp/admin/plugins/ods/ordredujour/SuppressionOrdreDuJour.jsp?id_odj=${odj.idOrdreDuJour}">
+	     			<img src="images/admin/skin/plugins/ods/action/delete.png" alt="#i18n{ods.listeamendements.title.delete}" title="#i18n{ods.listeamendements.title.delete}" />
+	     		</a>
+	     	</#if>
+	      </#if>
+	      </td>
+	    </tr>
+	   </#list>
+	    </table>
+	 <form method="post" id="creation" name="creation" action="jsp/admin/plugins/ods/ordredujour/DoCreationOrdreDuJour.jsp">
+	
+	   <p>
+	    <label for="">#i18n{ods.odj.liste.label.nouvelOdj} :</label>
+	    <@combo name="id_nouvel_odj"  items=liste_nouvel_ordre_du_jour  default_value=-1 />
+	    <input type="submit" value="#i18n{ods.odj.button.create}" class="button" />
+		</p>
+	  </form>
+	</#if>
+ </div>

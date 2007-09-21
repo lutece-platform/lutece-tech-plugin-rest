@@ -1,0 +1,77 @@
+<div class="content-box">
+	<h2>#i18n{ods.listeelus.label.title}</h2>
+	<#if !liste_groupes?exists || (liste_groupes?size<2)>
+		<div class="highlight-box">
+			#i18n{ods.listegroupes.label.noGroupe}
+		</div>
+  	<#else>
+	<div class="highlight-box">
+		<form method="post"  action="jsp/admin/plugins/ods/elu/Elus.jsp">
+			<p>
+				<label>#i18n{ods.listeelus.label.listegroupes} :</label>
+				<@combo name="id_groupe"  items=liste_groupes default_value=id_groupe_selected/>
+				<input type="submit" class="button" value="#i18n{ods.listeelus.button.search}" />
+			</p>
+		</form>
+	</div>
+	<#if liste_elus?size=0>
+		<div class="highlight-box">
+			#i18n{ods.listeelus.label.noElu}
+		</div>
+	<#else>
+		<p>
+			#i18n{ods.listeelus.label.resultCount} : ${liste_elus_count}
+		</p>
+		<table>
+			<tr>
+				<th>#i18n{ods.listeelus.label.nom_elu}</th>
+				<th>#i18n{ods.listeelus.label.prenom_elu}</th>
+				<th>#i18n{ods.listeelus.label.groupe}</th>
+				<th>#i18n{ods.listeelus.label.actif}</th>
+    		   	<#if permission_gestion >
+					<th>#i18n{ods.listeelus.label.actions}</th>
+				</#if>
+			</tr>
+			<#list liste_elus as elu>	                
+				<a name="ANC_LAST" id="ANC_LAST"></a>
+				<tr>
+					<td nowrap="nowrap"> ${elu.nomElu}</td>
+					<td> ${elu.prenomElu}</td>
+					<td> ${elu.groupe.nomGroupe}</td>
+					<#if elu.actif=true>
+						<td nowrap="nowrap">
+							<img src="images/admin/skin/enable.png" alt="elu actif" title="Actif" />
+						</td>
+					<#else>
+						<td nowrap="nowrap">
+							<img src="images/admin/skin/disable.png" alt="elu inactif" title="Inactif" />
+						</td>
+					</#if>
+    		   		<#if permission_gestion >
+					<td nowrap="nowrap" class="ods-actions">
+						<a href="jsp/admin/plugins/ods/elu/ModificationElu.jsp?id_elu=${elu.idElu}">
+							<img src="images/admin/skin/plugins/ods/action/modify.png" 
+								alt="#i18n{ods.listeelus.title.modify}" 
+								title="#i18n{ods.listeelus.title.modify}" />
+						</a>
+						<a href="jsp/admin/plugins/ods/elu/SuppressionElu.jsp?id_elu=${elu.idElu}">
+							<img src="images/admin/skin/plugins/ods/action/delete.png" 
+								alt="#i18n{ods.listeelus.title.delete}" 
+								title="#i18n{ods.listeelus.title.delete}" />
+						</a>
+					</td>
+					</#if>
+				</tr>
+			</#list>
+		</table>
+	</#if>
+	
+    <#if permission_gestion >
+	<form method="post" action="jsp/admin/plugins/ods/elu/CreationElu.jsp">
+	<p>
+	<input type="submit" value="#i18n{ods.listeelus.button.create}" class="button" />
+	</p>
+	</form>
+	</#if>
+	</#if>
+</div>

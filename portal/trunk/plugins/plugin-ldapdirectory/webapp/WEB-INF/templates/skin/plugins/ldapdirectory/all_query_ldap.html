@@ -1,0 +1,44 @@
+<h2 class="page-title" style="margin-left:10px;"><a href="jsp/site/Portal.jsp?page=ldapdirectory" target="_top">#i18n{ldapdirectory.all_query_ldap.directory}&gt;#i18n{ldapdirectory.all_query_ldap.title}</a></h2>
+<div style="margin-left:10px;">
+    
+        
+        <table>
+            <tr>
+                <form method="post" id="choiceQuery"  action="" >
+                    <input name="action" value="choose" type="hidden" />
+                    <input name="page" value="ldapdirectory" type="hidden" />
+                    
+                    <td>#i18n{ldapdirectory.main_query.labelTypeChoice} </td><td>  <@comboWithParams name="type" default_value="1" additionalParameters="onchange=\"this.form.submit();\"" items=combo_types/> <input type="submit" name="sub" value="#i18n{ldapdirectory.main_query.submitButton}"></td>    
+                </form>
+            </tr>
+            <form method="post" action="jsp/site/Portal.jsp?page=ldapdirectory">   
+            <tr><td>#i18n{ldapdirectory.all_query_ldap.Name} </td><td> <input name="name" size="30" type="text" /></td></tr>
+            <tr><td>#i18n{ldapdirectory.all_query_ldap.GivenName} </td><td> <input name="given_name" size="30" type="text" /> </td></tr>
+            <tr><td>#i18n{ldapdirectory.all_query_ldap.CompleteName} </td><td> <input name="complete_name" size="30" type="text" /> </td></tr>
+            <tr><td>#i18n{ldapdirectory.all_query_ldap.Society} </td><td> <input name="society" size="30" type="text" /> </td></tr>
+            <tr><td>#i18n{ldapdirectory.all_query_ldap.Service} </td><td> <input name="service" size="30" type="text" /> </td></tr>
+            <tr><td>#i18n{ldapdirectory.all_query_ldap.PhoneNumber} </td><td> <input name="phone_number" size="30" type="text" /> </td></tr>
+            <tr><td>#i18n{ldapdirectory.all_query_ldap.RnisNumber} </td><td> <input name="rnis_number" size="30" type="text" /> </td></tr>
+            <tr><td>#i18n{ldapdirectory.all_query_ldap.Mail} </td><td> <input name="mail" size="30" type="text" /> </td></tr>
+            <tr><td>#i18n{ldapdirectory.all_query_ldap.Title} </td><td> <input name="title" size="30" type="text" /> </td></tr>
+            <tr><td>#i18n{ldapdirectory.all_query_ldap.Floor} </td><td> <input name="floor" size="30" type="text" /> </td></tr>
+            <tr><td>#i18n{ldapdirectory.all_query_ldap.RoomNumber} </td><td> <input name="room_number" size="30" type="text" /> </td></tr>
+            <tr><td>#i18n{ldapdirectory.all_query_ldap.PostalAddress} </td><td> <input name="postal_address" size="30" type="text" /> </td></tr>
+            <tr><td>#i18n{ldapdirectory.all_query_ldap.PostalCode} </td><td> <input name="postal_code" size="30" type="text" /> </td></tr>
+            <tr><td>#i18n{ldapdirectory.all_query_ldap.Town} </td><td> <input name="town" size="30" type="text" /> </td></tr>
+            <tr><td>#i18n{ldapdirectory.all_query_ldap.Departement} </td><td> <input name="department" size="30" type="text" /> </td></tr>
+            <tr><td>#i18n{ldapdirectory.all_query_ldap.ModificationDate} </td><td> <input name="modification_date"  size="30" type="text" /> </td></tr>
+        </table>
+        <div>
+            <input name="page" value="ldapdirectory" type="hidden" />
+            <input name="type" value="1" type="hidden" />
+            <input name="action" value="find" type="hidden" />
+        </div>
+        <div>
+            <input type="submit" value="#i18n{ldapdirectory.all_query_ldap.buttonFind}" class="button" />
+            <input class="button" onclick="this.form.reset();" value="#i18n{ldapdirectory.all_query_ldap.buttonClear}" type="button">
+            <input class="button" onclick="javascript:history.go(-1)" value="#i18n{ldapdirectory.all_query_ldap.buttonBack}" type="button">
+            
+        </div>
+    </form>
+</div>

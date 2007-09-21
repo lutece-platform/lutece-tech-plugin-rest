@@ -1,0 +1,57 @@
+<#include "utils.ftl" >
+
+<div id="page-content-left">
+   <#include "page_content_left.html">
+   </div>
+<div id="page-content-right">
+   <div id="out-min-height">
+    <div id="in-min-height">
+     <div id="one-zone-first">
+      <div id="one-zone-first-content">
+       <h1>#i18n{ods.front.pdd.nouveauxPdd.title}</h1>
+       <#if liste_pdds_nouveaux?exists && ( liste_pdds_nouveaux?size > 0 ) >
+	       <p>${liste_pdds_nouveaux?size} #i18n{ods.front.pdd.nouveauxPdd.nbProjetMaj}, ${derniere_connexion?string("EEEE dd MMMM yyyy")}.</p>
+	       <!--bloc-->
+	       	<ul class="ods-list">
+	       		<#list liste_pdds_nouveaux as pdd>
+	       			<li class="ods-list-row">
+	       			<a href="jsp/site/Portal.jsp?page=ods_pdd&id_pdd=${pdd.idPdd}">${pdd.reference}</a>
+	       			<#if pdd.version?exists && ( pdd.version > 1 )>
+	          	 		<span class="ods-flag-M" title="#i18n{ods.front.deliberations.title.modifie}">#i18n{ods.front.deliberations.label.modifie}</span>
+	          	 	<#else>
+	         	 		<span class="ods-flag-N" title="#i18n{ods.front.deliberations.title.nouveau}">#i18n{ods.front.deliberations.label.nouveau}</span>
+	          	 	</#if>
+	          	 	<#if liste_pdds_rattache_odj?exists && estPddDansListe(pdd,liste_pdds_rattache_odj)>
+		         	 	<span class="ods-flag-O" title="#i18n{ods.front.deliberations.label.aodj}">#i18n{ods.front.deliberations.label.aodj}</span>
+		         	</#if>	         	
+		         	<span class="ods-notes"> 
+		         		<#if pdd.enLigne>
+			    	  		(#i18n{ods.front.deliberations.label.publierle} ${pdd.datePublication?string("dd/MM/yyyy")}<#if (pdd.version > 1) >, #i18n{ods.front.pdd.label.version} ${pdd.version}</#if>)
+			 		  	</#if>
+		    		</span>
+		    		<p class="ods-list-row-txt">
+		         	  	<#if pdd.objet?exists>
+			    			${pdd.objet}
+			 		  	<#else> 
+		    	 	 	</#if>
+		    	 	</p>
+		    	 	</li>
+	       		</#list>
+	       	</ul>
+	       	<!--bloc-->
+	    <#elseif derniere_connexion?exists>			
+	       <p>#i18n{ods.front.pdd.nouveauxPdd.noProjetMaj}, ${derniere_connexion?string("EEEE dd MMMM yyyy")}.</p>
+		</#if>
+       	<div class="ods-legend"><strong>#i18n{ods.front.deliberations.label.legende}</strong>
+         	<ul>
+          		<li><span class="ods-flag-N" title="#i18n{ods.front.deliberations.title.nouveau}">#i18n{ods.front.deliberations.label.nouveau}</span>=#i18n{ods.front.deliberations.nouveaudocument}</li>
+          		<li><span class="ods-flag-M" title="#i18n{ods.front.deliberations.title.modifie}">#i18n{ods.front.deliberations.label.modifie}</span>=#i18n{ods.front.deliberations.nouvelleversion}</li>
+          		<li><span class="ods-flag-O" title="#i18n{ods.front.deliberations.label.aodj}">#i18n{ods.front.deliberations.label.aodj}</span>=#i18n{ods.front.deliberations.label.legende.odj}</li>
+         	</ul>
+       	</div>
+       	<!--bloc-->
+      </div>
+     </div>
+    </div>
+   </div>
+ </div>

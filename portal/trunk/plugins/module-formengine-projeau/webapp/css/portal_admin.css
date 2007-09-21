@@ -1,0 +1,669 @@
+/******************************************************************************/
+/*                     STYLES DU MODULE ADMINISTRATION                        */
+/******************************************************************************/
+
+/* ========================================================================
+==============     REDEFINITION OF BASE HTML ELEMENTS     =================
+=========================================================================== */
+
+/* ========================================================================
+==============     REDEFINITION OF BASE HTML ELEMENTS     =================
+=========================================================================== */
+
+/* Define the default font: */
+BODY, TD, FONT, A, SPAN, P, LI, UL, BR, HR, DIV, TD, TH, H1, H2, H3, H4
+{
+     font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;
+     font-size: 11px;
+     font-weight: normal;
+}
+
+/*links */
+a {
+	color: #202C65;
+	font-weight: bold;
+}
+
+a.admin-title:link, a.admin-title:visited  {
+	color: #202C65;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+a.admin-title:hover  {
+	color: #202C65;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+/* links of menu */
+a.admin-menu:link, a.admin-menu:visited {
+	color: #202C65;
+	text-decoration: none;
+	font-weight: normal;
+}
+
+/* links of menu hover */
+a.admin-menu:hover {
+	color: #202C65;
+	text-decoration: underline;
+	font-weight: normal;
+}
+
+/* link for synchronizing the local data for the articles */
+a.admin-synchronize {
+	color: #1B1485;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+/* links of menu hover */
+a.top {
+	float: right;
+}
+
+
+/* color font ( version ) */
+font.color {
+	color: #EE9C00;
+	font-weight: bold;
+}
+
+/* message font */
+font.message {
+	color: #202C65;
+	font-weight: bold;
+}
+
+/* title level 1 */
+h1 {
+	color: #202C65;
+	font-size: 12pt;
+	font-weight: bold;
+}
+
+/* title level 2 */
+h2 {
+	color: #202C65;
+	font-size: 11pt;
+	font-weight: bold;
+}
+
+/* title level 3 */
+h3 {
+	color: #202C65;
+	font-weight: bold;
+}
+
+.admin-site {
+ float:left;
+ width:30%;
+}
+
+ul.admin-page-templates {
+list-style:none;
+
+}
+
+
+/* admin table */
+table.admin {
+	background-color: #202C65;
+}
+
+/* admin cell table */
+table.admin-cell {
+	border-color: #202C65;
+	border-style: solid;
+	border-width: 1px;
+	padding: 0px;
+}
+
+table.header {
+	background-color: #FFFFFF;
+	height: 105px;
+	vertical-align: middle;
+}
+
+/* cell admin */
+td.admin {
+	background-color: #FFFFFF;
+	color: #202C65;
+	height: 20px;
+}
+
+tr.admin td.admin {
+	background-color: #FFFFFF;
+}
+
+tr.admin:hover td.admin {
+	background-color: #E0E7F3;
+}
+
+/* cell admin for shared information */
+td.admin_shared {
+	background-color: #FBCA6D;
+	color: #202C65;
+
+}
+
+/* cell admin */
+td.admin_title {
+	background-color: #FFFFFF;
+	color: #202C65;
+	font-size: 10pt;
+	font-weight: bold;
+	line-height: 13px;
+}
+
+
+
+/* cell subtitle */
+td.subtitle {
+	background-color: #FFFFFF;
+	color: #202C65;
+	font-weight: bold;
+}
+
+/* admin */
+th.admin {
+	background-color: #FFFFFF;
+	color: #202C65;
+	font-weight: bold;
+}
+
+
+/* cell admin */
+th.admin-cell {
+	/*background-color: #859ECF;*/
+   background-color: #FFFFFF;
+	color: #202C65;
+	font-weight: bold;
+}
+
+/* cell admin portlet  */
+th.admin-portlets {
+	background-color: #E0E7F3;
+	color: #FFFFFF;
+	font-size: 10pt;
+	font-weight: bold;
+}
+
+/* cell admin title */
+th.admin-title {
+	background-color: #E0E7F3;
+	color: #202C65;
+	font-weight: bold;
+}
+
+th.admin-title-block {
+	background-color: #E0E7F3;
+	color: #202C65;
+	font-weight: bold;
+	border-color: #202C65;
+	border-style: solid;
+	border-width: 1px;
+}
+
+th.admin-cell-color {
+	background-color: #FFFFFF;
+	color: #EE9C00;
+	font-weight: bold;
+}
+
+tr.admin td.admin {
+	 background-color: #FFFFFF;
+}
+
+tr.admin:hover td.admin {
+	 background-color: #E0E7F3;
+}
+
+
+.editdoc {
+	background-color: #FFFFFF;
+	border: 1px groove #808080;
+	height: 320px;
+	margin-top: 3px;
+	overflow: auto;
+	padding: 2, 2, 2, 2;
+	width: 520px;
+}
+
+
+
+table.header-group {
+	background-color: #FFFFFF;
+	border-color: #202C65;
+	border-style: solid;
+	border-width: 1px;
+	height: 30px;
+}
+
+table.header-features {
+	background-color: #FFFFFF;
+	color: #202C65;
+	height: 50px;
+	vertical-align: middle;
+}
+
+th.header-group {
+	background-color: #FFFFFF;
+	color: #202C65;
+	font-size: 10pt;
+	font-weight: bold;
+}
+
+th.admin-feature {
+	background-color: #E0E7F3;
+	color: #202C65;
+	font-weight: bold;
+}
+
+/****
+** customized
+****/
+.#important {
+	background-color:#EE9C00
+}
+
+.alert {
+	color:red;
+	font-weight: bold;
+	text-align:center;
+}
+
+.colored {
+	font-weight: bold;
+	color: #EE9C00;
+}
+
+
+/* Menu à onglet de l'interface d'Administration des pages */
+#admin-site-menu {
+  float:left;
+  width:100%;
+  background:#FFFFFF url("../images/admin/skin/bg.gif")
+  repeat-x bottom;
+  font-size:93%;
+  line-height:normal;
+}
+
+#admin-site-menu ul {
+    margin:0;
+    padding:10px 10px 0;
+    list-style:none;
+}
+
+#admin-site-menu li {
+	float:left;
+   background:url("../images/admin/skin/left.gif")
+   no-repeat left top;
+   margin:0;
+   padding:0 0 0 9px;
+}
+
+ #admin-site-menu a, #admin-site-menu strong, #admin-site-menu span  {
+     /* Pour IE Mac uniquement \*//*/
+    float:left;
+    /**/
+    display:block;
+    background:url("../images/admin/skin/right.gif")
+    no-repeat right top;
+    padding:5px 15px 4px 6px;
+    text-decoration:none;
+    font-weight:bold;
+    color:#202C65;
+ }
+
+
+#admin-site-menu #current {
+    background-image:url("../images/admin/skin/left_on.gif");
+}
+
+#admin-site-menu #current a {
+   background-image:url("../images/admin/skin/right_on.gif");
+   padding-bottom:5px;
+	color: #EE9C00;
+	text-decoration: none;
+}
+
+
+
+/* Tree Menu Map of AdminSite */
+
+#tree-menu-mainMenu {
+  color: #202C65;
+}
+
+ul.tree-menu-menuList {
+  margin: 0px;
+  padding: 10px 0px 10px 15px;
+}
+
+li.tree-menu-menubar {
+  background: url(../images/admin/skin/plus.gif) no-repeat 0em 0.3em;
+  font-size: 12px;
+  line-height: 1.5em;
+  list-style: none outside;
+}
+
+.tree-menu-menu{
+	display: none;
+   margin-left: 15px;
+   padding: 0px;
+	font-size: 10px;
+}
+
+.tree-menu-submenu {
+	/*display: none;*/
+   margin-left: 15px;
+   padding: 0px;
+}
+
+.tree-menu-menu li, .tree-menu-submenu li {
+  background: url(../images/admin/skin/square.gif) no-repeat 0em 0.3em;
+  list-style: none;/* outside;*/
+}
+
+a.tree-menu-actuator {
+  background-color: transparent;
+  color: #202C65;
+  font-size: 12px;
+  padding-left: 15px;
+  text-decoration: none;
+}
+
+a.tree-menu-actuator:hover {
+  text-decoration: underline;
+}
+
+.tree-menu-menu li a, .tree-menu-submenu li a {
+  background-color: transparent;
+  color: #202C65;
+  font-size: 12px;
+  padding-left: 15px;
+  text-decoration: none;
+}
+
+.tree-menu-menu li a:hover, tree-menu-submenu li a:hover {
+  text-decoration: underline;
+}
+
+tree-menu-span.key {
+  text-decoration: underline;
+}
+
+/* =====================================================================
+ * --------------      styles for horizontal menu      -----------------
+ * ===================================================================== */
+/* Horizontal menu : for admin-header-menu */
+
+#admin-header-menu-main
+{
+	margin: 0;
+	color: #202C65;
+	font-size: 13px;
+}
+
+ul#admin-header-menu li ul{
+    display:none;
+}
+
+ul#admin-header-menu li:hover>ul{
+    display:block;
+}
+
+
+ul#admin-header-menu{
+    margin:0px;
+    padding:0px;
+    list-style:none;
+    width:98%;
+    background:#E0E7F3;
+    float:left;
+    cursor: pointer;
+	 cursor:hand;
+}
+
+
+ul#admin-header-menu li{
+    float:left;
+    display:block;
+    padding:1px 20px 1px 20px;
+}
+
+ul#admin-header-menu li.first{
+    padding-left:17px;
+}
+
+
+ul#admin-header-menu li.last{
+    padding-right:2px;
+}
+
+ul#admin-header-menu li a{
+    display:block;
+    padding:2px 6px;
+    color:#202C65;
+    text-decoration:none;
+  	 font-weight: bold;
+}
+
+
+ul#admin-header-menu li a:hover{
+}
+
+ul#admin-header-menu ul{
+    position:absolute;
+    background:#E0E7F3;
+    border: 1px solid #260650;
+    list-style:none;
+    margin:0px;
+    padding:0px;
+    width:235px;
+    z-index:1;
+}
+
+
+
+ul#admin-header-menu ul ul{
+    top:0px;
+    left:155px;
+    z-index:2;
+}
+
+
+ul#admin-header-menu ul li{
+    position:relative;
+    float:none;
+    background-image:none;
+    margin:0px;
+    padding:0px;
+/*    border-top: 1px solid #260650; */
+    _display:inline;
+}
+
+
+ul#admin-header-menu ul li a{
+	 font-size: 13px;
+    display:block;
+    margin:0px;
+	 padding:0px;
+	 width:230px;
+    border:none;
+}
+
+
+ul#admin-header-menu ul li a span{
+    display:block;
+    width:230px;
+    _width:238px;
+    padding:2px 6px;
+    margin:0px 2px;
+    border:none;
+    cursor: pointer;
+    cursor:hand;
+}
+
+
+ul#admin-header-menu ul li a.next span{}
+ul#admin-header-menu ul li a.next:hover span{
+    background-position: -160px 50%;
+	 text-decoration: underline;
+}
+
+
+ul#admin-header-menu ul li a:hover span{
+    color: #202C65;
+    border:none;
+	 text-decoration: underline;
+}
+
+ul#admin-header-menu ul li.admin-header-first{
+    padding-left:0px;
+    border-top: none;
+}
+
+
+ul#admin-header-menu ul li.admin-header-first a{
+    padding-top:2px;
+}
+
+ul#admin-header-menu ul li.admin-header-last{
+    padding-right:0px;
+}
+
+ul#admin-header-menu ul li.admin-header-last a{
+    padding-bottom:2px;
+}
+
+
+/*** .feature-group
+*********************************/
+.roundbox {
+	background: #E0E7F3 url(../images/admin/skin/roundbox_back.gif) right repeat-y;
+	margin-bottom: 1em;
+	padding: 15px 15px 14px 15px;
+	font-size: 10px;
+	text-align: left;
+}
+
+.roundbox:before {
+	background: transparent url(../images/admin/skin/roundbox_tr.gif) no-repeat top right;
+	content: url(../images/admin/skin/roundbox_tl.gif);
+	display: block;
+	font-size: 1px;
+	height: 15px;
+	line-height: 0.1;
+	margin: -15px -15px 0 -15px;
+	text-align: left;
+}
+
+.roundbox:after {
+	background: transparent url(../images/admin/skin/roundbox_br.gif) scroll no-repeat bottom right;
+	clear: both;
+	content: url(../images/admin/skin/roundbox_bl.gif);
+	display: block;
+	font-size: 1px;
+	height: 8px;
+	line-height: 0.1;
+	margin: -15px;
+	padding-top: 15px;
+	text-align: left;
+}
+
+.roundbox h2 {
+	border: none;
+	font-size: 150%;
+	font-family: Arial, Tahoma, Helvetica, sans-serif;
+	margin-left: 0;
+	border-bottom: 1px solid #202C65;
+}
+
+.roundbox li {
+	list-style: none;
+	height: 60px;
+}
+
+#admin-menu {
+	padding-left: 10%;
+	margin-right: 20px;
+	text-align: center;
+	min-width: 700;
+}
+
+#admin-menu-left {
+	margin-top: 0px;
+	margin-right: 210px;
+	width: 70%;
+}
+
+#admin-menu-left a {
+	font-size: 11px;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+#admin-menu-left a:hover {
+	font-size: 11px;
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+#admin-menu-right {
+	float: right;
+	margin-top: 20px;
+	width: 200px;
+}
+
+/* Style menu admin v1.1.1 */
+
+#admin-site {
+	clear: both;
+	min-width: 800px;
+}
+
+
+#admin-site-page {
+	float:left;
+	width: 320px;
+}
+
+#admin-site-preview {
+	margin-left: 330px;
+	margin-top:0;
+	width:70%;
+}
+
+* html #admin-site-preview {
+	width:100%;
+}
+
+/* Style for list navigation */
+
+span.pageCurrent{color: #EE9C00;  font-weight: bold;  }
+
+div.title{
+float:left;
+}
+
+div.list{
+margin-top: 7px;
+margin-left: -10px;
+float:left;
+}
+
+* html div.list{
+margin-top: 8px;
+margin-left: 0px;
+width: 800px;
+}
+
+div.list-nav-up{
+float:right;
+}
+
+div.list-nav-bottom{
+float:left;
+}

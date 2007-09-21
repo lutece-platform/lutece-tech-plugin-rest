@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<plug-in>
+
+   <!-- helpdesk Informations -->
+    <name>helpdesk</name>
+    <class>fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation</class>
+    <version>2.0</version>
+    <documentation></documentation>
+    <installation></installation>
+    <changes></changes>
+    <user-guide></user-guide>
+    <description>helpdesk.plugin.description</description>
+    <provider>helpdesk.plugin.provider</provider>
+    <provider-url>http://lutece.paris.fr</provider-url>
+    <icon-url>images/admin/skin/plugins/helpdesk/helpdesk.png</icon-url>
+    <copyright>Copyright 2001-2007 Mairie de Paris</copyright>
+    <db-pool-required>1</db-pool-required>   
+
+   <!-- Xpage configuration -->
+    <applications>
+        <application>
+            <application-id>helpdesk</application-id>
+         <application-class>fr.paris.lutece.plugins.helpdesk.web.HelpdeskApp</application-class>
+        </application>
+    </applications>
+
+   <!-- Administration interface parameters -->
+    <admin-features>
+        <admin-feature>
+            <feature-id>HELPDESK_MANAGEMENT</feature-id>
+            <feature-title>helpdesk.adminFeature.helpdesk_management.name</feature-title>
+            <feature-description>helpdesk.adminFeature.helpdesk_management.description</feature-description>
+            <feature-level>1</feature-level>
+            <feature-url>jsp/admin/plugins/helpdesk/ManageHelpdesk.jsp</feature-url>
+        </admin-feature>
+        <admin-feature>
+            <feature-id>HELPDESK_USER_MANAGEMENT</feature-id>
+            <feature-title>helpdesk.adminFeature.helpdesk_user_management.name</feature-title>
+            <feature-description>helpdesk.adminFeature.helpdesk_user_management.description</feature-description>
+            <feature-level>3</feature-level>
+            <feature-url>jsp/admin/plugins/helpdesk/ManageHelpdeskAdmin.jsp</feature-url>
+        </admin-feature>
+    </admin-features>
+    
+    <!-- RBAC Resources -->
+    <rbac-resource-types>
+        <rbac-resource-type>
+            <rbac-resource-type-class>fr.paris.lutece.plugins.helpdesk.service.QuestionTypeResourceIdService</rbac-resource-type-class>
+        </rbac-resource-type>    
+        <rbac-resource-type>
+            <rbac-resource-type-class>fr.paris.lutece.plugins.helpdesk.service.QuestionTopicResourceIdService</rbac-resource-type-class>
+        </rbac-resource-type>    
+    </rbac-resource-types>    
+</plug-in>
+

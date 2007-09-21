@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+	<xsd:element name="DELIBS">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element name="CMUNICIPAL" type="type-CMUNICIPAL"/>
+				<xsd:element name="CGENERAL" type="type-CGENERAL"/>
+			</xsd:all>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- ************************************************************************************************** -->
+	<xsd:complexType name="type-CMUNICIPAL">
+		<xsd:sequence>
+			<xsd:element name="DIRECTION" minOccurs="1" maxOccurs="unbounded" type="type-DIRECTION"/>
+		</xsd:sequence>
+		<xsd:attribute name="DATE" type="xsd:string"/>
+	</xsd:complexType>
+
+	<xsd:complexType name="type-CGENERAL">
+		<xsd:sequence>
+			<xsd:element name="DIRECTION" minOccurs="1" maxOccurs="unbounded" type="type-DIRECTION"/>
+		</xsd:sequence>
+		<xsd:attribute name="DATE" type="xsd:string"/>
+	</xsd:complexType>
+
+	<xsd:complexType name="type-DIRECTION">
+		<xsd:all>
+			<xsd:element name="NOM" type="xsd:string"/>
+		</xsd:all>
+		<xsd:attribute name="NB" type="xsd:string"/>
+		<xsd:attribute name="URL" type="xsd:string"/>
+	</xsd:complexType>
+
+</xsd:schema>
+

@@ -1,0 +1,50 @@
+<div class="content-box">	
+    
+    <h2>#i18n{poll.modify_question.properties}</h2>
+        
+    <form method="post" action="jsp/admin/plugins/poll/DoModifyQuestion.jsp" name="modify_question">
+        <input type="hidden" name="poll_id" value="${question.idPoll}" />                
+        <input type="hidden" name="question_id" value="${question.id}" />        
+        <p>
+            <label for="question_label" >#i18n{poll.modify_question.Label}&nbsp;*&nbsp;:</label>
+            <input type="text" id="question_label" name="question_label" value="${question.label}" size="100" maxlength="250"/>			
+        </p>				
+       
+        <p>
+            <input type="submit" value="#i18n{poll.modify_question.buttonLabelValidate}" tabindex="9" class="button" />
+            <a href="jsp/admin/plugins/poll/ModifyPoll.jsp?poll_id=${question.idPoll}"><input type="button" class="button" value="#i18n{poll.modify_question.backToModifyPoll}"></a>
+        </p>							 
+    </form>	
+
+</div>			      	
+ <div class="content-box">				      	
+    
+    <h2>#i18n{poll.modify_question.titleChoicesList}</h2>
+		     
+    <table>
+        <tr>
+            <th>#i18n{poll.modify_question.columnChoiceLabel}</th>
+            <th>#i18n{poll.modify_question.columnChoiceActions}</th>
+        </tr>                
+        <#list question.choices as choice >
+            <tr>
+                <td>
+                    <a href="jsp/admin/plugins/poll/ModifyChoice.jsp?choice_id=${choice.id}" class="bullet-link">
+                        ${choice.label}
+                    </a>                        
+                </td>
+                <td>                
+                    <a href="jsp/admin/plugins/poll/RemoveChoice.jsp?choice_id=${choice.id}&question_id=${question.id}">
+                        <img src="images/admin/skin/actions/delete.png" alt="#i18n{poll.modify_question.actionDeleteChoice}" title="#i18n{poll.modify_question.actionDeleteChoice}" />
+                    </a>
+                </td>
+            </tr>
+        </#list>                
+    </table>
+
+    <form method="post"  action="jsp/admin/plugins/poll/CreateChoice.jsp">
+        <input type="hidden" name="poll_id" value="${question.idPoll}" />                        
+        <input type="hidden" name="question_id" value="${question.id}" />                
+        <input type="submit" value="#i18n{poll.modify_question.buttonCreate}" class="button" />
+    </form>    
+</div>

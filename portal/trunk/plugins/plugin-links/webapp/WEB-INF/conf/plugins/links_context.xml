@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+  
+  <bean id="linkDAO"  class="fr.paris.lutece.plugins.links.business.LinkDAO" />
+  <bean id="linksPortletDAO"  class="fr.paris.lutece.plugins.links.business.portlet.LinksPortletDAO" />  
+    
+</beans>

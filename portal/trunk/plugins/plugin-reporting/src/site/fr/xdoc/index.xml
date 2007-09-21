@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<properties>
+		<title>Introduction</title>
+	</properties>
+	<body>
+		<section name="Descriptif du plugin">
+			<subsection name="Introduction">
+				<p>Ce plugin permet la saisie des données de reporting projet par les chefs de projets SDDP, et la consultation de ces données par les différentes instances de pilotage de la SDDP et de la DSTI (Chefs de Section, Chefs de Bureau, Sous-Directeur, Directeur).</p> 
+
+			</subsection>
+			<subsection name="Fonctionnalités">
+				<p>L'affichage des données en front office est réalisé dans une XPage. On peut visualiser les tableaux de reporting de projet classés par groupe de travail et les tableaux de reporting mensuel classés par projet.</p> 
+  <p>La gestion des reporting de projets SDDP s'effectue via une interface d'administration, avec authentification et gestion de droits, qui permet :</p> 
+<p>
+<ul>
+  <li>aux chefs de projets de gérer la liste des projets et le reporting associé,</li> 
+  <li>au gestionnaire de l'application de gérer les périodes de suivi mensuel.</li> 
+  </ul>
+  </p>
+			</subsection>
+		</section>
+	</body>
+</document>

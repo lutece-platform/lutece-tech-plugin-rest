@@ -1,0 +1,151 @@
+<div class="content-box">
+  	<h2>#i18n{ods.certificatAffichage.label.title}</h2>
+	
+  	<#if !liste_seances?exists || (liste_seances?size = 0) >
+		<div class="highlight-box">
+			#i18n{ods.certificatAffichage.label.noSeance}
+		</div>
+  	<#else>
+		<div class="highlight-box">
+			<form method="post" action="jsp/admin/plugins/ods/certificatAffichage/CertificatAffichage.jsp?plugin_name=ods">
+		  
+		    <p> 	
+	      		<label for="">#i18n{ods.all.label.seance} * : </label>
+  			 	<select name="id_seance">
+  			 	<#list liste_seances as seance>
+  			   		<#if seance.idSeance = id_seance_selected>
+  				   		<option value=${seance.idSeance} selected>
+  				  	<#else>
+  						<option value=${seance.idSeance}>
+  					</#if>	
+		       		#i18n{ods.all.label.from}
+		            ${seance.dateSeance?string("dd/MM/yyyy")}
+  					<#if seance.dateSeance?string("ddMMyyyy") != seance.dateCloture?string("ddMMyyyy") >
+						#i18n{ods.all.label.to}
+						${seance.dateCloture?string("dd/MM/yyyy")}
+					</#if>
+  					</option> 
+  			 	</#list>
+  			 	</select>
+		    </p>
+		    
+		    <p>
+		     	<label for="">#i18n{ods.certificatAffichage.label.formationduconseil} * : </label>
+		     	<select name="id_formation_conseil">
+		     	<#list liste_formation_conseil  as formation>
+		     		<#if formation.idFormationConseil = id_formation_conseil_selected>
+		     			<option value=${formation.idFormationConseil} selected>
+		     		<#else>
+		     			<option value=${formation.idFormationConseil}>
+		     		</#if>
+		     		${formation.libelle}
+		     		</option>
+		     	</#list>
+		     	</select>
+		   	</p>
+		   	
+		   	<p>
+		   		<label for=""><#if error?exists && error><span style="font-weight:bold; color:red;"></#if>
+		   			#i18n{ods.certificatAffichage.label.dateRetourControleLegalite} * :
+		     	<#if error?exists && error></span></#if></label>
+			    <#if date_retour_controle_legalite?exists>
+				    <input type="text" name="date_retour_controle_legalite" id="date_retour_controle_legalite" size="10" value="${date_retour_controle_legalite?string("dd/MM/yyyy")}"/>
+				<#else>
+			    	<input type="text" name="date_retour_controle_legalite" id="date_retour_controle_legalite" size="10" value=""/>
+				</#if>
+    			<input type="button" class="button" id="button_date_retour_controle_legalite" value="..." />
+    			<#if error?exists && error><span style="font-weight:bold; color:red;"> ( #i18n{ods.certificatAffichage.label.errorDate} ) </span></#if>
+		   	</p>
+		   	
+		   	<p align="center">
+		     	<input type="submit" class="button" value="#i18n{ods.all.button.search}" />
+		   	</p>
+		   	
+			</form>
+		</div>
+		
+		<p> #i18n{ods.all.label.nbresult} ${nb_results}</p>
+	   		
+   		<a name="ANC_LAST" id="ANC_LAST"></a>
+    	<#if !liste_pdds?exists || (liste_pdds?size = 0)>
+			<div class="highlight-box">#i18n{ods.certificatAffichage.label.noCertificat}</div>
+		<#else>
+			<p>
+  			<form method="POST" id="FormListPDDs" name="FormListPDDs" action="jsp/admin/plugins/ods/certificatAffichage/doVisualisationCertificat.jsp">
+  			<input type="hidden" name="id_seance" value=${id_seance_selected} />
+  			<input type="hidden" name="id_formation_conseil" value=${id_formation_conseil_selected} />
+  			<input type="hidden" name="date_retour_controle_legalite" value=${date_retour_controle_legalite} />
+			<table>
+			
+	    		<tr>
+	    		 	<th>#i18n{ods.certificatAffichage.list.label.code}</th>
+	     			<th>#i18n{ods.certificatAffichage.list.label.publierle}</th>
+	     			<th>#i18n{ods.certificatAffichage.list.label.formationDuConseil}</th>
+	     			<th>#i18n{ods.certificatAffichage.list.label.modeIntro}</th>
+	    		</tr>
+	    	
+		    	<#list liste_pdds as pdd>	  			
+		  			<tr class="ods-noborder">	
+		     			<td nowrap="nowrap">
+		     				<a href="jsp/admin/plugins/ods/projetdeliberation/ModificationCompletePDD.jsp?plugin_name=ods&id_pdd=${pdd.idPdd}"> 
+		     					${pdd.reference}
+		     				</a>
+		     			</td>
+		     			<#if pdd.enLigne = true>
+			    			<td>${pdd.datePublication?string("dd/MM/yyyy")}</td>
+			 			<#else>
+		    				<td></td>
+			 			</#if>
+			 			
+		     			<#if pdd.formationConseil?exists>
+			    			<td>${pdd.formationConseil.libelle}</td>
+			 			<#else>
+		    				<td></td>
+			 			</#if>
+			 			
+		     			<#if pdd.modeIntroduction?exists>
+			    			<td>${pdd.modeIntroduction}</td>
+			 			<#else>
+		    				<td></td>
+			 			</#if>
+			 			
+		    		</tr>
+		    		
+		    		<tr>
+		     			<#if pdd.objet?exists>
+			    			<td colspan="4">${pdd.objet}</td>
+			 			<#else>
+		    				<td></td>
+			 			</#if>
+		    		</tr>
+		  		</#list>
+    		
+   			</table>
+   			</p>
+		 
+			<p>
+				<input name="visualisation_certificat" class="button" type="submit" value="#i18n{ods.certificatAffichage.button.visualisation}" />
+			</p>
+   		</#if>
+	</#if>
+</div>
+
+<#if liste_seances?exists && (liste_seances?size > 0) >
+	<!-- main calendar program -->
+	<script type="text/javascript" src="js/jscalendar/calendar.js"></script>
+	<!-- language for the calendar -->
+	<script type="text/javascript" src="js/jscalendar/lang/calendar-fr.js"></script>
+	<!-- the following script defines the Calendar.setup helper function, which makes
+	       adding a calendar a matter of 1 or 2 lines of code. -->
+	<script type="text/javascript" src="js/jscalendar/calendar-setup.js"></script>
+	<script type="text/javascript">
+	    Calendar.setup({
+	    inputField     :    "date_retour_controle_legalite",      // id of the input field
+	    ifFormat       :    "%d/%m/%Y",       // format of the input field
+	    showsTime      :    false,            // will display a time selector
+	    button         :    "button_date_retour_controle_legalite",   // trigger for the calendar (button ID)
+	    singleClick    :    true,           // double-click mode
+	    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
+	    });
+	</script>
+</#if>

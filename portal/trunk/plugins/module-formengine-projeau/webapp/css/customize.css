@@ -1,0 +1,45 @@
+/**************************************************************************/
+/*                         PORTAL CUSTOMIZE STYLE                         */
+/**************************************************************************/
+
+@import url("page_template_styles.css");
+
+.colorborder1 {
+	border: 1px solid #1E2A63;
+}
+
+.fontcolor1 {
+	color: #074B88;
+}
+
+.pagecolor1 {
+	background-color: #859ECF; 
+}
+
+/**************************************************************************/
+/*                              SAISINE STYLE                             */
+/**************************************************************************/
+
+input.saisine-menu {
+	border: 1px solid #260650;
+	cursor: pointer;
+	cursor: hand;
+	background-color: #F8F8F8;
+	color: #260650;
+}
+
+input.saisine-menu-selected {
+	border: 1px solid #260650;
+	cursor: pointer;
+	cursor: hand;
+	background-color: #E6EAF3;
+	color: #260650;
+}
+
+span.saisine-after-date-max {
+	color: red;
+}
+
+span.saisine-before-date-max {
+	color: darkgreen;
+}

@@ -1,0 +1,39 @@
+<div class="content-box" >
+    <h2>#i18n{module.mylutece.ldapdatabase.manage_roles_user.tableTitle}</h2>
+    
+    <form action="jsp/admin/plugins/mylutece/modules/ldapdatabase/DoAssignRoleUser.jsp">
+        <input type="hidden" name="mylutece_ldap_user_id" value="${user.userId}" />
+        <table>
+            <tr>
+                <th>#i18n{module.mylutece.ldapdatabase.manage_roles_user.colName}</th>
+                <th>#i18n{module.mylutece.ldapdatabase.manage_roles_user.colLabel}</th>
+                <th></th>
+            </tr>
+            <#list role_list as role >
+            <#if role.role != "none">
+            <tr>
+                <td>${role.role}</td>
+                <td>${role.roleDescription}</td>
+                <td valign="middle" align="center">
+                    <#assign checkedString = '' > 
+                    <#list user_role_list as user_role >
+                    <#if user_role.role = role.role >
+                    <#assign checkedString >
+                    checked="checked"
+                    </#assign>
+                    <#break>
+                    </#if>
+                    </#list>
+                    <input type="checkbox" class="checkbox" name="mylutece_ldap_role_id" value="${role.role}" ${checkedString} />
+                </td>
+            </tr>
+            </#if>
+            </#list>
+        </table>
+        <p>
+            <input type="hidden" name="plugin_name" value="${plugin_name}" />
+            <input type="submit" class="button" value="#i18n{module.mylutece.ldapdatabase.manage_roles_user.btnAssign}" />
+            <input class="button" type="button" onclick="javascript:history.go(-1)" value="#i18n{portal.admin.message.buttonCancel}" />
+        </p>
+    </form>
+</div>

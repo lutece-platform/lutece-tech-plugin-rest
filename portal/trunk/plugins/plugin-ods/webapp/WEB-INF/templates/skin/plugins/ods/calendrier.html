@@ -1,0 +1,102 @@
+<div id="page-content-left">
+	<#include "page_content_left.html">
+</div>
+<div id="page-content-right">
+	<div id="out-min-height">
+		<div id="in-min-height">
+			<div id="one-zone-first">
+				<div id="one-zone-first-content">
+					<h1>#i18n{ods.front.calendrier.page.title}</h1>
+					<h2>#i18n{ods.front.calendrier.listeSeances.title}</h2>
+					<ul>
+						<#list liste_seances as seance>
+							<li>
+								<a href="jsp/site/Portal.jsp?page=ods_calendrier#ANC${seance.idSeance}"">
+									<#if seance.dateSeance?string("ddMMyyyy") = seance.dateCloture?string("ddMMyyyy") >
+										${seance.dateSeance?string(" EEEE dd MMMM yyyy")}
+									<#else>
+										<#if seance.dateSeance?string("MMMM") != seance.dateCloture?string("MMMM")>
+											${seance.dateSeance?string("EEEE dd MMMM ")}
+										<#else>
+											${seance.dateSeance?string("EEEE dd ")}
+										</#if>
+										#i18n{ods.front.calendrier.listeSeances.and}
+										${seance.dateCloture?string(" EEEE dd MMMM yyyy")}
+									</#if>
+								</a>
+							</li>
+						</#list>
+					</ul>
+					<h2>#i18n{ods.front.calendrier.detailSeance.title}</h2>
+					<#list liste_seances as seance>
+						<a name="ANC${seance.idSeance}" id="ANC${seance.idSeance}"></a>
+						<h3>
+							<#if seance.dateSeance?string("ddMMyyyy") = seance.dateCloture?string("ddMMyyyy") >
+								${seance.dateSeance?string(" EEEE dd MMMM yyyy")}
+							<#else>
+								<#if seance.dateSeance?string("MMMM") != seance.dateCloture?string("MMMM")>
+									${seance.dateSeance?string("EEEE dd MMMM ")}
+								<#else>
+									${seance.dateSeance?string("EEEE dd ")}
+								</#if>
+								#i18n{ods.front.calendrier.listeSeances.and}
+								${seance.dateCloture?string(" EEEE dd MMMM yyyy")}
+							</#if>
+						</h3>
+						<table class="data-table">
+							<tr>
+								<th>#i18n{ods.front.calendrier.detailSeance.date}</th>
+								<th>#i18n{ods.front.calendrier.detailSeance.echeance}</th>
+							</tr>
+							<tr class="even-row">
+								<td>${seance.dateRemiseCr?string(" EEEE dd MMMM yyyy")}</td>
+								<td>#i18n{ods.front.calendrier.detailSeance.dateCRSommaire}</td>
+							</tr>
+							<tr class="row-row">
+								<td>${seance.dateDepotQuestionsOrales?string(" EEEE dd MMMM yyyy")}</td>
+								<td>#i18n{ods.front.calendrier.detailSeance.dateDepotQuestions}</td>
+							</tr>
+							<tr class="even-row">
+								<td>${seance.dateLimiteDiffQuestions?string(" EEEE dd MMMM yyyy")}</td>
+								<td>#i18n{ods.front.calendrier.detailSeance.dateLimiteDiffQuestions}</td>
+							</tr>
+							<tr class="row-row">
+								<td>${seance.dateLimiteDiffPdd?string(" EEEE dd MMMM yyyy")}</td>
+								<td>#i18n{ods.front.calendrier.detailSeance.dateLimiteDiffPDD}</td>
+							</tr>
+							<tr class="even-row">
+								<td>${seance.dateLimiteDiffDsp?string(" EEEE dd MMMM yyyy")}</td>
+								<td>#i18n{ods.front.calendrier.detailSeance.dateLimiteDiffDsp}</td>
+							</tr>
+							<tr class="row-row">
+								<td>${seance.dateConfOrg?string(" EEEE dd MMMM yyyy")}</td>
+								<td>#i18n{ods.front.calendrier.detailSeance.dateConfOrganisation}</td>
+							</tr>
+							<tr class="even-row">
+								<td>${seance.dateReu1?string(" EEEE dd MMMM yyyy")}</td>
+								<td>#i18n{ods.front.calendrier.detailSeance.dateReunion1}</td>
+							</tr>
+							<tr class="row-row">
+								<td>${seance.dateReu2?string(" EEEE dd MMMM yyyy")}</td>
+								<td>#i18n{ods.front.calendrier.detailSeance.dateReunion2}</td>
+							</tr>
+							<tr class="even-row">
+								<td>${seance.dateReu3?string(" EEEE dd MMMM yyyy")}</td>
+								<td>#i18n{ods.front.calendrier.detailSeance.dateReunion3}</td>
+							</tr>
+							<tr class="row-row">
+								<td>${seance.dateReuPostComm?string(" EEEE dd MMMM yyyy")}</td>
+								<td>#i18n{ods.front.calendrier.detailSeance.dateReunionPostCom}</td>
+							</tr>
+						</table>
+						<div class="ods-top">
+							<a href="jsp/site/Portal.jsp?page=ods_calendrier">
+								#i18n{ods.front.calendrier.detailSeance.backToTop}
+							</a>
+						</div>
+					</#list>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

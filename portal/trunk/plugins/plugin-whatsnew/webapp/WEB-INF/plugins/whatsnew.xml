@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<plug-in>
+
+   <!-- Plugin Informations -->
+   <name>whatsnew</name>
+   <class>fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation</class>
+   <version>2.0</version>
+   <description>whatsnew.plugin.description</description>
+   <documentation></documentation>
+   <installation></installation>
+   <changes></changes>
+   <user-guide></user-guide>
+   <provider>whatsnew.plugin.provider</provider>
+   <provider-url>http://lutece.paris.fr</provider-url>
+   <icon-url>images/admin/skin/plugins/whatsnew/whatsnew.png</icon-url>
+   <copyright>Copyright (c) 2001-2007 Mairie de Paris</copyright>
+   <db-pool-required>0</db-pool-required>
+
+   <!-- Portlet parameters -->
+   <portlets>
+     <portlet>
+       <portlet-class>fr.paris.lutece.plugins.whatsnew.business.portlet.WhatsNewPortletHome</portlet-class>
+	   <portlet-type-id>WHATS_NEW_PORTLET</portlet-type-id>
+	   <portlet-type-name>whatsnew.portlet.name</portlet-type-name>
+           <portlet-creation-url>plugins/whatsnew/CreatePortletWhatsNew.jsp</portlet-creation-url>
+           <portlet-update-url>plugins/whatsnew/ModifyPortletWhatsNew.jsp</portlet-update-url>
+           <portlet-create-action-url>plugins/whatsnew/DoCreatePortletWhatsNew.jsp</portlet-create-action-url>
+           <portlet-modify-action-url>plugins/whatsnew/DoModifyPortletWhatsNew.jsp</portlet-modify-action-url>
+           <portlet-create-script-template>/admin/portlet/script_create_portlet.html</portlet-create-script-template>
+           <portlet-modify-script-template>/admin/portlet/script_modify_portlet.html</portlet-modify-script-template>
+           <portlet-create-specific-template>/admin/plugins/whatsnew/create_portlet_whatsnew.html</portlet-create-specific-template>
+           <portlet-modify-specific-template>/admin/plugins/whatsnew/modify_portlet_whatsnew.html</portlet-modify-specific-template>
+           <portlet-create-specific-form-template></portlet-create-specific-form-template>
+           <portlet-modify-specific-form-template></portlet-modify-specific-form-template>
+     </portlet>
+   </portlets>
+
+ </plug-in>
+
+
+

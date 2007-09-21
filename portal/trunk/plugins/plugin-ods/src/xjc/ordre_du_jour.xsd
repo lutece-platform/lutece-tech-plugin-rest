@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+      <xsd:element name="ordre-du-jour-general" >
+	<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="date-maj" type="xsd:string"/>
+				<xsd:element name="date-conseil" type="xsd:string"/>
+				<xsd:element name="titre" type="xsd:string"/>
+				<xsd:element name="deliberations" type="type-deliberations"/>
+			</xsd:sequence>
+	</xsd:complexType>
+	</xsd:element>
+
+      <xsd:element name="ordre-du-jour-municipal" >
+	<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="date-maj" type="xsd:string"/>
+				<xsd:element name="date-conseil" type="xsd:string"/>
+				<xsd:element name="titre" type="xsd:string"/>
+				<xsd:element name="deliberations" type="type-deliberations"/>
+			</xsd:sequence>
+	</xsd:complexType>
+	</xsd:element>
+
+	
+	<!-- ************************************************************************************************** -->
+	<xsd:complexType name="type-deliberations">
+		<xsd:sequence>
+			<xsd:element name="deliberations-par-nature" minOccurs="1" maxOccurs="unbounded" type="type-deliberations-par-nature"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="type-deliberations-par-nature">
+			<xsd:sequence>
+				<xsd:element name="nature" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="commissions" type="type-commissions" minOccurs="1" maxOccurs="unbounded"/>
+			</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- ************************************************************************************************** -->
+	<xsd:complexType name="type-commissions">
+			<xsd:sequence>
+		            <xsd:element name="commission" minOccurs="1" maxOccurs="unbounded" type="type-commission"/>
+			</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="type-commission">
+			<xsd:sequence>
+				<xsd:element name="titre" type="xsd:string"/>
+				<xsd:element name="regroupements-affaires" type="type-regroupements-affaires" minOccurs="1" maxOccurs="unbounded"/>
+			</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- ************************************************************************************************** -->
+	<xsd:complexType name="type-regroupements-affaires">
+		<xsd:sequence>
+			<xsd:element name="regroupement-affaires" type="type-regroupement-affaires" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="type-regroupement-affaires">
+		<xsd:sequence>
+			<xsd:element name="affaires" type="type-affaires" minOccurs="1" maxOccurs="unbounded"/>
+			<xsd:element name="rapporteurs" type="xsd:string"/>
+		</xsd:sequence>
+		<xsd:attribute name="id" type="xsd:string"/>
+	</xsd:complexType>
+
+
+	<!-- ************************************************************************************************** -->
+	<xsd:complexType name="type-affaires">
+		<xsd:sequence>
+			<xsd:element name="affaire" type="type-affaire" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="type-affaire">
+		<xsd:sequence>
+			<xsd:element name="reference-alpaca" type="xsd:string"/>
+			<xsd:element name="objet" type="xsd:string"/>
+			<xsd:element name="fichier" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	
+</xsd:schema>
+

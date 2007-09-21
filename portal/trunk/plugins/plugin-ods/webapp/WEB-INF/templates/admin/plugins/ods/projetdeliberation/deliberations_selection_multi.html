@@ -1,0 +1,139 @@
+<script>	
+	function toggleBoxes(f, checked) 
+	{
+ 		for (i=0; i<f.elements.length; i++) 
+ 		{
+ 			if (f.elements[i].type == 'checkbox') 
+ 			{
+   				f.elements[i].checked = checked;
+  			}
+ 		}
+	 }
+</script>
+<div class="content-box">
+	<#if fonctionnalite_is_projet?exists && fonctionnalite_is_projet >		
+			<h2>#i18n{ods.projetDeDeliberation.list.label.title}</h2>			
+	<#else>		
+			<h2>#i18n{ods.propositionDeDeliberation.list.label.title}</h2>		
+	</#if>
+	
+<div class="highlight-box">
+	<form method="post" action="${url_jsp_appelant}?plugin_name=ods&id_seance=${seance.idSeance}">
+	
+	<#if entree?exists>
+		<input type="hidden" name="id_entree" value=${entree.idEntreeOrdreDuJour}>
+	</#if>
+	<#if voeuamendement?exists>
+   		<input type="hidden" id="id_voeuamendement" name="id_voeuamendement" value="${voeuamendement.idVoeuAmendement}"  />
+	</#if>
+	
+	<p>
+	 	<label for="seance">#i18n{ods.pdd.label.seance} :</label>
+	 	#i18n{ods.pdd.label.du}
+		${seance.dateSeance?string("dd/MM/yyyy")}
+		<#if seance.dateSeance?string("ddMMyyyy") != seance.dateCloture?string("ddMMyyyy") >
+			#i18n{ods.pdd.label.au} 
+			${seance.dateCloture?string("dd/MM/yyyy")} 	
+		</#if>
+	</p>
+	<p>
+		<label for="id_formation_conseil">#i18n{ods.pdd.label.formationConseil} : </label>
+	 	<#if formation_conseil?exists>
+	  		${formation_conseil.libelle}
+	 	</#if>
+	</p>
+	<p>
+	 	<label for="code">#i18n{ods.pdd.label.code} : </label>
+	    <#if reference?exists>
+	   		<input type="text" name="reference" id="" size="40" value="${reference}" />
+	    <#else>
+	      	<input type="text" name="reference" id="" size="40" value="" />
+	     </#if>
+	 </p>	 
+	 
+	<#if voeuamendement?exists>
+   		<p>
+			<label for="id_categorie">#i18n{ods.pdd.label.categorieDeDeliberation} : </label>
+			<@combo name="id_categorie"  items=liste_categorie_deliberation default_value=id_categorie_deliberation_selected/>
+	    </p>
+	</#if>
+	 
+	 
+	 	<#if fonctionnalite_is_projet?exists && fonctionnalite_is_projet >
+			<p>
+				 <label for="id_direction">#i18n{ods.pdd.label.direction} : </label>
+			 	 <@combo name="id_direction"  items=liste_direction default_value=id_direction_selected/>
+			 </p>
+		<#else>
+	    	<p>
+			 	<label for="id_groupe">#i18n{ods.pdd.label.groupe} : </label>
+			 	<@combo name="id_groupe"  items=liste_groupe_depositaire default_value=id_groupe_depositaire_selected/>
+			</p>
+		</#if>
+			<p align="center">
+		     <input type="submit" class="button" value="#i18n{ods.pdd.list.button.rechercher}" />
+		    </p>
+	 </div>
+	</form>
+
+ 	<p>#i18n{ods.pdd.label.nbresult} ${nb_results}</p>
+	
+		<form method="post" id="FormListPDDs" name="FormListPDDs" action="${url_retour}">
+			
+			<#if entree?exists>
+				<input type="hidden" name="id_entree" value=${entree.idEntreeOrdreDuJour}>
+			</#if>
+			<#if voeuamendement?exists>
+		   		<input type="hidden" id="id_voeuamendement" name="id_voeuamendement" value="${voeuamendement.idVoeuAmendement}"  />
+			</#if>
+			
+			<#if fonctionnalite_is_projet?exists && fonctionnalite_is_projet >
+				<input type="hidden" id="type" name="type" value="PJ" />
+			<#else>
+				<input type="hidden" id="type" name="type" value="PP" />
+			</#if>	
+	<table>
+	  <tr>
+	   <th><input name="" type="checkbox" id="checkAllValue" value="" onclick="toggleBoxes(this.form, this.checked);" /></th>
+	   <th>#i18n{ods.pdd.list.label.code}</th>
+	   <th>#i18n{ods.pdd.list.label.publierle}</th>
+	   <th>#i18n{ods.pdd.list.label.formationDuConseil}</th>
+	  </tr>
+	 <#if liste_pdds?size==0>
+	 	<tr>
+		 <td colspan="5">#i18n{ods.releve.label.modification.va.noPDD}</td>
+		</tr>
+	 <#else>
+	 	<#list liste_pdds as pdd>
+			<tr class="ods-noborder">
+		     <td><input name="liste_pdd_checked" type="checkbox"  value="${pdd.idPdd}" /></td>
+		     <td nowrap="nowrap">${pdd.reference}</td>
+		     <#if pdd.enLigne = true>
+			 	<td>${pdd.datePublication?string("dd/MM/yyyy")}</td>
+			 <#else>
+		    	<td></td>
+			 </#if>
+		     <#if pdd.formationConseil?exists>
+			 	<td>${pdd.formationConseil.libelle}</td>
+			 <#else>
+		    	<td></td>
+			 </#if>
+		     </tr>
+		    <tr class="ods-noborder">
+		     <#if pdd.objet?exists>
+			 	<td colspan="4">${pdd.objet}</td>
+			 <#else>
+		    	<td></td>
+			 </#if>
+		    </tr>
+		</#list>
+	</#if>
+	</table>
+	 <p>
+	   	<input name="enregistrer" type="submit" value="#i18n{ods.all.button.ok}" class="button" />
+		<input name="annuler" type="submit" value="#i18n{ods.all.button.cancel}" class="button" />
+
+	 </p>
+	</form>
+
+</div>

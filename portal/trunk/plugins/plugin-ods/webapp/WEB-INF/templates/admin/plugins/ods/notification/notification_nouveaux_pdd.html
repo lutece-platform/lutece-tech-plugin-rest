@@ -1,0 +1,18 @@
+<#list liste_pdds as pdd >
+<p>
+	<span style="text-decoration: underline;">
+		<a href="${webapp}/jsp/site/Portal.jsp?page=ods_pdd&id_pdd=${pdd.idPdd}">${pdd.reference}</a>
+	</span> 
+	<#if pdd.version = 1 >
+		#i18n{ods.notification.mail.label.nouveau} 
+	<#else>
+		#i18n{ods.notification.mail.label.miseAjour}
+	</#if>
+	(#i18n{ods.notification.mail.label.publiele} 
+	${pdd.datePublication?string("dd/MM/yyyy")}, #i18n{ods.notification.mail.label.version} ${pdd.version})<br /><br />
+	${pdd.objet}	
+</p>
+<#if pdd_has_next>
+	<hr />
+</#if>
+</#list>

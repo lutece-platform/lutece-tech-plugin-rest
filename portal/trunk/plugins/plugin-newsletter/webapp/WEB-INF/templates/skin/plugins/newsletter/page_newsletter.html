@@ -1,0 +1,45 @@
+<div id="one-zone-first">
+    <div id="one-zone-first-content">
+        
+        <h2 class="page-title">#i18n{newsletter.page_newsletter.pageTitle}</h2>
+        
+        
+        <#if newsletters_list?size = 0>
+        <div>
+            <i>#i18n{newsletter.page_newsletter.page_newsletter.labelNoLetter}</i>
+        </div>
+        <#else>
+        <div class="alert">${alert}</div>
+        <form class="default-form" name="newsletter" action="jsp/site/plugins/newsletter/DoSubscribeNewsLetter.jsp" method="post" onsubmit="return TestSaisieEmail();">
+            
+            <fieldset>
+                
+                <p>
+                    <input type="hidden" name="plugin_name" value="${plugin.name}" />
+                    <label for="email">#i18n{newsletter.page_newsletter.labelEmail}</label>
+                    <input type="text" name="email" id="email" size="40" maxlength="100" />
+                </p>
+                <p>
+                    #i18n{newsletter.page_newsletter.labelChooseNewsletters}
+                    <br/>
+                    <#list newsletters_list as newsletter>
+                    <#assign newsletter_param = "newsletter${newsletter.id}">
+                    <input type="checkbox" class="checkbox-field" name="${newsletter_param}" id="${newsletter_param}" checked="checked" />
+                    <label  class="checkbox-label" for="${newsletter_param}">${newsletter.name}</label>
+                    <br/>
+                    </#list>
+                    
+                </p>
+                
+                <div align="center">
+                    <input type="image" src="images/local/skin/buttons/b_suscribe.gif" alt="#i18n{newsletter.page_newsletter.buttonSubscribe}" />
+                </div>
+                
+            </fieldset>
+            
+        </form>
+        </#if>
+        
+    </div>
+</div>
+

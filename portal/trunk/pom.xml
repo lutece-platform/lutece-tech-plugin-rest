@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+	  <artifactId>lutece-plugins-pom</artifactId>
+	  <groupId>fr.paris.lutece.tools</groupId>
+	  <version>1.4</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>fr.paris.lutece.plugins</groupId>
+	<artifactId>lutece-multi-project</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>Global project</name>
+
+	<repositories>
+	  <repository>
+	    <id>lutece</id>
+	    <name>luteceRepository</name>
+	    <url>http://dev.lutece.paris.fr/maven_repository</url>
+	    <layout>default</layout>
+	  </repository>  
+	      <repository>
+	        <id>luteceSnapshot</id>
+	        <name>luteceSnapshot</name>
+	        <url>http://dev.lutece.paris.fr/snapshot_repository</url>
+	        <snapshots>
+	  	  </snapshots>
+	    </repository>
+	</repositories>
+	<pluginRepositories>
+	    <pluginRepository>
+	      <id>lutece</id>
+	      <name>luteceRepository</name>
+	      <url>http://dev.lutece.paris.fr/maven_repository</url>
+	    </pluginRepository>    
+	    <pluginRepository>
+	            <id>luteceSnapshot</id>
+	            <name>luteceSnapshot</name>
+	            <url>http://dev.lutece.paris.fr/snapshot_repository</url>
+	            <snapshots>
+	      	  </snapshots>
+	    </pluginRepository>
+	  </pluginRepositories>
+	  
+	<modules>
+		<module>core</module>
+		<module>plugins/plugin-formengine</module>
+		<module>plugins/module-formengine-etatcivil</module>
+		<module>plugins/plugin-document</module>
+		<module>plugins/plugin-library</module>
+		<module>plugins/plugin-rss</module>
+		<module>plugins/plugin-whatsnew</module>	
+		<module>plugins/plugin-mylutece</module>
+		<module>plugins/module-mylutece-webserver</module>	
+		<module>plugins/module-mylutece-database</module>	
+		<module>plugins/plugin-adminquery</module>
+		<module>plugins/plugin-calendar</module>
+		<module>plugins/plugin-childpages</module>
+		<module>plugins/plugin-codewizard</module>
+		<module>plugins/plugin-contact</module>
+		<module>plugins/plugin-dbpage</module>
+		<module>plugins/plugin-folderlisting</module>	
+		<module>plugins/plugin-helpdesk</module>
+		<module>plugins/plugin-html</module>
+		<module>plugins/plugin-jsr170</module>
+		<module>plugins/plugin-linkpages</module>
+		<module>plugins/plugin-myapps</module>
+		<module>plugins/plugin-poll</module>	
+		<module>plugins/plugin-systeminfo</module>
+		<module>plugins/plugin-upload</module>
+		<module>plugins/plugin-xmlpage</module>
+	</modules>
+  
+</project>

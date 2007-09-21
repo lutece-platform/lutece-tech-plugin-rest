@@ -1,0 +1,25 @@
+<div class="content-box">
+	<h2>#i18n{ods.creationdirection.label.title}</h2>
+	<form action="jsp/admin/plugins/ods/direction/DoCreationDirection.jsp" method="post">
+		<p>
+			<label for="">#i18n{ods.creationdirection.label.code} * : </label>
+			<input type="text" id="code" name="code" size="10" value="" />
+		</p>
+		<p>
+			<label for="libelle_court">#i18n{ods.creationdirection.label.libelle_court} * : </label>
+			<input type="text" id="libelle_court" name="libelle_court" size="80" value="" />
+		</p>
+		<p>
+			<label for="libelle_long">#i18n{ods.creationdirection.label.libelle_long} * : </label>
+			<input type="text" id="libelle_long" name="libelle_long" size="80" value="" />
+		</p>
+		<p>
+			<label for="status">#i18n{ods.creationdirection.label.actif}</label>
+			<input id="status" name="status" type="checkbox" value="true" checked="checked" /> #i18n{ods.creationdirection.label.actif_comment}
+		</p>
+		<p>
+			<input type="submit" value="#i18n{ods.creationdirection.button.validate}" class="button" />
+			<input type="button" value="#i18n{ods.creationdirection.button.back}" class="button" onclick="javascript:history.go(-1)" />
+		</p>
+	</form>
+</div>

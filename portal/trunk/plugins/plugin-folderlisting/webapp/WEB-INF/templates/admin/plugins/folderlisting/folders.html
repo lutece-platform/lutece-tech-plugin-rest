@@ -1,0 +1,55 @@
+<div class="content-box" >
+    <h2>#i18n{folderlisting.folders.tableLabel}</h2>
+    <form method="post" rm action="jsp/admin/plugins/folderlisting/ManageFolders.jsp">
+        <@pagination paginator=paginator />
+        
+        <!-- Number of files per page selector -->
+        #i18n{folderlisting.folders.labelItemsPerPage} :
+        <select name="items_per_page">
+            <#list [ "5" , "10" , "20" , "50" ] as nb>
+            <#if nb_items_per_page = nb >
+            <option selected="selected" value="${nb}">${nb}</option>
+            <#else>
+            <option value="${nb}">${nb}</option>
+            </#if>
+            </#list>
+        </select>
+        <input type="submit" class="button" value="#i18n{folderlisting.folders.buttonItemsPerPage}" />
+    </form>
+    
+    <table summary="#i18n{folderlisting.folders.tableSummary}">
+        <tr>
+            <th width="30%">#i18n{folderlisting.folders.columnTitleName}</th>
+            <th width="40%">#i18n{folderlisting.folders.columnTitlePath}</th>
+            <th width="20%">#i18n{folderlisting.folders.columnTitleWorkgroup}</th>
+            <th width="10%">#i18n{folderlisting.folders.columnTitleAction}</th>
+        </tr>
+        
+        <#list folder_list as folder >
+        
+        <tr>
+            <td width="40%">
+                <a href="jsp/admin/plugins/folderlisting/ModifyFolder.jsp?id_folder=${folder.id}" class="admin-menu">
+                    ${folder.folderName}
+                </a>
+            </td>
+            <td width="40%">
+                ${folder.folderPath}
+            </td>
+            <td width="10%">
+                ${folder.workgroup}
+            </td>
+            <td width="10%">
+                <a href="jsp/admin/plugins/folderlisting/DoConfirmDeleteFolder.jsp?id_folder=${folder.id}" class="admin-menu">
+                <img src="images/admin/skin/actions/delete.png" width="24" height="24" alt="#i18n{folderlisting.folders.labelDelete}" title="#i18n{folderlisting.folders.labelDelete}"></a>
+            </td>
+        </tr>	
+        </#list>
+            
+        </table>
+    
+    <form action="jsp/admin/plugins/folderlisting/CreateFolder.jsp">
+        <input type="submit" value="#i18n{folderlisting.folders.buttonAddFolder}" class="button" />
+    </form>
+    
+</div>

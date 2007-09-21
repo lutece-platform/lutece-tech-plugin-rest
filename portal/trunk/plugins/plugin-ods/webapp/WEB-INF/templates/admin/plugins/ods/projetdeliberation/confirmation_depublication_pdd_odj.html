@@ -1,0 +1,29 @@
+<div id="message-box">
+
+	<div class="content-box">
+	
+		<img src="images/admin/skin/messages/confirmation.png" class="icon" alt="" />
+		
+	    <h2>#i18n{ods.all.label.confirmation}</h2>
+	    
+	    <p>
+	        #i18n{ods.message.confirmDepublicationPDDaOdj}
+	    </p>
+	    
+		<form method="post" action="jsp/admin/plugins/ods/projetdeliberation/DoPublicationPDD.jsp"  target="">
+		
+		<input type="hidden" id="id_pdd" name="id_pdd" value="${id_pdd}">
+		<input type="hidden" id="pdd_is_publier_or_depublier" name="pdd_is_publier_or_depublier" value="0">
+		<input type="hidden" id="pdd_is_confirmation" name="pdd_is_confirmation" value="">
+		
+		<p>
+
+			<input class="button" type="submit" value="#i18n{ods.all.button.ok}" />
+			<input class="button" type="button" onclick="javascript:history.go(-1)" value="#i18n{ods.all.button.cancel}" />
+		</p>
+	    
+	    </form>
+
+	</div>
+
+</div>

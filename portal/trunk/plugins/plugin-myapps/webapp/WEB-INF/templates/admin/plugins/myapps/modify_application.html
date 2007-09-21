@@ -1,0 +1,56 @@
+<div class="content-box">
+    <form method="post"  enctype="multipart/form-data" name="modify_application" action="jsp/admin/plugins/myapps/DoModifyMyApp.jsp">
+        <h2>#i18n{myapps.modify_application.tableLabel}            
+      
+       </h2>
+      
+        <p>
+            <label for="app_name" >#i18n{myapps.modify_application.rowTitleName}  :</label>
+            <input type="text" id="app_name" name="app_name" size="60" maxlength="50" value="${myapps.name}" tabindex="1" />
+            <input type="hidden" id="app_id" name="app_id" size="60" maxlength="50" value="${myapps.idApplication}" tabindex="1" />
+        </p>  
+        <p>
+            <label for="app_url" >#i18n{myapps.modify_application.rowTitleUrl}  :</label>
+            <input type="text" id="app_url" name="app_url" size="60" maxlength="255" value="${myapps.url}" tabindex="2" />
+        </p> 
+        <p>
+            <label for="app_description" >#i18n{myapps.modify_application.rowTitleDescription}  :</label>
+            <input type="text" id="app_description" name="app_description" size="60" maxlength="255" value="${myapps.description}" tabindex="3" />
+        </p> 
+        <p>
+            <label for="user_name" >#i18n{myapps.modify_application.rowTitleUserName}  :</label>
+            <input type="text" id="user_name" name="user_name" size="60" maxlength="50" value="${myapps.code}" tabindex="4" />
+        </p> 
+        </p> 
+        <p>
+            <label for="code_heading" >#i18n{myapps.modify_application.rowTitleUserHeading}  :</label>
+            <input type="text" id="code_heading" name="code_heading" size="60" maxlength="50" value="${myapps.codeHeading}" tabindex="5" />
+        </p> 
+        <p>
+            <label for="user_password" >#i18n{myapps.modify_application.rowTitleUserPassword}  :</label>
+            <input type="text" id="user_password" name="user_password" size="60" maxlength="50" value="${myapps.password}" tabindex="6" />
+        </p> 
+        <p>
+            <label for="user_field" >#i18n{myapps.modify_application.rowTitleUserField}  :</label>
+            <input type="text" id="user_field" name="user_field" size="60" maxlength="50" value="${myapps.data}" tabindex="7" />
+        </p> 
+        <p>
+            <label for="user_field_heading" >#i18n{myapps.modify_application.rowTitleUserFieldHeading}  :</label>
+            <input type="text" id="user_field_heading" name="user_field_heading" size="60" maxlength="50" value="${myapps.dataHeading}" tabindex="8" />
+        </p> 
+            <p>
+                <label for="app_icon">#i18n{myapps.modify_application.rowTitleIconField} :</label>
+                <input name="update_file" type="checkbox" class="checkbox" > 
+                <input type="file" name="app_icon" id="app_icon" size="60"/>
+            </p>
+            <p>
+                 <#if icon_url?exists && icon_url !="">
+                 <img src="${icon_url}" alt="${myapps.description}" width="30" height="30"/>
+                 </#if>
+        </p>
+        <p>   
+            <input type="submit" value="#i18n{myapps.modify_application.buttonValidate}" class="button" tabindex="9" />
+            <input class="button" type="button" onclick="javascript:history.go(-1)" value="#i18n{portal.admin.message.buttonCancel}" />	
+        </p>
+    </form>
+</div>

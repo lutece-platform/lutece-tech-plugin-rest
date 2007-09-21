@@ -1,0 +1,39 @@
+<#include "/admin/util/editor/editor.html" />
+
+<div class="content-box" >
+<h2>#i18n{helpdesk.modify_question_answer.adminTitle}</h2>
+        <form method="post" name="create_subject" action="jsp/admin/plugins/helpdesk/DoModifyQuestionAnswer.jsp">
+           <p>
+              <label>#i18n{helpdesk.modify_question_answer.LabelSubject}</label>
+           </p>
+              <@combo name="subject_id" default_value="${question_answer.idSubject}" items=helpdesk_subject_list />
+           <p>
+              <label>#i18n{helpdesk.modify_question_answer.LabelQuestion}</label>
+              <input type="text" name="question" size="40" maxlength="" value="${question_answer.question}"/>              
+           </p>  
+           <p>
+              <label>#i18n{helpdesk.modify_question_answer.LabelAnswer}</label><br/>
+                <div id="richtext" class="editor">
+                    <textarea id="html_content" class="richtext" name="html_content" style="width:100%;" rows="20" cols="90">
+                        ${html_content}
+                    </textarea>
+                </div>
+           </p>
+           <p>
+              <label>#i18n{helpdesk.modify_question_answer.LabelStatus}</label>
+              <input type="checkbox" class="checkbox" name="status" ${checked} value="1"> 
+           </p>          
+<table>
+	<tr>
+		<input type="hidden" name="question_id" value="${question_answer.idQuestionAnswer}">                
+		<input type="submit" value="#i18n{helpdesk.modify_question_answer.buttonLabelModify}" tabindex="10" class="button" />
+        </form>
+	<form action="jsp/admin/plugins/helpdesk/ConfirmRemoveQuestionAnswer.jsp" name="delete">                
+		<input type="hidden" name="question_id" value="${question_answer.idQuestionAnswer}">                
+		<input type="submit" value="#i18n{helpdesk.modify_question_answer.buttonLabelDelete}" tabindex="10" class="button" />               
+        </form>
+        </tr>
+</table>
+
+</div>
+<@initEditor />

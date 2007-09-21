@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+ <beans>
+<!--                GroupePolitique                  -->
+   <!-- GroupePolitiqueDAO-->
+   <bean id="groupePolitiqueDAO" class="fr.paris.lutece.plugins.ods.business.groupepolitique.GroupePolitiqueDAO"  />
+
+ <!--               elu                 -->
+   <!-- EluDAO-->
+   <bean id="eluDAO" class="fr.paris.lutece.plugins.ods.business.elu.EluDAO"  />
+     
+ <!--               commission                 -->
+   <!-- CommissionDAO -->
+   <bean id="commissionDAO" class="fr.paris.lutece.plugins.ods.business.commission.CommissionDAO"  />
+   
+ <!--               direction                 -->
+   <!-- DirectionDAO -->
+   <bean id="directionDAO" class="fr.paris.lutece.plugins.ods.business.direction.DirectionDAO"  />
+
+ <!--               seance                 -->
+   <!-- CommissionDAO -->
+   <bean id="seanceDAO" class="fr.paris.lutece.plugins.ods.business.seance.SeanceDAO"  />
+   
+   <!--              voeuAmendement                -->
+   <!-- voeuAmendementDAO -->
+   <bean id="voeuAmendementDAO" class="fr.paris.lutece.plugins.ods.business.voeuamendement.VoeuAmendementDAO"  />
+   
+   <!--              formationConseil                 -->
+   <!--  formationConseilDAO -->
+   <bean id="formationConseilDAO" class="fr.paris.lutece.plugins.ods.business.formationconseil.FormationConseilDAO"  />
+   
+	<!--              fascicule                -->
+   <!--  fasciculeDAO -->
+   <bean id="fasciculeDAO" class="fr.paris.lutece.plugins.ods.business.fascicule.FasciculeDAO"  />
+   
+	<!--              fichiers                -->
+   <!--  fichierDAO -->
+   <bean id="fichierDAO" class="fr.paris.lutece.plugins.ods.business.fichier.FichierDAO"  />
+
+	<!--              fichiersPhysique                -->
+   <!--  fichierPhysiqueDAO -->
+   <bean id="fichierPhysiqueDAO" class="fr.paris.lutece.plugins.ods.business.fichier.FichierPhysiqueDAO"  />
+   
+	<!--              historique                -->
+   <!--  historiqueDAO -->
+   <bean id="historiqueDAO" class="fr.paris.lutece.plugins.ods.business.historique.HistoriqueDAO"  />
+
+   <!--               categorie de deliberation                 -->
+   <!-- CategorieDeliberationDAO -->
+   <bean id="categorieDeliberationDAO" class="fr.paris.lutece.plugins.ods.business.categoriedeliberation.CategorieDeliberationDAO"  />
+   
+    <!--               expression usuelle                 -->
+   <!-- ExpressionUsuelleDAO -->
+   <bean id="expressionUsuelleDAO" class="fr.paris.lutece.plugins.ods.business.expression.ExpressionUsuelleDAO"  />
+   
+   <!--               nature des dossiers                 -->
+   <!-- NatureDesDossiersDAO -->
+   <bean id="natureDesDossiersDAO" class="fr.paris.lutece.plugins.ods.business.naturedossier.NatureDesDossiersDAO"  />
+   
+	<!--              projetDeliberation                -->
+   <!--  projetDeliberationDAO -->
+   <bean id="projetDeliberationDAO" class="fr.paris.lutece.plugins.ods.business.pdd.PDDDAO"  />
+   
+   <!--              Tourniquet                -->
+   <!--  tourniquetDAO -->
+   <bean id="tourniquetDAO" class="fr.paris.lutece.plugins.ods.business.tourniquet.TourniquetDAO"  />
+   
+   <!--              Relevé des travaux                -->
+   <!--  releveDAO -->
+   <bean id="releveDAO" class="fr.paris.lutece.plugins.ods.business.relevetravaux.ReleveDesTravauxDAO"  />
+
+   <!--              Element de Relevé des travaux                -->
+   <!--  elementReleveDAO -->
+   <bean id="elementReleveDAO" class="fr.paris.lutece.plugins.ods.business.relevetravaux.ElementReleveDesTravauxDAO"  />
+   
+   <!--              Statut                -->
+   <!--  statutDAO -->
+   <bean id="statutDAO" class="fr.paris.lutece.plugins.ods.business.statut.StatutDAO"  />
+
+   <!--              Utilisateur                -->
+   <!--  utilisateurDAO -->
+   <bean id="utilisateurDAO" class="fr.paris.lutece.plugins.ods.business.utilisateur.UtilisateurDAO"  />
+
+   <!--              Action d'indexation                -->
+   <!--  indexerActionDAO -->
+   <bean id="indexerActionDAO" class="fr.paris.lutece.plugins.ods.service.search.action.IndexerActionDAO"  />
+   
+   <!--              Ordre du jour                -->
+   <!--  ordreDuJourDAO -->
+   <bean id="ordreDuJourDAO" class="fr.paris.lutece.plugins.ods.business.ordredujour.OrdreDuJourDAO"  />
+   <!--              Ordre du jour                -->
+   <!--  entreeOrdreDuJourDAO -->
+   <bean id="entreeOrdreDuJourDAO" class="fr.paris.lutece.plugins.ods.business.ordredujour.EntreeOrdreDuJourDAO"  />
+   
+   <!--             Type de l' Ordre du jour                -->
+   <!--  typeOrdreDuJourDAO -->
+   <bean id="typeOrdreDuJourDAO" class="fr.paris.lutece.plugins.ods.business.ordredujour.TypeOrdreDuJourDAO"  />
+   
+   <!--            Modele de l'ordre du jour                -->
+   <!--  modeleOrdreDuJourDAO -->
+   <bean id="modeleOrdreDuJourDAO" class="fr.paris.lutece.plugins.ods.business.modeleordredujour.ModeleOrdreDuJourDAO"  />
+   
+   <!--            publication vers paris.fr                -->
+   <!--  publicationDAO -->
+   <bean id="publicationDAO" class="fr.paris.lutece.plugins.ods.business.publicationparisfr.PublicationDAO"  />
+   
+   <!--              Serveurs d'indexation incrémentale                -->
+   <!--  indexerDAO -->
+   <bean id="indexerDAO" class="fr.paris.lutece.plugins.ods.service.search.indexer.IndexerDAO"  />
+   
+   <!--              Panier                -->
+   <!--  panierDao -->
+   <bean id="panierDAO" class="fr.paris.lutece.plugins.ods.business.panier.PanierDAO"  />
+   
+   <!--              HorodatageService                -->
+   <!--  HorodatageService -->
+   <bean id="horodatage" class="fr.paris.lutece.plugins.ods.service.horodatage.Horodatage"  />
+   
+   <!--              HorodatageDAO                -->
+   <!--  HorodatageDAO -->
+   <bean id="horodatageDAO" class="fr.paris.lutece.plugins.ods.service.horodatage.HorodatageDAO"  />
+   
+   
+   
+   <!--              Requêtes utilisateurs sauvegardées                -->
+   <!--  requeteUtilisateurDAO -->
+   <bean id="requeteUtilisateurDAO" class="fr.paris.lutece.plugins.ods.service.search.requete.RequeteUtilisateurDAO"  />
+   
+	<bean id="documentService" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+		<property name="serviceUrl" value="rmi://slnxods2.mtrl.fr.sopra:1199/documentService"/>
+		<property name="serviceInterface" value="net.sf.jcopist.service.IDocumentService"/>
+	</bean>
+
+	<bean id="templateService" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+		<property name="serviceUrl" value="rmi://slnxods2.mtrl.fr.sopra:1199/templateService"/>
+		<property name="serviceInterface" value="net.sf.jcopist.service.ITemplateService"/>
+	</bean>
+   
+</beans>

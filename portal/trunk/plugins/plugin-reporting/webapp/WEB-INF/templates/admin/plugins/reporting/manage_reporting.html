@@ -1,0 +1,26 @@
+<div class="content-box">
+    
+   <table>
+        <tr>
+            <th>#i18n{reporting.manage_reporting.columnTitleName}</th>
+            <th>#i18n{reporting.manage_reporting.columnTitleActions}</th>
+        </tr>
+        
+        
+        <#list reporting_project_list as project >
+        <tr>
+        	<td width="80%">
+        	<a class="bullet-link" href="jsp/admin/plugins/reporting/PublishingReporting.jsp?project_id=${project.idProject}&project_name=${project.name}">
+        		${project.name}
+        	</a>
+        	</td>
+        	<td> 
+        		<a href="jsp/admin/plugins/reporting/PublishingReporting.jsp?project_id=${project.idProject}&project_name=${project.name}" class="admin-menu">
+                <img src="images/admin/skin/plugins/reporting/actions/modify.png" width="24" height="24" alt="#i18n{reporting.manage_reporting.labelPublidhing}" title="#i18n{reporting.manage_reporting.labelPublidhing}">
+                </a>
+            </td>
+    	</tr>
+    	</#list>
+    </table>
+    
+</div>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<plug-in>
+
+   <!-- Plugin Informations -->
+   <name>comarquage</name>
+   <class>fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation</class>
+   <version>2.0</version>
+   <description>comarquage.plugin.description</description>
+   <documentation></documentation>
+   <installation></installation>
+   <changes></changes>
+   <user-guide></user-guide>
+   <provider>comarquage.plugin.provider</provider>
+   <provider-url>http://lutece.paris.fr</provider-url>
+   <icon-url>images/admin/skin/plugins/comarquage/comarquage.png</icon-url>
+   <copyright>Copyright (c) 2001-2007 Mairie de Paris</copyright>
+   <db-pool-required>0</db-pool-required>
+
+   <!-- Specific plugin CSS stylesheet -->
+   <css-stylesheet>comarquage/comarquage.css</css-stylesheet>
+
+   <!-- Xpage configuration -->
+    <applications>
+   		<application>
+	 		<application-id>comarquage</application-id>
+	 		<application-class>fr.paris.lutece.plugins.comarquage.web.CoMarquageApp</application-class>
+   		</application>
+	 </applications>
+   <!-- Administration interface parameters -->
+   <admin-features>
+     <admin-feature>
+       <feature-id>COMARQUAGE_MANAGEMENT</feature-id>
+       <feature-title>comarquage.adminFeature.comarquage_management.name</feature-title>
+       <feature-description>comarquage.adminFeature.comarquage_management.description</feature-description>
+       <feature-level>3</feature-level>
+       <feature-url>jsp/admin/plugins/comarquage/ManageCoMarquage.jsp</feature-url>
+     </admin-feature>
+   </admin-features>
+
+   <!-- Insert Services -->
+   <insert-services>
+   <insert-service>
+     <insert-service-id>comarquage_hs</insert-service-id>
+     <insert-service-bean-class>fr.paris.lutece.plugins.comarquage.web.CoMarquageInsertServiceJspBean</insert-service-bean-class>
+     <insert-service-name>comarquage.insertservice.name</insert-service-name>
+     <insert-service-label>comarquage.insertService.label</insert-service-label>
+   </insert-service>
+   </insert-services>
+
+   <!-- Content Service -->
+     <content-services>
+	   <content-service>
+	     <content-service-class>fr.paris.lutece.plugins.comarquage.service.CoMarquageCacheService</content-service-class>
+	   </content-service>
+   </content-services>
+
+	<daemons>
+        <daemon>
+            <daemon-id>comarquageIndexer</daemon-id>
+            <daemon-name>comarquage.daemon.comarquageIndexer.name</daemon-name>
+            <daemon-description>comarquage.daemon.comarquageIndexer.description</daemon-description>
+            <daemon-class>fr.paris.lutece.plugins.comarquage.service.daemon.CoMarquageIndexerDaemon</daemon-class>
+        </daemon>
+        <daemon>
+            <daemon-id>comarquageLocalList</daemon-id>
+            <daemon-name>comarquage.daemon.comarquageLocalList.name</daemon-name>
+            <daemon-description>comarquage.daemon.comarquageLocalList.description</daemon-description>
+            <daemon-class>fr.paris.lutece.plugins.comarquage.service.daemon.CoMarquageLocalListingDaemon</daemon-class>
+        </daemon>
+    </daemons>
+
+</plug-in>
+

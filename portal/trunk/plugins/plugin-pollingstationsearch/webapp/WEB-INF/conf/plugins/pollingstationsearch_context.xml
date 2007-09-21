@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+  <bean id="addressDAO"  class="fr.paris.lutece.plugins.pollingstationsearch.business.AddressDAO" />
+  <bean id="numberSuffixDAO"  class="fr.paris.lutece.plugins.pollingstationsearch.business.NumberSuffixDAO" />
+  <bean id="pollingStationDAO"  class="fr.paris.lutece.plugins.pollingstationsearch.business.PollingStationDAO" />
+  <bean id="streetDAO"  class="fr.paris.lutece.plugins.pollingstationsearch.business.StreetDAO" />
+  <bean id="streetTypeDAO"  class="fr.paris.lutece.plugins.pollingstationsearch.business.StreetTypeDAO" />
+
+</beans>

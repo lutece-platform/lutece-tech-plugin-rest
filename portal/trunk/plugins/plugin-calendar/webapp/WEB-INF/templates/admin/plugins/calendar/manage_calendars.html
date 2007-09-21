@@ -1,0 +1,54 @@
+
+<div class="content-box" >
+    <h2>#i18n{calendar.manage_calendars.tableLabel}</h2>
+    
+    <table>
+        <tr>
+            <th width="30%">#i18n{calendar.manage_calendars.columnTitleLabel}</th>
+            <th width="20%">#i18n{calendar.manage_calendars.columnTitleImage}</th>
+            <th width="20%">#i18n{calendar.manage_calendars.columnTitlePrefix}</th>
+            <th width="10%">#i18n{calendar.manage_calendars.columnTitleRole}</th>
+            <th width="10%">#i18n{calendar.manage_calendars.columnTitleWorkgroup}</th>
+            <th width="10%">#i18n{calendar.manage_calendars.columnTitleActions}</th>
+        </tr>
+        
+        <#list calendar_list as calendar >
+        
+        <tr>
+            <td width="30%">
+                <a href="jsp/admin/plugins/calendar/ModifyCalendar.jsp?calendar_id=${calendar.id}" class="admin-menu">
+                    ${calendar.name}
+                </a>
+            </td>
+            <td width="20%">
+                <img src="${calendar.eventImage}" alt="${calendar.eventImage}" title="${calendar.eventImage}" />
+            </td>
+            <td width="20%">
+                ${calendar.eventPrefix}
+            </td>
+            <td width="10%">
+                <#if calendar.role?exists>
+                ${calendar.role}
+                </#if>
+            </td> 
+            <td>
+                ${calendar.workgroup}
+            </td> 
+            <td width="10%">
+                <a href="jsp/admin/plugins/calendar/RemoveCalendar.jsp?calendar_id=${calendar.id}">
+                    <img src="images/admin/skin/actions/delete.png" alt="#i18n{calendar.manage_calendars.actionDelete}" title="#i18n{calendar.manage_calendars.actionDelete}" />
+                </a>
+            </td>
+        </tr>					
+        </#list>
+        
+    </table>
+    
+    <form method="post"  action="jsp/admin/plugins/calendar/CreateCalendar.jsp">
+        <input type="submit" value="#i18n{calendar.manage_calendars.buttonAddCalendar}" class="button" />
+    </form>
+    
+</div>
+
+
+

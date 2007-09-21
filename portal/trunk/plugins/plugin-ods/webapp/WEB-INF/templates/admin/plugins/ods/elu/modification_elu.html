@@ -1,0 +1,56 @@
+<div class="content-box">
+	<h2>#i18n{ods.modificationelu.label.title}</h2>
+	<form form action="jsp/admin/plugins/ods/elu/DoModificationElu.jsp" method="post">
+		<input type="hidden" name="id_elu" value="${elu.idElu}"  />
+		<p>
+			<label for"civilite">#i18n{ods.modificationelu.label.civilite} *: </label>
+			<select  id="civilite" name="civilite">
+				<option></option>
+				<option <#if elu.civilite="M.">selected=selected </#if>>M.</option>
+				<option <#if elu.civilite="Mme">selected=selected </#if>>Mme</option>
+				<option <#if elu.civilite="Mlle">selected=selected </#if>>Mlle</option>
+			</select>
+		</p>
+		<p>
+			<label for="prenom_elu">#i18n{ods.modificationelu.label.prenom_elu} *: </label>
+			<input id="prenom_elu" type="text" name="prenom_elu" size="40" value="${elu.prenomElu}" />
+		</p>	
+		<p>
+			<label for="nom_elu">#i18n{ods.modificationelu.label.nom_elu} *: </label>
+			<input type="text" id="nom_elu" name="nom_elu" size="40" value="${elu.nomElu}" />
+		</p>
+		<p>
+			<label>#i18n{ods.modificationelu.label.groupe} *: </label>
+			<@combo name="id_groupe"  items=liste_groupes default_value="${elu.groupe.idGroupe}" />
+		</p>
+		<p>
+			<label>#i18n{ods.modificationelu.label.commission}</label>
+			<@combo name="id_commission" items=liste_commissions default_value="${id_commission}" />
+		</p>
+		<p>
+			<label>#i18n{ods.modificationelu.label.remplacant}</label>
+			<@combo name="id_remplacant" items=liste_remplacants default_value="${id_remplacant}" />
+		</p>
+		<p>
+			<label for="status">#i18n{ods.creationelu.label.actif}</label>
+			<#if elu.actif=true>
+				<input id="status" name="status" type="checkbox" value="true" checked="checked" /> #i18n{ods.modificationelu.label.actif_comment}
+			<#else>
+				<input id="status" name="status" type="checkbox" value="true" /> #i18n{ods.modificationelu.label.actif_comment}
+			</#if>
+		</p>
+		<p>
+			<input type="submit" value="#i18n{ods.modificationelu.button.validate}" class="button" />
+			<input type="button" value="#i18n{ods.modificationelu.button.back}" class="button" onclick="javascript:history.go(-1)" />
+		</p>
+	</form>
+</div>
+
+
+
+
+
+
+
+
+

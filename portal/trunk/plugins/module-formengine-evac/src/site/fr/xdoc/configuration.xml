@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC "//UNKNOWN/" "http://maven.apache.org/dtd/xdoc_1_0.dtd">
+<document>
+	<properties>
+		<title>Module Formengine - Etat-civil : Configuration</title>
+	</properties>
+	<body>
+		<section name="Installation">
+			<p>
+				Il existe plusieurs possibilités d'installation en
+				fonction de la distribution employée :
+			</p>
+			<ul>
+				<li>
+					Distribution binaire : Le contenu du fichier
+					<code>zip</code>
+					de la distribution binaire doit être décompressé
+					dans une webapp contenant déjà le coeur de lutèce
+					ainsi que le plugin formengine.
+				</li>
+				<li>
+					Sources : Dans ce cas il est nécessaire d'ajouter
+					les dépendances au coeur et au plugin formengine
+					afin de compiler les sources et de se retrouver avec
+					une distribution binaire.
+				</li>
+			</ul>
+			<p>
+				<strong>Remarque :</strong>
+				<br />
+				Il est possible d'obtenir un fichier
+				<code>war</code>
+				déployable en utilisant un packaging de type
+				<code>lutece-site.</code>
+				Ce fichier doit être placé dans le répertoire
+				<code>webapps</code>
+				de votre installation de Tomcat. Il sera automatiquement
+				déployé lors du lancement du serveur.
+			</p>
+			<br />
+		</section>
+		<section name="Configuration">
+			<subsection name="Mode Portail">
+				<p>
+					La configuration correspond à la configuration
+					classique d'un portail Lutèce.
+				</p>
+			</subsection>
+			<subsection name="Mode Standalone">
+				<p>
+					Ce module peut fonctionner en mode Standalone, pour
+					ce faire, il est nécessaire de commenter la
+					déclaration du pool portal dans le fichier
+					<code>db.properties.</code>
+					De plus, il est nécessaire d'activer le plugin
+					manuellement, en ajoutant la ligne suivante dans le
+					fichier
+					<code>plugins.dat</code>
+					:
+					<br />
+					<code>formengine.installed=1</code>
+				</p>
+			</subsection>
+			<subsection name="formengine-etatcivil.properties">
+				<p>
+					Le fonctionnement du module Formengine E-Vac
+					peut être reconfiguré en modifiant ce fichier.
+				</p>
+				<p>
+					On pourra notament personnaliser le répertoire de
+					génération des flux XML, l'url de redirection depuis
+					le dernier écran de formulaire, les informations
+					d'envoi de mail, ...
+				</p>
+				
+				<table>
+					<tr>
+						<th>Propriété</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<td>evac.jaxb.packagename</td>
+						<td>
+							Nom du package contenant les classes métier
+							générées par le plugin jaxb
+						</td>
+					</tr>
+					<tr>
+						<td>
+							evac.xml.directory
+						</td>
+						<td>
+							Chemin vers le répertoire qui contiendra les
+							fichiers xml générés à partir des
+							informations saisies dans le formulaire
+						</td>
+					</tr>
+					<tr>
+						<td>evac.email.sender.name</td>
+						<td>
+							Nom à utiliser lors de l'envoi du mail
+							accusant réception
+						</td>
+					</tr>
+					<tr>
+						<td>evac.email.sender.email</td>
+						<td>
+							Adresse de l'expéditeur du mail accusant
+							réception
+						</td>
+					</tr>
+					<tr>
+						<td>evac.email.admin.email</td>
+						<td>
+							Adresse de la boite au lettre générique ville de paris.
+						</td>
+					</tr>
+					<tr>
+						<td>evac.address.id.test</td>
+						<td>
+							Identifiant d'une adresse qui permet de tester si le service adresse est accessible.
+						</td>
+					</tr>
+					<tr>
+						<td>evac.endTypeVoie.values</td>
+						<td>
+							Liste correspondant aux valeurs du type de voie terminant par une apostrophe.
+						</td>
+					</tr>
+					<tr>
+						<td>evac.endTypeVoie.separator</td>
+						<td>
+							Séparateur des valeurs de la liste précédente.
+						</td>
+					</tr>
+					<tr>
+						<td>evac.xsl.directory</td>
+						<td>
+							Chemin vers le répertoire contenant les
+							feuilles de styles du module
+						</td>
+					</tr>
+					<tr>
+						<td>evac.xsl.file.email</td>
+						<td>
+							Feuille de style contenant le corps du mail
+							accusant réception
+						</td>
+					</tr>
+					<tr>
+						<td>evac.xsl.file.form.*</td>
+						<td>
+							Feuille de styles associée aux différents formulaires.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							evac.xsl.file.summary.*
+						</td>
+						<td>
+							Feuille de styles associée à des écran
+							spécifiques.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							evac.xml.file.test.directory
+						</td>
+						<td>
+							Chemin vers le répertoire qui contiendra les
+							fichiers xml pour tester le choix de l'adresse.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							evac.xml.file.*
+						</td>
+						<td>
+							Fichiers xml pour tester le choix de l'adresse.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							evac.template.header.*
+						</td>
+						<td>
+							Templates d'entête associée aux différents formulaires.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							evac.template.error.message.webServiceUnavailable
+						</td>
+						<td>
+							Templates d'affichage de l'indisponibilité du service Adresse.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							evac.error.message.*
+						</td>
+						<td>
+							Différents messages d'erreurs.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							evac.url.exit
+						</td>
+						<td>
+							Url de redirection lors de la sortie du
+							formulaire
+						</td>
+					</tr>
+				</table>
+			</subsection>
+			<subsection name="evac_context.xml">
+				<p>
+					Le fonctionnement du module Formengine E-Vac
+					peut être reconfiguré en modifiant ce fichier.
+				</p>
+				<p>
+					On pourra choisir d'utiliser soit le service d'adresse, soit des fichiers stokés en local.
+					ce fichier permet la configuration des deux options possible.
+					Il est structuré de la manière suivante :
+				</p>
+				<source>
+&lt;beans&gt;
+  
+  &lt;bean id="evacAdresseService"  class=""&gt;
+  	 &lt;property name="urlWS" value=""/&gt;
+  	 &lt;property name="defaultCity" value=""/&gt;
+  	 &lt;property name="dateSearch" value=""/&gt;
+  	 &lt;property name="userName" value=""/&gt;
+  	 &lt;property name="password" value=""/&gt;
+  	 &lt;property name="timeOut" value=""/&gt;
+  &lt;/bean&gt;
+
+&lt;/beans&gt;
+				</source>
+				<subsection name="Configuration pour l'utilisation du service adresse">
+				<p>
+					Afin d'utiliser le service d'adresse, il faut brancher
+					son client sur l'application, de la manière suivante :
+				</p>
+				<source>
+&lt;bean id="evacAdresseService"  
+class="fr.paris.lutece.plugins.formengine.modules.evac.service.address.WebServiceAdresseService"&gt;
+				</source>
+				<table>
+					<tr>
+						<th>Propriété</th>
+						<th>Valeur</th>
+					</tr>
+					<tr>
+						<td>
+							urlWS
+						</td>
+						<td>
+							Url d'accès au service.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							defaultCity
+						</td>
+						<td>
+							Ville par défault pour la recherche d'une adresse.
+							Seule la valeur "paris" doit être utilisée pour le moment.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							dateSearch
+						</td>
+						<td>
+							Date de recherche pour l’adresse saisie sous la forme aaaammjj.  
+							Par exemple si une adresse a été chargée dans la base du service le 20070101 
+							il faudra prendre soin de saisir une date postérieure à cette valeur
+							 pour retrouver l’adresse.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							userName
+						</td>
+						<td>
+							Login qui permet de se connecter au service.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							password
+						</td>
+						<td>
+							 Mot de passe qui permet de se connecter au service.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							timeOut
+						</td>
+						<td>
+							 Timeout pour la connection au service. Ce timeout est en milliseconde. 
+							 Par exemple pour un timout de une seconde la valeur attendu est 1000.
+						</td>
+					</tr>
+				</table>	
+				</subsection>
+				<subsection name="Configuration pour l'utilisation des fichiers en local">
+				<p>
+					Afin d'utiliser le service de lecture des fichiers en local, il faut brancher
+					l'utilitaire sur l'application, de la manière suivante :
+				</p>
+				<source>
+&lt;bean id="evacAdresseService"  
+class="fr.paris.lutece.plugins.formengine.modules.evac.service.address.DummyAddressService"&gt;
+				</source>
+				<table>
+					<tr>
+						<th>Propriété</th>
+						<th>Valeur</th>
+					</tr>
+					<tr>
+						<td>
+							urlWS
+						</td>
+						<td>
+							Vide.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							defaultCity
+						</td>
+						<td>
+							Vide.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							dateSearch
+						</td>
+						<td>
+							Vide.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							userName
+						</td>
+						<td>
+							Vide.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							password
+						</td>
+						<td>
+							 Vide.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							timeOut
+						</td>
+						<td>
+							 Vide.
+						</td>
+					</tr>
+				</table>
+				</subsection>
+			</subsection>
+		</section>
+	
+	</body>
+</document>

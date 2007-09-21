@@ -1,0 +1,19 @@
+<p>
+	<span style="text-decoration: underline; text-align: center;">
+		#i18n{ods.all.label.seance} #i18n{ods.all.label.from} ${seance.dateSeance?string("dd/MM/yyyy")} #i18n{ods.all.label.to} ${seance.dateCloture?string("dd/MM/yyyy")}
+	</span>
+</p>
+
+<p>
+	<span style="text-decoration: underline;">
+		<a href="${webapp}/jsp/site/plugins/ods/DoDownload.jsp?id_fichier=${fichier.id}">${fichier.titre}</a>
+	</span> 
+	<#if fichier.version = 1 >
+		#i18n{ods.notification.mail.label.nouveau} 
+	<#else>
+		#i18n{ods.notification.mail.label.miseAjour}
+	</#if>
+	(#i18n{ods.notification.mail.label.publiele} 
+	${fichier.datePublication?string("dd/MM/yyyy")}, #i18n{ods.notification.mail.label.version} ${fichier.version})
+</p>
+	

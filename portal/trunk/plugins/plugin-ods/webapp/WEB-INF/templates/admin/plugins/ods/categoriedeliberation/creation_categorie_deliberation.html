@@ -1,0 +1,26 @@
+<div class="content-box">
+	<h2>#i18n{ods.creationcategoriedeliberation.label.title}</h2>
+	<form action="jsp/admin/plugins/ods/categoriedeliberation/DoCreationCategorieDeliberation.jsp" method="post">
+		<p>
+			<label for="code">#i18n{ods.creationcategoriedeliberation.label.code} * : </label>
+			<input type="text" id="code" name="code" size="10" value="" />
+		</p>
+		<p>
+			<label for="libelle">#i18n{ods.creationcategoriedeliberation.label.libelle} * : </label>
+			<input type="text" id="libelle" name="libelle" size="80" value="" />
+		</p>
+		<p>
+			<label for="status">#i18n{ods.creationcategoriedeliberation.label.actif}</label>
+			<input id="status" name="status" type="checkbox" value="true" checked="checked" /> #i18n{ods.creationdirection.label.actif_comment}
+		</p>
+		<p>
+			<input type="submit" value="#i18n{ods.creationcategoriedeliberation.button.validate}" class="button" />
+			<input type="button" value="#i18n{ods.creationcategoriedeliberation.button.back}" class="button" onclick="javascript:history.go(-1)" />
+		</p>
+		<#if !avertissement?exists || (avertissement != 0)>
+		<p>
+			<span style="font-weight:bold; color:#364C5E; text-align:center;">#i18n{ods.modificationcategoriedeliberation.message.avertissement}</span>
+		</p>
+		</#if>
+	</form>
+</div>

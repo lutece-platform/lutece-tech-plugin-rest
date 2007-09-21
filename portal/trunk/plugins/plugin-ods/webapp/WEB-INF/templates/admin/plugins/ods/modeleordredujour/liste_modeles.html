@@ -1,0 +1,54 @@
+<div class="content-box">
+  <h2>#i18n{ods.modele.title.listeModeles}</h2>
+  <p>#i18n{ods.all.label.nbresult} ${liste_modele?size}</p>
+  <table>
+   <tr>
+    <th>#i18n{ods.modele.label.titre}</th>
+    <th>#i18n{ods.modele.label.formationConseil}</th>
+    <th>#i18n{ods.modele.label.type}</th>
+    <th>#i18n{ods.modele.label.commission}</th>
+    <#if permission_gestion >
+    	<th>#i18n{ods.modele.label.actions}</th>
+    </#if>
+   </tr>
+   <#list liste_modele as modele>
+	   <a name="ANC_LAST" id="ANC_LAST"></a>
+	   <tr>
+	    <td nowrap="nowrap">${modele.titre}</td>
+	    <td>${modele.formationConseil.libelle}</td>
+	    <td>${modele.typeOrdreDuJour.libelle}</td>
+	     <#if modele.commission?exists>
+	     	<td>${modele.commission.numero}</td>
+	     <#else>
+	    	<td>-</td> 
+	     </#if>
+	     
+    	<#if permission_gestion >
+	    <td nowrap="nowrap" class="ods-actions"> 
+	    	<a href="jsp/admin/plugins/ods/modeleordredujour/ModificationModele.jsp?id_modele=${modele.idModele}">
+	    		<img src="images/admin/skin/plugins/ods/action/modify.png" 	    			
+								alt="#i18n{ods.listegroupes.title.modify}"
+								title="#i18n{ods.listegroupes.title.modify}" />
+	    	</a>
+	    	<a href="jsp/admin/plugins/ods/modeleordredujour/SuppressionModele.jsp?id_modele=${modele.idModele}">
+	    		<img src="images/admin/skin/actions/delete.png"
+								alt="#i18n{ods.listegroupes.title.delete}"
+								title="#i18n{ods.listegroupes.title.delete}" />
+	    	</a>
+	    </td>
+	    </#if>
+	  </tr>
+  </#list>
+   </table>
+   
+  <#if permission_gestion >
+  <form method="post"  action="jsp/admin/plugins/ods/modeleordredujour/CreationModele.jsp">
+   <p>
+    <input type="submit" value="#i18n{ods.modele.label.creerModele}" class="button" />
+   </p>
+  </form>
+  </#if>
+  
+ </div>
+
+

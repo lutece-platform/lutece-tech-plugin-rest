@@ -1,0 +1,29 @@
+<tr>
+ 	<td>
+ 		${link.name}
+ 	</td>
+    <td>
+		<a href="${link.url}">${link.url}</a>
+    	<#list link.optionalUrls as alternate_urls>
+    		<br />
+    		<a href="${alternate_urls.name}">${alternate_urls.name}</a> (${alternate_urls.code})
+    	</#list>
+    </td>
+    <td>
+		<img src="../../${link.imagePath}" width="50" height="50" />
+    </td>
+	<form method="post" name="modifyOrderLinks" action="plugins/links/DoModifyOrderLinks.jsp">
+	   <td>
+			<@combo name="links_order" default_value="${link_default_order}" items=order_list />
+			<input type="hidden" name="portlet_id" value="${portlet_id}" />
+			<input type="hidden" name="link_id" value="${link.id}" />
+			<input type="hidden" name="new_link" value="${new_link}" />
+			<input type="submit" value="#i18n{links.links_list_portlet.modify}" class="button" />
+       </td>
+	</form>
+	<td>
+		<a href="plugins/links/DoUnselectLinks.jsp?portlet_id=${portlet_id}&link_id=${link.id}">
+			<img src="../../images/admin/skin/actions/delete.png" border="0" />
+		</a>
+	</td>
+</tr>

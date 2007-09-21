@@ -1,0 +1,177 @@
+<script language="JavaScript" type="text/javascript">
+
+function removePanier(f) {
+	var flagIsFoundOne = false;
+	for (i=0; i<f.elements.length; i++) {
+		if (f.elements[i].type == 'checkbox') {
+			if ( f.elements[i].checked ) {
+				flagIsFoundOne = true;
+				f.selectionPanier.value += f.elements[i].value;
+				if(i < f.elements.length-1 ){
+	  				f.selectionPanier.value += "-"; 
+	       		}
+			} 
+		}
+	}
+	if( flagIsFoundOne )
+		window.location = '${webapp}/jsp/site/Portal.jsp?page=ods_panier&doWhat=deleteSelectionPanier&selection=' + f.selectionPanier.value;
+}
+
+</script>
+
+<#include "utils.ftl" >
+
+<div id="page-content-left">
+  <#include "page_content_left.html"></div>
+  <div id="page-content-right">
+    <div id="out-min-height">
+      <div id="in-min-height">
+        <div id="one-zone-first">
+          <div id="one-zone-first-content">
+            <h1>#i18n{ods.front.menu.panier}</h1>
+            <!--bloc-->
+            <div class="portlet-background-colored-title">
+              <h3 class="portlet-background-colored-title-header">#i18n{ods.front.panier.telechargement.title}</h3>
+              <div class="portlet-background-colored-title-content">
+                <p>#i18n{ods.front.panier.telechargement.selectionDisponible}</p>
+                <ul>
+	                <#if liste_zip?exists >
+						<#list liste_zip as zip>
+							<#if zip?exists>
+			                  <li>
+			                    <a href="${url_download_panier}${zip.idToDownload}">#i18n{ods.front.panier.telechargement.selectionDe}${zip.dateAjout?string("HH:mm")}</a>
+			                  </li>
+				          	</#if>
+						</#list>
+					</#if>
+                </ul>
+              </div>
+            </div>
+            
+            <!--bloc-->
+            <#if fichiers_non_publies?exists && fichiers_non_publies >
+            <div class="portlet-background-colored-title">
+              <h3 class="portlet-background-colored-title-header">#i18n{ods.front.panier.fichiersNonPublies.title}</h3>
+              <div class="portlet-background-colored-title-content">
+                <span style="font-weight:bold; color:red; text-align:center;">#i18n{ods.front.panier.fichiersNonPublies.message}</span>
+              </div>
+            </div>
+            </#if>
+
+            <form action="jsp/site/plugins/ods/downloadPanier.jsp" method="post">
+            	<input type="hidden" id="tailleTotal" name="tailleTotal" value="0"/>
+            	<input type="hidden" id="dateAjout" name="dateAjout" value="">
+            	<input type="hidden" id="selectionPanier" name="selectionPanier" value="">
+              <p>
+                <input name="" type="button" value="#i18n{ods.front.panier.button.toutselectionner}" onclick="toggleBoxesPanier(this.form, 'on');" id="ods-btn-selectall" />
+                <input 	name="" type="button" value="#i18n{ods.front.panier.button.toutdeselectionner}" onclick="toggleBoxesPanier(this.form, 'off');" id="ods-btn-unselectall" />
+                <input 	name="" type="button" value="#i18n{ods.front.panier.button.retirerdupanier}" onclick="removePanier(this.form);" id="ods-btn-retirerpanier" />
+                <#if urlBase?exists >
+                	<input name="" type="button" value="#i18n{ods.front.panier.button.telechargerselection}" id="ods-btn-telechargerselection" onclick="return downloadPanier(this.form,'${urlBase}',${tailleTotalMax});" />
+                <#else >
+                	<input name="" type="button" value="#i18n{ods.front.panier.button.telechargerselection}" id="ods-btn-telechargerselection" />
+                </#if>
+              </p>
+              <!--bloc-->
+			  <#if liste_produits?exists>
+              	<p>#i18n{ods.front.panier.label.votrepaniercontient} ${liste_produits?size} #i18n{ods.front.panier.label.documents}.</p>
+              </#if>
+              <div class="ods-list">
+				<#if liste_produits?exists>
+					<#list liste_produits as produit>
+						<#if produit?exists>
+							<div class="ods-list-item">
+							  <input type="hidden" id="${produit.fichier.id}" name="${produit.fichier.id}" value="${produit.fichier.fichier.taille}">
+			                  <input id="idElementPanier" name="idElementPanier" type="checkbox" value="${produit.fichier.id}" onchange=" manage(this, ${produit.fichier.fichier.taille}); " />
+			                 
+			               
+			                  <#if produit.voeu?exists && produit.voeu && produit.voeuAmendement?exists >
+					                <#if produit.voeuAmendement.type?exists && (produit.voeuAmendement.type == "A"||produit.voeuAmendement.type == "LR") >
+					                	<span class="ods-list-item-a">&nbsp;&nbsp;</span>
+					                <#else>
+					                	<span class="ods-list-item-v">&nbsp;&nbsp;</span>
+					                </#if>
+				                  
+				                  	<#if produit.voeuAmendement.enLigne>
+				                  		<a href="jsp/site/plugins/ods/DoDownload.jsp?id_fichier=${produit.fichier.id}">
+				                  			${produit.fichier.nom}
+				                  		</a>
+				                  	</#if>
+				                  	<span class="ods-notes">(${produit.fichier.extension} - ${produit.fichier.tailleKo} #i18n{ods.listefichiers.label.ko})</span> 
+									<#if liste_vas_nouveaux?exists && estVADansListe(produit.voeuAmendement,liste_vas_nouveaux)>
+										<#if produit.voeuAmendement.version?exists && ( produit.voeuAmendement.version > 1 )>
+							 				<span class="ods-flag-M" title="#i18n{ods.front.deliberations.title.modifie}">#i18n{ods.front.deliberations.label.modifie}</span>
+							 			<#else>
+											<span class="ods-flag-N" title="#i18n{ods.front.deliberations.title.nouveau}">#i18n{ods.front.deliberations.label.nouveau}</span>
+							 			</#if>
+									</#if>
+									<#if produit.voeuAmendement.enLigne>
+										<span class="ods-notes">(#i18n{ods.front.pdd.label.publierle}  ${produit.voeuAmendement.datePublication?string("dd/MM/yyyy")})</span> 
+									</#if>
+				                   <p class="ods-list-item-txt">Cf.
+				                  <#if produit.voeuAmendement.enLigne>
+				                  	 [${produit.voeuAmendement.referenceComplete}]
+				                  </#if>
+				                  </p>
+			                  <#else>
+			                  	<#if produit.fichier?exists && produit.fichier.enLigne>
+			                  		<a href="jsp/site/plugins/ods/DoDownload.jsp?id_fichier=${produit.fichier.id}">
+			                  			${produit.fichier.titre}
+			         				</a>
+			         			</#if>
+			                  	<span class="ods-notes">(${produit.fichier.extension} - ${produit.fichier.tailleKo} #i18n{ods.listefichiers.label.ko})</span>
+								<#if liste_fichiers_nouveaux?exists && estFichierDansListe(produit.fichier,liste_fichiers_nouveaux)>
+									<#if produit.fichier.version?exists && ( produit.fichier.version > 1 )>
+						 				<span class="ods-flag-M" title="#i18n{ods.front.deliberations.title.modifie}">#i18n{ods.front.deliberations.label.modifie}</span>
+						 			<#else>
+										<span class="ods-flag-N" title="#i18n{ods.front.deliberations.title.nouveau}">#i18n{ods.front.deliberations.label.nouveau}</span>
+						 			</#if>
+								</#if> 
+								<#if produit.fichier.enLigne = true>
+									<span class="ods-notes">(#i18n{ods.front.pdd.label.publierle}  ${produit.fichier.datePublication?string("dd/MM/yyyy")})</span> 
+								</#if>
+			             	<p class="ods-list-item-txt">Cf.
+			                  <#if produit.refPdds?exists>
+			                    <#list produit.refPdds as pdd>
+								  <#if pdd?exists>
+			                        <#if pdd.enLigne>
+			                        	<a href="jsp/site/Portal.jsp?page=ods_pdd&id_pdd=${pdd.idPdd}">
+			                        		${pdd.reference}
+			                        	</a>
+			                        </#if>
+			                        <#if pdd_has_next>,</#if>
+			                	  </#if>
+								</#list>
+			                  </#if>
+			                 </#if>
+			                  </p>
+			                </div>
+			             </#if> 
+	                </#list>
+				</#if>
+              </div>
+              <!--bloc-->
+            </form>
+				<!--bloc-->
+		        <div class="ods-legend"><strong>#i18n{ods.front.pdd.label.legende} :</strong>
+		          <ul>
+		           <li><span class="ods-flag-N" title="Nouveau">N</span> = #i18n{ods.front.pdd.label.legende.n}</li>
+		
+		           <li><span class="ods-flag-M" title="Modifi&eacute;">M</span> = #i18n{ods.front.pdd.label.legende.m}</li>
+		           <li><img src="images/local/skin/plugins/ods/a.gif" alt="Amendement" /> = #i18n{ods.front.pdd.label.legende.amendement}</li>
+		           <li><img src="images/local/skin/plugins/ods/v.gif" alt="V&#339;u" /> = #i18n{ods.front.pdd.label.legende.voeux}</li>
+		
+		          </ul>
+		        </div>
+        		<!-- bloc -->            
+			</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clear">&#160;</div>
+    <!-- to fill the page-content container on all browsers -->
+    <div class="ods-top">
+      <a href="#TOP">#i18n{ods.front.prochainconseil.label.hautPage}</a>
+    </div>
+  </div>

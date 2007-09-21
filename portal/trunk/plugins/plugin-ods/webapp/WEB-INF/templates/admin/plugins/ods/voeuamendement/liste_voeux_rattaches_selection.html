@@ -1,0 +1,141 @@
+<SCRIPT>
+	function annuler( ) 
+	{
+   		var myForm = document.getElementById('FormSelectionVoeuxRattaches');
+		myForm.afaire.value='cancel';    	
+    	myForm.submit();
+    }
+</SCRIPT>
+<div class="content-box">
+	<#if gestion_aval=true>
+		<h2>#i18n{ods.listevoeuxrattaches.label.titleAval}</h2>
+	<#else>
+  		<h2>#i18n{ods.listevoeuxrattaches.label.title}</h2>
+  	</#if>
+  <div class="highlight-box">
+     <form method="post" action="${url_jsp_appelant}?plugin_name=ods&id_seance=${seance.idSeance}">   
+	    <#if releve?exists>
+		   <input type="hidden" name="id_releve" id="id_releve" value=${releve.idReleveDesTravaux} />
+		</#if>
+	    <#if id_pdd?exists>
+		   <input id="id_pdd" name="id_pdd" type="hidden" value=${id_pdd} />
+		</#if>
+	    <p>
+		     <label for="">#i18n{ods.listevoeuxrattaches.label.seance}</label>
+		     <#if seance?exists>
+		     	#i18n{ods.listeamendements.label.from}
+				${seance.dateSeance?string("dd/MM/yyyy")}
+				<#if seance.dateSeance?string("ddMMyyyy") != seance.dateCloture?string("ddMMyyyy") >
+					#i18n{ods.listeamendements.label.to}
+					${seance.dateCloture?string("dd/MM/yyyy")} 	
+				</#if>
+		     <#else>
+			     #i18n{ods.listevoeuxrattaches.label.from}... #i18n{ods.listevoeuxrattaches.label.to} ... 
+		     </#if> 
+	    </p>
+	    <p>
+		     <label for="">#i18n{ods.listevoeuxrattaches.label.conseil} </label>
+		     <#if gestion_aval=true && formation_conseil?exists>
+		     	 ${formation_conseil.libelle}
+		     <#else>
+			     <#if id_pdd?exists>
+				   <SELECT id="id_formation_conseil" name="id_formation_conseil" DISABLED><OPTION value="${formation_conseil.idFormationConseil}">${formation_conseil.libelle}</SELECT>
+				 <#else>
+					<@combo name="id_formation_conseil"  items=liste_formation_conseil  default_value=id_formation_conseil_selected/>
+				 </#if>
+			 </#if>
+		</p>
+		<p>
+		     <label for="">#i18n{ods.listevoeuxrattaches.label.publie}</label>
+		     <@combo name="id_publication"  items=liste_publie  default_value=id_publication_selected />
+	    </p>
+		    <p align="center">
+		     <input type="submit" class="button" value="#i18n{ods.listevoeuxrattaches.button.search}" />
+	    </p>
+   </form>
+  </div>
+  <p>#i18n{ods.listevoeuxrattaches.label.nbresult} ${nb_results}</p>   
+	  <#if liste_voeuamendement?size = 0>
+	   		<p>#i18n{ods.releve.label.modification.va.noVA}</p>
+   		<form method="post" id="FormSelectionVoeuxRattaches" name="FormSelectionVoeuxRattaches" action="${url_retour}">
+		<#if id_pdd?exists>
+			<input id="id_pdd" name="id_pdd" type="hidden" value=${id_pdd} />
+		</#if>	
+		<#if seance?exists>
+			<input type="hidden" name="id_seance" id="id_seance" value=${seance.idSeance} />
+		</#if>	
+		<input id="afaire" name="afaire" type="hidden" value="cancel" />
+	   <input type="submit" value="#i18n{ods.all.button.cancel}" class="button" />
+	   <#else>
+	    <#if releve?exists>
+		   <form method="post" action=${url_jsp_appelant}?plugin_name=ods&id_seance=${seance.idSeance}&id_releve=${releve.idReleveDesTravaux}>
+		<#else>
+		    <#if id_pdd?exists>
+			   <form method="post" action=${url_jsp_appelant}?plugin_name=ods&id_seance=${seance.idSeance}&id_pdd=${id_pdd}>
+			<#else>
+				<form method="post" action=${url_jsp_appelant}?plugin_name=ods&id_seance=${seance.idSeance}>
+			</#if>
+		</#if>
+		<@pagination paginator=paginator />
+		
+			<!-- Number of files per page selector -->
+		    #i18n{ods.listevoeuxrattaches.label.nbligneparpage}
+		    <select name="items_per_page">
+		        <#list [ "5" , "10" , "20" , "50" ] as nb>
+			        <#if nb_items_per_page = nb >
+			        <option selected="selected" value="${nb}">${nb}</option>
+			        <#else>
+			        <option value="${nb}">${nb}</option>
+			        </#if>
+		        </#list>
+		    </select>
+		    <input type="submit" class="button" value="#i18n{ods.listevoeuxrattaches.button.modify}" />
+		  </form>
+<form method="post" id="FormSelectionVoeuxRattaches" name="FormSelectionVoeuxRattaches" action="${url_retour}">
+  <table>
+   <tr>
+    <th>&nbsp;</th>
+    <th>#i18n{ods.listevoeuxrattaches.label.reference}</th>
+    <th>#i18n{ods.listevoeuxrattaches.label.publiele}</th>
+    <th>#i18n{ods.listevoeuxrattaches.label.formationduconseil}</th>
+   </tr>
+   <a name="ANC_LAST" id="ANC_LAST"></a>
+	<#list liste_voeuamendement as voeuamendement>	     
+		<tr class="ods-noborder">
+  		 	<#if gestion_aval=true>
+  		 		<td><input id="id_parent" name="id_parent" type="radio" value=${voeuamendement.idVoeuAmendement} /></td>
+  		 	<#else>
+  		 		<td><input id="id_voeuamendement" name="id_voeuamendement" type="radio" value=${voeuamendement.idVoeuAmendement} /></td>
+  		 	</#if>
+			<td nowrap="nowrap">${voeuamendement.referenceComplete}</td>
+			<#if voeuamendement.enLigne?exists && voeuamendement.enLigne=true>
+				<td> ${voeuamendement.datePublication?string("dd/MM/yyyy")} </td>
+			<#else>
+				<td>-</td>
+			</#if> 
+			<#if voeuamendement.formationConseil?exists>
+				<td>${voeuamendement.formationConseil.libelle}</td> 
+			<#else>
+				<td>-</td>
+			</#if>
+		</tr>
+		<tr>
+			<#if voeuamendement.objet?exists>
+				<td colspan="4">${voeuamendement.objet}</td> 
+			<#else>
+				<td colspan="4">-</td>
+			</#if>
+		</tr>
+	</#list>
+ 	</table>
+  <p>
+  	<#if id_pdd?exists>
+	   <input id="id_pdd" name="id_pdd" type="hidden" value=${id_pdd} />
+	</#if>
+		<input id="afaire" name="afaire" type="hidden" value="va" />
+   <input type="submit" value="#i18n{ods.all.button.ok}" class="button" />
+	   <input type="button" value="#i18n{ods.all.button.cancel}" class="button" onclick="javascript: annuler();" />
+   </p>
+    </form> 
+   </#if>
+ </div>

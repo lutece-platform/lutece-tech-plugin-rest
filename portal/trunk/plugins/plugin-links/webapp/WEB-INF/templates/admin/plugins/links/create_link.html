@@ -1,0 +1,49 @@
+<div class="content-box" >
+    <h2>#i18n{links.create_link.tableLabel}</h2>
+	<form enctype="multipart/form-data" method="post" action="jsp/admin/plugins/links/DoCreateLink.jsp">
+		<input type="hidden" name="link_id" value="@link_id@" />
+		<p>
+			<label for="link_name">#i18n{links.create_link.name} * :</label>
+			<input type="text" name="link_name" id="link_name" size="60" maxlength="200" />
+		</p>
+			<p>
+				<label for="link_url">
+				<#if url_default?has_content >
+					${url_default}
+				<#else>
+					#i18n{links.create_link.title}
+				</#if>
+				 * :</label>
+				<input type="text" name="link_url" id="link_url" size="60" maxlength="150" />
+			</p>
+		<#if alternate_urls_list?has_content >
+			<#list alternate_urls_list as alternate_url >
+				<p>
+					<label for="${alternate_url.code}_1"><#if alternate_url.name?has_content >${alternate_url.name}</#if > * :</label>
+					<input class="radio" type="radio" onclick="form.${alternate_url.code}_url.disabled=false;"  id="${alternate_url.code}_1" name="${alternate_url.code}_type" value="1" checked="checked" />
+					<input class="radio" type="text" name="${alternate_url.code}_url" size="60" maxlength="150" value="" />
+					<input class="radio" type="radio" onclick="form.${alternate_url.code}_url.disabled=true; form.${alternate_url.code}_url.value=form.link_url.value" id="${alternate_url.code}_2" name="${alternate_url.code}_type" value="2" />
+					#i18n{links.create_link.defaultUrl}
+					<input class="radio" type="radio" onclick="form.${alternate_url.code}_url.disabled=true; form.${alternate_url.code}_url.value=''" id="${alternate_url.code}_3" name="${alternate_url.code}_type" value="3" />
+					#i18n{links.create_link.undef}
+				</p>
+			</#list>
+		</#if >
+		<p>
+			<label for="link_description">#i18n{links.create_link.description} :</label>
+			<textarea  name="link_description" id="link_description" rows="3" cols="45"></textarea>
+		</p>
+		<p>
+			<label for="link_image">#i18n{links.create_link.picture} :</label>
+			<input type="file" name="link_image" id="link_image" size="60"/>
+		</p>
+		<p>
+           	<label for="link_workgroup" >#i18n{links.create_link.workgroup} :</label>
+           	<@combo name="workgroupKey" default_value="" items=workgroups_list />
+        </p>
+		<p>
+			<input type="submit" value="#i18n{links.create_link.submit}" class="button" />
+		</p>
+	</form>
+
+</div>

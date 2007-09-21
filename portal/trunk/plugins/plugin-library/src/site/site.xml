@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Lutece library plugin">
+   <version />
+    <body>
+        <links>
+			<item name="FR" href="/fr/index.html" />
+        </links>
+
+        <menu name="Plugin library">
+            <item name="Introduction" href="index.html"/>
+        </menu>
+        
+        <menu name="Library manual">
+        	<item name="Config sample" href="sample.html" />
+        </menu>
+    </body>
+</project>

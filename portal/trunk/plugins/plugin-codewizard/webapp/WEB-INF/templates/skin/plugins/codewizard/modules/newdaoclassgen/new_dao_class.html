@@ -1,0 +1,211 @@
+<link rel="stylesheet" type="text/css" href="plugins/codewizard/codewizard.css" />
+<pre>
+<font class="comment">
+/*
+ * Copyright (c) 2002-2007, Mairie de Paris
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *  1. Redistributions of source code must retain the above copyright notice
+ *     and the following disclaimer.
+ *
+ *  2. Redistributions in binary form must reproduce the above copyright notice
+ *     and the following disclaimer in the documentation and/or other materials
+ *     provided with the distribution.
+ *
+ *  3. Neither the name of 'Mairie de Paris' nor 'Lutece' nor the names of its
+ *     contributors may be used to endorse or promote products derived from
+ *     this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * License 1.0
+ */
+
+</font>
+<font class="keyword">package</font> @package@;
+
+<font class="keyword">import</font> fr.paris.lutece.util.ReferenceList;
+<font class="keyword">import</font> fr.paris.lutece.util.sql.DAOUtil;
+
+<font class="keyword">import</font> java.util.ArrayList;
+<font class="keyword">import</font> java.util.List;
+
+<font class="comment">
+/**
+ * This class provides Data Access methods for @classname@ objects
+ */
+</font>
+<font class="keyword">public final class </font>@classname@DAO
+{
+	<font class="comment">
+	// Constants
+	</font>
+	<font class="modify">private static final</font> String SQL_QUERY_NEW_PK = " @select_max_sql_statement@ ";
+	<font class="modify">private static final</font> String SQL_QUERY_SELECT = " @select_sql_statement@ ";
+	<font class="modify">private static final</font> String SQL_QUERY_INSERT = " @insert_sql_statement@ ";
+	<font class="modify">private static final</font> String SQL_QUERY_DELETE = " @delete_sql_statement@ ";
+	<font class="modify">private static final</font> String SQL_QUERY_UPDATE = " @update_sql_statement@ ";
+	<font class="modify">private static final</font> String SQL_QUERY_SELECTALL = " @select_all_sql_statement@ ";
+
+
+	<font class="comment">/** This class implements the Singleton design pattern. */</font>
+	<font class="modify">private static</font> @classname@DAO _dao = new @classname@DAO();
+
+	<font class="comment">
+	/**
+	 * Creates a new @classname@DAO object.
+	 */
+	</font>
+	<font class="modify">private</font> @classname@DAO()
+	{
+	}
+
+	<font class="comment">
+	/**
+	 * Returns the unique instance of the singleton.
+	 *
+	 * @return the instance
+	 */
+	</font>
+	<font class="modify">static</font> @classname@DAO getInstance()
+	{
+		<font class="keyword">return</font> _dao;
+	}
+
+	<font class="comment">
+	/**
+	 * Generates a new primary key
+	 * @return The new primary key
+	 */
+    </font>
+	<font class="modify">public</font> int newPrimaryKey()
+	{
+		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK  );
+		daoUtil.executeQuery();
+
+		int nKey;
+
+		<font class="keyword">if</font>( !daoUtil.next() )
+		{
+			// if the table is empty
+			nKey = 1;
+		}
+
+		nKey = daoUtil.getInt( 1 ) + 1;
+		daoUtil.free();
+
+		<font class="keyword">return</font> nKey;
+	}
+
+
+<font class="comment">
+
+	/**
+	 * Insert a new record in the table.
+	 * @param @instance_name@ The @instance_name@ object
+	 */
+</font>
+	<font class="keyword">void</font> insert( @classname@ @instance_name@ )
+	{
+		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT );
+		@instance_name@.setId( newPrimaryKey() );
+@insert_statement_setting@
+
+		daoUtil.executeUpdate();
+		daoUtil.free();
+	}
+
+<font class="comment">
+	/**
+	 * Load the data from the table
+	 * @param n@classname@Id The identifier of @classname@
+	 * @return the instance of the @classname@
+	 */
+</font>
+
+	@classname@ load( int n@classname@Id )
+	{
+		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT );
+		daoUtil.setInt( 1 , n@classname@Id );
+		daoUtil.executeQuery();
+
+		@classname@ @instance_name@ = <font class="keyword">null</font>;
+
+		<font class="keyword">if</font> ( daoUtil.next(  ) )
+		{
+			@instance_name@ = new @classname@();
+@select_results@
+		}
+
+		daoUtil.free();
+		<font class="keyword">return</font> @instance_name@;
+	}
+
+<font class="comment">
+	/**
+	 * Delete a record from the table
+	 * @param n@classname@Id The @classname@ Id
+	 */
+</font>
+	<font class="keyword">void</font> delete( int n@classname@Id )
+	{
+		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE );
+		daoUtil.setInt( 1 , n@classname@Id );
+		daoUtil.executeUpdate();
+		daoUtil.free();
+	}
+
+<font class="comment">
+	/**
+	 * Update the record in the table
+	 * @param @instance_name@ The reference of @instance_name@
+	 */
+</font>
+	<font class="keyword">void</font> store( @classname@ @instance_name@ )
+	{
+		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE );
+@update_statement_setting@
+		daoUtil.executeUpdate();
+		daoUtil.free();
+	}
+
+
+<font class="comment">
+	/**
+	 * Load the list of @instance_name@ objects
+	 * @return The Collection of the @classname@ objects
+	 */
+</font>
+	List&lt;@classname@&gt; select@classname@List()
+	{
+		List&lt;@classname@&gt; list@classname@s = new ArrayList(  );
+		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL );
+		daoUtil.executeQuery(  );
+
+		<font class="keyword">while</font> ( daoUtil.next(  ) )
+		{
+			@classname@ @instance_name@ = new @classname@(  );
+@select_all_results@
+			list@classname@s.add( @instance_name@ );
+		}
+
+		daoUtil.free();
+		<font class="keyword">return</font> list@classname@s;
+	}
+
+}
+</pre>

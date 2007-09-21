@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<plug-in>
+    
+    <!-- Plugin Informations -->
+    <name>pagelinkservice</name>
+    <class>fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation</class>
+    <version>2.0</version>
+    <description>Link Service Page</description>
+    <documentation></documentation>
+    <installation></installation>
+    <changes></changes>
+    <user-guide></user-guide>
+    <provider>Mairie de Paris</provider>
+    <provider-url>http://lutece.paris.fr</provider-url>
+    <icon-url>images/admin/skin/plugins/pagelinkservice/pagelinkservice.png</icon-url>
+    <copyright>Copyright 2001-2006 Mairie de Paris</copyright>
+    <db-pool-required>0</db-pool-required>
+    
+    <!-- Insert Services -->
+    <insert-services>
+        <insert-service>
+            <insert-service-id>PAGE_INSERT_SERVICE</insert-service-id>
+            <insert-service-name>pagelinkservice.insertService.name</insert-service-name>
+            <insert-service-bean-class>fr.paris.lutece.plugins.pagelinkservice.web.PageLinkServiceJspBean</insert-service-bean-class>
+            <insert-service-label>pagelinkservice.insertService.label</insert-service-label>
+        </insert-service>
+    </insert-services>
+</plug-in>

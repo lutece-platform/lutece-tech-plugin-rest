@@ -1,0 +1,48 @@
+<div class="content-box">
+<h2>#i18n{ods.listecategoriedeliberation.label.title}</h2>
+<#if liste_categories?size=0>
+	<div class="highlight-box">
+	#i18n{ods.listecategoriedeliberation.label.noCategorie}</div>
+<#else>
+<table>
+	<tr>
+		<th>#i18n{ods.listecategoriedeliberation.label.code}</th>
+		<th>#i18n{ods.listecategoriedeliberation.label.nom}</th>
+		<th>#i18n{ods.listecategoriedeliberation.label.actif}</th>
+		<#if permission_gestion >
+		<th>#i18n{ods.listecategoriedeliberation.label.actions}</th>
+		</#if>
+	</tr>
+	<#list liste_categories as categorie>
+	<a name="ANC_LAST" id="ANC_LAST"></a>
+	<tr>
+		<td nowrap="nowrap">${categorie.code}</td>
+		<td nowrap="nowrap">${categorie.libelle}</td>
+		<#if categorie.actif=true>
+		<td nowrap="nowrap"><img src="images/admin/skin/enable.png"
+			alt="categorie active" title="Actif" /></td>
+		<#else>
+		<td nowrap="nowrap"><img src="images/admin/skin/disable.png"
+			alt="categorie inactive" title="Inactif" /></td>
+		</#if> <#if permission_gestion >
+		<td nowrap="nowrap" class="ods-actions"><a
+			href="jsp/admin/plugins/ods/categoriedeliberation/ModificationCategorieDeliberation.jsp?id_categorie=${categorie.idCategorie}">
+		<img src="images/admin/skin/plugins/ods/action/modify.png"
+			alt="Modifier" title="Modifier" /> </a> <a
+			href="jsp/admin/plugins/ods/categoriedeliberation/SuppressionCategorieDeliberation.jsp?id_categorie=${categorie.idCategorie}">
+		<img src="images/admin/skin/plugins/ods/action/delete.png"
+			alt="Supprimer" title="Supprimer" /> </a></td>
+		</#if>
+	</tr>
+	</#list>
+</table>
+</#if> 
+<#if permission_gestion >
+<form method="post"
+	action="jsp/admin/plugins/ods/categoriedeliberation/CreationCategorieDeliberation.jsp">
+<p><input type="submit"
+	value="#i18n{ods.listecategoriedeliberation.button.create}"
+	class="button" /></p>
+</form>
+</#if>
+</div>

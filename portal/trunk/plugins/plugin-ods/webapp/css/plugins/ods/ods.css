@@ -1,0 +1,697 @@
+
+/* Liste d'ancres */
+
+ul.ods-anchors {
+	list-style-image:url(../../../images/local/skin/arrows.gif);
+	margin-top:2em;
+	margin-bottom:2em;
+}
+
+/* Ordre du jour */
+
+.ods-odj p {
+	margin:0;
+	text-align:left;
+}
+.ods-odj .ods-odj-pdd {
+	margin:1.5em 0 0 0;
+	padding:0;
+	list-style-type: ne;
+}
+.ods-odj .ods-odj-pdd p {
+	margin-left:3em;
+	text-align:left;
+}
+.ods-odj .ods-odj-vnr {
+	font-weight:bold;
+	text-align:center;
+	margin:1.5em 0 0 0;
+}
+.ods-odj .ods-odj-vnr p {
+	font-weight:normal;
+	text-align:center;
+	margin:0 0 1.5em 0;
+}
+/* titre */
+.ods-odj h1 {
+	text-align:center;
+	color: #000;
+	font-size: 150%;
+	background: none;
+	background-repeat: no-repeat;
+	font-weight: bold;
+	margin: 0;
+	padding-left: 0;
+}
+/* nature */
+.ods-odj h2 {
+	color:#000;
+	font-weight:bold;
+	text-align:center;
+	margin-top:1.5em;
+	margin-bottom:1em;
+}
+/* commissions */
+.ods-odj h3 {
+	color:#000;
+	font-weight:bold;
+	text-align:center;
+	margin-top:1.5em;
+	margin-bottom:1em;
+}
+/* rapporteur(e)s */
+.ods-odj h4 {
+	color:#000;
+	font-weight:bold;
+	text-align:center;
+	margin-top:1.5em;
+	margin-bottom:3em;
+}
+
+
+div.ods-odj-epp1 {
+	text-align:center;
+	color: #000;
+	font-size: 18pt;
+	font-weight: bold;
+	margin: 0;
+	text-align:left;
+	padding-left: 0;
+}
+div.ods-odj-epp2 {
+	text-align:center;
+	color: #000;
+	font-size: 16pt;
+	font-weight: bold;
+	margin: 0;
+	text-align:left;
+	padding-left: 0;
+}
+div.ods-odj-epp3 {
+	text-align:center;
+	color: #000;
+	font-size: 14pt;
+	font-weight: bold;
+	margin: 0;
+	text-align:left;
+	padding-left: 0;
+}
+div.ods-odj-epp4 {
+	text-align:center;
+	color: #000;
+	font-size: 10pt;
+	font-weight: bold;
+	margin: 0;
+	text-align:center;
+	padding-left: 0;
+}
+div.ods-odj-epp5 {
+	color: #000;
+	font-size: 12pt;
+	font-weight: bold;
+	margin: 0;
+	text-align:right;
+	margin-right: 10px;
+}
+div.ods-odj-epp6 {
+	text-align:left;
+	color: #000;
+	font-size: 12pt;
+	font-weight: bold;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	text-align:left;
+	padding-left: 0;
+}
+div.ods-odj-epp7 {
+	text-align:left;
+	color: #000;
+	font-size: 12pt;
+	font-weight: bold;
+	margin-left: 50px;
+	padding-left: 0;
+	text-align:left;
+}
+div.ods-odj-epp8 {
+	text-align:left;
+	text-indent:50px;
+	color: #000;
+	font-size: 12pt;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	text-align:left;
+	padding-left: 0;
+}
+
+/* Listes */
+
+.ods-list {
+	margin:0px;
+	padding:0px;
+}
+.ods-list-item {
+	padding:0;
+	margin:0 0 1.5em 0;
+}
+.ods-list-item-txt {
+	margin:.5em 0 .5em 0;
+}
+ul.ods-list-item-docs {
+	margin:0;
+	padding:0;
+}
+div.ods-list-item ul.ods-list-item-docs li {
+	list-style-type: none;
+}
+.ods-list-item-btn-plus {
+	background-image:url(../../../images/local/skin/buttons/b_plus.gif);
+	border:none;
+	margin:0px 5px 0 0px;
+	padding:0px;
+	width:9px;
+	height:9px;
+	text-align:center;
+	background-color:#ffffff;
+}
+.ods-list-item-btn-moins {
+	background-image:url(../../../images/local/skin/buttons/b_moins.gif);
+	border:none;
+	margin:0px 5px 0 0px;
+	padding:0px;
+	width:9px;
+	height:9px;
+	text-align:center;
+	background-color:#ffffff;
+}
+.ods-list-item-pdd,
+.ods-list-item-a,
+.ods-list-item-v {
+	margin:0px;
+	padding:0px;
+}
+.ods-list-item-detail {
+	padding-left:20px;
+}
+.ods-list li {
+	color: #000;
+	list-style-type: none;
+}
+.ods-list input {
+	vertical-align:middle;
+}
+.ods-list-item-a {
+	background-image:url(../../../images/local/skin/plugins/ods/a.gif);
+	background-repeat: no-repeat;
+	background-position:0px 2px;
+}
+.ods-list-item-v {
+	background-image:url(../../../images/local/skin/plugins/ods/v.gif);
+	background-repeat: no-repeat;
+	background-position:0px 2px;
+}
+.ods-list-item-doc {
+	margin:0;
+	padding:0;
+}
+
+/* Fascicule */
+
+/* commissions */
+.ods-fascicule h3 {
+	color:#000;
+	font-weight:bold;
+	margin-top:1em;
+	margin-bottom:1em;
+	font-size:100%;
+	font-weight:normal;
+	text-align:left;
+}
+
+/* rapporteur(e)s */
+.ods-fascicule h4 {
+	color:#000;
+	font-weight:bold;
+	margin-top:1em;
+	margin-bottom:1.5em;
+	font-size:100%;
+	font-weight:normal;
+	text-align:left;
+}
+
+.ods-fascicule .ods-list {
+	margin-bottom:3.5em;
+}
+
+/* Plus petit (date de publication, taille du fichier...) */
+
+.ods-notes {
+	font-size:0.8em;
+	color:#000;
+}
+
+/* Signes particuliers */
+
+.ods-flag-N {
+	color:#FF6600;
+	background-color:#FFF;
+	border:1px solid #FF6600;
+	font-weight:normal;
+}
+.ods-flag-M {
+	color:#FF6600;
+	background-color:#FFF;
+	border:1px solid #FF6600;
+	font-weight:normal;
+}
+.ods-flag-O {
+	color:#330033;
+	background-color:#9999FF;
+	border:1px solid #330033;
+	font-weight:normal;
+}
+
+/* Légende de bas de page */
+
+.ods-legend {
+	background-color:#FFF;
+	border:1px solid #999;
+	margin:2em 0 2em 0;
+	width:34em;
+}
+
+.ods-legend ul {
+	list-style-type:none;
+	line-height:2em;
+	padding-left:1em;
+	margin-left:1em;
+}
+
+/* Haut de page */
+
+.ods-top {
+	text-align:right;
+	margin:1em 0.5em 1em 0;
+}
+
+.ods-top a:link, 
+.ods-top a:visited, 
+.ods-top a:hover, 
+.ods-top a:active {
+	font-weight:bold;
+	font-size:80%;
+	background-image: url(../../../images/local/skin/arrow_top.gif);
+	background-repeat: no-repeat;
+	background-position: 0 50%;
+	padding-left: 15px;
+}
+
+/* Pagination */
+
+.ods-paging a:link, 
+.ods-paging a:visited, 
+.ods-paging a:hover, 
+.ods-paging a:active {
+	font-weight:normal;
+}
+
+/* menu */
+
+ul.ods-menu {
+	list-style-type:none;
+	margin:0px;
+	padding:0px;
+}
+ul.ods-menu li {
+	list-style-type: none;
+	padding:2px 0 8px 22px;
+}
+
+.ods-menu-conseil,
+.ods-menu-recherche,
+.ods-menu-calendrier,
+.ods-menu-archives,
+.ods-menu-profil,
+.ods-menu-criteres,
+.ods-menu-panier {
+	background-repeat:no-repeat;
+	background-position:0 0;
+}
+.ods-menu-conseil {
+	background-image:url(../../../images/local/skin/pictos_liens/picto_conseil.png);
+}
+.ods-menu-recherche {
+	background-image:url(../../../images/local/skin/pictos_liens/picto_recherche_avancee.png);
+}
+.ods-menu-calendrier {
+	background-image:url(../../../images/local/skin/pictos_liens/picto_calendrier.png);
+	background-position:0 5px;
+}
+.ods-menu-archives {
+	background-image:url(../../../images/local/skin/pictos_liens/picto_archives.png);
+}
+.ods-menu-profil {
+	background-image:url(../../../images/local/skin/pictos_liens/picto_profil.png);
+}
+.ods-menu-criteres {
+	background-image:url(../../../images/local/skin/pictos_liens/picto_criteres_recherche.png);
+	background-position:0 5px;
+}
+.ods-menu-panier {
+	background-image:url(../../../images/local/skin/pictos_liens/picto_panier.png);
+}
+
+
+
+/* boutons */
+
+#ods-btn-selectall,
+#ods-btn-unselectall,
+#ods-btn-ajouterpanier,
+#ods-btn-retirerpanier,
+#ods-btn-enregistrercriteres,
+#ods-btn-disconnect,
+#ods-btn-telechargerselection,
+#ods-btn-rechercher,
+.ods-btn-rechercher,
+#ods-btn-reinit,
+#ods-btn-ok,
+#ods-btn-affiche,
+#ods-btn-savemodif,
+.ods-btn-delete,
+.ods-btn-alert,
+.ods-btn-noalert,
+#ods-btn-affichercriteres,
+#ods-btn-masquercriteres,
+#ods-btn-maximize,
+#ods-btn-minimize
+{
+	color:#004A84;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px;
+	font-weight:normal;
+	
+	border-style: none;
+	height:21px;
+	padding-bottom:4px;
+	padding-top:4px;
+	padding-left:22px;
+	
+	background-repeat: no-repeat;
+	background-color:#ffffff;
+	text-decoration: none;
+}
+
+a#ods-btn-selectall,
+a#ods-btn-unselectall,
+a#ods-btn-ajouterpanier,
+a#ods-btn-retirerpanier,
+a#ods-btn-enregistrercriteres,
+a#ods-btn-disconnect,
+a#ods-btn-telechargerselection,
+a#ods-btn-rechercher,
+a.ods-btn-rechercher,
+a#ods-btn-reinit,
+a#ods-btn-ok,
+a#ods-btn-affiche,
+a#ods-btn-savemodif,
+a.ods-btn-delete,
+a.ods-btn-alert,
+a.ods-btn-noalert,
+a#ods-btn-affichercriteres,
+a#ods-btn-masquercriteres,
+a#ods-btn-maximize,
+a#ods-btn-minimize
+{
+	padding-left:30px;
+	padding-right:25px;
+}
+
+#ods-btn-maximize {
+	background-image:url(../../../images/local/skin/buttons/b_deplier.gif);
+	width:103px;
+}
+#ods-btn-minimize {
+	background-image:url(../../../images/local/skin/buttons/b_replier.gif);
+	width:103px;
+}
+#ods-btn-masquercriteres {
+	background-image:url(../../../images/local/skin/buttons/b_hide_criteria.gif);
+	width:145px;
+}
+#ods-btn-affichercriteres {
+	background-image:url(../../../images/local/skin/buttons/b_view_criteria.gif);
+	width:145px;
+}
+.ods-btn-alert {
+	background-image:url(../../../images/local/skin/buttons/b_alert.gif);
+	width:103px;
+}
+.ods-btn-noalert {
+	background-image:url(../../../images/local/skin/buttons/b_noalert.gif);
+	width:145px;
+}
+.ods-btn-delete {
+	background-image:url(../../../images/local/skin/buttons/b_delete.gif);
+	width:103px;
+}
+#ods-btn-savemodif {
+	background-image:url(../../../images/local/skin/buttons/b_save_modif.gif);
+	width:195px;
+}
+#ods-btn-selectall {
+	background-image:url(../../../images/local/skin/buttons/b_selectall.gif);
+	width:122px;
+}
+#ods-btn-unselectall {
+	background-image:url(../../../images/local/skin/buttons/b_unselectall.gif);
+	width:136px;
+}
+#ods-btn-ajouterpanier {
+	background-image:url(../../../images/local/skin/buttons/b_cartin.gif);
+	width:124px;
+}
+#ods-btn-retirerpanier {
+	background-image:url(../../../images/local/skin/buttons/b_takeoff.gif);
+	width:124px;
+}
+#ods-btn-enregistrercriteres {
+	background-image: url("../../../images/local/skin/buttons/b_savecriteria.gif");
+	width:269px;
+}
+#ods-btn-disconnect {
+	background-image:url(../../../images/local/skin/buttons/b_disconnect.gif);
+	width:103px;
+}
+#ods-btn-affiche {
+	background-image:url(../../../images/local/skin/buttons/b_afficher.gif);
+	width:72px;
+}
+
+#ods-btn-telechargerselection {
+	background-image:url(../../../images/local/skin/buttons/b_uploadselection.gif);
+	width:157px;
+}
+#ods-btn-rechercher,
+.ods-btn-rechercher {
+	background-image:url('../../../images/local/skin/buttons/b_research.gif');
+	width:103px;
+}
+#ods-btn-reinit {
+	background-image:url(../../../images/local/skin/buttons/b_reinit.gif);
+	width:103px;
+}
+#ods-btn-ok {
+	background-image:url(../../../images/local/skin/buttons/b_ok2.gif);
+	font-size:11px;
+	border:none;
+	padding-left:5px;
+	width:25px;
+	height:19px;
+}
+
+.ods-datatable-colspan {
+	border-top: 1px solid #C6C9C1;
+	border-bottom: 1px solid #C6C9C1;
+}
+
+/* the login zone on the login page  */
+
+div#ods-login-zone {
+	margin-left: 25%;
+	margin-right: 25%;
+	margin-top: 50px;
+}
+
+div#ods-login-zone h3 {
+	background-image: url(../../../images/local/skin/puce2.gif);
+	background-repeat: no-repeat;
+	background-position: 5px 50%;
+	padding-left: 20px;
+	color: #8A93E1;
+	font-size: 120%;
+	font-weight: bold;
+	margin: 0;
+	border-left: 1px solid #8A93E1;
+	border-top: 1px solid #8A93E1;
+	border-right: 1px solid #8A93E1;
+	text-align:left;
+}
+
+/* formulaires */
+
+label.ods-text-label-2
+{
+	vertical-align:top;
+	margin-left: 5px;
+	margin-right: 5px;
+	font-weight: bold;
+}
+
+/* Divers */
+
+div#ods-popup-page {
+	margin: 5% 10% 10% 10%;
+	text-align:left;
+}
+
+.invisible { position: absolute; top: -3000em; height: 1%; }
+
+.espace_10 {
+	clear:both;
+	margin:0;
+	padding:5px 0 5px 0;
+}
+.espace_20 {
+	clear:both;
+	margin:0;
+	padding:5px 0 5px 0;
+}
+
+
+
+/****************************************************Back office***************************************************/
+
+
+
+
+/* html */
+p {
+	clear:both;
+}
+img {
+	vertical-align:middle;
+}
+
+/* Même style que div.highlight-box dans portal_admin.css */
+
+#ods-furtive {
+	margin: 5px;
+	/* top: 0px;*/
+    /*float: left;*/
+    border: 1px solid #8EAABF;
+    padding-left: 5px;
+    padding-right: 6px;
+    margin-bottom: 10px;
+    /*width: 98%;*/
+    -moz-border-radius: 10px;
+}
+
+/* Pas de bordure entre deux lignes quand il s'agit du même objet */
+div.content-box table tr.ods-noborder td,
+div.content-box table tr.ods-noborder th {
+	border:0 none;
+}
+
+/* Ordre du jour */
+div.ods-odj {
+	background-color:#FFF;
+	border-width:2px;
+	border-style:inset;
+	border-color:#DEE8F1;
+}
+div.ods-odj-header,
+div.ods-odj-footer {
+	border:1px dashed #CCC;
+	margin:2px;
+}
+div.ods-odj table tr td {
+	background-color:#FFF;
+	border-bottom:none;
+}
+div.ods-odj table tr.ods-lastinsert td {
+	background-color:#FFFFCC;
+	border:0 none;
+	
+}
+div.ods-odj td p {
+	margin-top:.2em;
+	margin-bottom:.2em;
+}
+div.ods-odj .ods-odj-pdd {
+	margin:1.5em 0 0 0;
+	padding:0;
+	list-style-type:none;
+}
+div.ods-odj .ods-odj-pdd p {
+	margin-left:3em;
+}
+div.ods-odj .ods-odj-vnr {
+	font-weight:bold;
+	text-align:center;
+	margin:1.5em 0 1.5em 0;
+	
+}
+
+div.ods-odj a,
+div.ods-odj a:link,
+div.ods-odj a:active,
+div.ods-odj a:visited,
+div.ods-odj a:hover {
+	font-weight:bold;
+}
+
+/* titre */
+div.ods-odj h1 {
+	text-align:center;
+	border:none;
+}
+/* nature */
+div.ods-odj h2 {
+	color:#000;
+	font-weight:bold;
+	text-align:center;
+	margin-top:1.5em;
+	margin-bottom:1em;
+	border:none;
+}
+/* commissions */
+div.ods-odj h3 {
+	color:#000;
+	font-weight:bold;
+	text-align:center;
+	margin-top:1.5em;
+	margin-bottom:1em;
+	border:none;
+}
+/* rapporteur(e)s */
+div.ods-odj h4 {
+	color:#000;
+	font-weight:bold;
+	text-align:center;
+	margin-top:1.5em;
+	/*margin-bottom:3em;*/
+	border:none;
+}
+
+/* divers */
+
+td.ods-actions {
+	text-align:right;
+	width:5%;
+}
+
+/* Plus petit (date de publication, taille du fichier...) */
+
+.ods-notes {
+	font-size:0.8em;
+}

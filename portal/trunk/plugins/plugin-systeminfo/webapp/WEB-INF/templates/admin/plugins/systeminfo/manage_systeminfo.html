@@ -1,0 +1,81 @@
+<#setting number_format="#0.00"/>        
+<div class="content-box">
+    <h2>#i18n{systeminfo.manage_systeminfo.tableTitle.system}</h2>
+    <table>
+        <tr>
+            <td width="50%"> #i18n{systeminfo.manage_systeminfo.label.java.version} </td>
+            <td width="50%"> ${java_version}</td>
+        </tr>
+        <tr>
+            <td width="50%"> #i18n{systeminfo.manage_systeminfo.label.java.vendor} </td>
+            <td width="50%"> ${java_vendor}</td>
+        </tr>
+        <tr>
+            <td width="50%"> #i18n{systeminfo.manage_systeminfo.label.java.vm.specification.version} </td>
+            <td width="50%"> ${java_vm_specification_version}</td>
+        </tr>
+        <tr>
+            <td width="50%"> #i18n{systeminfo.manage_systeminfo.label.java.vm.specification.vendor} </td>
+            <td width="50%"> ${java_vm_specification_vendor}</td>
+        </tr>
+        <tr>
+            <td width="50%"> #i18n{systeminfo.manage_systeminfo.label.java.vm.specification.name} </td>
+            <td width="50%"> ${java_vm_specification_name}</td>
+        </tr>
+        <tr>
+            <td width="50%"> #i18n{systeminfo.manage_systeminfo.label.java.vm.version} </td>
+            <td width="50%"> ${java_vm_version}</td>
+        </tr>
+        <tr>
+            <td width="50%"> #i18n{systeminfo.manage_systeminfo.label.java.vm.vendor} </td>
+            <td width="50%"> ${java_vm_vendor}</td>
+        </tr>
+        <tr>
+            <td width="50%"> #i18n{systeminfo.manage_systeminfo.label.java.vm.name} </td>
+            <td width="50%"> ${java_vm_name}</td>
+        </tr>
+        <tr>
+            <td width="50%"> #i18n{systeminfo.manage_systeminfo.label.java.specification.version} </td>
+            <td width="50%"> ${java_specification_version}</td>
+        </tr>
+        <tr>
+            <td width="50%"> #i18n{systeminfo.manage_systeminfo.label.java.specification.vendor} </td>
+            <td width="50%"> ${java_specification_vendor}</td>
+        </tr>
+        <tr>
+            <td width="50%"> #i18n{systeminfo.manage_systeminfo.label.java.specification.name} </td>
+            <td width="50%"> ${java_specification_name}</td>
+        </tr>
+        <tr>
+            <td width="50%"> #i18n{systeminfo.manage_systeminfo.label.os.name} </td>
+            <td width="50%"> ${os_name}</td>
+        </tr>
+        <tr>
+            <td width="50%"> #i18n{systeminfo.manage_systeminfo.label.os.version} </td>
+            <td width="50%"> ${os_version}</td>
+        </tr>
+        
+    </table>
+</div>
+<center>
+<div class="content-box">
+    <h2>#i18n{systeminfo.manage_systeminfo.tableTitle.memory}</h2>
+    <table>
+        <form method="post" name="MyForm" action="jsp/admin/plugins/systeminfo/DoGarbageCollector.jsp" >
+        <tr>
+            <td width="50%"> #i18n{systeminfo.manage_systeminfo.label.runtime.totalMemory} </td>
+            <td width="50%"> ${runtime_totalMemory/1048576} Mo</td>
+        </tr>
+        <tr>
+            <td width="50%"> #i18n{systeminfo.manage_systeminfo.label.runtime.freeMemory} </td>
+            <td width="50%"> ${runtime_freeMemory/1048576} Mo</td>
+        </tr>
+        <tr>
+            <td width="50%"> #i18n{systeminfo.manage_systeminfo.label.runtime.maxMemory} </td>
+            <td width="50%"> ${runtime_maxMemory/1048576} Mo</td>
+        </tr>
+    </table>
+    <br/>
+    <input class="button" type=submit value="#i18n{systeminfo.manage_systeminfo.buttonDoGarbageCollector}" />
+    </form>
+</div>

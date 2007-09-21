@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+  <bean id="WssoUserRoleDAO"  class="fr.paris.lutece.plugins.mylutece.modules.wssodatabase.authentication.business.WssoUserRoleDAO" />  
+  <bean id="WssoUserDAO"  class="fr.paris.lutece.plugins.mylutece.modules.wssodatabase.authentication.business.WssoUserDAO" />
+  <bean id="IdxWSSODatabaseDAO"  class="fr.paris.lutece.plugins.mylutece.modules.wssodatabase.authentication.business.IdxWSSODatabaseDAO" />
+    
+</beans>

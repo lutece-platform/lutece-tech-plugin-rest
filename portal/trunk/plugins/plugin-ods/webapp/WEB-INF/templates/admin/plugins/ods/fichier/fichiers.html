@@ -1,0 +1,174 @@
+<SCRIPT>
+	function publication( idFichier, isPublier) {
+   		var myForm = document.getElementById('FormListFichiers');
+   		
+   		myForm.id_fichier.value=idFichier;
+   		myForm.is_publier.value=isPublier;
+    	
+    	myForm.submit();
+    }
+</SCRIPT>
+
+  <div class="content-box">
+  <#if gestion_aval=true>
+  	<h2>#i18n{ods.listefichiers.label.titleGestionAval}</h2>
+  <#else>
+  	<h2>#i18n{ods.listefichiers.label.title}</h2>
+  </#if>
+  
+  <#if !prochaine_seance?exists && !gestion_aval>
+		<div class="highlight-box">
+			#i18n{ods.listenaturedossier.label.noRef}
+		</div>
+  <#elseif gestion_aval && !prochaine_seance?exists && (!liste_seances?exists || (liste_seances?size=0)) >
+		<div class="highlight-box">
+			#i18n{ods.listenaturedossier.label.noRefAval}
+		</div>
+  <#else>
+	  <div class="highlight-box">
+	    <#if prochaine_seance?exists>
+	    	<#if gestion_aval=true>
+				<form method="post" action="jsp/admin/plugins/ods/fichiers/FichiersGestionAval.jsp">
+			<#else>
+				<form method="post" action="jsp/admin/plugins/ods/fichiers/Fichiers.jsp">
+			</#if>
+			    <p>
+			     	<label for="">#i18n{ods.listefichiers.label.seance}</label>
+			     	<#if gestion_aval=true>
+			     		<select name="id_seance">
+	  			 			<#list liste_seances as seance>
+	  			   				<#if seance.idSeance=id_seance_selected>
+	  				   				<option value=${seance.idSeance} selected>
+	  				  			<#else>
+	  								<option value=${seance.idSeance}>
+	  							</#if>	
+	  							#i18n{ods.listevoeuxnonrattaches.label.from} ${seance.dateSeance?string("dd/MM/yyyy")} #i18n{ods.listevoeuxnonrattaches.label.to} ${seance.dateCloture?string("dd/MM/yyyy")}
+	  							</option> 
+	  			 			</#list>
+  						</select>
+			     	<#else>
+			     		#i18n{ods.listefichiers.label.du} ${prochaine_seance.dateSeance?string("dd/MM/yyyy")} #i18n{ods.listefichiers.label.au} ${prochaine_seance.dateCloture?string("dd/MM/yyyy")}
+			     	</#if>			     	
+			    </p>
+			    
+			    <p>
+			    	<label>#i18n{ods.listefichiers.label.typededocument}</label>
+			    	<@combo name="id_type_document"  items=liste_type_document default_value=id_type_document_selected/>
+			   	</p>
+			   	
+			   	<p>
+			    	<label>#i18n{ods.listefichiers.label.publier}</label>
+			    	<@combo name="id_publication"  items=liste_publication default_value=id_publication_selected/>
+			    </p>
+			    
+			    <p align="center">
+			    	<input type="submit" class="button" value="Rechercher" />
+			    </p>
+			</form>
+	    <#else>
+		    #i18n{ods.listefichiers.label.du} ... #i18n{ods.listefichiers.label.au} ...
+	    </#if>
+	  </div>
+	  
+    <#if prochaine_seance?exists>
+	  <p>#i18n{ods.listefichiers.label.nbresult} ${liste_fichiers_size_total}</p>
+	   	<#if gestion_aval=true>
+			<form method="post" action="jsp/admin/plugins/ods/fichiers/ManagePaginatorGestionAval.jsp">
+		<#else>
+			<form method="post" action="jsp/admin/plugins/ods/fichiers/ManagePaginator.jsp">
+		</#if>
+		<@pagination paginator=paginator />
+		
+			<!-- Number of files per page selector -->
+		    #i18n{ods.listefichiers.label.nbligneparpage}
+		    <select name="items_per_page">
+		        <#list [ "5" , "10" , "20" , "50" ] as nb>
+			        <#if nb_items_per_page = nb >
+			        <option selected="selected" value="${nb}">${nb}</option>
+			        <#else>
+			        <option value="${nb}">${nb}</option>
+			        </#if>
+		        </#list>
+		    </select>
+		    <input type="submit" class="button" value="modifier" />
+		</form>
+	<table>
+	<tr>
+	<th>#i18n{ods.listefichiers.label.intitule}</th>
+	<th>#i18n{ods.listefichiers.label.extension}</th>
+	<th>#i18n{ods.listefichiers.label.taille}</th>
+	<th>#i18n{ods.listefichiers.label.publierle}</th>
+	<th>#i18n{ods.listefichiers.label.actions}</th>
+	</tr>
+		<#if liste_fichiers?size=0>
+		   <tr>
+		    <td colspan="5">#i18n{ods.listefichiers.label.nofichier}</td>
+		   </tr>
+	    <#else>
+			<a name="ANC_LAST" id="ANC_LAST"></a>			
+	   		<#if gestion_aval=true>
+				<form method="POST" id="FormListFichiers" name="FormListFichiers" action="jsp/admin/plugins/ods/fichiers/DoPublicationFichierGestionAval.jsp">
+			<#else>
+				<form method="POST" id="FormListFichiers" name="FormListFichiers" action="jsp/admin/plugins/ods/fichiers/DoPublicationFichier.jsp">
+			</#if>
+			<#list liste_fichiers as fichier>
+			   <tr>
+			    <td nowrap="nowrap">		
+			   		<#if gestion_aval=true>
+						<a href="jsp/admin/plugins/ods/fichiers/DoDowloadFichierGestionAval.jsp?id_fichier=${fichier.id}" class="bullet-link">${fichier.titre}</a>
+					<#else>
+						<a href="jsp/admin/plugins/ods/fichiers/DoDowloadFichier.jsp?id_fichier=${fichier.id}" class="bullet-link">${fichier.titre}</a>
+					</#if>
+			    </td>
+			    <td>${fichier.extension}</td>
+			
+			    <td>${fichier.tailleKo} #i18n{ods.listefichiers.label.ko}</td>
+			    <#if fichier.enLigne = true>
+				    <td>${fichier.datePublication?string("dd/MM/yyyy")}</td>
+				<#else>
+			    	<td>-</td>
+				</#if>
+			    <td nowrap="nowrap" class="ods-actions">
+				    <#if fichier.enLigne = false>
+				    	<input type="submit" value="#i18n{ods.listefichiers.link.publier}" class="button" onclick="javascript: publication(${fichier.id}, 'true');"/>
+					<#elseif permission_depublication>
+				    	<input type="submit" value="#i18n{ods.listefichiers.link.depublier}" class="button" onclick="javascript: publication(${fichier.id}, 'false');"/>
+					</#if>	
+			   		<#if gestion_aval=true>
+					     <#if !fichier.enLigne || permission_modification >
+					     <a href="jsp/admin/plugins/ods/fichiers/ModificationFichierGestionAval.jsp?id_fichier=${fichier.id}"><img src="images/admin/skin/plugins/ods/action/modify.png" alt="#i18n{ods.listefichiers.alt.modifier}" title="#i18n{ods.listefichiers.alt.modifier}" /></a>
+						 </#if>
+					     <a href="jsp/admin/plugins/ods/fichiers/HistoriqueFichierGestionAval.jsp?id_fichier=${fichier.id}"><img src="images/admin/skin/plugins/ods/action/history.png" alt="#i18n{ods.listefichiers.alt.visuhistorique}" title="#i18n{ods.listefichiers.alt.visuhistorique}" /></a> 
+					     <#if !fichier.enLigne || permission_suppression >
+					     <a href="jsp/admin/plugins/ods/fichiers/SuppressionFichierGestionAval.jsp?id_fichier=${fichier.id}"><img src="images/admin/skin/plugins/ods/action/delete.png" alt="#i18n{ods.listefichiers.alt.supprimer}" title="#i18n{ods.listefichiers.alt.supprimer}" /></a>
+						 </#if>
+					<#else>
+						 <#if !fichier.enLigne || permission_modification >
+					     <a href="jsp/admin/plugins/ods/fichiers/ModificationFichier.jsp?id_fichier=${fichier.id}"><img src="images/admin/skin/plugins/ods/action/modify.png" alt="#i18n{ods.listefichiers.alt.modifier}" title="#i18n{ods.listefichiers.alt.modifier}" /></a>
+					     </#if>
+					     <a href="jsp/admin/plugins/ods/fichiers/HistoriqueFichier.jsp?id_fichier=${fichier.id}"><img src="images/admin/skin/plugins/ods/action/history.png" alt="#i18n{ods.listefichiers.alt.visuhistorique}" title="#i18n{ods.listefichiers.alt.visuhistorique}" /></a> 
+					     <#if !fichier.enLigne || permission_suppression >
+					     <a href="jsp/admin/plugins/ods/fichiers/SuppressionFichier.jsp?id_fichier=${fichier.id}"><img src="images/admin/skin/plugins/ods/action/delete.png" alt="#i18n{ods.listefichiers.alt.supprimer}" title="#i18n{ods.listefichiers.alt.supprimer}" /></a>
+						 </#if>
+					</#if>
+			    </td>
+			   </tr>
+		    </#list>
+	    	<input type="hidden" id="id_fichier" name="id_fichier" value="">
+	    	<input type="hidden" id="is_publier" name="is_publier" value="">
+	      </form>
+		</#if>
+	</table>
+	
+	<#if gestion_aval=true>
+		<form method="POST"  action="jsp/admin/plugins/ods/fichiers/CreationFichierGestionAval.jsp">
+	<#else>
+		<form method="POST"  action="jsp/admin/plugins/ods/fichiers/CreationFichier.jsp">
+	</#if>
+	  <p>
+	    <input type="submit" value="#i18n{ods.listefichiers.button.ajoutfichier}" class="button" />
+	   </p>
+	  </form>
+   </#if>
+   </#if>
+ </div>

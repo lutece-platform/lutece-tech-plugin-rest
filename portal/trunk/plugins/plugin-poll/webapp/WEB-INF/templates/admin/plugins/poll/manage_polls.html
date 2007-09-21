@@ -1,0 +1,58 @@
+<div class="content-box" >
+    <h2>#i18n{poll.manage_polls.tableLabel}</h2>
+    <#if polls_list?has_content>    
+    <table>
+        <tr>
+            <th width="55%">#i18n{poll.manage_polls.columnTitleLabel}</th>
+            <th width="15%">#i18n{poll.manage_polls.columnTitleWorkgroup}</th>
+            <th width="15%">#i18n{poll.manage_polls.columnTitleStatus}</th>
+            <th width="25%" >#i18n{poll.manage_polls.labelActions}</th>
+        </tr>
+               
+        <#list polls_list?sort_by('name') as poll >	                
+        <tr>
+            <td width="60%" >
+                <a href="jsp/admin/plugins/poll/ModifyPoll.jsp?poll_id=${poll.id}" class="bullet-link">${poll.name}</a>
+            </td>
+            <td>
+                ${poll.workgroup}
+            </td>
+            <td width="15%" >
+                <#if poll.status >  
+                <img src="images/admin/skin/enable.png" width="24" height="24" valign="center" />  
+                <#else>         
+                <img src="images/admin/skin/disable.png" width="24" height="24"  valign="center" />
+                </#if> 
+            </td>
+            <td width="25%">
+                <a href="jsp/admin/plugins/poll/RemovePoll.jsp?poll_id=${poll.id}">
+                    <img src="images/admin/skin/actions/delete.png" alt="#i18n{poll.manage_polls.actionDelete}" title="#i18n{poll.manage_polls.actionDelete}" />
+                </a>                
+                <#if poll.status >  
+                <a href="jsp/admin/plugins/poll/DoDisablePoll.jsp?poll_id=${poll.id}">
+                    <input type="button" class="button" value="#i18n{poll.manage_polls.buttonDisable}" />
+                </a>                
+                <#else>
+                <a href="jsp/admin/plugins/poll/DoEnablePoll.jsp?poll_id=${poll.id}">
+                    <input type="button" class="button" value="#i18n{poll.manage_polls.buttonEnable}" />
+                </a>                                
+                </#if>                
+                <a href="jsp/admin/plugins/poll/ViewResults.jsp?poll_id=${poll.id}">
+                    <input type="button" class="button" value="#i18n{poll.manage_polls.buttonResults}" />
+                </a>                 
+            </td>
+        </tr>
+        </#list>	
+    </table>
+    <#else>
+    #i18n{poll.manage_polls.pollsListEmpty}
+    </#if>
+    <form method="post"  action="jsp/admin/plugins/poll/CreatePoll.jsp">
+        <input type="submit" value="#i18n{poll.manage_polls.buttonAddPoll}" class="button" />
+    </form>
+    
+</div>
+
+
+
+

@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="@webapp_path_for_linkservice@/css/page_template_structure.css" type="text/css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="@webapp_path_for_linkservice@/css/page_template_styles.css" type="text/css" media="screen" />
+        
+    </head>
+    <body>
+        ${newsletter_content}
+        
+        <hr />
+        <#if unsubscribe?exists>
+            <#if unsubscribe = "TRUE">
+        <p>
+           #i18n{newsletter.send_newsletter.labelToUnsubscribe}<a href="${portal_url}/jsp/site/plugins/newsletter/DoUnsubscribeNewsLetter.jsp?subscriber_email=@email@&newsletter_id=${newsletter_id}" class="newsletter">#i18n{newsletter.send_newsletter.labelClickHere}</a>
+        </p>
+        </#if>
+        </#if>
+        
+    </body>
+</html>
+

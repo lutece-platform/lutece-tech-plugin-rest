@@ -1,0 +1,602 @@
+<div id="one-zone-first">
+    <div id="one-zone-first-content">
+        <h2 class="page-title" >#i18n{ldapdirectory.result_ldap.title} </h2>
+        <div class="search-results-header"> 
+            <div class="error"> ${error} </div>
+            #i18n{ldapdirectory.result_ldap.labelResultsCount} : <strong>${paginator.itemsCount}</strong> <br />
+            #i18n{ldapdirectory.result_ldap.labelResultsRange} : <strong>${paginator.rangeMin} - ${paginator.rangeMax}</strong> <br />
+            <@pagination paginator=paginator />
+        </div>     
+        </form>
+        <div class="search-results">
+            <#if results_list?size=1 >
+            
+            <@viewSingleEntity results_list?first />
+            <input class="button" onclick="javascript:history.go(-1)" value="#i18n{ldapdirectory.result_ldap.buttonBack}" type="button">
+            
+            <#else>
+            
+            <#list results_list?sort_by("completeName") as user  >  
+            <@viewEntity entity=user />
+            </#list>
+            <input class="button" onclick="javascript:history.go(-1)" value="#i18n{ldapdirectory.result_ldap.buttonBack}" type="button">
+            </#if>
+        </div>
+    </div>
+</div>
+
+<#-- Freemarker macros -->
+
+<#-- Number of items per page selector - Combo Box implementation -->
+<#macro NbItemsPerPageSelectorCombo nb_items_per_page>
+<select name="items_per_page" >
+    <#list [ "5" , "10" , "20" , "50" ] as nb>
+    <#if nb_items_per_page = nb >
+    <option selected="selected" value="${nb}">${nb}</option>
+    <#else>
+    <option value="${nb}">${nb}</option>
+    </#if>
+    </#list>
+</select>
+</#macro>
+
+<#-- Number of items per page selector - Radio List implementation -->
+<#macro NbItemsPerPageSelectorRadioList nb_items_per_page>
+<#list [ "5" , "10" , "20" , "50" ] as nb>
+<#if nb = nb_items_per_page > 
+<input value="${nb}" onclick="this.form.submit();" id="items_per_page${nb}" name="items_per_page" class="radio" type="radio" checked /><label for="items_per_page${nb}">${nb}</label>
+<#else>
+<input value="${nb}"  onclick="this.form.submit();" id="items_per_page${nb}" name="items_per_page" class="radio" type="radio" /><label for="items_per_page${nb}">${nb}</label>
+</#if>
+</#list>
+</#macro>
+<#-- Selection of relevant fields -->
+<#macro viewEntity entity>
+<#if entity.type = "person">
+<table width="95%" border="0">
+    <tr>
+    <td width ="5%"><img src="images/local/skin/plugins/ldapdirectory/person.png" /></td>
+    <td width="25%" >
+        
+    <a href="jsp/site/Portal.jsp?page=ldapdirectory&phone_number=${entity.telephoneNumber?url('ISO-8859-1')}&name=${entity.name?url('ISO-8859-1')}&given_name=${entity.givenName?url('ISO-8859-1')}&complete_name=${entity.completeName?url('ISO-8859-1')}&type=2&action=find">${entity.completeName}</a></td>
+    <td width="40%">
+        ${entity.telephoneNumber}
+    </td>
+    <td width="15%">
+        ${entity.society}
+        
+    </td>
+    <td width="15%">
+        ${entity.service}
+    </td>
+</table>
+</#if>
+<#if entity.type = "organizationalunit">
+<table width="95%" border="0">
+    <tr>
+    <td width ="5%"><img src="images/local/skin/plugins/ldapdirectory/service.png" /></td>
+    <td width="25%" >
+    <a href="jsp/site/Portal.jsp?page=ldapdirectory&name=${entity.name?url('ISO-8859-1')}&given_name=${entity.givenName?url('ISO-8859-1')}&complete_name=${entity.completeName?url('ISO-8859-1')}&type=3&action=find">${entity.completeName}</a></td>
+    <td width="40%">
+        ${entity.telephoneNumber}
+    </td>
+    <td width="15%">
+        ${entity.society}
+        
+    </td>
+    <td width="15%">
+        ${entity.service}
+    </td>
+</table>
+</#if>
+<#if entity.type = "room">
+<table width="95%" border="0">
+    <tr>
+    <td width ="5%"><img src="images/local/skin/plugins/ldapdirectory/room.png" /></td>
+    <td width="20%" >
+    <a href="jsp/site/Portal.jsp?page=ldapdirectory&complete_name=${entity.completeName?url('ISO-8859-1')}&society=${entity.society?url('ISO-8859-1')}&type=4&action=find">${entity.completeName}</a></td>
+    <td width="5%">
+        ${entity.telephoneNumber}
+    </td>
+    <td width="20%">
+        ${entity.society}
+    </td>
+    <td width="20%">
+        ${entity.service}
+    </td>
+    <td width="20%">
+        ${entity.mail}
+    </td>
+    
+</table>
+</#if>
+<#if entity.type = "unknown">
+<table width="95%" border="0">
+    <tr>
+    <td width ="5%"><img src="images/local/skin/plugins/ldapdirectory/unknown.png" /></td>
+    <td width="25%" >
+  <a href="jsp/site/Portal.jsp?page=ldapdirectory&complete_name=${entity.completeName?url('ISO-8859-1')}&society=${entity.completeName?url('ISO-8859-1')}&type=4&action=find">${entity.completeName}</a></td>
+    <td width="40%">
+        ${entity.telephoneNumber}
+    </td>
+    <td width="15%">
+        ${entity.society}
+        
+    </td>
+    <td width="15%">
+        ${entity.service}
+    </td>
+</table>
+</#if>
+</#macro>
+
+
+
+<#macro viewSingleEntity entity>
+<#if entity.type = "person">
+<table width="95%" border="0">
+    <tr>
+        <p>
+            <img src="images/local/skin/plugins/ldapdirectory/person.png" />
+            Nom Complet : ${entity.completeName}
+        </p>
+    </tr>
+    <#if entity.name??>
+    <tr>
+        <p>
+            Nom : ${entity.name} 
+        </p>
+    </tr>
+    </#if>
+    <#if entity.givenName??>
+    <tr>
+        <p>
+            Prenom : ${entity.givenName} 
+        </p>
+    </tr>
+    </#if>
+    <#if entity.society??>
+    <tr>
+        <p>
+            Societe : ${entity.society}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.service??>
+    <tr>
+        <p>
+            Service : ${entity.service}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.telephoneNumber??>
+    <tr>
+        <p>
+            Telephone : ${entity.telephoneNumber}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.rnisNumber??>
+    <tr>
+        <p>
+            Numero RNIS : ${entity.rnisNumber}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.mail??>
+    <tr>
+        <p>
+            Adresse mail : ${entity.mail}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.title??>
+    <tr>
+        <p>
+            Fonction : ${entity.title}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.floor??>
+    <tr>
+        <p>
+            Etage : ${entity.floor}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.roomNumber??>
+    <tr>
+        <p>
+            N de bureau : ${entity.roomNumber}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.postalAddress??>
+    <tr>
+        <p>
+            Adresse postale : ${entity.postalAddress}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.postalCode??>
+    <tr>
+        <p>
+            Code postale : ${entity.postalCode}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.town??>
+    <tr>
+        <p>
+            Ville :  ${entity.town}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.department??>
+    <tr>
+        <p>
+            Département : ${entity.department}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.modificationDate??>
+    <tr>
+        <p>
+            Date de modification : ${entity.modificationDate}
+        </p>
+    </tr>
+    </#if>
+</table>
+
+</#if>
+<#if entity.type = "organizationalunit">
+<table width="95%" border="0">
+    <tr>
+        <p>
+            <img src="images/local/skin/plugins/ldapdirectory/service.png" />
+            Nom Complet : ${entity.completeName}
+        </p>
+    </tr>
+    <#if entity.name??>
+    <tr>
+        <p>
+            Nom : ${entity.name} 
+        </p>
+    </tr>
+    </#if>
+    <#if entity.givenName??>
+    <tr>
+        <p>
+            Prenom : ${entity.givenName} 
+        </p>
+    </tr>
+    </#if>
+    <#if entity.society??>
+    <tr>
+        <p>
+            Societe : ${entity.society}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.service??>
+    <tr>
+        <p>
+            Service : ${entity.service}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.telephoneNumber??>
+    <tr>
+        <p>
+            Telephone : ${entity.telephoneNumber}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.rnisNumber??>
+    <tr>
+        <p>
+            Numero RNIS : ${entity.rnisNumber}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.mail??>
+    <tr>
+        <p>
+            Adresse mail : ${entity.mail}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.title??>
+    <tr>
+        <p>
+            Fonction : ${entity.title}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.floor??>
+    <tr>
+        <p>
+            Etage : ${entity.floor}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.roomNumber??>
+    <tr>
+        <p>
+            N de bureau : ${entity.roomNumber}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.postalAddress??>
+    <tr>
+        <p>
+            Adresse postale : ${entity.postalAddress}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.postalCode??>
+    <tr>
+        <p>
+            Code postale : ${entity.postalCode}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.town??>
+    <tr>
+        <p>
+            Ville :  ${entity.town}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.department??>
+    <tr>
+        <p>
+            Département : ${entity.department}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.modificationDate??>
+    <tr>
+        <p>
+            Date de modification : ${entity.modificationDate}
+        </p>
+    </tr>
+    </#if>
+</table>
+
+</#if>
+<#if entity.type = "room">
+<table width="95%" border="0">
+    <tr>
+        <p>
+            <img src="images/local/skin/plugins/ldapdirectory/room.png" />
+            Nom Complet : ${entity.completeName}
+        </p>
+    </tr>
+    <#if entity.name??>
+    <tr>
+        <p>
+            Nom : ${entity.name} 
+        </p>
+    </tr>
+    </#if>
+    <#if entity.givenName??>
+    <tr>
+        <p>
+            Prenom : ${entity.givenName} 
+        </p>
+    </tr>
+    </#if>
+    <#if entity.society??>
+    <tr>
+        <p>
+            Societe : ${entity.society}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.service??>
+    <tr>
+        <p>
+            Service : ${entity.service}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.telephoneNumber??>
+    <tr>
+        <p>
+            Telephone : ${entity.telephoneNumber}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.rnisNumber??>
+    <tr>
+        <p>
+            Numero RNIS : ${entity.rnisNumber}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.mail??>
+    <tr>
+        <p>
+            Adresse mail : ${entity.mail}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.title??>
+    <tr>
+        <p>
+            Fonction : ${entity.title}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.floor??>
+    <tr>
+        <p>
+            Etage : ${entity.floor}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.roomNumber??>
+    <tr>
+        <p>
+            N de bureau : ${entity.roomNumber}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.postalAddress??>
+    <tr>
+        <p>
+            Adresse postale : ${entity.postalAddress}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.postalCode??>
+    <tr>
+        <p>
+            Code postale : ${entity.postalCode}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.town??>
+    <tr>
+        <p>
+            Ville :  ${entity.town}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.department??>
+    <tr>
+        <p>
+            Département : ${entity.department}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.modificationDate??>
+    <tr>
+        <p>
+            Date de modification : ${entity.modificationDate}
+        </p>
+    </tr>
+    </#if>
+</table>
+
+</#if>
+<#if entity.type = "unknown">
+<table width="95%" border="0">
+    <tr>
+        <p>
+            <img src="images/local/skin/plugins/ldapdirectory/unknown.png" />
+            Nom Complet : ${entity.completeName}
+        </p>
+    </tr>
+    <#if entity.name??>
+    <tr>
+        <p>
+            Nom : ${entity.name} 
+        </p>
+    </tr>
+    </#if>
+    <#if entity.givenName??>
+    <tr>
+        <p>
+            Prenom : ${entity.givenName} 
+        </p>
+    </tr>
+    </#if>
+    <#if entity.society??>
+    <tr>
+        <p>
+            Societe : ${entity.society}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.service??>
+    <tr>
+        <p>
+            Service : ${entity.service}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.telephoneNumber??>
+    <tr>
+        <p>
+            Telephone : ${entity.telephoneNumber}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.rnisNumber??>
+    <tr>
+        <p>
+            Numero RNIS : ${entity.rnisNumber}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.mail??>
+    <tr>
+        <p>
+            Adresse mail : ${entity.mail}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.title??>
+    <tr>
+        <p>
+            Fonction : ${entity.title}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.floor??>
+    <tr>
+        <p>
+            Etage : ${entity.floor}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.roomNumber??>
+    <tr>
+        <p>
+            N de bureau : ${entity.roomNumber}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.postalAddress??>
+    <tr>
+        <p>
+            Adresse postale : ${entity.postalAddress}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.postalCode??>
+    <tr>
+        <p>
+            Code postale : ${entity.postalCode}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.town??>
+    <tr>
+        <p>
+            Ville :  ${entity.town}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.department??>
+    <tr>
+        <p>
+            Département : ${entity.department}
+        </p>
+    </tr>
+    </#if>
+    <#if entity.modificationDate??>
+    <tr>
+        <p>
+            Date de modification : ${entity.modificationDate}
+        </p>
+    </tr>
+    </#if>
+</table>
+
+</#if>
+</#macro>
+
+

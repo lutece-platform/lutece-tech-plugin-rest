@@ -1,0 +1,34 @@
+<div class="content-box">
+	<h2>#i18n{ods.listeindexer.label.title}</h2>
+	<#if liste_indexers?size=0>
+		<div class="highlight-box">
+			#i18n{ods.listeindexer.label.noIndexer}
+		</div>
+	<#else>
+		<table>
+			<tr>
+				<th width="80%">#i18n{ods.listeindexer.label.nomServeur}</th>
+				<th width="20%">#i18n{ods.listeindexer.label.demande}</th>
+			</tr>
+			<#list liste_indexers as indexer>
+				<a name="ANC_LAST" id="ANC_LAST"></a>
+				<tr>
+					<td width="80%">${indexer.nomIndexer}</td>
+					<td  width="20%" align="center">
+						<form method="post" action="jsp/admin/plugins/ods/indexer/DemandeIndexation.jsp">
+							<input type="hidden" name="id_indexer" id="id_indexer" value="${indexer.idIndexer}"/>
+							<#if indexer.indexationComplete>
+								<input type="submit" id="action" name="action" class="button" value="#i18n{ods.listeindexer.button.noDemande}"/>
+							<#else>
+								<input type="submit" id="action" name="action" class="button" value="#i18n{ods.listeindexer.button.demande}"/>
+							</#if>
+						</form>
+					</td>
+				</tr>
+			</#list>
+		</table>
+	</#if>
+	<p>
+		<h3>#i18n{ods.listeindexer.label.comment}</h3>
+	</p>
+</div>

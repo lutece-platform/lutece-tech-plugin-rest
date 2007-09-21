@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<plug-in>
+   <name>mylutece-database</name>
+   <class>fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation</class>
+   <version>2.0</version>
+   <description>module.mylutece.database.module.description</description>
+   <documentation></documentation>
+   <installation></installation>
+   <changes></changes>
+   <user-guide></user-guide>
+   <provider>module.mylutece.database.module.provider</provider>
+   <provider-url>http://lutece.paris.fr</provider-url>
+   <icon-url>images/admin/skin/plugins/mylutece/mylutece.png</icon-url>
+   <copyright>Copyright 2001-2007 Mairie de Paris</copyright>
+   <db-pool-required>1</db-pool-required>
+   
+   <!-- Applications -->
+   <applications>
+       <application>
+           <application-id>mylutecedatabase</application-id>
+           <application-class>fr.paris.lutece.plugins.mylutece.modules.database.authentication.web.MyLuteceDatabaseApp</application-class>
+       </application>
+   </applications>
+    
+   <!-- Administration interface parameters -->
+   <admin-features>
+     <admin-feature>
+       <feature-id>DATABASE_MANAGEMENT_USERS</feature-id>
+       <feature-title>module.mylutece.database.adminFeature.database_management_user.name</feature-title>
+       <feature-description>module.mylutece.database.adminFeature.database_management_user.description</feature-description>
+       <feature-level>3</feature-level>
+       <feature-url>jsp/admin/plugins/mylutece/modules/database/ManageUsers.jsp</feature-url>
+     </admin-feature>
+   </admin-features>
+   
+</plug-in>

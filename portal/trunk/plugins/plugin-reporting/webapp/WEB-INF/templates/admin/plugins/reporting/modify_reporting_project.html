@@ -1,0 +1,44 @@
+<div class="content-box" >
+    <h2>#i18n{reporting.modify_project.title}</h2>
+    
+        
+    <form method="post"  name="create_reporting_project" id="create_reporting_project" action="jsp/admin/plugins/reporting/DoModifyProject.jsp">    
+        <input type="hidden" name="project_id" value="${reporting_project.idProject}" />
+
+        <p>
+            <label for="reporting_project_name" >#i18n{reporting.create_project.rowTitleName} * : </label> 
+            <input type="text" id="reporting_project_name" name="project_name" value="${reporting_project.name}" maxlength="256" size="80"/>
+        </p>
+        
+        <p>
+            <label for="reporting_project_manager" >#i18n{reporting.create_project.rowTitleProjectManager} * :</label>  
+            <input type="text" id="reporting_project_manager" name="project_manager_name" value="${reporting_project.projectManager}" maxlength="256" size="80"/>
+        </p>
+        
+         <p>
+            <label for="reporting_project_workgroup" >#i18n{reporting.create_project.rowWorkgroup} :</label>  
+            <@combo name="workgroupKey" default_value="${reporting_project.workgroupKey}" items=workgroups_list />
+         </p>
+        
+        <p>
+            <label for="reporting_project_idCatia" >#i18n{reporting.create_project.idCatia} * :</label>  
+            <input type="text" id="reporting_project_idCatia" name="project_idCatia" value="${reporting_project.idCatia}" maxlength="4"/>
+        </p>
+        
+         <p>
+            <label for="reporting_project_followUp" >#i18n{reporting.create_project.rowFollowUp} :</label>  
+            
+            <#if reporting_project.followUp>
+            	<input type="checkbox" id="reporting_project_followUp" name="project_follow_up" checked="checked"/>
+        	<#else>
+        		<input type="checkbox" id="reporting_project_followUp" name="project_follow_up""/>
+        	</#if>
+        </p>
+        
+       
+        <input type="submit" value="#i18n{reporting.create_project.buttonValidate}" class="button"/>
+      	<input class="button" onclick="javascript:history.go(-1)" value="#i18n{reporting.create_project.buttonCancel}" type="button">  
+    </form>
+    
+    
+</div>

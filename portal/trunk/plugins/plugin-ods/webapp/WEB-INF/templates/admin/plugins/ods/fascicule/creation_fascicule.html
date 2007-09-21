@@ -1,0 +1,27 @@
+<div class="content-box">
+	<h2>#i18n{ods.creationfascicule.label.title}</h2>
+	<form action="jsp/admin/plugins/ods/fascicule/DoCreationFascicule.jsp" method="post">
+		<p>
+			<label>#i18n{ods.creationfascicule.label.seance} </label>
+			#i18n{ods.creationfascicule.label.from} ${seance.dateSeance?string("dd/MM/yyyy")}
+			#i18n{ods.creationfascicule.label.to} ${seance.dateCloture?string("dd/MM/yyyy")}
+		</p>
+		<input type="hidden" name="id_seance" value="${seance.idSeance}" />
+		<p>
+			<label for="code">#i18n{ods.creationfascicule.label.code}</label>
+			<input id="code" type="text" name="code" size="3" maxlength="6"/>
+		</p>
+		<p>
+			<label for="numero">#i18n{ods.creationfascicule.label.numero}</label>
+			<input id="numero" type="text" name="numero" size="3" />
+		</p>
+		<p>
+			<label for="libelle">#i18n{ods.creationfascicule.label.libelle}</label>
+			<input id="libelle" type="text" name="libelle" size="80" />
+		</p>
+		<p>
+			<input type="submit" value="#i18n{ods.creationfascicule.button.create}" class="button" />
+			<input type="button" value="#i18n{ods.creationfascicule.button.cancel}" class="button" onclick="javascript:history.go(-1)" />
+		</p>
+	</form>
+ </div>

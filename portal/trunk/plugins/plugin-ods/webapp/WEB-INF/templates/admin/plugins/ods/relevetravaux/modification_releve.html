@@ -1,0 +1,198 @@
+<div class="content-box">
+	<h2>#i18n{ods.releve.label.modification.title}</h2>
+	<form action="jsp/admin/plugins/ods/relevetravaux/DoModificationReleveTravaux.jsp?plugin_name=ods" method="post">
+		<input type="hidden" name="id_releve" id="id_releve" value="${releve.idReleveDesTravaux}" />
+		<input type="hidden" name="afaire" id="afaire" value="" />
+	
+		<p>
+			<label>#i18n{ods.releve.label.seance} : </label> 
+			#i18n{ods.releve.label.from} ${releve.seance.dateSeance?string("dd/MM/yyyy")}  
+			#i18n{ods.releve.label.to} ${releve.seance.dateCloture?string("dd/MM/yyyy")}  
+		</p>
+		
+		<p>
+			<label>#i18n{ods.releve.label.commission} : </label>
+			${releve.commission.numero}
+		</p>
+		
+		<p>
+			<label>#i18n{ods.releve.label.modification.intitule} * : </label>
+			<input type="text" name="libelle" id="libelle" size="80" value="${releve.intitule}" />
+		</p>
+		
+		<p>
+			<input type="submit" value="#i18n{ods.releve.button.enregistrer}" class="button" onclick="javascript: getElementById('afaire').value='save'"/>
+			<input type="submit" value="#i18n{ods.releve.button.appliquer}" class="button" onclick="javascript: getElementById('afaire').value='appliquer'" />
+	   		<input type="submit" value="#i18n{ods.all.button.cancel}" class="button" onclick="javascript: getElementById('afaire').value='cancel'" />
+		</p>
+		
+		<p> 
+			<strong>#i18n{ods.releve.label.modification.enregistrer.title}</strong> #i18n{ods.releve.label.modification.enregistrer.text}<br/>
+			<strong>#i18n{ods.releve.label.modification.appliquer.title}</strong> #i18n{ods.releve.label.modification.appliquer.text}<br/>
+			<strong>#i18n{ods.releve.label.modification.annuler.title}</strong> #i18n{ods.releve.label.modification.annuler.text} 
+		</p>
+		
+	</form>
+</div>
+
+<div class="content-box">
+	<form action="jsp/admin/plugins/ods/relevetravaux/CreationElementReleveTravaux.jsp?plugin_name=ods&item_selected=none" method="post">
+		<input type="hidden" name="id_releve" id="id_releve" value="${releve.idReleveDesTravaux}" />
+		<input type="hidden" name="afaire" id="afaire" value="va" />
+		<h2>#i18n{ods.releve.label.modification.va.title}</h2>
+		<#if !liste_elmt_va?exists || liste_elmt_va?size=0>
+			<p>#i18n{ods.releve.label.modification.va.noVA}</p>
+		<#else>
+			<table>
+				<tr>
+					<th scope="row">&nbsp;</th>
+					<th scope="col">#i18n{ods.releve.label.modification.code}</th>
+					<th scope="col">#i18n{ods.releve.label.modification.va.elus}</th>
+					<th scope="col">#i18n{ods.releve.label.modification.va.groupe}</th>
+					<th scope="col">#i18n{ods.releve.label.modification.pour}</th>
+					<th scope="col">#i18n{ods.releve.label.modification.contre}</th>
+					<th scope="col">#i18n{ods.releve.label.modification.abstention}</th>
+					<th scope="col">#i18n{ods.releve.label.modification.nppv}</th>
+					<th scope="col">#i18n{ods.releve.label.actions}</th>
+				</tr>
+				
+				<#list liste_elmt_va as elmt_va>
+				
+					<tr class="ods-noborder">
+						<th scope="row">&nbsp;</th>
+						<td>${elmt_va.voeuAmendement.referenceComplete}</td>
+						<#if elmt_va.voeuAmendement.deposeExecutif=true>
+							<td>-</td><td>-</td>
+						<#else>
+							<td>
+								<#list elmt_va.voeuAmendement.elus as elu>
+									${elu.civilite} ${elu.prenomElu} ${elu.nomElu},  
+								</#list>
+							</td>
+							<td>
+								<#list elmt_va.voeuAmendement.elus as elu>
+									${elu.groupe.nomGroupe}
+									<#break>
+								</#list>
+							</td>
+						</#if>
+						<td>${elmt_va.pour}</td>
+						<td>${elmt_va.contre}</td>
+						<td>${elmt_va.abstention}</td>
+						<td>${elmt_va.nePouvantPasVoter}</td>
+									
+						<td nowrap="nowrap" class="ods-s"> 
+							<a href="jsp/admin/plugins/ods/relevetravaux/ModificationElementReleveTravaux.jsp?plugin_name=ods&id_elmt_releve=${elmt_va.idElementReleveDesTravaux}">
+								<img src="images/admin/skin/plugins/ods/action/modify.png" alt="Modifier" title="Modifier" />
+							</a> 
+							<a href="jsp/admin/plugins/ods/relevetravaux/SuppressionElementReleveTravaux.jsp?plugin_name=ods&id_elmt_releve=${elmt_va.idElementReleveDesTravaux}">
+								<img src="images/admin/skin/plugins/ods/action/delete.png" alt="Supprimer" title="Supprimer" />
+							</a> 
+						</td>
+					</tr>
+				
+					<tr class="ods-noborder">
+						<th scope="row">#i18n{ods.releve.label.objet}</th>
+						<td colspan="8">${elmt_va.voeuAmendement.objet}</td>
+					</tr>
+					
+					<tr class="ods-noborder">
+						<th scope="row">#i18n{ods.releve.label.listePdd}</th>
+						<td colspan="8">
+							<#if elmt_va.voeuAmendement.pdds?size=0>
+								-
+							<#else>
+								<#list elmt_va.voeuAmendement.pdds as pdd>
+									${pdd.reference}, 
+								</#list>
+							</#if>
+						</td>
+					</tr>
+					
+					<tr>
+						<th scope="row">#i18n{ods.releve.label.observations}</th>
+						<#if elmt_va.observations?exists>
+							<td colspan="8">${elmt_va.observations}</td>
+						<#else>
+							<td colspan="8" ></td>
+						</#if>
+					</tr>
+				
+				</#list>
+				
+			</table>
+		</#if>
+		<p>
+			<input type="submit" value="#i18n{ods.releve.button.addEntry}" class="button" />
+			<input type="button" value="#i18n{ods.releve.button.publish2pdf}" class="button" onClick="window.location='${webapp}/jsp/admin/plugins/ods/relevetravaux/DoPublicationVaPDF.jsp?plugin_name=ods&plugin_name=ods&id_releve=${releve.idReleveDesTravaux}'" />
+		</p>
+	</form>
+</div>
+
+<div class="content-box">
+	<form action="jsp/admin/plugins/ods/relevetravaux/CreationElementReleveTravaux.jsp?plugin_name=ods&item_selected=none" method="post">
+	<input type="hidden" name="id_releve" id="id_releve" value="${releve.idReleveDesTravaux}" />
+	<input type="hidden" name="afaire" id="afaire" value="pdd" />
+		<h2>#i18n{ods.releve.label.modification.pdd.title}</h2>
+		<#if !liste_elmt_pdd?exists || liste_elmt_pdd?size = 0>
+			<p>#i18n{ods.releve.label.modification.va.noPDD}</p>
+		<#else>
+			<table>		
+				<tr>
+					<th scope="row">&nbsp;</th>
+					<th scope="col">#i18n{ods.releve.label.modification.code}</th>
+					<th scope="col">#i18n{ods.releve.label.modification.pdd.elus}</th>
+					<th scope="col">#i18n{ods.releve.label.modification.pdd.groupe}</th>
+					<th scope="col">#i18n{ods.releve.label.modification.pour}</th>
+					<th scope="col">#i18n{ods.releve.label.modification.contre}</th>
+					<th scope="col">#i18n{ods.releve.label.modification.abstention}</th>
+					<th scope="col">#i18n{ods.releve.label.modification.nppv}</th>
+					<th scope="col">#i18n{ods.releve.label.actions}</th>
+				</tr>
+				<#list liste_elmt_pdd as elmt_pdd>
+					<tr class="ods-noborder">
+						<th scope="row">&nbsp;</th>
+						<td>${elmt_pdd.projetDeliberation.reference}</td>
+						<#if elmt_pdd.elu?exists>
+							<td>${elmt_pdd.elu.civilite} ${elmt_pdd.elu.nomElu} ${elmt_pdd.elu.prenomElu}</td>
+						<#else>
+							<td>-</td>
+						</#if>
+						<#if elmt_pdd.groupe?exists>
+							<td>${elmt_pdd.groupe.nomGroupe}</td>
+						<#else>
+							<td>-</td>
+						</#if>
+						<td>${elmt_pdd.pour}</td>
+						<td>${elmt_pdd.contre}</td>
+						<td>${elmt_pdd.abstention}</td>
+						<td>${elmt_pdd.nePouvantPasVoter}</td>
+						
+						<td nowrap="nowrap" class="ods-s"> 
+							<a href="jsp/admin/plugins/ods/relevetravaux/ModificationElementReleveTravaux.jsp?plugin_name=ods&id_elmt_releve=${elmt_pdd.idElementReleveDesTravaux}">
+								<img src="images/admin/skin/plugins/ods/action/modify.png" alt="Modifier" title="Modifier" />
+							</a> 
+							<a href="jsp/admin/plugins/ods/relevetravaux/SuppressionElementReleveTravaux.jsp?plugin_name=ods&id_elmt_releve=${elmt_pdd.idElementReleveDesTravaux}">
+								<img src="images/admin/skin/plugins/ods/action/delete.png" alt="Supprimer" title="Supprimer" />
+							</a> 
+						</td>
+					</tr>
+					
+					<tr class="ods-noborder">
+						<th scope="row">#i18n{ods.releve.label.objet}</th>
+						<td colspan="8">${elmt_pdd.projetDeliberation.objet}</td>
+					</tr>
+					
+					<tr>
+						<th scope="row">#i18n{ods.releve.label.observations}</th>
+						<td colspan="8">${elmt_pdd.observations}</td>
+					</tr>
+					
+				</#list>	 
+			</table>
+		</#if>
+		<p>
+		<input type="submit" value="#i18n{ods.releve.button.addEntry}" class="button" />
+		</p>		
+	</form>
+</div>

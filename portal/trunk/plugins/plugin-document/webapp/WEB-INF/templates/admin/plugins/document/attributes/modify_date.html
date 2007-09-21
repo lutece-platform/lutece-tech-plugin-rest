@@ -1,0 +1,20 @@
+<p>
+    <label for="${attribute.code}">${attribute.name}<#if attribute.required >*</#if> : </label>
+    <input type="text" id="${attribute.code}" name="${attribute.code}" size="10" 
+    	value="<#if attribute.textValue?has_content>${attribute.textValue}</#if>" /> 
+    <input type="button" class="button" type="reset" id="${attribute.code}_button" value="..." />
+    ${attribute.description}
+</p>
+
+<!-- Macro setupCalendar cannot be called here -->
+<!-- setupCalendar field="${attribute.code}" button="${attribute.code}_button" /-->
+<script type="text/javascript">
+    Calendar.setup({
+    inputField     :    "${attribute.code}",      // id of the input field
+    ifFormat       :    "%d/%m/%Y",       // format of the input field
+    showsTime      :    false,            // will display a time selector
+    button         :    "${attribute.code}_button",   // trigger for the calendar (button ID)
+    singleClick    :    true,           // double-click mode
+    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
+    });
+</script>

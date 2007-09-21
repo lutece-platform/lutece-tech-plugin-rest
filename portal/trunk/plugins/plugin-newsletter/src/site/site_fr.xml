@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Lutece">
+    
+    <body>
+        
+        <menu name="Plugin Newsletter">
+            <item name="Introduction" href="index.html"/>
+        </menu>
+        
+        <menu name="Manuel newsletter">
+            <item name="Interface d'administration" href="newsletter-admin.html"/>
+            <item name="Interface d'utilisation" href="newsletter-userguide.html"/>
+        </menu>
+ 
+        <menu ref="reports" inherit="bottom" />
+		
+    </body>
+</project>

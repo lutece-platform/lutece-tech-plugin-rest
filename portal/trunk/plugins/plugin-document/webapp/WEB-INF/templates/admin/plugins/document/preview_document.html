@@ -1,0 +1,59 @@
+<div id="left">
+    <div class="content-box" >
+        <table>
+            <tr>
+                <th>#i18n{document.preview_document.columnTitleId} -
+                    #i18n{document.preview_document.columnTitleTitle}
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    ${document.id} - ${document.title} 
+                </td>
+            </tr>
+            <tr>
+                <th>#i18n{document.preview_document.columnTitleType}</th>
+            </tr>
+            <tr>
+                <td>${document.type}</td>
+            </tr>
+            <tr>
+                <th>#i18n{document.preview_document.columnTitleState}</th>
+            </tr>
+            <tr>
+                <td>${document.state}</td>
+            </tr>
+            <tr>
+                <th>#i18n{document.preview_document.columnTitleDateCreation}</th>
+            </tr>
+            <tr>
+                <td>${document.dateCreation}</td>
+            </tr>
+            <tr>
+                <th>#i18n{document.preview_document.columnTitleDateModification}</th>
+            </tr>
+            <tr>
+                <td>${document.dateModification}</td>
+            </tr>
+            <tr>
+                <th>#i18n{document.preview_document.columnTitleActions}</th>
+            </tr>
+            <tr>
+                <td>
+                    <#list document.actions as action >
+                    <a href="${action.url}id_document=${document.id}">
+                        <img src="${action.iconUrl}" alt="${action.description}" title="${action.description}" />
+                    </a>
+                    </#list>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div id="right">
+
+    <div class="content-box" >
+        ${preview}
+    </div>    
+</div>

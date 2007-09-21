@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<plug-in>
+    
+    <!-- Plugin Informations -->
+    <name>newsletter</name>
+    <class>fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation</class>
+    <version>2.0</version>
+    <description>Newsletter basee sur les documents</description>
+    <documentation></documentation>
+    <installation></installation>
+    <changes></changes>
+    <user-guide></user-guide>
+    <provider>Mairie de Paris</provider>
+    <provider-url>http://lutece.paris.fr</provider-url>
+    <icon-url>images/admin/skin/plugins/newsletter/newsletter.png</icon-url>
+    <copyright>Copyright 2001-2006 Mairie de Paris</copyright>
+    <db-pool-required>1</db-pool-required>
+    
+    
+    
+    <!-- Xpage configuration -->
+    <applications>
+        <application>
+            <application-id>newsletter</application-id>
+            <application-class>fr.paris.lutece.plugins.newsletter.web.NewsLetterApp</application-class>
+        </application>
+    </applications>
+    
+    <!-- RBAC Resources -->
+    <rbac-resource-types>
+        <rbac-resource-type>
+            <rbac-resource-type-class>fr.paris.lutece.plugins.newsletter.service.NewsLetterResourceIdService</rbac-resource-type-class>
+        </rbac-resource-type>
+    </rbac-resource-types>
+    <!-- Administration interface parameters -->
+    <admin-features>
+        <admin-feature>
+            <feature-id>NEWSLETTER_MANAGEMENT</feature-id>
+            <feature-title>newsletter.adminFeature.newsletter_management.name</feature-title>
+            <feature-description>newsletter.adminFeature.newsletter_management.description</feature-description>
+            <feature-level>2</feature-level>
+            <feature-url>jsp/admin/plugins/newsletter/ManageNewsLetter.jsp</feature-url>
+        </admin-feature>
+    </admin-features>
+    
+    <!-- Insert Service -->
+    <insert-services>
+        <insert-service>
+            <insert-service-id>document_selection_hs</insert-service-id>
+            <insert-service-name>newsletter.insertService.name</insert-service-name>
+            <insert-service-bean-class>fr.paris.lutece.plugins.newsletter.web.NewsletterDocumentServiceJspBean</insert-service-bean-class>
+            <insert-service-label>newsletter.insertService.label</insert-service-label>
+        </insert-service>
+    </insert-services>
+    
+    <!-- Portlet parameters -->
+    <portlets>
+        <portlet>
+            <portlet-class>fr.paris.lutece.plugins.newsletter.business.portlet.NewsLetterArchivePortletHome</portlet-class>
+            <portlet-type-id>NEWSLETTER_ARCHIVE_PORTLET</portlet-type-id>
+            <portlet-type-name>newsletter.portlet.name</portlet-type-name>
+            <portlet-creation-url>plugins/newsletter/CreatePortletNewsletter.jsp</portlet-creation-url>
+            <portlet-update-url>plugins/newsletter/ModifyPortletNewsletter.jsp</portlet-update-url>
+            <portlet-create-action-url>plugins/newsletter/DoCreatePortletNewsletter.jsp</portlet-create-action-url>
+            <portlet-modify-action-url>plugins/newsletter/DoModifyPortletNewsletter.jsp</portlet-modify-action-url>
+            <!-- optional entries -->
+            <portlet-create-script-template>/admin/portlet/script_create_portlet.html</portlet-create-script-template>
+            <portlet-modify-script-template>/admin/portlet/script_modify_portlet.html</portlet-modify-script-template>
+            <portlet-create-specific-template></portlet-create-specific-template>
+            <portlet-modify-specific-template>/admin/plugins/newsletter/newsletter_sending_list.html</portlet-modify-specific-template>
+            <portlet-create-specific-form-template></portlet-create-specific-form-template>
+            <portlet-modify-specific-form-template></portlet-modify-specific-form-template>    
+        </portlet>
+        <portlet>
+            <portlet-class>fr.paris.lutece.plugins.newsletter.business.portlet.NewsLetterSubscriptionPortletHome</portlet-class>
+            <portlet-type-id>NEWSLETTER_SUBSCRIPTION_PORTLET</portlet-type-id>
+            <portlet-type-name>newsletter.portlet.subscription.name</portlet-type-name>
+            <portlet-creation-url>plugins/newsletter/CreateSubscriptionPortletNewsletter.jsp</portlet-creation-url>
+            <portlet-update-url>plugins/newsletter/ModifySubscriptionPortletNewsletter.jsp</portlet-update-url>
+            <portlet-create-action-url>plugins/newsletter/DoCreateSubscriptionPortletNewsletter.jsp</portlet-create-action-url>
+            <portlet-modify-action-url>plugins/newsletter/DoModifySubscriptionPortletNewsletter.jsp</portlet-modify-action-url>
+            <!-- optional entries -->
+            <portlet-create-script-template>/admin/portlet/script_create_portlet.html</portlet-create-script-template>
+            <portlet-modify-script-template>/admin/portlet/script_modify_portlet.html</portlet-modify-script-template>
+            <portlet-create-specific-template></portlet-create-specific-template>
+            <portlet-modify-specific-template>/admin/plugins/newsletter/newsletter_subscription_list.html</portlet-modify-specific-template>
+            <portlet-create-specific-form-template></portlet-create-specific-form-template>
+            <portlet-modify-specific-form-template></portlet-modify-specific-form-template>    
+        </portlet>
+    </portlets>
+    
+</plug-in>
+

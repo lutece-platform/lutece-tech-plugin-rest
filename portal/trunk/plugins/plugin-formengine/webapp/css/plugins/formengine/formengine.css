@@ -1,0 +1,241 @@
+/* ====================================================================
+ * styles for the formengine modules
+ * -------------------------------------------------------------------- */
+
+.formengine-mandatory {
+	color:#FF0000;
+}
+
+p.formengine-mandatory-message {
+	font-style: italic;
+}
+
+form.formengine-form {
+	display: inline;
+   margin: 0px;
+   padding: 0px;
+}
+
+#formengine-form-summary fieldset {
+	text-align: left;
+   margin-bottom: 20px;
+}
+
+#formengine-form-summary ul {
+	text-align: left;
+   list-style-image: url(../images/local/skin/bullet.gif);
+}
+
+legend.formengine-legend {
+	font-size: 12px;
+   font-weight: bold;
+   color: #1C2861;
+}
+
+fieldset.formengine-fieldset {
+	background:#F8F8F8;
+   margin-top: 20px;
+   margin-bottom: 20px;
+   margin-right: 10px;
+   margin-left: 10px;
+   padding-bottom: 10px;
+}
+
+#formengine-form-content .formengine-fieldset ul li label{
+	width: 100%;
+   float:none;
+   text-align: left;
+   margin: 0;
+   padding:0;
+}
+
+#formengine-form-content .formengine-fieldset ul li input {
+   text-align: left;
+}
+
+#formengine-form-content .formengine-fieldset span.formengine-field ul {
+   list-style-type: none;
+   padding: 0px;
+   padding-left: 5px;
+   margin-left: 50%;
+   margin-right: 0px;
+   margin-top:0px;
+}
+
+#formengine-form-content .formengine-fieldset span.formengine-field li {
+   margin: 0px;
+   padding: 0px;
+}
+
+select.formengine-select {
+   font-size: 10px;
+}
+
+formengine-input {
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   font-size: 12px;
+}
+
+.formengine-submit {
+   margin-left: 5px;
+   margin-bottom: 5px;
+   padding-top:1px; border:none; color:#FFFFFF;
+   font-size:x-small;
+   font-weight:bold;
+   text-transform:uppercase;
+   background:#859ECF;
+   cursor: pointer;
+   cursor: hand;
+   text-align: center ;
+}
+
+div.formengine-element {
+   margin-bottom: 10px;
+   margin-top: 10px;
+   clear: both;
+}
+
+div.formengine-buttons {
+   clear: both;
+   text-align: center;
+   margin-bottom: 10px;
+   margin-top: 10px;
+}
+
+div.formengine-steps {
+   clear: both;
+   text-align: center;
+   height: 40px;
+}
+
+div.formengine-recapitulatif {
+   font-size: 12px;
+   font-weight: bold;
+   padding-right: 10px;
+   padding-left: 10px;
+	padding-top: 0px;
+   padding-bottom: 0px;
+}
+
+span.formengine-label {
+	float: left ;
+	width: 50%;
+	text-align: right;
+	padding-right: 5px;
+}
+
+span.formengine-additionnal-info {
+	font-style: italic;
+}
+
+span.formengine-field {
+	text-align: left ;
+}
+
+h1.formengine-form-title {
+	font-size: 16px;
+	font-weight: bold;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #EE9C00;
+	margin-left: 0px;
+	padding-left: 0px;
+}
+
+h1.formengine-title{
+	font-size:15px;
+	background:#F8F8F8;
+	background-image: url(../images/local/skin/sous-titre1.gif);
+	background-repeat: no-repeat;
+	padding-left: 20px;
+}
+
+/* style h2 caché */
+
+h2.formengine-subform-title {
+	font-size: 10px;
+	font-weight: normal;
+	display: none;
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+#formengine-form-button-delete {
+	border: none;
+	cursor: pointer;
+	cursor: hand;
+	display: inline;
+	background-color: #859ECF;
+	font-size: 10px;
+	color: #FFFFFF;
+}
+
+#formengine-form-button-modify {
+	border: none;
+	cursor: pointer;
+	cursor: hand;
+	display: inline;
+	background-color: #859ECF;
+	font-size: 10px;
+	color: #FFFFFF;
+}
+
+#formengine-menu {
+	font-size: 12px;
+	padding-bottom: 4px;
+}
+
+.formengine-menuactif {
+	padding: 2px;
+	color: #EE9C00;
+	margin: 0px;
+	font-weight: bold;
+}
+
+#formengine-menu ul {
+	padding: 0px;
+	margin: 0px;
+}
+
+#formengine-menu li {
+	display: inline;
+	padding-right: 5px;
+	padding-left: 5px;
+	margin: 0px;
+}
+
+#formengine-menu a {
+	/*font-size: 12px;*/
+	color: #260650;
+	background-repeat: no-repeat;
+	padding-left: 15px;
+	margin-left: 5px;
+}
+
+table.formengine-table-steps {
+	background-color: #FFFFFF;
+	border-collapse: collapse;
+   margin-bottom: 10px;
+}
+
+
+/* table cell */
+
+table.formengine-table-steps td {
+	background-color: #F8F8F8;
+	color: #260650;
+	font-size: 10px;
+	vertical-align: middle;
+	text-align: center;
+}
+
+/* table header, eg. : columns names */
+
+table.formengine-table-steps th {
+	background-color: #E6EAF3;
+	color: #260650;
+	font-size: 10px;
+	vertical-align: middle;
+	text-align: center;
+}
+

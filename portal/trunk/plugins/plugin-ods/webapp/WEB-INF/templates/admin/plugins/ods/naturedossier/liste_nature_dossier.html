@@ -1,0 +1,48 @@
+<div class="content-box">
+	<h2>#i18n{ods.listenaturedossier.label.title}</h2>
+	<div class="highlight-box">
+		<p>
+			<label for="">#i18n{ods.listenaturedossier.label.seance} </label>
+				#i18n{ods.listenaturedossier.label.from}
+				${seance.dateSeance?string("dd/MM/yyyy")}
+				<#if seance.dateSeance?string("ddMMyyyy") != seance.dateCloture?string("ddMMyyyy") >
+					#i18n{ods.listenaturedossier.label.to}
+					${seance.dateCloture?string("dd/MM/yyyy")}
+				</#if>
+		</p>
+	</div>
+	<#if liste_natures?size=0>
+		<div class="highlight-box">
+			#i18n{ods.listenaturedossier.label.noNature}
+		</div>
+	<#else>
+		<p>#i18n{ods.listenaturedossier.label.resultCount} ${liste_natures_count}</p>
+		<table>
+			<tr>
+				<th>#i18n{ods.listenaturedossier.label.ordre}</th>
+				<th>#i18n{ods.listenaturedossier.label.libelle}</th>
+				<th>#i18n{ods.listenaturedossier.label.actions}</th>
+			</tr>
+			<#list liste_natures as nature>
+			<a name="ANC_LAST" id="ANC_LAST"></a>
+			<tr>
+				<td>${nature.numeroNature}</td>
+				<td>${nature.libelleNature}</td>
+				<td nowrap="nowrap" class="ods-actions">
+					<a href="jsp/admin/plugins/ods/naturedossier/ModificationNatureDossier.jsp?id_nature=${nature.idNature}">
+						<img src="images/admin/skin/plugins/ods/action/modify.png"
+							alt="Modifier" title="#i18n{ods.listenaturedossier.button.modify}" />
+					</a>
+					<a href="jsp/admin/plugins/ods/naturedossier/SuppressionNatureDossier.jsp?id_nature=${nature.idNature}">
+						<img src="images/admin/skin/plugins/ods/action/delete.png"
+							alt="Supprimer" title="#i18n{ods.listenaturedossier.button.delete}" />
+					</a>
+				</td>
+			</tr>
+			</#list>
+		</table>
+	</#if>
+	<form method="" action="jsp/admin/plugins/ods/naturedossier/CreationNatureDossier.jsp">
+		<p> <input type="submit" value="#i18n{ods.listenaturedossier.button.create}" class="button" /> </p>
+	</form>
+</div>

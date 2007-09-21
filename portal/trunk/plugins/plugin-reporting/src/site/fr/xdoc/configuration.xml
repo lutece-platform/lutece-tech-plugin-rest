@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC "//UNKNOWN/" "http://maven.apache.org/dtd/xdoc_1_0.dtd">
+<document>
+	<properties>
+		<title>Configuration</title>
+	</properties>
+	<body>
+		<section name="Installation">
+			<p>
+				Il existe plusieurs possibilités d'installation en
+				fonction de la distribution employée :
+			</p>
+			<ul>
+				<li>
+					Distribution binaire : Le contenu du fichier zip de
+					la distribution binaire doit être décompressé dans
+					une webapp contenant déjà le coeur de lutèce.
+				</li>
+				<li>
+					Sources : Dans ce cas il est nécessaire d'ajouter la
+					dépendance sur le coeur afin de pouvoir compiler les
+					sources et de se retrouver avec une distribution
+					binaire.
+				</li>
+			</ul>
+			<p>
+			Pour générer la distribution binaire, il suffit de télécharger les sources du projet 
+			et d'exécuter la commande : <br/>
+			<code>mvn lutece:assembly</code>.
+			</p>
+			<br/><br/>
+			<p>
+			Le module est à installer dans une application contenant
+				au minimum :
+			</p>
+			<ul>
+				<li>le coeur de Lutèce</li>
+			</ul>
+			<p>
+				Pour les détails de l'installation, reportez vous à la
+				rubrique :
+				<a href="http://dev.lutece.paris.fr/fr/howto-create-plugins.html">Installation de plugin</a>
+			</p> 
+			<br/>
+			<br/>
+			<p>
+				<strong>Remarque :</strong>
+				<br />
+				Il est possible d'obtenir un fichier
+				<code>war</code>
+				déployable en utilisant un packaging de type
+				<code>lutece-site.</code>
+				Ce fichier doit être placé dans le répertoire
+				<code>webapps</code>
+				de votre installation de Tomcat. Il sera automatiquement
+				déployé lors du lancement du serveur.
+			</p>
+		</section>
+		<section name="Configuration">
+		
+			<subsection name="Mode Portail">
+				<p>
+					La configuration correspond à la configuration
+					classique d'un portail Lutèce.
+				</p>
+			</subsection>
+			<subsection name="Fichiers paramétrables">
+			
+				<p> db.properties :</p>
+				<p>
+				Pour utiliser un pool spécifique au plugin reporting, ajouter le code suivant dans ce fichier :
+				</p>
+				
+				<source>
+reporting.poolservice=fr.paris.lutece.util.pool.service.LuteceConnectionService
+reporting.driver=org.gjt.mm.mysql.Driver
+reporting.url=jdbc:mysql://&lt;mysqlhost&gt;:&lt;mysqlport&gt;/&lt;basename&gt;?
+			autoReconnect=true&amp;useUnicode=yes&amp;characterEncoding=utf8
+reporting.user=
+reporting.password=
+reporting.initconns=2
+reporting.maxconns=5
+reporting.logintimeout=2000
+reporting.checkvalidconnectionsql=SELECT 1
+				</source>
+
+				<br />
+				<p> reporting.properties :</p>
+				<p>
+				Certains réglages sont disponibles au niveau du plugin :
+				</p>
+				<table>
+					<tr>
+						<th>Propriété</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<td>reporting.pageTitle</td>
+						<td>Libellé du titre de la Xpage</td>
+					</tr>
+					<tr>
+						<td>reporting.pagePathLabel</td>
+						<td>Libellé du chemin sur la Xpage</td>
+					</tr>
+					<tr>
+						<td>reporting.itemsPerPage</td>
+						<td>Options de pagination</td>
+					</tr>
+					<tr>
+						<td>reporting.riskItemsNumber</td>
+						<td>Nombre de niveaux de risque</td>
+					</tr>
+					<tr>
+						<td>reporting.tendencyItemsNumber</td>
+						<td>Nombre de tendances</td>
+					</tr>
+					<tr>
+						<td>reporting.riskDefaultValue</td>
+						<td>Risque sélectionné par défaut</td>
+					</tr>
+					<tr>
+						<td>reporting.tendencyDefaultValue</td>
+						<td>Tendance sélectionné par défaut</td>
+					</tr>
+				</table>
+				
+				<p>
+				Les niveaux de risque et de tendance sont numérotés à partir de 1. 
+				Pour ajouter un niveau, il suffit d'augmenter le nombre d'éléments (risque ou tendance), ainsi que d'ajouter les images ou les styles css associés.
+				</p>
+			
+			</subsection>
+		</section>
+	</body>
+</document>

@@ -1,0 +1,78 @@
+<div id="page-content-left">
+	<#include "page_content_left.html">
+</div>
+<script language="JavaScript" type="text/javascript">
+	function alertRequete( id_requete, is_notifie ) {
+		var myFormName = 'requete' + id_requete;
+    	var myForm = document.getElementById( myFormName );
+    	myForm.action='jsp/site/Portal.jsp?page=ods_mes_criteres';
+    	myForm.a_faire.value = 'alert';
+		myForm.notifie.value = '' + is_notifie;
+    	myForm.submit();
+    }
+    
+	function deleteRequete( id_requete ) {
+		if(confirm('#i18n{ods.front.mescriteres.label.confirm.suppression}'))
+		{
+			var myFormName = 'requete' + id_requete;
+			var myForm = document.getElementById( myFormName );
+			myForm.action='jsp/site/Portal.jsp?page=ods_mes_criteres';
+	    	myForm.a_faire.value='delete';
+	    	myForm.submit();
+	    }
+    }
+</script>
+<div id="page-content-right">
+	<div id="out-min-height">
+		<div id="in-min-height">
+			<div id="one-zone-first">
+				<div id="one-zone-first-content">
+					<h1>#i18n{ods.front.criteres.page.title}</h1>
+					<p>#i18n{ods.front.mescriteres.message.info1} <a href="${url_formulaire}">#i18n{ods.front.mescriteres.message.recherche}</a>.</p>
+					<p>
+						#i18n{ods.front.mescriteres.message.info2} : ${utilisateur.mail}<br/>
+						#i18n{ods.front.mescriteres.message.info3} <a href="${url_profil}">#i18n{ods.front.mescriteres.message.profil}</a>.
+					</p>
+					<#if liste_requetes?has_content>
+						<#list liste_requetes as requete>
+							<div class="portlet-background-colored-title">
+								<h3 class="portlet-background-colored-title-header">${requete.nomRequete}</h3>
+								<div class="portlet-background-colored-title-content">
+									<#if requete.rechercheArchive>
+										<#assign url_resultat = url_recherche_archives_resultats>
+									<#else>
+										<#assign url_resultat = url_recherche_resultats>
+									</#if>
+									<form id="requete${requete.idRequete}" action="${url_resultat}" method=post>
+										<input type="hidden" id="id_requete" name="id_requete" value="${requete.idRequete}" />
+										<input type="hidden" id="a_faire" name="a_faire" value="" />
+										<input type="hidden" id="notifie" name="notifie" value="" />
+										<#if !requete.rechercheArchive>
+											<#if requete.notifie>
+												<input id="change" name="change" type="button" class="ods-btn-noalert" value="#i18n{ods.front.mescriteres.button.noalert}" onclick="javascript:alertRequete('${requete.idRequete}','false');"/>
+											<#else>
+												<input id="change" name="change" type="button" class="ods-btn-alert" value="#i18n{ods.front.mescriteres.button.alert}" onclick="javascript:alertRequete('${requete.idRequete}','true');"/>
+											</#if>
+										</#if>
+										<input name="go" type="submit" class="ods-btn-rechercher" value="#i18n{ods.front.mescriteres.button.search}" />
+										<input name="delete" type="button" class="ods-btn-delete" value="#i18n{ods.front.mescriteres.button.delete}" onclick="deleteRequete('${requete.idRequete}');" />
+									</form>
+									<p>
+										<strong>
+											<#if requete.rechercheArchive>
+												#i18n{ods.front.mescriteres.label.archive}
+											<#else>
+												#i18n{ods.front.mescriteres.label.next}
+											</#if>
+										</strong>
+									</p>
+									<p>${requete.html}</p>
+								</div>
+							</div>
+						</#list>
+					</#if>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,31 @@
+<div class="content-box">
+	<h2>#i18n{ods.modificationdirection.label.title}</h2>
+	<form action="jsp/admin/plugins/ods/direction/DoModificationDirection.jsp" method="post">
+		<input type="hidden" name="id_direction" value="${direction.idDirection}"  />
+		<p>
+			<label for="code">#i18n{ods.modificationdirection.label.code} * : </label>
+			<input type="text" id="code" name="code" size="10" value="${direction.code}" />
+		</p>
+		<p>
+			<label for="libelle_court">#i18n{ods.modificationdirection.label.libelle_court} * : </label>
+			<input type="text" id="libelle_court" name="libelle_court" size="80" value="${direction.libelleCourt}" />
+		</p>
+		<p>
+			<label for="libelle_long">#i18n{ods.modificationdirection.label.libelle_long} * : </label>
+			<input type="text" id="libelle_long" name="libelle_long" size="80" value="${direction.libelleLong}" />
+		</p>
+		<p>
+			<label for="status">#i18n{ods.modificationdirection.label.actif}</label>
+			<#if actif=true>
+				<input id="status" name="status" type="checkbox" value="true" checked="checked" />
+			<#else>
+				<input id="status" name="status" type="checkbox" value="true" />
+			</#if>
+			#i18n{ods.modificationdirection.label.actif_comment}
+		</p>
+		<p>
+			<input type="submit" value="#i18n{ods.modificationdirection.button.validate}" class="button" />
+			<input type="button" value="#i18n{ods.modificationdirection.button.back}" class="button" onclick="javascript:history.go(-1)" />
+		</p>
+	</form>
+</div>

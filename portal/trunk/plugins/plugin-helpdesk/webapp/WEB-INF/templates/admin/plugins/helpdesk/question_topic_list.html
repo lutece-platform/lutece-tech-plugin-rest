@@ -1,0 +1,84 @@
+<div id="left">
+    <div class="content-box" >
+        <h2>#i18n{helpdesk.modify_question_topic.questionType}</h2>        
+        <table>
+            <tr>
+                <th>
+                    #i18n{helpdesk.modify_question_topic.labelQuestion}
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    ${question_type.questionType}
+                </td>
+            </tr>                       
+            <tr>
+                <th>
+                    #i18n{helpdesk.modify_question_topic.actions}
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <a href="jsp/admin/plugins/helpdesk/ModifyQuestionType.jsp?question_type_id=${question_type.idQuestionType}" >
+                        <img src="images/admin/skin/plugins/helpdesk/edit.png" alt="#i18n{helpdesk..modify_question_topic.modify}" title="#i18n{helpdesk.modify_question_topic.modify}" />
+                    </a>
+                    <a href="jsp/admin/plugins/helpdesk/ConfirmRemoveQuestionType.jsp?question_type_id=${question_type.idQuestionType}" >
+                        <img src="images/admin/skin/plugins/helpdesk/delete.png" alt="#i18n{helpdesk.modify_question_topic.delete}" title="#i18n{helpdesk.modify_question_topic.delete}" />
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="right">
+    <div class="content-box" >
+         <form method="post" action="jsp/admin/plugins/helpdesk/QuestionTopicList.jsp?question_type_id=${question_type.idQuestionType}">
+            <@pagination paginator=paginator />
+
+            <!-- Number of documents per page selector -->
+            #i18n{helpdesk.question_topic_list.labelItemsPerPage} :
+            <select name="items_per_page">
+                <#list [ "5" , "10" , "20" , "50" ] as nb>
+                <#if nb_items_per_page = nb >
+                <option selected="selected" value="${nb}">${nb}</option>
+                <#else>
+                <option value="${nb}">${nb}</option>
+                </#if>
+                </#list>
+            </select>                            
+            <input type="submit" class="button" value="#i18n{helpdesk.question_topic_list.buttonItemsPerPage}" />
+        </form>            
+        
+        <h2>#i18n{helpdesk.question_topic_list.adminTitle}</h2>
+            <#if question_topic_list?size != 0>
+                    <table>
+                        <#list question_topic_list as topic_list >                                        
+                            <tr>
+                                <td>
+                                    <a href="jsp/admin/plugins/helpdesk/ModifyQuestionTopic.jsp?question_topic_id=${topic_list.idQuestionTopic}" class="bullet-link">${topic_list.questionTopic}</a>
+                                </td>
+                                <td>
+                                    <a href="jsp/admin/plugins/helpdesk/ConfirmRemoveQuestionTopic.jsp?question_topic_id=${topic_list.idQuestionTopic}&amp;question_type_id=${topic_list.idQuestionType}" >
+                                        <img src="images/admin/skin/plugins/helpdesk/delete.png" alt="#i18n{helpdesk.modify_question_topic.delete}" title="#i18n{helpdesk.modify_question_topic.delete}" />
+                                    </a>
+                                </td>                                                                                                               
+                            </tr>
+                        </#list>                            
+                    </table>
+             <#else>
+             <table>
+                 <tr>
+                    <td>                 
+                        <label>#i18n{helpdesk.question_topic_list.noTopic}</label>                 
+                    </td>
+                 </tr>                
+             </table>
+
+             </#if>
+
+        <form action="jsp/admin/plugins/helpdesk/CreateQuestionTopic.jsp">
+        <input type="hidden" name="question_type_id" value="${id_question_type}" />                                                    
+        <input type="submit" tabindex="10" value="#i18n{helpdesk.question_topic_list.addTopic}" class="button" />
+        </form>
+    </div>
+</div>

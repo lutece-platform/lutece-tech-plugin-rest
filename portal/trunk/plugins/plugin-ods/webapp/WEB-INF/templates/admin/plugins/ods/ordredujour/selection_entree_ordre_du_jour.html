@@ -1,0 +1,108 @@
+
+
+<div class="content-box">
+  <h2>#i18n{ods.entreeOdj.deplacer.title}</h2>
+ <form action="jsp/admin/plugins/ods/ordredujour/DoDeplaceEntreeOrdreDuJour.jsp" method="post"  >
+   <input type="hidden" id="id_odj" name="id_odj" value="${odj.idOrdreDuJour}"  />
+    #i18n{ods.entreeOdj.deplacer.label.debut}
+     <select name="type">
+        <option value="ajouter_avant_selection">#i18n{ods.entreeOdj.deplacer.label.avant}</option>
+        <option value="ajouter_apres_selection">#i18n{ods.entreeOdj.deplacer.label.apres}</option>
+	</select>
+   #i18n{ods.entreeOdj.deplacer.label.fin} :
+   
+  <div class="ods-odj">
+   
+    <table>
+    <#list odj.listEntrees as entree >
+		<#if entree.type=='T'>
+			<tr  class="ods-noborder">
+			<td>
+    		   <input name="id_entree" id="id_entree" value="${entree.idEntreeOrdreDuJour}" type="radio">
+    		</td>
+      		<td>
+      			<#if entree.style?exists>
+      		   		<p><h${entree.style}>${entree.objet}</h${entree.style}></p>
+      		   	<#else>
+      		   		<p>${entree.objet}</p>
+      		   	</#if>	
+        	</td>
+			</tr>
+		</#if>
+		
+		<#if entree.type=='P'>
+		<tr  class="ods-noborder">
+    		  <td>
+    				 <input name="id_entree" id="id_entree" value="${entree.idEntreeOrdreDuJour}" type="radio">
+    	 	 </td>
+      		  <td>
+      		  <#if entree.pdd?exists>
+	      		   	<a href="jsp/admin/plugins/ods/projetdeliberation/ModificationPDDForSelectionEntreeOdj.jsp?plugin_name=ods&id_pdd=${entree.pdd.idPdd}&id_odj=${odj.idOrdreDuJour}">
+	      		   		<#if entree.reference?exists>
+	      		   			${entree.reference}
+	      		   		</#if>
+	      		   	</a> 
+	      		   	<span class="ods-notes">(#i18n{ods.front.deliberations.label.publierle} 
+	                <#if entree.pdd.enLigne == true>
+			    		${entree.pdd.datePublication?string("dd/MM/yyyy")}
+			  		</#if>
+			  			)
+		  			</span>
+		  			<#if odj.typeOrdreDuJour.idTypeOrdreDuJour==2>
+		  				<#list  entree.pdd.voeuxAmendements as va>
+		  						<a href="jsp/admin/plugins/ods/voeuamendement/ModificationAmendement.jsp?id_voeuamendement=${va.idVoeuAmendement}">${va.referenceComplete}</a> 
+		  					<#if va_has_next>
+		  						-
+		  					</#if>
+		  				</#list>
+		  			</#if>
+		  	  <#else>
+		  	  		<#if entree.reference?exists>
+	      		   			${entree.reference}
+	      		   		</#if>
+	      		   
+		  	 
+		  	  </#if>
+        	   <p>
+        	   <#if entree.objet?exists>
+	      			${entree.objet}
+        	   	</#if>
+	      		   
+        	   		</p>
+        	   </td>
+        	   </tr>
+		</#if>
+		
+		<#if entree.type=='V'>
+			<tr  class="ods-noborder">
+     			<td>
+    				 <input name="id_entree" id="id_entree" value="${entree.idEntreeOrdreDuJour}" type="radio">
+    	 		 </td>
+      			<td class="ods-odj-vnr">
+      				 <#if entree.voeuAmendement?exists>
+	      				<a href="jsp/admin/plugins/ods/voeuamendement/ModificationAmendementForLiasse.jsp?id_voeuamendement=${entree.voeuAmendement.idVoeuAmendement}">
+		      					${entree.voeuAmendement.referenceComplete}
+						</a>
+					 <#else>
+						#i18n{ods.all.label.v}
+					 </#if>	
+					<#if entree.objet?exists>	
+	      			 	<p>${entree.objet}</p>
+	      			 </#if>	
+      			 	
+      			 </td>
+	  		</tr>
+		</#if>   
+		 </#list>
+    </table>
+    <!--bloc-->
+    
+    <!--bloc-->
+   </div>
+   <p>
+    <input type="submit"  name="enregistrer" value="#i18n{ods.all.button.save}" class="button" />
+  	<input type="submit"  name="annuler" value="#i18n{ods.all.button.cancel}" class="button" />
+   </p>
+  </form>
+ </div>
+ 

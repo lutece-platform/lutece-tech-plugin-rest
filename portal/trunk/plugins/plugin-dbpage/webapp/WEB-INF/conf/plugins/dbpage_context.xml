@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    
+   <!-- package sqlquery -->
+  <bean id="dbPageDAO"  class="fr.paris.lutece.plugins.dbpage.business.DbPageDAO" />  
+  <bean id="dbPageDatabaseDAO"  class="fr.paris.lutece.plugins.dbpage.business.DbPageDatabaseDAO" />   
+  <bean id="dbPageDatabaseSectionDAO"  class="fr.paris.lutece.plugins.dbpage.business.DbPageDatabaseSectionDAO" />
+  <bean id="dbPageDatabaseTypeDAO"  class="fr.paris.lutece.plugins.dbpage.business.DbPageDatabaseTypeDAO" />
+  <bean id="dbPagePortletDAO"  class="fr.paris.lutece.plugins.dbpage.business.portlet.DbPagePortletDAO" />  
+  
+</beans>

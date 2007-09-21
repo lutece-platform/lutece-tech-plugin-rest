@@ -1,0 +1,20 @@
+<div id="one-zone-first">
+    <div id="one-zone-first-content">
+
+		<h2 class="page-title" >#i18n{poll.xpage.polls_list.title}</h2>
+
+		 <#if polls_list?size = 0>     
+		    <h2>#i18n{poll.xpage.polls_list.nopoll}</h2>
+		 <#else>
+		     <ul>
+		         <#list polls_list?sort_by('name') as poll >	                
+		             <li>
+		                 <a href="jsp/site/Portal.jsp?page=poll&poll_id=${poll.id}">
+		                     ${poll.name}
+		                 </a>
+		             </li>    
+		         </#list>	
+		     </ul>
+		 </#if>
+	</div>
+</div>

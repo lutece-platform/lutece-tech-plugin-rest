@@ -1,0 +1,67 @@
+<SCRIPT>
+	function move( move ) {
+   		var myForm = document.getElementById('FormTourniquet');
+   		
+   		myForm.action='jsp/admin/plugins/ods/tourniquet/DoMoveTourniquet.jsp';
+   		
+   		myForm.sense.value=move;
+    	myForm.submit();
+    }
+    
+    function reInit() {
+    	var myForm = document.getElementById('FormTourniquet');
+    	myForm.action='jsp/admin/plugins/ods/tourniquet/DoAnnulationModification.jsp';
+    	myForm.submit();
+    }
+    
+    function reClass() {
+    	var myForm = document.getElementById('FormTourniquet');
+    	myForm.action='jsp/admin/plugins/ods/tourniquet/DoReclassement.jsp';
+    	myForm.submit();
+    }
+</SCRIPT>
+<div class="content-box">
+	<h2>#i18n{ods.tourniquet.label.title}</h2>
+	<form id="FormTourniquet" name="FormTourniquet" action="jsp/admin/plugins/ods/tourniquet/DoModificationTourniquet.jsp?afaire=save" method="post">
+		<input type="hidden" id="sense" name="sense" value="">
+		<div>
+			<p>
+				<label for="liste_com">#i18n{ods.tourniquet.label.listeCom}</label>
+				<div style="float:left">
+					<select id="id_commission" name="id_commission" size="${list_size}">
+						<#list liste_commission as tourniquet>
+							<#if id_com = tourniquet.commission.idCommission>
+								<option value="${tourniquet.commission.idCommission}" selected>Commission ${tourniquet.commission.numero}</option>
+							<#else>
+								<option value="${tourniquet.commission.idCommission}">Commission ${tourniquet.commission.numero}</option>
+							</#if>
+						</#list>
+					</select>
+				</div>
+				<div style="float:left">
+					<a>
+						<img src="images/admin/skin/actions/up.png" alt="#i18n{ods.tourniquet.label.up}" title="Monter" onclick="javascript: move(1);"/>
+					</a><br/>
+					<a>
+						<img src="images/admin/skin/actions/down.png" alt="#i18n{ods.tourniquet.label.down}" title="Descendre" onclick="javascript: move(-1);"/>
+					</a>
+				</div>
+			</p>
+		</div>
+		<div style="clear:left">
+			<p>
+				<br/><br/><input type="button" value="#i18n{ods.tourniquet.label.reclasser}" class="button" onclick="javascript: reClass();"/>
+			</p>
+			<p>
+				<input type="submit" value="#i18n{ods.tourniquet.label.manage}" class="button" />
+				<input type="button" value="#i18n{ods.tourniquet.label.cancel}" class="button" onclick="javascript: reInit();"/>
+				<#if afaire = "save">
+					#i18n{ods.tourniquet.label.saved}
+				</#if>
+			</p>
+		</div>
+	</form>
+	<form action="jsp/admin/plugins/ods/tourniquet/DoSynchronisationTourniquet.jsp">
+		<input type="submit" value="#i18n{ods.tourniquet.label.synchronize}" class="button" />
+	</form>
+</div>

@@ -1,0 +1,117 @@
+<#include "utils.ftl" >
+
+<div id="page-content-left">
+   <#include "page_content_left.html">
+</div>
+
+
+<div id="page-content-right">
+   <div id="out-min-height">
+    <div id="in-min-height">
+     <div id="one-zone-first">
+      <div id="one-zone-first-content">
+       <#if direction?exists>
+       		<h1>${direction.libelleLong}</h1>
+       <#elseif delegation_service_public?exists && (delegation_service_public=true)>
+       		<h1>#i18n{ods.front.directionlist.label.delegation}</h1>
+       </#if>
+       
+       <#if fonctionnalite_is_projet?exists && fonctionnalite_is_projet >
+			<h2>#i18n{ods.front.deliberations.label.title.projet}</h2>			
+       <#else> 
+       		 <h1>#i18n{ods.front.deliberations.label.title.proposition}</h1>
+       		 <#if formation_conseil?exists>
+       			<h2> ${formation_conseil.libelle} #i18n{ods.front.deliberations.label.seance.des} 
+       		 		<#if seance?exists>
+           				<#if seance.dateSeance?string("MMMM") != seance.dateCloture?string("MMMM")>
+							${seance.dateSeance?string("EEEE dd MMMM ")}
+						<#else>
+							${seance.dateSeance?string("EEEE dd ")}
+						</#if>
+			 			#i18n{ods.front.deliberations.label.seance.et}
+		     			${seance.dateCloture?string(" EEEE dd MMMM yyyy")}
+		   	 		</#if>   
+       			</h2>
+        	 </#if>
+	    </#if>
+        <!--bloc-->
+       <#if fonctionnalite_is_projet?exists && fonctionnalite_is_projet>
+       		<form action="jsp/site/Portal.jsp?page=ods_pdd_list&id_seance=${seance.idSeance}&id_formation_conseil=${formation_conseil.idFormationConseil}&type=PJ<#if delegation_service_public==true >&pdd_deleg_service_public=1<#else><#if direction?exists>&id_direction=${direction.idDirection}</#if></#if>" method="post" class="default-form">
+        	 <label for="">#i18n{ods.front.deliberations.select.afficher}</label>
+        	 <select name='id_pdd_inscrit_odj'>
+         	  	<option value=-1 <#if id_pdd_inscrit_odj?exists && (id_pdd_inscrit_odj=-1) > selected </#if> >#i18n{ods.front.deliberations.select.option.tousprojets}</option>
+              	<option  value=1 <#if id_pdd_inscrit_odj?exists && (id_pdd_inscrit_odj=1) > selected </#if> >#i18n{ods.front.deliberations.select.option.seulementprojetsinscritodj}</option>
+         	  	<option value=0 <#if id_pdd_inscrit_odj?exists && (id_pdd_inscrit_odj=0) > selected </#if>>#i18n{ods.front.deliberations.select.option.seulementprojetsnoninscritodj}</option>
+        	 </select>
+        	 <input name="" type="submit" value="ok" id="ods-btn-ok" />
+       		</form>
+       	<#else>
+       		<form action="jsp/site/Portal.jsp?page=ods_pdd_list&id_seance=${seance.idSeance}&id_formation_conseil=${formation_conseil.idFormationConseil}&type=PP<#if delegation_service_public==true >&pdd_deleg_service_public=1</#if>" method="post" class="default-form">
+              <label for="">#i18n{ods.front.deliberations.select.afficher}</label>
+        	 <select  name='id_pdd_inscrit_odj'>
+         	  <option value=-1 <#if id_pdd_inscrit_odj?exists && (id_pdd_inscrit_odj=-1) > selected </#if> >#i18n{ods.front.deliberations.select.option.touspropositions}</option>
+              <option  value=1 <#if id_pdd_inscrit_odj?exists && (id_pdd_inscrit_odj=1) > selected </#if> >#i18n{ods.front.deliberations.select.option.seulementpropositionsinscritodj}</option>
+         	  <option value=0 <#if id_pdd_inscrit_odj?exists && (id_pdd_inscrit_odj=0) > selected </#if>>#i18n{ods.front.deliberations.select.option.seulementpropositionsnoninscritodj}</option>
+        	 </select>
+        	<input name="" type="submit" value="ok" id="ods-btn-ok" />
+       		</form>	
+       	</#if>	
+       	
+       <p class="espace_10"></p>
+       <!--bloc-->
+       <div class="ods-list">
+        <#list liste_pdds as pdd>
+	       	<div class="ods-list-item">
+	          <p class="ods-list-item-pdd"><a href="jsp/site/Portal.jsp?page=ods_pdd&id_pdd=${pdd.idPdd}">${pdd.reference}</a> 
+	          	 <#if liste_pdds_nouveaux?exists && estPddDansListe(pdd,liste_pdds_nouveaux)>
+	          	 	<#if pdd.version?exists && ( pdd.version > 1 )>
+	          	 		<span class="ods-flag-M" title="#i18n{ods.front.deliberations.title.modifie}">#i18n{ods.front.deliberations.label.modifie}</span>
+	          	 	<#else>
+	         	 		<span class="ods-flag-N" title="#i18n{ods.front.deliberations.title.nouveau}">#i18n{ods.front.deliberations.label.nouveau}</span>
+	          	 	</#if>
+	         	 </#if>
+	         	 <#if liste_pdds_rattache_odj?exists && estPddDansListe(pdd,liste_pdds_rattache_odj)>
+	         	 	<span class="ods-flag-O"  title="#i18n{ods.front.deliberations.label.aodj}">#i18n{ods.front.deliberations.label.aodj}</span> 
+	         	 </#if>
+	         	 <span class="ods-notes"> 
+	         	  <#if pdd.enLigne>
+		    	  	(#i18n{ods.front.deliberations.label.publierle} ${pdd.datePublication?string("dd/MM/yyyy")}<#if (pdd.version > 1) >, #i18n{ods.front.pdd.label.version} ${pdd.version}</#if>)
+		 		  </#if>
+	    		 </span>
+	    		</p>
+	         	<p class="ods-list-item-txt">
+	         	  <#if pdd.objet?exists>
+		    		${pdd.objet}
+		 		  <#else> 
+	    	 	 </#if>
+	    	 	</p>
+	         </div>
+	    </#list>
+        </div>
+       <!--bloc-->
+       <div class="ods-legend"><strong>#i18n{ods.front.deliberations.label.legende}</strong>
+         <ul>
+          <li><span class="ods-flag-N" title="#i18n{ods.front.deliberations.title.nouveau}">#i18n{ods.front.deliberations.label.nouveau}</span>=#i18n{ods.front.deliberations.nouveaudocument}</li>
+          <li><span class="ods-flag-M" title="#i18n{ods.front.deliberations.title.modifie}">#i18n{ods.front.deliberations.label.modifie}</span>=#i18n{ods.front.deliberations.nouvelleversion}</li>
+          <li><span class="ods-flag-O" title="#i18n{ods.front.deliberations.label.aodj}">#i18n{ods.front.deliberations.label.aodj}</span>=#i18n{ods.front.deliberations.label.legende.odj}</li>
+         </ul>
+       </div>
+       <!--bloc-->
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div class="clear">&#160;</div>
+  <!-- to fill the page-content container on all browsers -->
+  
+   		
+			
+	  <div class="ods-top">
+	  	<a href="javascript:document.getElementById('page-content-right').focus()">
+	  		#i18n{ods.front.directionlist.href.hautpage}
+	  	</a>
+	  </div>
+			
+       
+   </div>

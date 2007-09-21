@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<plug-in>
+    
+    <!-- Plugin Informations -->
+    <name>rss</name>
+    <class>fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation</class>
+    <version>2.0</version>
+    <description>rss.plugin.description</description>
+    <documentation></documentation>
+    <installation></installation>
+    <changes></changes>
+    <user-guide></user-guide>
+    <provider>rss.plugin.provider</provider>
+    <provider-url>http://lutece.paris.fr</provider-url>
+    <icon-url>images/admin/skin/plugins/rss/rss.png</icon-url>
+    <copyright>Copyright (c) 2001-2006 Mairie de Paris</copyright>
+    <db-pool-required>1</db-pool-required>
+    
+    <!-- Page Include Service -->
+    <page-include-services>
+        <page-include-service>
+            <page-include-service-id>rss.include.service.name</page-include-service-id>
+            <page-include-service-class>fr.paris.lutece.plugins.rss.web.RssInclude</page-include-service-class>
+        </page-include-service>
+    </page-include-services>
+    
+    <!-- Admin features -->
+    <admin-features>
+        <admin-feature>
+            <feature-id>RSS_MANAGEMENT</feature-id>
+            <feature-title>rss.adminFeature.rss_management.name</feature-title>
+            <feature-description>rss.adminFeature.rss_management.description</feature-description>
+            <feature-level>2</feature-level>
+            <feature-url>jsp/admin/plugins/rss/ManageRssFiles.jsp</feature-url>
+        </admin-feature>
+        
+        <admin-feature>
+            <feature-id>RSS_FEEDS_MANAGEMENT</feature-id>
+            <feature-title>rss.adminFeature.rss_feeds_management.name</feature-title>
+            <feature-description>rss.adminFeature.rss_feeds_management.description</feature-description>
+            <feature-level>2</feature-level>
+            <feature-url>jsp/admin/plugins/rss/ManageRssFeeds.jsp</feature-url>
+        </admin-feature>
+        
+    </admin-features>
+    <!-- Portlet parameters -->
+    <portlets>
+        <portlet>
+            <portlet-class>fr.paris.lutece.plugins.rss.business.portlet.RssPortletHome</portlet-class>
+            <portlet-type-id>RSS_PORTLET</portlet-type-id>
+            <portlet-type-name>rss.portlet.name</portlet-type-name>
+            <portlet-creation-url>plugins/rss/CreatePortletRss.jsp</portlet-creation-url>
+            <portlet-update-url>plugins/rss/ModifyPortletRss.jsp</portlet-update-url>
+            <portlet-create-action-url>plugins/rss/DoCreatePortletRss.jsp</portlet-create-action-url>
+            <portlet-modify-action-url>plugins/rss/DoModifyPortletRss.jsp</portlet-modify-action-url>
+            <!-- optional entries -->
+            <portlet-create-script-template>/admin/portlet/script_create_portlet.html</portlet-create-script-template>
+            <portlet-modify-script-template>/admin/portlet/script_modify_portlet.html</portlet-modify-script-template>
+            <portlet-create-specific-template>/admin/plugins/rss/portlet/create_portlet_rss.html</portlet-create-specific-template>
+            <portlet-modify-specific-template>/admin/plugins/rss/portlet/modify_portlet_rss.html</portlet-modify-specific-template>
+            <portlet-create-specific-form-template></portlet-create-specific-form-template>
+            <portlet-modify-specific-form-template></portlet-modify-specific-form-template>    
+        </portlet>
+    </portlets>
+    
+    <daemons>
+        <daemon>
+            <daemon-id>fetchRssFeeds</daemon-id>
+            <daemon-name>rss.daemon.fetchRssFeeds.name</daemon-name>
+            <daemon-description>rss.daemon.fetchRssFeeds.description</daemon-description>
+            <daemon-class>fr.paris.lutece.plugins.rss.service.daemon.FetchRssFeedsDaemon</daemon-class>
+        </daemon>
+        <daemon>
+            <daemon-id>resetRssFeeds</daemon-id>
+            <daemon-name>rss.daemon.resetRssFeeds.name</daemon-name>
+            <daemon-description>rss.daemon.resetRssFeeds.description</daemon-description>
+            <daemon-class>fr.paris.lutece.plugins.rss.service.daemon.ResetRssFeedsMemoryCacheDaemon</daemon-class>
+        </daemon>
+		
+		
+		  <daemon>
+            <daemon-id>generateRssFiles</daemon-id>
+            <daemon-name>rss.daemon.resetRssFeeds.name</daemon-name>
+            <daemon-description>rss.daemon.resetRssFeeds.description</daemon-description>
+            <daemon-class>fr.paris.lutece.plugins.rss.service.daemon.GenerateRssFilesDaemon</daemon-class>
+        </daemon>
+		
+    </daemons>
+</plug-in>
+

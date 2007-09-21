@@ -1,0 +1,16 @@
+<div class="content-box" >
+
+    <h2>#i18n{poll.create_choice.boxTitle}</h2>
+			       
+    <form method="post" name="create_choice" action="jsp/admin/plugins/poll/DoCreateChoice.jsp">		
+        <input type="hidden" name="question_id" value="${question.id}" />        
+        <p>
+            <label for="choice_label" >#i18n{poll.create_choice.label}*:</label>
+            <input type="text" id="choice_label" name="choice_label" tabindex="1" size="100" maxlength="250" />
+        </p>		
+        <p>
+            <input type="submit" value="#i18n{poll.create_choice.buttonLabelCreate}" tabindex="10" class="button" />
+            <input class="button" type="button" onclick="javascript:history.go(-1)" value="#i18n{portal.admin.message.buttonCancel}" />
+        </p>
+    </form>
+</div>

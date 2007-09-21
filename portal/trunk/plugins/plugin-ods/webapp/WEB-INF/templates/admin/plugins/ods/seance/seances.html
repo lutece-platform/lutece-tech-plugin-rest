@@ -1,0 +1,100 @@
+<#if (filter_error?exists)>
+	<div id="message-box">
+		<div class="content-box">
+		    <img src="images/admin/skin/messages/stop.png" class="icon" alt="" />
+		    <h2>#i18n{ods.all.label.stop}</h2>
+		    <p>
+		        #i18n{ods.seance.message.filtreError}
+		    </p>
+		    <form method="post" action="javascript:history.go(-1)"  target="_self">
+			    <p>
+					<input class="button" type="submit" value="#i18n{ods.all.button.ok}" />
+				</p>
+			</form>
+		</div>
+	</div>	
+<#else>
+	<div class="content-box">
+		<h2>#i18n{ods.listeseances.label.titleListe}</h2>
+	  	<div class="highlight-box">
+			<form method="POST" action="jsp/admin/plugins/ods/seance/DoSeanceFilter.jsp">
+		    <p>
+			     <label class="text-label" for="">#i18n{ods.listeseances.label.filter}</label>
+			     <input type="text" name="seance_begin" id="seance_begin" size="10" value="${seance_begin}"/>
+			     <input type="button" class="button" id="button_seance_begin" value="..." />
+			     #i18n{ods.all.label.and}
+			     <input type="text" name="seance_end" id="seance_end" size="10" value="${seance_end}"/>
+			     <input type="button" class="button" id="button_seance_end" value="..." />
+			     <input type="submit" class="button" value="Appliquer" />
+		    </p>
+		   	</form>
+		</div>
+	   	<a name="ANC_LAST" id="ANC_LAST"></a>
+		<#if liste_seances?size=0>
+			<div class="highlight-box">
+				#i18n{ods.listeseances.label.noSeance}
+			</div>
+	    <#else>
+		<table>
+			<tr>
+		    	<th>#i18n{ods.listeseances.title.seances}</th>
+	    		<#if permission_gestion >
+		    		<th>#i18n{ods.listeseances.title.actions}</th>
+		    	</#if>
+		   	</tr>
+			<#list liste_seances as seance>
+			<tr>
+				<td>#i18n{ods.listeseances.label.du} ${seance.dateSeance?string("dd/MM/yyyy")} #i18n{ods.listeseances.label.au} ${seance.dateCloture?string("dd/MM/yyyy")}</td>
+			    <#if permission_gestion >
+			    <td nowrap="nowrap" class="ods-actions">
+			     	<a href="jsp/admin/plugins/ods/seance/ModificationSeance.jsp?id_seance=${seance.idSeance}">
+			     		<img src="images/admin/skin/plugins/ods/action/modify.png" alt="#i18n{ods.listeseances.title.modify}" title="#i18n{ods.listeseances.title.modify}" />
+			     	</a>
+			     	<a href="jsp/admin/plugins/ods/seance/SuppressionSeance.jsp?id_seance=${seance.idSeance}">
+			     		<img src="images/admin/skin/actions/delete.png" alt="#i18n{ods.listeseances.title.delete}" title="#i18n{ods.listeseances.title.delete}" />
+			     	</a>
+			    </td>
+			   	</#if>
+			</tr>
+			</#list>
+		</#if>
+	  	</table>
+	  
+		<#if permission_gestion >
+	  	<form method="POST"  action="jsp/admin/plugins/ods/seance/CreationSeance.jsp">
+	   		<p>
+	    	<input type="submit" value="#i18n{ods.listeseances.button.create}" class="button" />
+	   		</p>
+	  	</form>
+	  	</#if>
+	</div>
+
+<!-- main calendar program -->
+<script type="text/javascript" src="js/jscalendar/calendar.js"></script>
+<!-- language for the calendar -->
+<script type="text/javascript" src="js/jscalendar/lang/calendar-fr.js"></script>
+<!-- the following script defines the Calendar.setup helper function, which makes
+       adding a calendar a matter of 1 or 2 lines of code. -->
+<script type="text/javascript" src="js/jscalendar/calendar-setup.js"></script>
+<script type="text/javascript">
+    Calendar.setup({
+    inputField     :    "seance_begin",      // id of the input field
+    ifFormat       :    "%d/%m/%Y",       // format of the input field
+    showsTime      :    false,            // will display a time selector
+    button         :    "button_seance_begin",   // trigger for the calendar (button ID)
+    singleClick    :    true,           // double-click mode
+    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
+    });
+</script>
+<script type="text/javascript">
+    Calendar.setup({
+    inputField     :    "seance_end",      // id of the input field
+    ifFormat       :    "%d/%m/%Y",       // format of the input field
+    showsTime      :    false,            // will display a time selector
+    button         :    "button_seance_end",   // trigger for the calendar (button ID)
+    singleClick    :    true,           // double-click mode
+    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
+    });
+</script>
+
+</#if>

@@ -1,0 +1,47 @@
+<div class="content-box">  
+<form method="post"  enctype="multipart/form-data" name="create_application" action="jsp/admin/plugins/myapps/DoCreateMyApp.jsp">
+    <h2>#i18n{myapps.create_application.tableLabel}</h2>
+    <p>
+        <label for="app_name" >#i18n{myapps.create_application.rowTitleName}  :</label>
+        <input type="text" id="app_name" name="app_name" size="60" maxlength="50"  tabindex="1" />
+    </p>  
+    <p>
+        <label for="app_url" >#i18n{myapps.create_application.rowTitleUrl}  :</label>
+        <input type="text" id="app_url" name="app_url" size="60" maxlength="255"  tabindex="2" />
+    </p> 
+    <p>
+        <label for="app_description" >#i18n{myapps.create_application.rowTitleDescription}  :</label>
+        <input type="text" id="app_description" name="app_description" size="60" maxlength="255"  tabindex="3" />
+    </p> 
+    <p>
+        <label for="user_name" >#i18n{myapps.create_application.rowTitleUserName}  :</label>
+        <input type="text" id="user_name" name="user_name" size="60" maxlength="50"  tabindex="4" />
+    </p> 
+    </p> 
+    <p>
+        <label for="code_heading" >#i18n{myapps.create_application.rowTitleUserHeading}  :</label>
+        <input type="text" id="code_heading" name="code_heading" size="60" maxlength="50" tabindex="5" />
+    </p> 
+    <p>
+        <label for="user_password" >#i18n{myapps.create_application.rowTitleUserPassword}  :</label>
+        <input type="text" id="user_password" name="user_password" size="60" maxlength="50"  tabindex="6" />
+    </p> 
+    <p>
+        <label for="user_field" >#i18n{myapps.create_application.rowTitleUserField}  :</label>
+        <input type="text" id="user_field" name="user_field" size="60" maxlength="50" tabindex="7" />
+    </p> 
+    <p>
+        <label for="user_field_heading" >#i18n{myapps.create_application.rowTitleUserFieldHeading}  :</label>
+        <input type="text" id="user_field_heading" name="user_field_heading" size="60" maxlength="50"  tabindex="8" />
+    </p> 
+    <p>
+	<label for="app_icon">#i18n{myapps.create_application.rowTitleIconField} :</label>
+	<input type="file" name="app_icon" id="app_icon" size="60"/>
+    </p>
+    <p>   
+        <input type="submit" value="#i18n{myapps.create_application.buttonValidate}" class="button" tabindex="9" />
+        <input class="button" type="button" onclick="javascript:history.go(-1)" value="#i18n{portal.admin.message.buttonCancel}" />	
+    </p>
+
+</form>
+</div>

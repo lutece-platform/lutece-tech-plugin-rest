@@ -1,0 +1,61 @@
+<div id="one-zone-first">
+    <div id="one-zone-first-content">
+
+<h2 class="page-title">#i18n{codewizard.code_wizard.pageTitle}</h2>
+<center>
+<table>
+<tr>
+<td>
+<form method="post" name="generate" >
+<input type="hidden" name="page" value="codewizard">
+<input type="hidden" name="action" value="generate">
+
+<table>
+<tr><td>#i18n{codewizard.code_wizard.package} :</td><td> <input type="text" name="package" value="fr.paris.lutece.plugins." size="30"></td></tr>
+<tr><td>#i18n{codewizard.code_wizard.business_class} :</td><td> <input type="text" name="class" value="Object" size="30"></td></tr>
+<tr><td>#i18n{codewizard.code_wizard.table} :</td><td> <input type="text" name="table" value="object" size="30"></td></tr>
+<tr><td>#i18n{codewizard.code_wizard.plugin} :</td><td> <input type="text" name="plugin" value="object" size="30"></td></tr>
+</table>
+<br/>
+
+#i18n{codewizard.code_wizard.attributes} : <br/>
+<table>
+<tr><td valign="top">
+<textarea name="attributes" cols="40" rows="8">
+id_object int
+description String
+
+</textarea>
+</td><td valign="top">
+<blockquote>
+#i18n{codewizard.code_wizard.exemple} : <br/>
+<code>
+id_object int<br/>
+name String<br/>
+description String<br/>
+</code>
+</blockquote>
+</td>
+</tr>
+</table>
+<br/>
+<center>
+<table>
+<tr><td>
+#i18n{codewizard.code_wizard.generation} : <@combo name="generation_type" default_value="1" items=combo_generators/>
+</td></tr>
+<tr><td align="center">
+<input type="submit" name="submit" value="#i18n{codewizard.code_wizard.generate_button}">
+</form>
+</td></tr>
+</table>
+</center>
+</td>
+</tr>
+</table>
+</center>
+
+    </div>
+</div>
+
+

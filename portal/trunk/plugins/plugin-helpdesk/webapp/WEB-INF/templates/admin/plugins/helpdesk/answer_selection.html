@@ -1,0 +1,86 @@
+<html>
+
+<head>
+	<title>#i18n{helpdesk.answer_selection.pageTitle}</title>
+	<link rel="stylesheet" type="text/css" href="../../../../css/page_template_styles.css" />
+</head>
+
+<body>
+
+<br/>
+<table cellpadding="0" cellspacing="0" width="500">
+	<tr>
+		<td width="20">
+			&nbsp;
+		</td>
+		<td>
+			<h3><img src="../../../../images/local/skin/arrows.gif"  border="0">&nbsp;#i18n{helpdesk.answer_selection.boxTitle}</h3>
+		</td>
+	</tr>
+</table>
+
+<table cellpadding="0" cellspacing="0" width="500">
+	<tr>
+		<td width="30">
+			&nbsp;
+		</td>
+		<td>
+			#i18n{helpdesk.answer_selection.LabelChooseQuestion}<br/><br/>
+		</td>
+	</tr>
+	<tr>
+		<td width="30">
+			&nbsp;
+		</td>
+		<td>
+			<table>
+                                <#list helpdesk_subject_list as subject_list >
+                                <tr>
+                                    <td><br/>
+                                        <p><strong>${subject_list.subject}</strong></p>
+                                        <input type="hidden" name="subject_id" value="${subject_list.idSubject}"
+                                            <#list helpdesk_question_list as question_list >
+                                                <#if subject_list.idSubject=question_list.idSubject>                                                
+                                                    <a href="javascript:majform(${question_list.idQuestionAnswer})" class="bullet-link">${question_list.question}</a><br/>
+                                                    <p>
+                                                        ${question_list.answer}
+                                                    </p>
+                                                </#if>
+                                            </#list>                      
+                                    </td>
+                                </tr>
+                                </#list>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td width="30">
+			&nbsp;
+		</td>
+	</tr>
+</table>
+<script language="JavaScript">
+
+function majform(question_id)
+{
+	answer = new Array();
+        answer[question_id] = "answer";
+
+	if (typeof(opener) == "object")
+	{
+		if (typeof(opener.document) == "object")
+		{
+			if (typeof(opener.document.modify_visitor_question) == "object")
+			{
+				opener.document.modify_visitor_question.answer.value = answer[question_id];
+				close();
+			}
+		}
+	}
+}
+
+
+</script>
+
+    
+

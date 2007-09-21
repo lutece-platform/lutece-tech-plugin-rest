@@ -1,0 +1,661 @@
+<#function isEqualCommissions listCommission1  listCommission2 >
+	<#local bEqual=true>
+	<#if listCommission1?size!=listCommission2?size>
+		<#local bEqual=false>
+	<#else>
+		<#list  listCommission1 as commission1>
+	  		<#list  listCommission2 as commission2>
+	  			<#if commission1_index==commission2_index &&commission1.idCommission!=commission2.idCommission>
+					 <#local bEqual=false>
+				</#if>
+	  		</#list>
+	  	</#list>	
+	</#if>
+	<#return bEqual>
+</#function>
+
+
+<#function isEqualRapporteurs listElus1  listElus2 >
+	<#local bEqual=true>
+	<#if listElus1?size!=listElus2?size>
+		<#local bEqual=false>
+	<#else>
+		<#list  listElus1 as elu1>
+	  		<#list  listElus2 as elu2>
+	  			<#if elu1_index==elu2_index &&elu1.idElu!=elu2.idElu>
+					 <#local bEqual=false>
+				</#if>
+	  		</#list>
+	  	</#list>	
+	</#if>
+	<#return bEqual>
+</#function>
+
+<#function isNewEntree idNewEntree  listIdEntree >
+	<#local bNewEntree=false>
+		<#list  listIdEntree as idEntree >
+	  		<#if idNewEntree==idEntree>
+					 <#local bNewEntree=true>
+			</#if>
+	  	</#list>	
+		<#return bNewEntree>
+</#function>
+
+<#function nombrePdd listEntree>
+	<#local nNbrePdd=0>
+	<#list  listEntree as entree >
+	  		<#if entree.type=='P'>
+					<#local nNbrePdd=nNbrePdd+1>
+			</#if>
+	  </#list>	
+	 <#return nNbrePdd> 
+</#function>
+
+<#function writeRapporteur rapporteurs>
+	<#if rapporteurs?size == 1>
+		<#list rapporteurs as rapporteur>
+			<#if rapporteur.civilite == "M." >
+				<#return "#i18n{ods.odj.modificationOdj.label.rapporteur}.">
+			</#if>
+		</#list>
+		<#return "#i18n{ods.odj.modificationOdj.label.rapporteure}.">
+	<#else>
+		<#list rapporteurs as rapporteur>
+			<#if rapporteur.civilite == "M." >
+				<#return "#i18n{ods.odj.modificationOdj.label.rapporteurs}.">
+			</#if>
+		</#list>
+		<#return "#i18n{ods.odj.modificationOdj.label.rapporteures}.">	
+	</#if>
+</#function>
+
+<#function writeNeme numero>
+	<#if numero == 1>
+		<#return "#i18n{ods.all.label.ere}">
+	<#else>
+		<#return "#i18n{ods.all.label.eme}">			      
+	</#if>
+</#function>
+
+<script language="JavaScript" type="text/javascript">	
+	function toggleBoxes(f, dowhat) 
+	{
+		for (i=0; i<f.elements.length; i++) {
+			if (f.elements[i].type == 'checkbox') {
+		   		if (dowhat == 'on') {
+		    		f.elements[i].checked = true;
+				} else {
+		    		f.elements[i].checked = false;
+				}
+			}
+		}
+	}
+		
+	function creationentree(type) 
+	{		
+   		var myForm = document.getElementById('creationEntree');
+   		myForm.type.value=type;
+  		myForm.submit();
+    }
+    
+    function creationentrees(type,identree) 
+    {
+  		var myForm = document.getElementById('creationEntree');
+   		myForm.type.value=type;
+   		myForm.id_entree.value=identree;
+  		myForm.submit();
+    }
+</script>
+ 
+ <div class="content-box">
+  <h2>#i18n{ods.odj.modificationOdj.label.title}</h2>
+ <form action="jsp/admin/plugins/ods/ordredujour/DoModificationOrdreDuJour.jsp" method="post"  >
+ <input type="hidden" id="id_odj" name="id_odj" value="${odj.idOrdreDuJour}"  />
+  
+   <p>
+		<label>#i18n{ods.modificationamendement.label.seance} * : </label>
+   		#i18n{ods.listeamendements.label.from}
+		${seance.dateSeance?string("dd/MM/yyyy")}
+		<#if seance.dateSeance?string("ddMMyyyy") != seance.dateCloture?string("ddMMyyyy") >
+			#i18n{ods.listeamendements.label.to}
+			${seance.dateCloture?string("dd/MM/yyyy")}
+		</#if>
+    </p>
+   <p>
+    <label for="">#i18n{ods.odj.modificationOdj.label.formation}</label>
+   ${odj.formationConseil.libelle}</p>
+    <p>
+    <label for="">#i18n{ods.odj.modificationOdj.label.type}</label>
+   ${odj.typeOrdreDuJour.libelle} </p>
+   <p>
+    <label for="">#i18n{ods.odj.modificationOdj.label.intitule} * : </label>
+    <input type="text" name="titre" id="titre" size="80" value="${odj.intitule}" />
+   </p>
+   <p>
+    <input type="submit"  name="enregistrer" value="#i18n{ods.all.button.save}" class="button" />
+    <input type="submit"  name="appliquer" value="#i18n{ods.all.button.apply}" class="button" />
+    <input type="submit"  name="annuler" value="#i18n{ods.all.button.cancel}" class="button" />
+   </p>
+   <p> <strong>#i18n{ods.odj.modificationOdj.label.create}</strong>#i18n{ods.odj.modificationOdj.label.create.value}<br/>
+     <strong>#i18n{ods.odj.modificationOdj.label.apply}</strong>#i18n{ods.odj.modificationOdj.label.apply.value}<br/>
+     <strong>#i18n{ods.odj.modificationOdj.label.cancel}</strong>#i18n{ods.odj.modificationOdj.label.cancel.value}
+   </p>
+  </form>
+ </div>
+ <div class="content-box">
+	<p>
+		<#if odj.modeClassement='A'> 
+			 <form method="post" id="tourniquet" name="tourniquet" action="jsp/admin/plugins/ods/ordredujour/DoAppliquerTourniquet.jsp">
+			 	<input type="hidden" id="id_odj" name="id_odj" value="${odj.idOrdreDuJour}"  />
+			 	 	<#if odj.tourniquet>
+			 	 	 	<input type="submit"  name="annuler" value="#i18n{ods.odj.modificationOdj.button.cancelTourniquet}" class="button" />
+			 		<#else>
+			 			<input type="submit"  name="appliquer" value="#i18n{ods.odj.modificationOdj.button.applyTourniquet}" class="button" />
+			   		</#if>
+			 </form>
+		</#if>	 
+	 <form method="post" id="manuel" name="manuel" action="jsp/admin/plugins/ods/ordredujour/DoAppliquerModeManuel.jsp">
+	 	<input type="hidden" id="id_odj" name="id_odj" value="${odj.idOrdreDuJour}"  />
+	 	 	<#if odj.modeClassement='M'>
+	 	 	 	<input type="submit"  name="annuler" value="#i18n{ods.odj.modificationOdj.button.cancelModeManuel}" class="button" />
+	 		<#else>
+	 			<input type="submit"  name="appliquer" value="#i18n{ods.odj.modificationOdj.button.applyModeManuel}" class="button" />
+	   		</#if>
+	 </form>
+	 <form method="post" id="manuel" name="manuel" action="jsp/admin/plugins/ods/ordredujour/DoVisualisationOrdreDuJour.jsp">
+	 	<input type="hidden" id="id_odj" name="id_odj" value="${odj.idOrdreDuJour}"  />
+	 	<p>
+    		<label for="">#i18n{ods.odj.modificationOdj.select.format}</label>
+    		<select name="type">
+     			<option selected="selected" value="pdf">#i18n{ods.odj.modificationOdj.select.option.pdf}</option>
+				<option  value="doc">#i18n{ods.odj.modificationOdj.select.option.word}</option>
+    		</select>
+  			<input type="submit"  name="annuler" value="#i18n{ods.odj.modificationOdj.button.visualise}" class="button" />
+		</p>	
+		
+	 </form>
+	 <#if odj.typeOrdreDuJour.idTypeOrdreDuJour==2>
+		  <form method="post" id="manuel" name="manuel" action="jsp/admin/plugins/ods/ordredujour/DoVisualisationOrdreDuJourCsv.jsp">
+		 	<input type="hidden" id="id_odj" name="id_odj" value="${odj.idOrdreDuJour}"  />
+		 	<p>
+	    		<label for="">#i18n{ods.odj.modificationOdj.label.formatCsv}</label>
+	    		<input type="submit"  name="annuler" value="#i18n{ods.odj.modificationOdj.button.exporter}" class="button" />
+			</p>	
+		</form>
+		<p>
+			<form method="post" id="numeroter" name="numeroter" action="jsp/admin/plugins/ods/ordredujour/DoNumeroterVoeuxAmendements.jsp">
+		 		<input type="hidden" id="id_odj" name="id_odj" value="${odj.idOrdreDuJour}"  />
+		 	 	<input type="submit"  name="numeroter" value="#i18n{ods.odj.modificationOdj.button.numerote}" class="button" />
+		 	</form>
+		</p>
+	</#if>
+ <form method="post" id="creationEntree" name="creationEntree" action="jsp/admin/plugins/ods/ordredujour/DoTraitementEntreeOrdreDuJour.jsp">
+	 <input type="hidden" id="id_odj" name="id_odj" value="${odj.idOrdreDuJour}"  />
+ 	<input type="hidden" id="id_entree" name="id_entree" />
+ 	
+ 	<#if odj.modeClassement=='A'>
+ 		
+ 		 <p>
+    		<input  type="button" value="#i18n{ods.odj.modificationOdj.button.selectall}" onclick="toggleBoxes(this.form, 'on');" class="button" />
+    		<input  type="button" value="#i18n{ods.odj.modificationOdj.button.deselectall}" onclick="toggleBoxes(this.form, 'off');" class="button" />
+			<input  type="submit" value="#i18n{ods.odj.modificationOdj.button.deleteSelect}" class="button" name="supprimer_selection" />
+    	<#if odj.typeOrdreDuJour.idTypeOrdreDuJour==0||odj.typeOrdreDuJour.idTypeOrdreDuJour==1||odj.typeOrdreDuJour.idTypeOrdreDuJour==3>
+    			<input  type="submit" value="#i18n{ods.odj.modificationOdj.button.genereAdditif}" class="button"  name="generer_additif" />
+    			<input  type="submit" value="#i18n{ods.odj.modificationOdj.button.genere.rectificatif}" class="button" name="generer_rectificatif"  />
+    	</#if>
+    </p>
+ 		
+ 		
+ 		<input type="hidden" id="type" name="type" />	
+ 		<p>
+     		<input type="submit" value="#i18n{ods.odj.modificationOdj.button.addTexte}" name="ajouter_texte" class="button"  />
+    	</p>
+    	<p>
+    		 <input type="submit" value="#i18n{ods.odj.modificationOdj.button.addPdd}" name="ajouter_pdd" class="button"  />
+     	</p>
+     	<#if odj.typeOrdreDuJour.idTypeOrdreDuJour==2>
+     		<p>
+     			<input type="submit" value="#i18n{ods.odj.modificationOdj.button.addVoeu}"  name="ajouter_voeu" class="button" />
+    		</p>
+    	</#if>
+    <#else>
+    
+    
+    		<p>
+			<label for="">#i18n{ods.odj.modificationOdj.select.label.newEntree}</label>
+		    	<select name="type" id="type">
+		     		<option value=""></option>
+		     		<option value="P">#i18n{ods.odj.modificationOdj.select.value.pdd}</option>
+		     		<option value="T">#i18n{ods.odj.modificationOdj.select.value.texte}</option>
+		     		<#if odj.typeOrdreDuJour.idTypeOrdreDuJour==2>
+     					<option value="V">#i18n{ods.odj.modificationOdj.select.value.voeu}</option>
+     				</#if>	
+		     	</select>
+		    <input value="#i18n{ods.odj.modificationOdj.button.addBeforSelect}" class="button"  type="submit" name="ajouter_avant_selection">
+			<input value="#i18n{ods.odj.modificationOdj.button.addAfterSelect}" class="button"  type="submit" name="ajouter_apres_selection">
+		   </p>
+		    
+
+   <p>
+    <input  type="button" value="#i18n{ods.odj.modificationOdj.button.selectall}" onclick="toggleBoxes(this.form, 'on');" class="button" />
+    <input  type="button" value="#i18n{ods.odj.modificationOdj.button.deselectall}" onclick="toggleBoxes(this.form, 'off');" class="button" />
+	<input  type="submit" value="#i18n{ods.odj.modificationOdj.button.deleteSelect}" class="button" name="supprimer_selection" />
+    <#if odj.typeOrdreDuJour.idTypeOrdreDuJour==0||odj.typeOrdreDuJour.idTypeOrdreDuJour==1||odj.typeOrdreDuJour.idTypeOrdreDuJour==3>
+    	<input  type="submit" value="#i18n{ods.odj.modificationOdj.button.genereAdditif}" class="button"  name="generer_additif" />
+    	<input  type="submit" value="#i18n{ods.odj.modificationOdj.button.genere.rectificatif}" class="button" name="generer_rectificatif"  />
+    </#if>
+    <input  type="submit" value="#i18n{ods.odj.modificationOdj.button.deplace}" class="button" name="deplacer_selection" />
+   </p>
+    		
+    </#if>
+    
+    
+ 	<p>#i18n{ods.odj.modificationOdj.label.nbrPdd}  ${nombrePdd(odj.listEntrees )}</p>
+   <div class="ods-odj">
+    <#if entete?exists&&entete.entreeEntete?exists&&entete.entreeEntete?size!=0>
+    	<div class="ods-odj-header">
+     		<#list entete.entreeEntete as entree>
+     		 	<#if entree.style?exists>
+      		   		<div class="ods-odj-epp${entree.style}">${entree.texteLibre}</div>
+      		   	<#else>
+      		   		${entree.texteLibre}
+      		   	</#if>
+      		</#list>   		
+     	</div>
+    </#if>
+    <table>
+    <#list odj.listEntrees as entree >
+			<#if odj.modeClassement='A'>
+			<!-- affichage de la nature des dossiers -->
+			<#if  !nature?exists&&entree.nature?exists>
+				<#if  rapporteurs?exists&& bRapporteurs>
+						 
+						 <tr  class="ods-noborder">
+							<td colspan=3 nowrap="nowrap">
+							<p>
+	     					<input type="button" value="#i18n{ods.odj.modificationOdj.button.addProjets}" name="ajouter_des_projets" class="button"  onclick="creationentrees('ajouter_des_projets',${id_entree_rapporteurs})">
+	     					<input type="button" value="#i18n{ods.odj.modificationOdj.button.addPropositions}" name="ajouter_des_propositions" class="button" onclick="creationentrees('ajouter_des_propositions',${id_entree_rapporteurs})">
+							<#if odj.typeOrdreDuJour.idTypeOrdreDuJour==2>
+	    						<input type="button" value="#i18n{ods.odj.modificationOdj.button.addVoeux}" name="ajouter_des_voeux" class="button" onclick="creationentrees('ajouter_des_voeux',${id_entree_rapporteurs})">
+							</#if>
+						</p>
+								<h4>
+								<#list rapporteurs as elu>
+									    	${elu.civilite} ${elu.prenomElu} ${elu.nomElu} 
+									     	(${elu.commission.numero}${writeNeme(elu.commission.numero)})
+									        <#if elu_has_next>
+											    ,
+											<#else>
+												${writeRapporteur(rapporteurs)}
+										   	</#if>
+									</#list>
+								  </h4>
+							</td>
+						 </tr>	
+						 <#assign bRapporteurs=false> 
+					</#if>
+			<#assign nature=entree.nature>
+				<tr  class="ods-noborder">
+					<td colspan=3 nowrap="nowrap">
+					<h2>${entree.nature.libelleNature}</h2>
+					 </td >
+				</tr>	 
+			</#if>
+			<!-- avant d'afficher une nouvelle nature des dossiers ,on affiche si elles en ont les rapporteurs
+			 des entrï¿½es prï¿½cï¿½dentes -->
+			
+			<#if  entree.nature?exists&&nature.idNature!=entree.nature.idNature>
+					
+					<#if  rapporteurs?exists&& bRapporteurs>
+						
+						 <tr class="ods-noborder">
+							<td colspan=3 nowrap="nowrap">
+							 <p>
+	     					<input type="button" value="#i18n{ods.odj.modificationOdj.button.addProjets}" name="ajouter_des_projets" class="button"  onclick="creationentrees('ajouter_des_projets',${id_entree_rapporteurs})">
+	     					<input type="button" value="#i18n{ods.odj.modificationOdj.button.addPropositions}" name="ajouter_des_propositions" class="button" onclick="creationentrees('ajouter_des_propositions',${id_entree_rapporteurs})">
+							<#if odj.typeOrdreDuJour.idTypeOrdreDuJour==2>
+	    						<input type="button" value="#i18n{ods.odj.modificationOdj.button.addVoeux}" name="ajouter_des_voeux" class="button" onclick="creationentrees('ajouter_des_voeux',${id_entree_rapporteurs})">
+							</#if>
+				
+							</p>
+						
+								<h4>
+								<#list rapporteurs as elu>
+									    	${elu.civilite} ${elu.prenomElu} ${elu.nomElu} 
+									     	(${elu.commission.numero}${writeNeme(elu.commission.numero)})<#if elu_has_next>, <#else>   
+											${writeRapporteur(rapporteurs)}
+																			</#if>
+								</#list>
+								  </h4>
+							</td>
+						 </tr>	
+						 <#assign bRapporteurs=false> 
+					</#if>
+					 <#assign bCommissions=true> 
+					<#assign nature=entree.nature>
+				<tr class="ods-noborder">
+					<td colspan=3 nowrap="nowrap">
+					<h2>${entree.nature.libelleNature}</h2>
+					 </td>
+				</tr>	 
+			</#if>
+			
+					<!-- affichage des commissions-->
+					<!-- si aucune liste de commissions n'a ï¿½tï¿½ affichï¿½ ou si la nature des dossiers a changï¿½e
+					  et que l'entrï¿½e possï¿½de une liste de commissions, on affiche cette liste -->
+			<#if  (!commissions?exists|bCommissions==true)&&entree.commissions?exists&&entree.commissions?size!=0>
+				
+				<#if  rapporteurs?exists&& bRapporteurs>
+				 		
+						 <tr class="ods-noborder">
+							<td colspan=3 nowrap="nowrap">
+							<p>
+	     						<input type="button" value="#i18n{ods.odj.modificationOdj.button.addProjets}" name="ajouter_des_projets" class="button"  onclick="creationentrees('ajouter_des_projets',${id_entree_rapporteurs})">
+	     						<input type="button" value="#i18n{ods.odj.modificationOdj.button.addPropositions}" name="ajouter_des_propositions" class="button" onclick="creationentrees('ajouter_des_propositions',${id_entree_rapporteurs})">
+								<#if odj.typeOrdreDuJour.idTypeOrdreDuJour==2>
+	    							<input type="button" value="#i18n{ods.odj.modificationOdj.button.addVoeux}" name="ajouter_des_voeux" class="button" onclick="creationentrees('ajouter_des_voeux',${id_entree_rapporteurs})">
+								</#if>
+				
+							</p>
+					
+								<h4>
+								<#list rapporteurs as elu>
+									    	${elu.civilite} ${elu.prenomElu} ${elu.nomElu} 
+									     	(${elu.commission.numero}${writeNeme(elu.commission.numero)})<#if elu_has_next>, <#else>   		
+											${writeRapporteur(rapporteurs)}
+									</#if>
+								</#list>
+								</h4>
+							</td>
+						 </tr>	
+						 <#assign bRapporteurs=false> 
+					</#if>
+				
+				
+				
+				<#assign commissions=entree.commissions>
+				 <#assign bCommissions=false> 
+				<tr class="ods-noborder">
+					<td colspan=3 nowrap="nowrap">
+						<h3>
+							<#list commissions as commission>
+								${commission.numero}${writeNeme(commission.numero)}
+						    	<#if commission_has_next>, <#else>#i18n{ods.odj.creation.label.commission}</#if>
+						   	</#list>
+						</h3>
+						 </td>
+				</tr>	 
+			
+			<#elseif  commissions?exists&&entree.commissions?exists>
+				<#if  !isEqualCommissions(commissions,entree.commissions)>
+					<#assign commissions=entree.commissions>
+					
+			 		<#if  rapporteurs?exists&& bRapporteurs>
+			 			 
+						
+						 <tr class="ods-noborder">
+							<td colspan=3 nowrap="nowrap">
+								<p>
+		     					<input type="button" value="#i18n{ods.odj.modificationOdj.button.addProjets}" name="ajouter_des_projets" class="button"  onclick="creationentrees('ajouter_des_projets',${id_entree_rapporteurs})">
+		     					<input type="button" value="#i18n{ods.odj.modificationOdj.button.addPropositions}" name="ajouter_des_propositions" class="button" onclick="creationentrees('ajouter_des_propositions',${id_entree_rapporteurs})">
+								<#if odj.typeOrdreDuJour.idTypeOrdreDuJour==2>
+	    							<input type="button" value="#i18n{ods.odj.modificationOdj.button.addVoeux}" name="ajouter_des_voeux" class="button" onclick="creationentrees('ajouter_des_voeux',${id_entree_rapporteurs})">
+								</#if>
+				
+								</p>
+									<h4>
+								<#list rapporteurs as elu>
+									    	${elu.civilite} ${elu.prenomElu} ${elu.nomElu} 
+									     	(${elu.commission.numero}${writeNeme(elu.commission.numero)})<#if elu_has_next>, <#else>   		
+												${writeRapporteur(rapporteurs)}
+										   	 </#if>										   
+								</#list>
+								  </h4>
+							</td>
+						 </tr>	
+						 <#assign bRapporteurs=false> 
+					</#if>
+					<tr  class="ods-noborder">
+					<td colspan=3 nowrap="nowrap">
+						<h3>
+						<#list entree.commissions as commission>
+							${commission.numero}${writeNeme(commission.numero)}
+						    <#if commission_has_next>, <#else>   
+						         <#if  commissions?size==1>
+						         	#i18n{ods.odj.creation.label.commission}
+						         <#else>
+						         	#i18n{ods.odj.creation.label.commissions}	
+						         </#if>
+					         </#if>
+						</#list>
+						</h3>
+					 </td>
+					</tr>	 
+				</#if>
+			</#if>
+			  	<!--affichage des rapporteurs de l'entr�e    -->
+						<#if  !rapporteurs?exists&&entree.elus?exists&&entree.elus?size!=0>
+								<#assign rapporteurs=entree.elus>
+								<#assign id_entree_rapporteurs=entree.idEntreeOrdreDuJour>
+								<#assign bRapporteurs=true> 
+						</#if>
+						
+						<#if  rapporteurs?exists>
+						  <#if (bRapporteurs&&entree.elus?exists&&!isEqualRapporteurs(rapporteurs,entree.elus))
+						  		||(bRapporteurs&&!entree.elus?exists)>
+								 
+								<tr  class="ods-noborder">
+									<td colspan=3 nowrap="nowrap">
+										<p>
+		     							<input type="button" value="#i18n{ods.odj.modificationOdj.button.addProjets}" name="ajouter_des_projets" class="button"  onclick="creationentrees('ajouter_des_projets',${id_entree_rapporteurs})">
+		     							<input type="button" value="#i18n{ods.odj.modificationOdj.button.addPropositions}" name="ajouter_des_propositions" class="button" onclick="creationentrees('ajouter_des_propositions',${id_entree_rapporteurs})">
+										<#if odj.typeOrdreDuJour.idTypeOrdreDuJour==2>
+	    									<input type="button" value="#i18n{ods.odj.modificationOdj.button.addVoeux}" name="ajouter_des_voeux" class="button" onclick="creationentrees('ajouter_des_voeux',${id_entree_rapporteurs})">
+										</#if>
+				
+										</p>
+											<h4>
+											<#list rapporteurs as elu>
+										    	${elu.civilite} ${elu.prenomElu} ${elu.nomElu} 
+										     	(${elu.commission.numero}${writeNeme(elu.commission.numero)})
+										        <#if elu_has_next>
+												     	,
+												  <#else>   		
+													${writeRapporteur(rapporteurs)}
+											   	 </#if>
+											   </#list>
+										</h4>
+									</td>
+								</tr>	
+							</#if>
+							<#if entree.elus?exists>
+								<#assign rapporteurs=entree.elus>
+								<#assign id_entree_rapporteurs=entree.idEntreeOrdreDuJour>
+								<#assign bRapporteurs=true>
+							<#elseif bRapporteurs&&!entree.elus?exists >
+								<#assign bRapporteurs=false>
+							</#if>
+						</#if>	
+				</#if>		
+			 
+			<#if entree.type=='T'>
+				<#if liste_nouvelle_entree?exists&&liste_nouvelle_entree?size!=0>
+					<#if isNewEntree(entree.idEntreeOrdreDuJour,liste_nouvelle_entree)>			
+						 <tr class="ods-lastinsert">
+					<#else>
+						<tr  class="ods-noborder">
+					</#if>
+				<#else>
+					<tr  class="ods-noborder">
+				</#if>
+						<td>
+    		   <input name="liste_entree_checked" id="liste_entree_checked" value="${entree.idEntreeOrdreDuJour}" type="checkbox">
+    		</td>
+      		<td style="width:100%;">
+      			<#if entree.style?exists>
+      		   		<p><h${entree.style}>${entree.objet}</h${entree.style}></p>
+      		   	<#else>
+      		   		<p>${entree.objet}</p>
+      		   	</#if>	
+        	</td>
+			<td class="ods-actions" nowrap="nowrap">
+       		 <a href="jsp/admin/plugins/ods/ordredujour/ModificationEntreeOrdreDuJour.jsp?id_entree=${entree.idEntreeOrdreDuJour}">
+             <img src="images/admin/skin/plugins/ods/action/modify.png" alt="#i18n{ods.odj.modificationOdj.title.modify}" title="#i18n{ods.odj.modificationOdj.title.modify}">
+       		</a> 
+            <a href="jsp/admin/plugins/ods/ordredujour/SuppressionEntreeOrdreDuJour.jsp?id_entree=${entree.idEntreeOrdreDuJour}">
+            	<img src="images/admin/skin/actions/delete.png" alt="#i18n{ods.odj.modificationOdj.title.delete}" title="#i18n{ods.odj.modificationOdj.title.delete}">
+           	</a> 
+       		</td>
+       		</tr>
+		</#if>
+		
+		<#if entree.type=='P'>
+		<#if liste_nouvelle_entree?exists&&liste_nouvelle_entree?size!=0>
+			<#if isNewEntree(entree.idEntreeOrdreDuJour,liste_nouvelle_entree)>			
+				 <tr class="ods-lastinsert" >
+			<#else>
+				<tr>
+			</#if>
+		<#else>
+			<tr  class="ods-noborder">
+		</#if>
+			
+    		  <td>
+    		   <input name="liste_entree_checked" id="liste_entree_checked" value="${entree.idEntreeOrdreDuJour}" type="checkbox">
+    		  </td>
+      		  <td style="width:100%;">
+      		  <#if entree.pdd?exists>
+	      		   	<a href="jsp/admin/plugins/ods/projetdeliberation/ModificationPDDForOdj.jsp?plugin_name=ods&id_pdd=${entree.pdd.idPdd}&id_odj=${odj.idOrdreDuJour}">
+	      		   		<#if entree.reference?exists>
+	      		   			${entree.reference}
+	      		   		</#if>
+	      		   	</a> 
+	      		   	<span class="ods-notes">( 
+	                <#if entree.pdd.enLigne == true>
+			    		#i18n{ods.odj.liste.label.publieLe} ${entree.pdd.datePublication?string("dd/MM/yyyy")}
+			    	<#else>
+			    		#i18n{ods.odj.liste.label.nonPublie}
+			  		</#if>
+			  			)
+		  			</span>
+		  			<#if odj.typeOrdreDuJour.idTypeOrdreDuJour==2>
+		  				<#list  entree.pdd.voeuxAmendements as va>
+		  							<#if  va.type='A'||va.type='LR'>
+				      	 				<a href="jsp/admin/plugins/ods/voeuamendement/ModificationAmendementForOdj.jsp?plugin_name=ods&id_voeuamendement=${va.idVoeuAmendement}&id_odj=${odj.idOrdreDuJour}" class="bullet-link">
+							      	<#elseif  va.type='V'>
+							      	 	<a href="jsp/admin/plugins/ods/voeuamendement/ModificationVoeuRattacheForOdj.jsp?plugin_name=ods&id_voeuamendement=${va.idVoeuAmendement}&id_odj=${odj.idOrdreDuJour}" class="bullet-link">
+							      	<#elseif  va.type='VNR'>
+							      	 	<a href="jsp/admin/plugins/ods/voeuamendement/ModificationVoeuNonRattacheForOdj.jsp?plugin_name=ods&id_voeuamendement=${va.idVoeuAmendement}&id_odj=${odj.idOrdreDuJour}" class="bullet-link">
+							      	</#if>
+		  							${va.referenceComplete}</a> 
+		  					<#if va_has_next>
+		  						-
+		  					</#if>
+		  				</#list>
+		  			</#if>
+		  	  <#else>
+		  	  		<#if entree.reference?exists>
+	      		   			${entree.reference}
+	      		   		</#if>
+	      		   
+		  	 
+		  	  </#if>
+        	   <p>
+        	   <#if entree.objet?exists>
+	      			${entree.objet}
+        	   	</#if>
+	      		   
+        	   		</p>
+        	   </td>
+
+      <td class="ods-actions" nowrap="nowrap">
+       <a href="jsp/admin/plugins/ods/ordredujour/ModificationEntreeOrdreDuJour.jsp?id_entree=${entree.idEntreeOrdreDuJour}">
+       <img src="images/admin/skin/plugins/ods/action/modify.png" alt="#i18n{ods.odj.modificationOdj.title.modify}" title="#i18n{ods.odj.modificationOdj.title.modify}">
+       </a> 
+            <a href="jsp/admin/plugins/ods/ordredujour/SuppressionEntreeOrdreDuJour.jsp?id_entree=${entree.idEntreeOrdreDuJour}"><img src="images/admin/skin/actions/delete.png" alt="#i18n{ods.odj.modificationOdj.title.delete}" title="#i18n{ods.odj.modificationOdj.title.delete}"></a> 
+       </td>
+     </tr>
+		</#if>
+		
+		<#if entree.type=='V'>
+			<#if liste_nouvelle_entree?exists&&liste_nouvelle_entree?size!=0>
+				<#if isNewEntree(entree.idEntreeOrdreDuJour,liste_nouvelle_entree)>			
+					 <tr class="ods-lastinsert">
+				<#else>
+					<tr  class="ods-noborder">
+				</#if>
+			<#else>
+				<tr  class="ods-noborder">
+			</#if>
+     			 <td nowrap="nowrap"> <input name="liste_entree_checked" id="liste_entree_checked" value="${entree.idEntreeOrdreDuJour}" type="checkbox"></td>
+      				<td class="ods-odj-vnr" nowrap="nowrap"> 
+      				 <#if entree.voeuAmendement?exists>
+	      				<a href="jsp/admin/plugins/ods/voeuamendement/ModificationVoeuNonRattacheForOdj.jsp?plugin_name=ods&id_voeuamendement=${entree.voeuAmendement.idVoeuAmendement}&id_odj=${odj.idOrdreDuJour}">
+		      					${entree.voeuAmendement.referenceComplete}
+						</a>
+					 <#else>
+						#i18n{ods.all.label.v}
+					 </#if>	
+					<#if entree.objet?exists>	
+	      			 	<p>${entree.objet}</p>
+	      			 </#if>	
+      			 	
+      			 </td>
+	  			<td class="ods-actions" nowrap="nowrap"> 
+					<a href="jsp/admin/plugins/ods/ordredujour/ModificationEntreeOrdreDuJour.jsp?id_entree=${entree.idEntreeOrdreDuJour}">
+         				<img src="images/admin/skin/plugins/ods/action/modify.png" alt="#i18n{ods.odj.modificationOdj.title.modify}" title="#i18n{ods.odj.modificationOdj.title.modify}">
+         			</a> 
+					<a href="jsp/admin/plugins/ods/ordredujour/SuppressionEntreeOrdreDuJour.jsp?id_entree=${entree.idEntreeOrdreDuJour}"><img src="images/admin/skin/actions/delete.png" alt="#i18n{ods.odj.modificationOdj.title.delete}" title="#i18n{ods.odj.modificationOdj.title.delete}"></a> 
+   				</td>
+     		</tr>
+		</#if>   
+		 
+		 <#if odj.modeClassement='A'>
+			 <!--affichage des rapporteurs de la derniere entrï¿½e    --> 
+	    	<#if  !entree_has_next&&rapporteurs?exists&&bRapporteurs>
+					
+						
+						<tr  class="ods-noborder">
+								<td colspan=3 nowrap="nowrap">
+								 <p>
+	     							<input type="button" value="#i18n{ods.odj.modificationOdj.button.addProjets}" name="ajouter_des_projets" class="button"  onclick="creationentrees('ajouter_des_projets',${id_entree_rapporteurs})">
+	     							<input type="button" value="#i18n{ods.odj.modificationOdj.button.addPropositions}" name="ajouter_des_propositions" class="button" onclick="creationentrees('ajouter_des_propositions',${id_entree_rapporteurs})">
+									<#if odj.typeOrdreDuJour.idTypeOrdreDuJour==2>
+	    								<input type="button" value="#i18n{ods.odj.modificationOdj.button.addVoeux}" name="ajouter_des_voeux" class="button" onclick="creationentrees('ajouter_des_voeux',${id_entree_rapporteurs})">
+									</#if>
+				
+								</p>
+									<h4>
+										<#list rapporteurs as elu>
+									    	${elu.civilite} ${elu.prenomElu} ${elu.nomElu} 
+									     	(${elu.commission.numero}${writeNeme(elu.commission.numero)})
+									        <#if elu_has_next>
+											     	,
+											  <#else>   		
+												${writeRapporteur(rapporteurs)}
+										   	 </#if>
+										   </#list>
+									</h4>
+								</td>
+							</tr>	
+							
+						</#if>	
+					</#if>	
+	    </#list>
+    </table>
+    <#if piedDePage?exists&piedDePage.entreePiedDePage?exists&&piedDePage.entreePiedDePage?size!=0>
+    	<div class="ods-odj-footer">
+     		<#list piedDePage.entreePiedDePage as entree>
+     		 	<#if entree.style?exists>
+      		   		<div class="ods-odj-epp${entree.style}">${entree.texteLibre}</div>
+      		   	<#else>
+      		   		${entree.texteLibre}
+      		   	</#if>
+      		</#list>   		
+     	</div>
+    </#if>
+   
+   </div>
+  </form>
+ </div>
+ 

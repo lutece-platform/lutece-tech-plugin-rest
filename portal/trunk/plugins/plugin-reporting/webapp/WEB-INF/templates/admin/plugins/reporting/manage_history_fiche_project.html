@@ -1,0 +1,35 @@
+
+
+<div class="content-box" >
+    <h2>#i18n{reporting.historyFicheProject.Title}</h2>
+    
+    <table>
+        <tr>
+            <th>#i18n{reporting.historyFicheProject.columnTitleDate}</th>
+            <th>#i18n{reporting.historyFicheProject.columnTitleCurrentTasks}</th>
+            <th>#i18n{reporting.historyFicheProject.columnTitleCompletedTasks}</th>
+        </tr>
+        
+        
+        <#list reporting_fiche_list as fiche>
+        <tr>
+        	<td>
+        	<a class="bullet-link" width="30%" target="blank" href="jsp/admin/plugins/reporting/ManageDetailFiche.jsp?project_id=${project_id}&fiche_id=${fiche.idFiche}">
+        		${fiche.dateCreation}
+        	</a>
+        	</td>
+        	<td> 
+				${fiche.currentTasks}
+            </td>
+            <td> 
+				${fiche.completedTasks}
+            </td>
+    	</tr>
+    	</#list>
+    </table>
+    
+</div>
+
+<p align='center'>
+<a href="javascript:window.close();">#i18n{reporting.history.closeWindow}</a> 
+</p>

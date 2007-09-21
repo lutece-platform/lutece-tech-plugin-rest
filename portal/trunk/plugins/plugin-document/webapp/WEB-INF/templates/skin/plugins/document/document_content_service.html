@@ -1,0 +1,54 @@
+<div id="page-content" >
+    <div id="two-zones-first">
+        <div id="two-zones-first-content">
+            <div class="document-buttons">	
+                <p>
+                    <div class="site-buttons" id="button-send">
+                              <a href="jsp/site/plugins/document/SendDocument.jsp?document_id=${document_id}">#i18n{document.document_content_service.buttonSend}</a>
+                    </div> 
+	        </p>
+                <p>
+                    <div class="site-buttons" id="button-print">                              
+                         <a href="jsp/site/plugins/document/PrintDocument.jsp?document_id=${document_id}" target="_print">#i18n{document.document_content_service.buttonPrint}</a>
+                    </div> 
+	        </p>
+                <#if accept_comment = 1>
+		<p>
+                    <div class="site-buttons" id="button-comment"> 
+                        <a href="jsp/site/Portal.jsp?document_id=${document_id}&amp;portlet_id=${portlet_id}&amp;comment=1#comments">#i18n{document.document_content_service.buttonComment}</a>
+                    </div>
+                </p>
+                </#if>
+	        <p>
+                    <div class="site-buttons" id="button-return">
+                        <a href="javascript:history.back();">#i18n{document.document_content_service.buttonBack}</a>
+                    </div> 
+	        </p>	
+            </div>
+            <div class="document">
+   		<div class="document-content">
+                    ${document}
+	    	</div>
+            </div>
+            <div class="document-comments">
+                <a name="comments"></a>
+                ${document_comments}
+            </div>            
+        </div>
+    </div>
+
+    <div id="two-zones-second">
+        <div id="two-zones-second-content">
+            <#if portlet?has_content >
+            	${portlet}
+            </#if>
+        </div>
+        <div id="two-zones-second-content">
+            <#if categories?has_content >
+            	${categories}
+            </#if>
+        </div>
+    </div>
+</div>
+
+

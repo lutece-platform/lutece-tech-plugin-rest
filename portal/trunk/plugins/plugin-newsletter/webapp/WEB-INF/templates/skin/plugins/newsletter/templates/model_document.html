@@ -1,0 +1,37 @@
+<!-- model_document template -->
+<table width="100%" cellpadding="0" cellspacing="0">
+    <tr>
+        <td width="100%"><img src="${portal_url}/images/local/skin/banner.gif" width="100%" border="0" alt="">
+        </td>	
+    </tr>
+    
+    <tr>    
+        <#if virtual_hosts?exists>
+        <td>
+            <#list virtual_hosts as host >
+            <a href=${host.name}/jsp/site/Portal.jsp?document_id=${document.id}&portlet_id=${portlet_id}>
+               ${host.code}
+               </a>
+            </#list>
+        </td>
+        <#elseif document?exists>
+        <td>
+            <a href=${portal_url}/jsp/site/Portal.jsp?document_id=${document.id}&portlet_id=${portlet_id}>
+               Cliquez ici
+               </a>
+        </td>
+        <table>
+            <td>
+                <h3>${document.title}</h3>
+            </td>
+            <td>
+                ${document.summary}
+            </td>
+        </table>
+        <#else>
+        No documents available
+        </#if>
+    </tr>
+</table>
+
+<!-- end model_document template-->

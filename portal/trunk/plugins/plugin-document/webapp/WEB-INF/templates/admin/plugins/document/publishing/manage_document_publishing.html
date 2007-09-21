@@ -1,0 +1,154 @@
+<div id="left">
+    <div class="content-box" >
+        <table>
+            <tr>
+                <th>#i18n{document.manage_document_publishing.columnTitleId} -
+                    #i18n{document.manage_document_publishing.columnTitleTitle}
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    ${document.id} - ${document.title}
+                </td>
+            </tr>
+            <tr>
+                <th>#i18n{document.manage_document_publishing.columnTitleType}</th>
+            </tr>
+            <tr>
+                <td>${document.type}</td>
+            </tr>
+            <tr>
+                <th>#i18n{document.manage_document_publishing.columnTitleDateCreation}</th>
+            </tr>
+            <tr>
+                <td>${document.dateCreation}</td>
+            </tr>
+            <tr>
+                <th>#i18n{document.manage_document_publishing.columnTitleDateModification}</th>
+            </tr>
+            <tr>
+                <td>${document.dateModification}</td>
+            </tr>
+            <tr>
+                <th>#i18n{document.manage_document_publishing.columnManageDocumentAccess}</th>
+            </tr>
+            <tr>
+                <td>
+                    <a href="jsp/admin/plugins/document/ManageDocuments.jsp?id_space_filter=${document.spaceId}" >
+                        <img src="images/admin/skin/plugins/document/manage_documents.png" width="24" height="24" alt="#i18n{document.manage_document_publishing.labelManageDocumentAccess}" title="#i18n{document.manage_document_publishing.labelManageDocumentAccess}"/>
+                    </a>
+                    <a href="jsp/admin/plugins/document/PreviewDocument.jsp?id_document=${document.id}" >
+                        <img src="images/admin/skin/plugins/document/actions/view.png" width="24" height="24" alt="#i18n{document.workflow.action.previewDocument.description}" title="#i18n{document.workflow.action.previewDocument.description}"/>    
+                    </a>                    
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="right">
+           <div class="content-box">
+               <h2>#i18n{document.manage_document_publishing.labelPublishTitle} ${document.title}</h2>
+               <div class="multibox"  width="100%">		
+                   <#if portlet_list?size &gt; 0 >	
+                   
+                   <table width="100%" >
+                       <tr>
+                           <th width="48%">
+                               #i18n{document.manage_document_publishing.labelAvailablePortlet}
+                           </th>
+                           <th width="4%">
+                               &#160;
+                           </th>
+                           <th width="48%">
+                               #i18n{document.manage_document_publishing.labelSelectedPortlet}
+                           </th>					
+                       </tr>
+                       <form name="assignDocument" method="post" onSubmit="selectAllOptions(document.forms['assignDocument']['list_portlet_ids2'])" action="jsp/admin/plugins/document/DoAssignedDocument.jsp">                        
+                           <tr>					
+                               <td width="48%" align="left">
+                                   <@comboWithParams name="list_portlet_ids1" default_value="" additionalParameters="multiple='multiple' size='10' style='width:100%;'" items=portlet_list />		    
+                               </td>
+                               <td width="4%" align="center">
+                                   <input type="button" onClick="moveSelectedOptions(document.forms['assignDocument']['list_portlet_ids1'],document.forms['assignDocument']['list_portlet_ids2'],false);return false;" value="&gt;" /><br /><br />
+                                   <input type="button" onClick="moveSelectedOptions(document.forms['assignDocument']['list_portlet_ids2'],document.forms['assignDocument']['list_portlet_ids1'],false);return false;" value="&lt;" />
+                               </td>
+                               <td width="48%" align="right">
+                                   <@comboWithParams name="list_portlet_ids2" default_value="" additionalParameters="multiple='multiple' size='10' style='width:100%;'" items=new_portlet_list />
+                               </td>
+                           </tr>
+                           <tr>
+                               <td colspan="2" width="52%">&#160;</td>
+                               <td width="48%" align="center">
+                                   <input type="hidden" name="id_document" value="${document.id}" />
+                                   <input type="hidden" name="status" value="1" />						
+                                   <input type="submit" value="#i18n{document.manage_document_publishing.buttonAssignedOnPortlet}" class="button" onClick="document.forms['assignDocument']['status'].value=1;"/>										
+                                   <input type="submit" value="#i18n{document.manage_document_publishing.buttonAssignedAndPublisheOnPortlet}"  class="button" onClick="document.forms['assignDocument']['status'].value=0;"/>
+                               </td>
+                           </tr>
+                       </form>
+                   </table>	
+                   
+                   <#else>
+                   <p>
+                       #i18n{document.manage_document_publishing.messagePortletNotExist}
+                   </p>
+                   </#if>
+               </div>	
+           </div>
+
+       <div class="content-box"> 
+             <p>
+                    <strong>#i18n{document.manage_document_publishing.labelPublishedPortletList} « ${document.title} » </strong>
+                </p>
+
+                        <#list assigned_portlet_list as assigned_portlet>
+                            <table width="80%">
+                                <tr>
+                                    <td width="80%">
+                                        ID : ${assigned_portlet.id} - ${assigned_portlet.name}
+                                    </td>
+                                    <#if assigned_portlet.status = 1>
+                                    <form method="post" name="publishing" action="jsp/admin/plugins/document/DoAssignedDocument.jsp">
+                                        <td width="2%" align="right">
+                                            <img src="images/admin/skin/disable.png" alt="" align="left"/>
+                                        </td>
+                                        <td width="10%">
+                                            <input type="hidden" name="id_portlet" value="${assigned_portlet.id}" />
+                                            <input type="hidden" name="id_document" value="${document.id}" />
+                                            <input type="hidden" name="status" value="0" />	
+                                            <input type="submit" value="#i18n{document.manage_document_publishing.buttonPublish}" class="button" />
+                                        </td>
+                                    </form>
+                                    <#else>
+                                    <form method="post" name="unpublishing" action="jsp/admin/plugins/document/DoUnAssignedDocument.jsp">
+                                        <td width="2%" align="right">
+                                            <img src="images/admin/skin/enable.png" alt="" align="left"/>
+                                        </td>
+                                        <td width="10%" >
+                                            <input type="hidden" name="id_portlet" value="${assigned_portlet.id}" />
+                                            <input type="hidden" name="status" value="${assigned_portlet.status}" />	
+                                            <input type="hidden" name="id_document" value="${document.id}" />
+                                            <input type="submit" value="#i18n{document.manage_document_publishing.buttonUnPublish}" class="button" />
+                                        </td>
+                                    </form>
+                                    </#if>
+                                    <form method="post" name="managePublishing" action="jsp/admin/plugins/document/ManagePublishing.jsp">
+                                        <td width="2%" >
+                                            <input type="hidden" name="id_portlet" value="${assigned_portlet.id}" />
+                                            <input type="image" src="images/admin/skin/plugins/document/actions/portlet_publish.png" style="border:0;vertical-align:bottom;" alt="#i18n{document.manage_document_publishing.labelManagePortlet}" title="#i18n{document.manage_document_publishing.labelManagePortlet}" />
+                                        </td>
+                                    </form>                                        
+                                    <form method="post" name="unassignDocument" action="jsp/admin/plugins/document/DoUnAssignedDocument.jsp">
+                                        <td width="2%" >
+                                            <input type="hidden" name="id_document" value="${document.id}" />
+                                            <input type="hidden" name="id_portlet" value="${assigned_portlet.id}" />
+                                            <input type="hidden" name="status" value="1" />	                                            
+                                            <input type="image" src="images/admin/skin/actions/delete.png" style="border:0;vertical-align:bottom;" alt="#i18n{document.manage_document_publishing.labelUnAssigned}" title="#i18n{document.manage_document_publishing.labelUnAssigned}"/>
+                                        </td>
+                                    </form>
+                                </tr>
+                            </table>
+                        </#list>
+
+           </div>
+ </div>

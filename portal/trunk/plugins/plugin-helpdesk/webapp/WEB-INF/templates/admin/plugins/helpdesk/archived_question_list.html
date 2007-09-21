@@ -1,0 +1,45 @@
+<div class="content-box" >
+     <form method="post" action="jsp/admin/plugins/helpdesk/ArchivedQuestionList.jsp">
+        <@pagination paginator=paginator />
+
+        <!-- Number of documents per page selector -->
+        #i18n{helpdesk.visitor_question_list.labelItemsPerPage} :
+        <select name="items_per_page">
+            <#list [ "5" , "10" , "20" , "50" ] as nb>
+            <#if nb_items_per_page = nb >
+            <option selected="selected" value="${nb}">${nb}</option>
+            <#else>
+            <option value="${nb}">${nb}</option>
+            </#if>
+            </#list>
+        </select>                            
+        <input type="submit" class="button" value="#i18n{helpdesk.visitor_question_list.buttonItemsPerPage}" />
+    </form>    
+    
+    <h2>#i18n{helpdesk.archived_question_list.adminTitle}</h2>
+    
+    <table>
+        <tr>
+            <th >#i18n{helpdesk.archived_question_list.questionNumber} ${questions_number}</th>
+        </tr>
+        <#if helpdesk_question_list?size &gt; 0 >
+            <#list helpdesk_question_list as question_list >
+                <#if question_list.answer != "">
+                    <tr>
+                        <td>
+                            <a href="jsp/admin/plugins/helpdesk/ModifyVisitorQuestion.jsp?question_id=${question_list.idVisitorQuestion}" class="admin-menu">
+                            #i18n{helpdesk.question_answer_list.QuestionFrom} ${question_list.lastname} ${question_list.firstname} (${question_list.date})</a>
+                            <blockquote>
+                            ${question_list.question}
+                            </blockquote>                
+                        </td>
+                    </tr>
+                </#if>
+            </#list>
+        <#else>
+            <tr>
+                <th >#i18n{helpdesk.archived_question_list.noQuestion}</th>
+            </tr>        
+        </#if>
+    </table>
+</div>

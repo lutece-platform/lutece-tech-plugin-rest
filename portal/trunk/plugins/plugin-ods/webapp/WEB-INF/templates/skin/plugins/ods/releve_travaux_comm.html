@@ -1,0 +1,164 @@
+<div id="page-content-left">
+	<#include "page_content_left.html">
+</div>
+<div id="page-content-right">
+<#if error?exists && (error="releve_incorrect")>
+	<div class="highlight-box">
+		<strong>#i18n{ods.releve.message.releveIncorrect}</strong>
+	</div>
+<#else>
+	<#if releve?exists>
+	   <div id="out-min-height">
+	    <div id="in-min-height">
+	     <div id="one-zone-first">
+	      <div id="one-zone-first-content">
+	
+	       <h1>${releve.intitule}</h1>
+	       <a name="TOP" id="TOP"></a>
+	       <!--bloc-->
+	       <ul class="ods-anchors">
+	        <li><a href="jsp/site/Portal.jsp?page=ods_releve_travaux_comm&id_releve=${releve.idReleveDesTravaux}#ANC_1">#i18n{ods.releve.label.modification.va.title}</a></li>
+	        <li><a href="jsp/site/Portal.jsp?page=ods_releve_travaux_comm&id_releve=${releve.idReleveDesTravaux}#ANC_2">#i18n{ods.releve.label.modification.pdd.title}</a></li>
+	       </ul>
+	       <a name="ANC_1" id="ANC_1"></a>
+	
+	       <h3>#i18n{ods.releve.label.modification.va.title}</h3>
+	       <table class="data-table">
+	        <tr class="even-row">
+	         <th scope="row">&nbsp;</th>
+	         <th scope="col">#i18n{ods.releve.label.modification.code}</th>
+	         <th scope="col">#i18n{ods.releve.label.modification.va.elus}</th>
+	         <th scope="col">#i18n{ods.releve.label.modification.va.groupe}</th>
+	
+	         <th scope="col">#i18n{ods.releve.label.modification.pour}</th>
+	         <th scope="col">#i18n{ods.releve.label.modification.contre}</th>
+	         <th scope="col">#i18n{ods.releve.label.modification.abstention}</th>
+	         <th scope="col">#i18n{ods.releve.label.modification.nppv}</th>
+	        </tr>
+	        <#if liste_elmt_va?exists && (liste_elmt_va?size > 0)>
+		        <#list liste_elmt_va as elmt_va>
+			        <tr class="odd-row">
+			         <th scope="row">&nbsp;</th>
+			         <td>
+			         	<#if elmt_va.voeuAmendement.enLigne>
+				        	<a href="jsp/site/plugins/ods/DoDownload.jsp?id_fichier=${elmt_va.voeuAmendement.fichier.id}" target="_blank">
+				        </#if>
+				        ${elmt_va.voeuAmendement.referenceComplete}
+			         	<#if elmt_va.voeuAmendement.enLigne>
+				        	</a>
+				        </#if>
+			         </td>
+			         <#if elmt_va.voeuAmendement.deposeExecutif=true>
+						<td>-</td><td>-</td>
+					 <#else>
+					 	<td>
+				         	<#list elmt_va.voeuAmendement.elus as elu>
+								${elu.civilite} ${elu.prenomElu} ${elu.nomElu},  
+							</#list>
+						</td>
+			         	<td>
+				         	<#list elmt_va.voeuAmendement.elus as elu>
+								${elu.groupe.nomGroupe}
+								<#break>
+							</#list>
+						</td>
+			         </#if>
+			         <#if elmt_va.pour=-1><td>-</td><#else><td>${elmt_va.pour}</td></#if>
+					 <#if elmt_va.contre=-1><td>-</td><#else><td>${elmt_va.contre}</td></#if>
+					 <#if elmt_va.abstention=-1><td>-</td><#else><td>${elmt_va.abstention}</td></#if>
+					 <#if elmt_va.nePouvantPasVoter=-1><td>-</td><#else><td>${elmt_va.nePouvantPasVoter}</td></#if>
+			        </tr>
+			        <tr class="even-row">
+			         <th scope="row">#i18n{ods.releve.label.objet}</th>
+			         <td colspan="7" class="ods-datatable-colspan">${elmt_va.voeuAmendement.objet}</td>
+			        </tr>
+			        <tr class="even-row">
+			
+			         <th scope="row">#i18n{ods.releve.label.listePdd}</th>
+			         <td colspan="7" class="ods-datatable-colspan">
+			         	<#if elmt_va.voeuAmendement.pdds?size=0>
+							-
+						<#else>
+							<#list elmt_va.voeuAmendement.pdds as pdd>
+								<#if pdd.enLigne>
+								<a href="jsp/site/Portal.jsp?page=ods_pdd&id_pdd=${pdd.idPdd}">
+								</#if>
+									${pdd.reference}
+								<#if pdd.enLigne>
+									</a>
+								</#if>
+								<#if (pdd_index = 9) && (pdd_has_next)>
+									(...) 
+									<#break>
+								<#else>
+									<#if pdd_has_next>, </#if> 
+								</#if>
+							</#list>
+						</#if>
+			         </td>
+			        </tr>
+			        <tr class="even-row">
+			         <th scope="row">Observations</th>
+		         	 <td colspan="7" class="ods-datatable-colspan"><#if elmt_va.observations?exists>${elmt_va.observations}</#if></td>
+		            </tr>
+		         </#list>
+		      </#if>
+	       </table>
+	       <!--bloc-->
+	
+	       <div class="ods-top"><a href="jsp/site/Portal.jsp?page=ods_releve_travaux_comm&id_releve=${releve.idReleveDesTravaux}#TOP">#i18n{ods.front.calendrier.detailSeance.backToTop}</a></div>
+	       <a name="ANC_2" id="ANC_2"></a>
+	       <h3>#i18n{ods.releve.label.modification.pdd.title}</h3>
+	       <table class="data-table">
+	        <tr>
+	         <th scope="row">&nbsp;</th>
+			 <th scope="col">#i18n{ods.releve.label.modification.code}</th>
+			 <th scope="col">#i18n{ods.releve.label.modification.pdd.elus}</th>
+			 <th scope="col">#i18n{ods.releve.label.modification.pdd.groupe}</th>
+			 <th scope="col">#i18n{ods.releve.label.modification.pour}</th>
+			 <th scope="col">#i18n{ods.releve.label.modification.contre}</th>
+			 <th scope="col">#i18n{ods.releve.label.modification.abstention}</th>
+			 <th scope="col">#i18n{ods.releve.label.modification.nppv}</th>
+	
+	        </tr>
+	        
+	        <#if liste_elmt_pdd?exists && (liste_elmt_pdd?size > 0)>
+				<#list liste_elmt_pdd as elmt_pdd>
+			        <tr class="odd-row">
+			         <th scope="row">&nbsp;</th>
+			         <td>
+						 <#if elmt_pdd.projetDeliberation.enLigne>
+				         	<a href="jsp/site/Portal.jsp?page=ods_pdd&id_pdd=${elmt_pdd.projetDeliberation.idPdd}">
+				         </#if>
+				         	${elmt_pdd.projetDeliberation.reference}
+				         <#if elmt_pdd.projetDeliberation.enLigne>
+				         	</a>
+				         </#if>
+			         </td>
+			         <#if elmt_pdd.elu?exists><td>${elmt_pdd.elu.civilite} ${elmt_pdd.elu.nomElu} ${elmt_pdd.elu.prenomElu}</td><#else><td>-</td></#if>
+			         <#if elmt_pdd.groupe?exists><td>${elmt_pdd.groupe.nomGroupe}</td><#else><td>-</td></#if>
+			         <#if elmt_pdd.pour=0><td>-</td><#else><td>${elmt_pdd.pour}</td></#if>
+					 <#if elmt_pdd.contre=0><td>-</td><#else><td>${elmt_pdd.contre}</td></#if>
+					 <#if elmt_pdd.abstention=0><td>-</td><#else><td>${elmt_pdd.abstention}</td></#if>
+					 <#if elmt_pdd.nePouvantPasVoter=0><td>-</td><#else><td>${elmt_pdd.nePouvantPasVoter}</td></#if>
+		     	    </tr>
+			        <tr class="even-row">
+			         <th scope="row">#i18n{ods.releve.label.objet}</th>
+			         <td colspan="7" class="ods-datatable-colspan">${elmt_pdd.projetDeliberation.objet}</td>
+			
+			        </tr>
+			        <tr class="even-row">
+			         <th scope="row">#i18n{ods.releve.label.observations}</th>
+			         <td colspan="7" class="ods-datatable-colspan">${elmt_pdd.observations}</td>
+			        </tr>
+		        </#list>
+		    </#if>
+		    </table>
+	      </div>
+	     </div>
+	    </div>
+	<#else>
+		ERROR DANS L'URL
+	</#if>
+</#if>
+</div>

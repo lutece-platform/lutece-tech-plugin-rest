@@ -1,0 +1,79 @@
+<div id="one-zone-first">
+    <div id="one-zone-first-content">
+
+		<h2 class="page-title" >#i18n{reporting.xpage.ProjectStandard.title}</h2>
+	
+	<table class="data-table" border="1px">
+        <tr>
+        	<th><center>#i18n{reporting.xpage.ProjectStandard.columnTitleWorkGroup}</center></th>
+            <th><center>#i18n{reporting.xpage.ProjectStandard.columnTitleName}</center></th>
+            <th><center>#i18n{reporting.xpage.ProjectStandard.columnTitleCP}</center></th>
+            <th><center>#i18n{reporting.xpage.ProjectStandard.columnTitleTasks}</center></th>
+         	<th><center>#i18n{reporting.xpage.ProjectStandard.columnTitleSynthese}</center></th>
+			<th><center>#i18n{reporting.xpage.ProjectStandard.columnTitleTd}</center></th>
+        </tr>
+
+        <#list reporting_project_list as project >
+        <tr class= "odd-row">
+        	<td rowspan="3">
+        		<center>${project.workgroupKey}</center>
+        	</td>
+        	<td rowspan="3">
+        		<center>${project.name}</center>
+        	</td>
+        	<td rowspan="3">
+        		<center>${project.projectManager}</center>
+        	</td>
+        	<td>
+        		<center>#i18n{reporting.xpage.ProjectStandard.labelCurrentTasks}</center>
+        	</td>
+			<td>
+				<#if project.lastReportingFiche?exists>
+        			${project.lastReportingFiche.currentTasks}
+        		</#if>
+        		
+        	</td>
+        	
+        	<#if project.lastReportingFiche?exists>
+        		<#assign riskValue = project.lastReportingFiche.risk >
+        		<#assign tendencyValue = project.lastReportingFiche.tendency >
+        		<td rowspan="3" class="risk${riskValue}">
+        		<center>
+        			<img alt="#i18n{reporting.publishingReportingFiche.labelTendency${tendencyValue}}" title="#i18n{reporting.publishingReportingFiche.labelTendency${tendencyValue}}" src="images/local/skin/plugins/reporting/tendency-${tendencyValue}.png"/>
+        		</center>
+        		</td>
+        	<#else>	
+        		<td rowspan="3">
+        		</td>
+            </#if>
+
+        </tr>
+         <tr class= "odd-row">
+
+        	<td>
+        		<center>#i18n{reporting.xpage.ProjectStandard.labelCompletedTasks}</center>
+        	</td>
+			<td>
+				<#if project.lastReportingFiche?exists>
+        			${project.lastReportingFiche.completedTasks}
+        		</#if>
+        		
+        	</td>
+
+        </tr>
+        <tr class= "odd-row">
+        	<td>
+        		<center>#i18n{reporting.xpage.ProjectStandard.labelComingTasks}</center>
+        	</td>
+			<td>
+				<#if project.lastReportingFiche?exists>
+        			${project.lastReportingFiche.comingTasks}
+        		</#if>
+        		
+        	</td>
+
+        </tr>
+        </#list>
+    </table>
+	</div>
+</div>

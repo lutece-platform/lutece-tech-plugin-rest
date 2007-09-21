@@ -1,0 +1,52 @@
+
+/* ---------------------------------------------------- */
+/* ------------  Styles for comarquage  --------------- */
+/* ---------------------------------------------------- */
+table.comarquage-table
+{
+	border:0px;
+	width: 75%;
+}
+/* style for even rows */
+table.comarquage-table tr.comarquage-table-even-row
+{
+	background-color: #EEEEEE;
+}
+/* styles for odd rows */
+table.comarquage-table tr.comarquage-table-odd-row
+{
+	background-color: White;
+}
+/* table header, eg. : columns names */
+table.comarquage-table tr.comarquage-table-header
+{
+	background-color: #FBAF5D;
+	height:10px;
+	font-weight: bold;
+
+}
+/* table footer, eg. : columns names */
+table.comarquage-table tr.comarquage-table-footer
+{
+	background-color: #FBAF5D;
+	height:10px;
+	font-weight: bold;
+}
+
+
+.comarquage-highlight
+{
+	color:Red;
+	font-weight: bold;
+}
+.comarquage-amount
+{
+	color:#00AA00;
+	font-weight: bold;
+}
+.comarquage-quotation
+{
+	font-style: italic;
+}
+
+

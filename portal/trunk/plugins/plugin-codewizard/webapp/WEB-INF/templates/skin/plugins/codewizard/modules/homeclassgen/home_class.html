@@ -1,0 +1,129 @@
+<pre>
+<font class="comment">
+/*
+ * Copyright (c) 2002-2007, Mairie de Paris
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *  1. Redistributions of source code must retain the above copyright notice
+ *     and the following disclaimer.
+ *
+ *  2. Redistributions in binary form must reproduce the above copyright notice
+ *     and the following disclaimer in the documentation and/or other materials
+ *     provided with the distribution.
+ *
+ *  3. Neither the name of 'Mairie de Paris' nor 'Lutece' nor the names of its
+ *     contributors may be used to endorse or promote products derived from
+ *     this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * License 1.0
+ */
+ </font>
+<font class="keyword">package</font> ${businessObject.packageName};
+
+<font class="keyword">import</font> fr.paris.lutece.portal.service.spring.SpringContextService;
+<font class="keyword">import</font> java.util.Collection;
+
+
+<font class="comment">
+/**
+ * This class provides instances management methods (create, find, ...) for ${businessObject.className} objects
+ */
+</font>
+<font class="modify">public final class </font>${businessObject.className}Home
+{
+<font class="comment">
+    // Static variable pointed at the DAO instance</font>
+    <font class="modify">private static </font>I${businessObject.className}DAO _dao = ( I${businessObject.className}DAO ) SpringContextService.getBean( "${businessObject.instanceName}DAO" );
+
+<font class="comment">
+    /**
+     * Private constructor - this class need not be instantiated
+     */
+</font>
+    <font class="modify">private</font> ${businessObject.className}Home(  )
+    {
+    }
+<font class="comment">
+    /**
+     * Create an instance of the ${businessObject.instanceName} class
+     * @param ${businessObject.instanceName} The instance of the ${businessObject.className} which contains the informations to store
+     * @return The  instance of ${businessObject.instanceName} which has been created with its primary key.
+     */
+</font>
+    <font class="modify">public static</font> ${businessObject.className} create( ${businessObject.className} ${businessObject.instanceName} )
+    {
+        _dao.insert( ${businessObject.instanceName} );
+
+        <font class="keyword">return</font> ${businessObject.instanceName};
+    }
+
+<font class="comment">
+    /**
+     * Update of the ${businessObject.instanceName} data specified in parameter
+     * @param ${businessObject.instanceName} The instance of the ${businessObject.className} which contains the data to store
+     * @return The instance of the  ${businessObject.instanceName} which has been updated
+     */
+</font>
+    <font class="modify">public static</font> ${businessObject.className} update( ${businessObject.className} ${businessObject.instanceName} )
+    {
+        _dao.store( ${businessObject.instanceName} );
+
+        <font class="keyword">return</font> ${businessObject.instanceName};
+    }
+
+<font class="comment">
+    /**
+     * Remove the ${businessObject.instanceName} whose identifier is specified in parameter
+     * @param n${businessObject.className}Id The ${businessObject.instanceName} Id
+     */
+</font>
+
+    <font class="modify">public static void</font> remove( int n${businessObject.className}Id )
+    {
+        _dao.delete( n${businessObject.className}Id );
+    }
+
+<font class="comment">
+    ///////////////////////////////////////////////////////////////////////////
+    // Finders
+
+    /**
+     * Returns an instance of a ${businessObject.instanceName} whose identifier is specified in parameter   
+     * @param nKey The ${businessObject.instanceName} primary key
+     * @return an instance of ${businessObject.className}
+     */
+</font>
+    <font class="modify">public static</font> ${businessObject.className} findByPrimaryKey( int nKey )
+    {
+        <font class="keyword">return</font> _dao.load( nKey );
+    }
+
+<font class="comment">
+    /**
+     * Load the data of all the ${businessObject.instanceName} objects and returns them in form of a collection
+     * @return the collection which contains the data of all the ${businessObject.instanceName} objects
+     */
+</font>
+    <font class="modify">public static</font> Collection&lt;${businessObject.className}&gt; findAll()
+    {
+        <font class="keyword">return</font> _dao.select${businessObject.className}sList();
+    }
+
+}
+</pre>

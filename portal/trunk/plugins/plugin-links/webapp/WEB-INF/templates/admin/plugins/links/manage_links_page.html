@@ -1,0 +1,57 @@
+<div class="content-box" >
+    <h2>#i18n{links.manage_links_page.tableLabel}</h2>
+	<#if portlets_list?has_content >
+		<table>
+			<tr>
+	  			<th>#i18n{links.manage_links_page.ColumnName}</th>
+			    <th>#i18n{links.manage_links_page.ColumnRow}</th>
+			    <th>#i18n{links.manage_links_page.ColumnDelete}</th>
+			</tr>
+			<#list portlets_list as portlet >
+				<tr>
+				<form method="post" action ="jsp/admin/plugins/links/DoModifyPortletsOrder.jsp" >
+					<td>
+						${portlet.name}
+					</td>
+					<td>
+						<@combo name="new_portlet_order" default_value="${portlet.portletOrder}" items=order_list_selected_portlets />
+						<input type="hidden" name="portlet_id" value="${portlet.id}" />
+		            	<input type="hidden" name="portlet_order" value="${portlet.portletOrder}" />
+						<input type="submit" value="#i18n{links.manage_links_page.modify}" class="button" />
+		    		</td>
+					<td>
+						<a href="jsp/admin/plugins/links/DoUnselectPortlet.jsp?portlet_id=${portlet.id}&portlet_order=${portlet.portletOrder}">
+							<img src="images/admin/skin/actions/delete.png" border="0" />
+						</a>
+					</td>
+				</form>
+				</tr>
+			</#list>
+		</table>
+	<#else>
+		#i18n{links.manage_links_page.noportlet}
+	</#if>
+</div>
+<div class="content-box" >
+    <h2>#i18n{links.manage_links_page.insertNewPortlet}</h2>
+    <#if unselected_portlets_list?has_content>
+		<table>
+			<tr>
+			<form method="post" action="jsp/admin/plugins/links/DoSelectPortletLinks.jsp" >
+				<td>
+					<@combo name="portlet_id" default_value="1" items=unselected_portlets_list />
+				</td>
+				<td>
+					<label for="portlet_order">#i18n{links.manage_links_page.row} :</label>
+					<@combo name="portlet_order" default_value="1" items=order_list_unselected_portlets />
+				</td>
+				<td>
+					<input type ="submit" value="#i18n{links.manage_links_page.add}" class="button" />
+				</td>
+		    </form>
+			</tr>
+		</table>
+	<#else>
+		#i18n{links.manage_links_page.noUnselectedPortlet}
+	</#if>
+</div>

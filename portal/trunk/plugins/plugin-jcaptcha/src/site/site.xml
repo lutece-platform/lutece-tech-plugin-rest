@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Lutece">
+
+   	<version />
+	
+    <body>
+	    <links>
+			<item name="FR" href="/fr/index.html" />
+			<item name="JCaptcha" href="http://jcaptcha.sourceforge.net/"/>
+        </links>
+	
+        <menu name="Plugin jcaptcha">
+            <item name="Introduction" href="index.html"/>
+            <item name="Download" href="download.html"/>
+            <item name="Configuration" href="configuration.html"/>
+            <item name="Usage" href="usage.html"/>
+        </menu>
+        
+        <menu name="jcaptcha manuals">
+        </menu>	    
+
+		<menu ref="reports" />
+    </body>
+</project>

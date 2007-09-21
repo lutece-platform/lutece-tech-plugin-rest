@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" ?>
+<document>
+<properties>
+</properties>
+<body>
+
+<section name="Introduction"><p>Cette page décrit la procédure
+d'installation d'Alfresco avec Lutèce. Dans la suite, nous considérons que
+:</p>
+<ul><li><p>$TOMCAT est le répertoire d'installation de Tomcat.</p>
+</li>
+<li><p>$ALFRESCO_WEBAPP est le répertoire contenant la webapp décompressée
+Alfresco.</p>
+</li>
+</ul>
+</section>
+<section name="Installation de l'extension JCR-JNDI"><p>Récupérer le patch
+alfresco-jcr-jndi-v5.zip attaché dans la demande
+<a href="http://issues.alfresco.com/browse/AR-1131">Issue AR-1131</a>
+, et suivre les instructions suivantes:</p>
+<ul><li><p>Copier le jar jcr-1.0.jar
+(<a href="http://www.day.com/maven/jsr170/jars/jcr-1.0.jar">http://www.day.com/maven/jsr170/jars/jcr-1.0.jar</a>
+) dans le répertoire $TOMCAT/common/lib</p>
+</li>
+<li><p>Extraire le fichier
+jcr-jndi-alfresco/build/dist/alfresco-jcr-jndi-bridge.jar de l'archive vers
+$TOMCAT/common/lib</p>
+</li>
+<li><p>Extraire le fichier
+jcr-jndi-alfresco/config/alfresco/extension/jcr-api-jndi-context.xml vers
+$ALFRESCO_WEBAPP/WEB-INF/classes/alfresco/extension/</p>
+</li>
+<li><p>Supprimer le fichier jcr-1.0.jar du répertoire
+$ALFRESCO_WEBAPP/WEB-INF/lib</p>
+</li>
+<li><p>Supprimer le fichier jcr-1.0.jar du répertoire /WEB-INF/lib de votre
+webapp Lutèce</p>
+</li>
+</ul>
+</section>
+<section name="Configuration de Tomcat"><p>Alfresco doit être démarré avant
+Lutece. Il faut donc ajouter un fichier alfresco.xml dans le répertoire
+$TOMCAT/conf/Catalina/localhost contenant les lignes suivantes :</p>
+<source>&lt;?xml version='1.0' encoding='utf-8'?&gt;
+&lt;Context&gt;
+&lt;/Context&gt;</source>
+<p>Dans le fichier server.xml, ajouter les lignes suivantes dans la section
+GlobalNamingResources :</p>
+<source> &lt;Resource name=&quot;jcr/baseRepository&quot;
+           scope=&quot;Shareable&quot;
+           auth=&quot;Container&quot; 
+           type=&quot;javax.jcr.Repository&quot;
+           factory=&quot;org.alfresco.jcr.jndi.JndiJcrObjectFactory&quot;
+           jcrRepositoryName=&quot;baseAlfrescoRepository&quot;/&gt;</source>
+<p>Dans le fichier de contexte de Lutece (fichier <i>nom de la webapp</i>
+.xml, le créer si nécessaire), ajouter la ligne:</p>
+<source>&lt;ResourceLink global=&quot;jcr/baseRepository&quot; name=&quot;jcr/baseRepository&quot; type=&quot;javax.jcr.Repository&quot;/&gt; </source>
+</section>
+<section name="Configuration de la webapp Lutèce"><p>Dans le fichier
+jsr170_context.xml, vérifier que les identifiants de connexion au repository
+Alfresco sont corrects.</p>
+<source>&lt;!--
+        The session factory that connects to the repository.
+        Here you can set the credentials used to connect to the repository.
+ --&gt;
+&lt;bean id=&quot;alfresco.SessionFactory&quot; class=&quot;org.springmodules.jcr.JcrSessionFactory&quot;&gt;
+ &lt;property name=&quot;repository&quot; ref=&quot;alfresco.jndiRepository&quot;/&gt;
+        &lt;property name=&quot;credentials&quot;&gt;
+    &lt;!-- alfresco credentials --&gt;
+   &lt;bean class=&quot;javax.jcr.SimpleCredentials&quot;&gt;
+    &lt;constructor-arg index=&quot;0&quot; value=&quot;guest&quot;/&gt;                  &lt;----- modifier le login
+    &lt;constructor-arg index=&quot;1&quot;&gt;
+     &lt;bean factory-bean=&quot;alfresco.password&quot;
+          factory-method=&quot;toCharArray&quot;/&gt;
+    &lt;/constructor-arg&gt;
+   &lt;/bean&gt;
+ &lt;/property&gt;
+&lt;/bean&gt;
+
+&lt;!-- create the password to return it as a char[] --&gt;
+&lt;bean id=&quot;alfresco.password&quot; class=&quot;java.lang.String&quot;&gt;
+  &lt;constructor-arg index=&quot;0&quot; value=&quot;guest&quot;/&gt;                    &lt;----- modifier le mot de passe
+&lt;/bean&gt;</source>
+</section>
+<section name="Problèmes"><p>Si vous rencontrez des ClassCastException ou
+d'autres exceptions de conversion lors de l'accès au référentiel Alfresco,
+vérifiez qu'il n'y a pas de jars liés au jcr dans le répertoire
+$ALFRESCO_WEBAPP/WEB-INF/lib et supprimez le jar jcr-1.0.jar du répertoire
+WEB-INF/lib de la webapp Lutèce.</p>
+</section>
+
+</body>
+</document>

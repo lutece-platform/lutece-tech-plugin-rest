@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="DELIBS">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element name="CMUNICIPAL" minOccurs="0" maxOccurs="1" type="type-cmunicipal" />
+				<xsd:element name="CGENERAL" minOccurs="0" maxOccurs="1" type="type-cgeneral" />
+			</xsd:all>
+			<xsd:attribute name="DIRECTION" type="xsd:string" />
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="type-cmunicipal">
+		<xsd:sequence>
+			<xsd:element name="DELIB" minOccurs="1" maxOccurs="unbounded" type="type-delib" />
+		</xsd:sequence>
+		<xsd:attribute name="DATE" type="xsd:string" />
+	</xsd:complexType>
+	<xsd:complexType name="type-cgeneral">
+		<xsd:sequence>
+			<xsd:element name="DELIB" minOccurs="1" maxOccurs="unbounded" type="type-delib" />
+		</xsd:sequence>
+		<xsd:attribute name="DATE" type="xsd:string" />
+	</xsd:complexType>
+	<xsd:complexType name="type-delib">
+		<xsd:all>
+			<xsd:element name="SIGLE" type="xsd:string" />
+			<xsd:element name="FICHIER" type="xsd:string" />
+			<xsd:element name="ANNEE" type="xsd:string" />
+			<xsd:element name="NUMERO" type="xsd:string" />
+			<xsd:element name="RESUME" type="xsd:string" />
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>

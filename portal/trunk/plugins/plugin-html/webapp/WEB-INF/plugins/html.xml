@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<plug-in>
+
+   <!-- Plugin Informations -->
+   <name>html</name>
+   <class>fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation</class>
+   <version>2.0</version>
+   <documentation></documentation>
+   <installation></installation>
+   <changes></changes>
+   <user-guide></user-guide>
+   <description>Module de gestion de la rubrique HTML</description>
+   <provider>Mairie de Paris</provider>
+   <provider-url>http://lutece.paris.fr</provider-url>
+   <icon-url>images/admin/skin/plugins/html/html.png</icon-url>
+   <copyright>Copyright 2001-2006 Mairie de Paris</copyright>
+   <db-pool-required>0</db-pool-required>
+
+   <!-- Portlet parameters -->
+   <portlets>
+     <portlet>
+       <portlet-class>fr.paris.lutece.plugins.html.business.portlet.HtmlPortletHome</portlet-class>
+	   <portlet-type-id>HTML_PORTLET</portlet-type-id>
+	   <portlet-type-name>html.portlet.name</portlet-type-name>
+	   <portlet-creation-url>plugins/html/CreatePortletHtml.jsp</portlet-creation-url>
+	   <portlet-update-url>plugins/html/ModifyPortletHtml.jsp</portlet-update-url>
+           <portlet-create-action-url>plugins/html/DoCreatePortletHtml.jsp</portlet-create-action-url>
+           <portlet-modify-action-url>plugins/html/DoModifyPortletHtml.jsp</portlet-modify-action-url>
+           <portlet-create-script-template>/admin/portlet/script_create_portlet.html</portlet-create-script-template>
+           <portlet-modify-script-template>/admin/portlet/script_modify_portlet.html</portlet-modify-script-template>
+           <portlet-create-specific-template>/admin/plugins/html/portlet_html.html</portlet-create-specific-template>
+           <portlet-modify-specific-template>/admin/plugins/html/portlet_html.html</portlet-modify-specific-template>
+           <portlet-create-specific-form-template></portlet-create-specific-form-template>
+           <portlet-modify-specific-form-template></portlet-modify-specific-form-template>
+     </portlet>
+   </portlets>
+
+ </plug-in>
+
+
+

@@ -1,0 +1,22 @@
+<!-- begin unselected_links -->
+<div class="content-box" >
+	<h2>#i18n{links.unselected_links.insertNewLink}</h2>
+	<form name="selectLinks" method="post" action="plugins/links/DoSelectLinks.jsp" >	
+	<input type="hidden" name="portlet_id" value="${portlet_id}" />
+	<table>
+		<tr>
+			<td>
+				<@combo name="links" default_value="${default_link}" items=links_list />
+			</td>
+			<td>
+				#i18n{links.unselected_links.row} :
+				<@combo name="links_order" default_value="${default_order}" items=order_list />
+			</td>
+			<td>
+				<input type ="submit" value="#i18n{links.unselected_links.add}" class="button" />
+			</td>
+		</tr>
+	</table>
+	</form>
+</div>
+<!-- end unselected_links -->

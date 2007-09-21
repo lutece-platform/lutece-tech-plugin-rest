@@ -1,0 +1,96 @@
+<div class="content-box">
+	<h2>#i18n{ods.releve.label.creation.title}</h2>
+	<form action="jsp/admin/plugins/ods/relevetravaux/DoCreationElementReleveTravaux.jsp" method="post">
+		<input type="hidden" name="afaire" id="afaire" value="${type_creation_element}" />
+		<#if type_creation_element="va">		
+			<p>
+				<label for="">#i18n{ods.releve.label.creation.objet} * : </label>
+				<#if va_selected?exists>				
+					<a href='jsp/admin/plugins/ods/voeuamendement/ModificationAmendement.jsp?plugin_name=ods&id_voeuamendement=${va_selected.idVoeuAmendement}'>
+						${va_selected.type}<#if va_selected.reference?exists>${va_selected.reference}</#if> ${va_selected.fascicule.codeFascicule} 
+					</a>
+					<input name="" type="button" value="#i18n{ods.releve.button.deselect}" 
+						onclick="location='${webapp}/jsp/admin/plugins/ods/relevetravaux/DeselectionVoeuAmendement.jsp'" class="button" />
+				<#else>
+					<input name="" type="button" value="#i18n{ods.releve.button.selectAmendement}" 
+						onclick="window.location='${webapp}/jsp/admin/plugins/ods/voeuamendement/AmendementsForReleveDesTravaux.jsp?plugin_name=ods&id_releve=${releve.idReleveDesTravaux}'" class="button" />
+					<input name="" type="button" value="#i18n{ods.releve.button.selectVoeuRattache}" 
+						onclick="location='${webapp}/jsp/admin/plugins/ods/voeuamendement/VoeuxRattachesForReleveDesTravaux.jsp?plugin_name=ods&id_releve=${releve.idReleveDesTravaux}'" class="button" />
+					<input name="" type="button" value="#i18n{ods.releve.button.selectVoeuNonRattache}" 
+						onclick="location='${webapp}/jsp/admin/plugins/ods/voeuamendement/VoeuxNonRattachesForReleveDesTravaux.jsp?plugin_name=ods&id_releve=${releve.idReleveDesTravaux}'" class="button" />
+				</#if>
+			</p>
+		<#else>
+			<p>
+				<label for="">#i18n{ods.releve.label.creation.objet} * : </label>
+				<#if pdd_selected?exists>
+					<a href='jsp/admin/plugins/ods/projetdeliberation/ModificationCompletePDD.jsp?plugin_name=ods&id_pdd=${pdd_selected.idPdd}'>
+						${pdd_selected.reference}
+					</a>
+					<input name="" type="button" value="#i18n{ods.releve.button.deselect}" 
+						onclick="location='${webapp}/jsp/admin/plugins/ods/relevetravaux/DeselectionPDD.jsp'" class="button" />
+				<#else>
+					<input name="" type="button" value="#i18n{ods.releve.button.selectProjet}" 
+						onclick="location='${webapp}/jsp/admin/plugins/ods/projetdeliberation/ProjetDeliberationForReleveDesTravaux.jsp?plugin_name=ods&id_releve=${releve.idReleveDesTravaux}'" class="button" />
+					<input name="" type="button" value="#i18n{ods.releve.button.selectProposition}"
+						onclick="location='${webapp}/jsp/admin/plugins/ods/projetdeliberation/PropositionDeliberationForReleveDesTravaux.jsp?plugin_name=ods&id_releve=${releve.idReleveDesTravaux}'" class="button" />
+				</#if>
+			</p>
+		</#if>
+		
+		<p>
+			<label for="">#i18n{ods.releve.label.creation.pour} : </label>
+			<input type="text" name="nbr_pour" id="nbr_pour" size="3" maxlength="3" value="" />
+		</p>
+
+		<p>
+			<label for="">#i18n{ods.releve.label.creation.contre} : </label>
+			<input type="text" name="nbr_contre" id="nbr_contre" size="3" maxlength="3" value="" />
+		</p>
+
+		<p>
+			<label for="">#i18n{ods.releve.label.creation.abstention} : </label>
+			<input type="text" name="nbr_abst" id="nbr_abst" size="3" maxlength="3" value="" />
+		</p>
+
+		<p>
+			<label for="">#i18n{ods.releve.label.creation.nppv} : </label>
+			<input type="text" name="nbr_nppv" id="nbr_nppv" size="3" maxlength="3" value="" />
+		</p>
+
+		<p>
+			<label for="">#i18n{ods.releve.label.creation.observations} : </label>
+			<textarea name="objet" cols="80" rows="6"></textarea>
+		</p>
+		
+		<#if type_creation_element="pdd">
+			<p>
+				<label for="">#i18n{ods.releve.label.creation.groupe} : </label>
+				<select name="id_groupe" id="id_groupe">
+					<option></option>
+					<#list liste_groupes as groupe>
+						<option value="${groupe.idGroupe}">
+							${groupe.nomGroupe}
+						</option>
+					</#list>
+				</select>
+			</p>
+			<p>
+				<label for="">#i18n{ods.releve.label.creation.elu} : </label>
+				<select name="id_elu" id="id_elu">
+					<option></option>
+					<#list liste_elus as elu>
+						<option value="${elu.idElu}">
+							${elu.nomElu} ${elu.prenomElu} (${elu.groupe.nomGroupe})
+						</option>
+					</#list>
+				</select>
+			</p>
+		</#if>
+
+		<p>
+			<input type="submit" value="#i18n{ods.releve.button.enregistrer}" class="button" />
+	   		<input type="submit" value="#i18n{ods.all.button.cancel}" class="button" onclick="javascript: getElementById('afaire').value='cancel'" />
+		</p>
+	</form>
+</div>

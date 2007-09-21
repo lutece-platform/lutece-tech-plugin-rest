@@ -1,0 +1,42 @@
+<div class="content-box">
+	<h2>#i18n{ods.creationelu.label.title}</h2>
+	<form form action="jsp/admin/plugins/ods/elu/DoCreationElu.jsp" method="post">
+		<p>
+			<label for"civilite">#i18n{ods.creationelu.label.civilite} *: </label>
+			<select  id="civilite" name="civilite">
+				<option></option>
+				<option>M.</option>
+				<option>Mme</option>
+				<option>Mlle</option>
+			</select>
+		</p>
+		<p>
+			<label for="prenom_elu">#i18n{ods.creationelu.label.prenom_elu} *: </label>
+			<input id="prenom_elu" type="text" name="prenom_elu" size="40" value="" />
+		</p>	
+		<p>
+			<label for="nom_elu">#i18n{ods.creationelu.label.nom_elu} *: </label>
+			<input type="text" id="nom_elu" name="nom_elu" size="40" value="" />
+		</p>
+		<p>
+			<label>#i18n{ods.creationelu.label.groupe} *: </label>
+			<@combo name="id_groupe"  items=liste_groupes default_value=-1 />
+		</p>
+		<p>
+			<label>#i18n{ods.creationelu.label.commission}</label>
+			<@combo name="id_commission" items=liste_commissions default_value=-1 />
+		</p>
+		<p>
+			<label>#i18n{ods.creationelu.label.remplacant}</label>
+			<@combo name="id_remplacant" items=liste_remplacants default_value=-1 />
+		</p>
+		<p>
+			<label for="status">#i18n{ods.creationelu.label.actif}</label>
+			<input id="status" name="status" type="checkbox" value="true" checked="checked" /> #i18n{ods.creationelu.label.actif_comment}
+		</p>
+		<p>
+			<input type="submit" value="#i18n{ods.creationelu.button.validate}" class="button" />
+			<input type="button" value="#i18n{ods.creationelu.button.back}" class="button" onclick="javascript:history.go(-1)" />
+		</p>
+	</form>
+</div>

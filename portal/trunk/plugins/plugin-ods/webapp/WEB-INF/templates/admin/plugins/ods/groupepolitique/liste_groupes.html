@@ -1,0 +1,60 @@
+<div class="content-box">
+	<h2>#i18n{ods.listegroupes.label.title}</h2>
+	<#if liste_groupes?size=0>
+		<div class="highlight-box">
+			#i18n{ods.listegroupes.label.noGroupe}
+		</div>
+	<#else>
+		<p>
+			#i18n{ods.listegroupes.label.resultCount} : ${liste_groupes_count}
+		</p>
+		<table>
+			<tr>
+				<th>#i18n{ods.listgroupes.label.nom_groupe}</th>
+				<th>#i18n{ods.listegroupes.label.nom_complet}</th>
+				<th>#i18n{ods.listegroupes.label.actif}</th>
+    		   	<#if permission_gestion >
+					<th>#i18n{ods.listegroupes.label.actions}</th>
+				</#if>
+			</tr>
+			<#list liste_groupes as groupe>
+				<a name="ANC_LAST" id="ANC_LAST"></a>
+				<tr>
+					<td nowrap="nowrap">${groupe.nomGroupe}</td>
+					<td>${groupe.nomComplet}</td>
+					<#if groupe.actif=true>
+						<td nowrap="nowrap"><img src="images/admin/skin/enable.png" 
+							alt="groupe actif" title="Actif" />
+						</td>
+					<#else>
+						<td nowrap="nowrap"><img src="images/admin/skin/disable.png"
+							alt="groupe inactif" title="Inactif" />
+						</td>
+					</#if>
+    		   		<#if permission_gestion >
+					<td nowrap="nowrap" class="ods-actions">
+						<a href="jsp/admin/plugins/ods/groupepolitique/ModificationGroupe.jsp?id_groupe=${groupe.idGroupe}">
+							<img src="images/admin/skin/plugins/ods/action/modify.png"
+								alt="#i18n{ods.listegroupes.title.modify}"
+								title="#i18n{ods.listegroupes.title.modify}" />
+						</a>
+						<a href="jsp/admin/plugins/ods/groupepolitique/SuppressionGroupe.jsp?id_groupe=${groupe.idGroupe}">
+							<img src="images/admin/skin/plugins/ods/action/delete.png"
+								alt="#i18n{ods.listegroupes.title.delete}"
+								title="#i18n{ods.listegroupes.title.delete}" />
+						</a>
+					</td>
+					</#if>
+				</tr>
+			</#list>
+		</table>
+	</#if>
+	
+    <#if permission_gestion >
+	<form method="post" action="jsp/admin/plugins/ods/groupepolitique/CreationGroupe.jsp">
+		<p>
+			<input type="submit" value="#i18n{ods.listegroupes.button.create}" class="button" />
+		</p>
+	</form>
+	</#if>
+</div>

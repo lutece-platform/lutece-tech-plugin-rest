@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="transaction">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="senderInfo" type="senderInfo"/>
+				<xs:element name="serverInfo" type="serverInfo"/>
+				<xs:element name="transactionInfo" type="transactionInfo"/>
+				<xs:element name="transactionId" type="xs:string"/>
+				<xs:element name="transactionDate" type="xs:date"/>
+				<xs:element name="transactionTime" type="xs:time"/>
+				<xs:element name="transactionData" type="transactionData"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="senderInfo">
+		<xs:sequence>
+			<xs:element name="remoteAddress" type="remoteAddress"/>
+			<xs:element name="remoteUser" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="remoteAddress">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="serverInfo">
+		<xs:sequence>
+			<xs:element name="instanceName" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="transactionInfo">
+		<xs:sequence>
+			<xs:element name="transactionName" type="xs:string"/>
+			<xs:element name="transactionCode" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- to be redifined in specific schemas -->
+	<xs:complexType name="transactionData">
+		<xs:sequence><xs:any /></xs:sequence>
+	</xs:complexType>
+</xs:schema>

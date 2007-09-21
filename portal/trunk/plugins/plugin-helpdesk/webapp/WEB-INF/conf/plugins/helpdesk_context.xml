@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    
+   <!-- package sqlquery -->
+  <bean id="questionAnswerDAO"  class="fr.paris.lutece.plugins.helpdesk.business.QuestionAnswerDAO" />
+  <bean id="questionTypeDAO"  class="fr.paris.lutece.plugins.helpdesk.business.QuestionTypeDAO" />    
+  <bean id="questionTypeManagementDAO"  class="fr.paris.lutece.plugins.helpdesk.business.QuestionTypeManagementDAO" />      
+  <bean id="subjectDAO"  class="fr.paris.lutece.plugins.helpdesk.business.SubjectDAO" />
+  <bean id="visitorQuestionDAO"  class="fr.paris.lutece.plugins.helpdesk.business.VisitorQuestionDAO" /> 
+  <bean id="questionTopicDAO"  class="fr.paris.lutece.plugins.helpdesk.business.QuestionTopicDAO" />                           
+  
+</beans>

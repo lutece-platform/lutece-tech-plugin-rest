@@ -1,0 +1,129 @@
+/* --------------------------------------------------------------------------------
+
+ * ------------- myapps-table: used to display a table in myapps front ------------
+
+ */
+
+table.myapps-table {
+        
+	background-color: White;
+        margin-left:auto;
+        margin-right:auto;
+	border: 1px solid #859ecf;
+        border-collapse: collapse;
+	margin-bottom: 10px;
+	width: 50%;
+
+}
+
+/* table cell */
+
+table.myapps-table td {
+	padding-bottom: 5px;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 5px;
+	vertical-align: middle;
+        text-align: center;
+
+}
+
+/* table header, eg. : columns names */
+
+table.myapps-table th {
+
+	background-color: #E6EAF3;
+	color: #1C2861;
+	font-weight: bold;
+	height: 20px;
+	vertical-align: middle;
+        text-align: center;
+
+}
+
+/* basic row style */
+
+table.myapps-table-table tr {
+
+	background-color: #F8F8F8;
+
+}
+
+/* style for even rows */
+
+table.myapps-table tr.even-row {
+
+	background-color: White;
+
+}
+
+/* styles for odd rows */
+
+table.myapps-table tr.odd-row {
+
+	background-color: #F8F8F8;
+
+}
+table.myapps-table-one {
+        
+background-color: White;
+        margin-left:auto;
+        margin-right:auto;
+	border: 1px solid #859ecf;
+        border-collapse: collapse;
+	margin-bottom: 10px;
+	width: 30%;
+        padding-top: 15px;
+        padding-right: 15px;
+        padding-bottom: 15px;
+        padding-left: 15px;
+
+}
+table.myapps-table-one th {
+
+	background-color: #E6EAF3;
+	color: #1C2861;
+	font-weight: bold;
+	height: 20px;
+	vertical-align: middle;
+        text-align: center;
+
+}
+/* table cell */
+
+table.myapps-table-one td {
+	padding-bottom: 5px;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 5px;
+	vertical-align: middle;
+        text-align: center;
+
+}
+
+/*---------------------------------
+* 
+*/---------------------------------
+
+div.myapps-content {
+	background-color: white;
+	border: 0;
+	margin: 0;
+	padding: 15px;
+        text-align: center;
+}
+
+/*---------------------------------
+* MyApps Portlet
+*/---------------------------------
+
+/* table cell */
+
+table.myapps-portlet td {
+        text-align: center;
+
+}
+div.backto {
+        width: 70%;
+        text-align: right;
+} 

@@ -1,0 +1,115 @@
+<#list liste_resultats as resultat >
+	<p>
+		${resultat.requeteUtilisateur}
+	</p>
+	
+	<br />
+	
+	<#if resultat.listePDDs?exists>
+	<#list resultat.listePDDs as pdd >
+	<p>
+		<span style="text-decoration: underline;">
+			<a href="${webapp}/jsp/site/Portal.jsp?page=ods_pdd&id_pdd=${pdd.idPdd}">${pdd.reference}</a>
+		</span> 
+		<#if pdd.version = 1 >
+			#i18n{ods.notification.mail.label.nouveau} 
+		<#else>
+			#i18n{ods.notification.mail.label.miseAjour}
+		</#if>
+		(#i18n{ods.notification.mail.label.publiele} 
+		${pdd.datePublication?string("dd/MM/yyyy")}, #i18n{ods.notification.mail.label.version} ${pdd.version})<br />
+		${pdd.objet}<br /><br />
+		<#if pdd.fichiers?exists && ( pdd.fichiers?size > 0 )>
+			<ul>
+			<#list pdd.fichiers as fichier>
+				<li>${fichier.titre}
+					<span style="text-decoration: underline;"><a href="${webapp}/jsp/site/plugins/ods/DoDownload.jsp?id_fichier=${fichier.id}">${fichier.titre}</a></span> 
+					<#if fichier.version = 1 >
+						#i18n{ods.notification.mail.label.nouveau} 
+					<#else>
+						#i18n{ods.notification.mail.label.miseAjour}
+					</#if>
+					(#i18n{ods.notification.mail.label.publiele} 
+					${fichier.datePublication?string("dd/MM/yyyy")}, #i18n{ods.notification.mail.label.version} ${fichier.version})
+				</li>
+			</#list>
+			</ul>
+		</#if>
+	</p>
+	</#list>
+	</#if>
+
+	<#if resultat.listeAmendements?exists>
+	<#list resultat.listeAmendements as amendement >
+	<p>
+		<span class="ods-list-item-a">&nbsp;&nbsp;</span>
+		<span style="text-decoration: underline;">
+			<a href="${webapp}/jsp/site/plugins/ods/DoDownload.jsp?id_fichier=${amendement.fichier.id}">
+			<#if amendement.referenceComplete?exists>
+				${amendement.referenceComplete} :
+			</#if>
+			</a>
+		</span> 
+		${amendement.objetLimit} 
+		<#if amendement.version = 1 >
+			#i18n{ods.notification.mail.label.nouveau} 
+		<#else>
+			#i18n{ods.notification.mail.label.miseAjour}
+		</#if>
+		(#i18n{ods.notification.mail.label.publiele} 
+		${amendement.datePublication?string("dd/MM/yyyy")}, #i18n{ods.notification.mail.label.version} ${amendement.version})
+		<br /><br />
+		<#if amendement.pdds?exists && ( amendement.pdds?size > 0 ) >
+			<ul>
+			<#list amendement.pdds as pdd>
+				<li>
+					<span style="text-decoration: underline;">
+						<a href="${webapp}/jsp/site/Portal.jsp?page=ods_pdd&id_pdd=${pdd.idPdd}">${pdd.reference}</a>
+					</span>
+				</li>
+			</#list>
+			</ul>
+		</#if>
+	</p>
+	</#list>
+	</#if>
+
+	<#if resultat.listeVoeux?exists>
+	<#list resultat.listeVoeux as voeu >
+	<p>
+		<span class="ods-list-item-v">&nbsp;&nbsp;</span>
+		<span style="text-decoration: underline;">	
+			<a href="${webapp}/jsp/site/plugins/ods/DoDownload.jsp?id_fichier=${voeu.fichier.id}">		
+			<#if voeu.referenceComplete?exists>
+				${voeu.referenceComplete} :
+			</#if>
+			</a>
+		</span> 
+		${voeu.objetLimit} 
+		<#if voeu.version = 1 >
+			#i18n{ods.notification.mail.label.nouveau} 
+		<#else>
+			#i18n{ods.notification.mail.label.miseAjour}
+		</#if>
+		(#i18n{ods.notification.mail.label.publiele} 
+		${voeu.datePublication?string("dd/MM/yyyy")}, #i18n{ods.notification.mail.label.version} ${voeu.version})
+		<br /><br />
+		<#if voeu.pdds?exists && ( voeu.pdds?size > 0 ) >
+			<ul>
+			<#list voeu.pdds as pdd>
+				<li>
+					<span style="text-decoration: underline;">
+						<a href="${webapp}/jsp/site/Portal.jsp?page=ods_pdd&id_pdd=${pdd.idPdd}">${pdd.reference}</a>
+					</span>
+				</li>
+			</#list>
+			</ul>
+		</#if>
+	</p>
+	</#list>
+	</#if>
+	
+	<br />
+	<#if resultat_has_next><hr /></#if>
+
+</#list>

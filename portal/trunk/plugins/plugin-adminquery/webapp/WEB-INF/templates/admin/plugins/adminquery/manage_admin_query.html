@@ -1,0 +1,38 @@
+
+<div class="content-box" >
+
+    <h2>#i18n{adminquery.manage_admin_query.pageTitle}</h2>
+
+    <div class="highlight-box">
+        <form method="post" >
+            <p>
+                <label for="request" >#i18n{adminquery.manage_admin_query.label}</label>
+                <@combo name="sql_request" default_value="0" items=sql_request_list/>
+                <input type="submit" class="button" value="#i18n{adminquery.manage_admin_query.buttonOk}" />
+            </p>
+        </form>
+    </div>
+    
+    <div style="float:left;">
+        <table>
+            <#if column_name?exists>
+            <tr>
+                <#list column_name as column_name >
+                <th>${column_name}</th>
+                </#list>
+            </tr>
+            </#if>
+            
+            <#if row_list?exists>
+            <#list row_list as row >
+            <tr>
+                ${row}
+            </tr>
+            </#list>
+            </#if>
+
+        </table>
+    </div>
+    
+</div>
+

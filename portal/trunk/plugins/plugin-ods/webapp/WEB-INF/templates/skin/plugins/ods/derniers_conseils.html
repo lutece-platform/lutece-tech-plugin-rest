@@ -1,0 +1,42 @@
+
+<div id="page-content-left">
+	<#include "page_content_left.html">
+</div>
+<div id="page-content-right">
+	<#if liste_seance?exists>
+		<div id="out-min-height">
+			<div id="in-min-height">
+				<div id="one-zone-first">
+					<div id="one-zone-first-content">
+						<h1>#i18n{ods.front.derniersconseils.label.title}</h1>
+						<ul class="list">
+							<#list liste_seance as seance>
+       				 			<#if seance_index<12>
+	       				 			<li>
+	       				 				<a href="jsp/site/Portal.jsp?page=ods_seance_archives&id_seance=${seance.idSeance}">
+		       				 				<#if seance.dateSeance?string("ddMMyyyy") = seance.dateCloture?string("ddMMyyyy") >
+												#i18n{ods.front.prochainconseil.label.seance.le}
+												${seance.dateSeance?string(" EEEE dd MMMM yyyy")}
+											<#else>
+												#i18n{ods.front.prochainconseil.label.seance.du}
+												<#if seance.dateSeance?string("MMMM") != seance.dateCloture?string("MMMM")>
+													${seance.dateSeance?string("EEEE dd MMMM ")}
+												<#else>
+													${seance.dateSeance?string("EEEE dd ")}
+												</#if>
+												#i18n{ods.front.prochainconseil.label.seance.au}
+												${seance.dateCloture?string(" EEEE dd MMMM yyyy")}
+											</#if>
+										</a>
+	       				 			</li>
+	       				 		</#if>
+       				 		</#list>
+						</ul>		
+					</div>
+				</div>
+			</div>
+		</div>
+	<#else>
+		<h1>Probleme de parametres</h1>
+	</#if>
+</div>

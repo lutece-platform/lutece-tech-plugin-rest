@@ -1,0 +1,585 @@
+<?xml version="1.0" ?>
+<formDefinition name="evac"
+  className="fr.paris.lutece.plugins.formengine.modules.evac.web.EvacForm">
+  <title>Demande de rendez-vous Vacances Arc en Ciel</title>
+  
+  <subForms>
+      
+    <!-- Subform for introduction -->
+    <subFormDefinition name="introduction" className="fr.paris.lutece.plugins.formengine.modules.evac.web.IntroductionSubForm">
+      <title>Introduction</title>
+      <formElements>
+        <fields>
+        
+          <field name="confirmRead" type="checkbox">
+            <label>j'ai bien pris connaissance des conditions générales et du règlement</label>
+            <value/>
+            <choiceList/>
+              
+            <checkFieldRules>
+              <checkRule type="fieldRequired" parameter="true"  errorMessage="Vous devez prendre connaissance des conditions générales et du règlement avant de pouvoir remplir votre demande en ligne." />
+            </checkFieldRules>
+            
+          </field>
+    
+        </fields>
+        <buttons>
+          <button name="Débuter votre démarche" type="submit"/> 
+        </buttons>
+        
+        <notices>
+        	<noticeGroup name="Reglement">
+	                <notice>
+	                <![CDATA[
+	                <p>Les Vacances Arc en Ciel offrent des séjours d’été aux jeunes parisiens âgés de 4 à 16 ans.</p>
+    	    		]]>
+	                </notice>
+        	</noticeGroup>
+        	<noticeGroup name="Reglement2">
+	                <notice>
+	                <![CDATA[
+	                <p><strong>Ces séjours sont réservés aux enfants de parents domiciliés à Paris.</strong></p>
+    	    		]]>
+	                </notice>
+        	</noticeGroup>
+        	<noticeGroup name="Reglement3">
+	                <notice>
+	                <![CDATA[
+	                <p>Le formulaire en ligne permet de solliciter un rendez-vous auprès de la direction
+	                 des affaires scolaires, en vue d’inscrire vos enfants à l’un des séjours 
+	                 dans la limite des places disponibles.</p>
+    	    		]]>
+	                </notice>
+        	</noticeGroup>
+        	<noticeGroup name="Date ouverture">
+	                <notice>
+	                <![CDATA[
+					<p>
+           			Ce service en ligne est ouvert <strong>du 13 au 27 mars exclusivement.</strong>
+    	    		</p>
+    	    		]]>
+	                </notice>
+        	</noticeGroup>
+        	<noticeGroup name="Reglement4">
+	                <notice>
+	                <![CDATA[
+					<p><strong>
+           			Les rendez-vous sont fixés par tirage au sort électronique des formulaires
+           			 sous contrôle d’huissier et attribués dans la limite des places disponibles.
+        			</strong>
+    	    		</p>
+    	    		]]>
+	                </notice>
+        	</noticeGroup>
+        	<noticeGroup name="Reglement5">
+	                <notice>
+	                <![CDATA[
+					<p>
+        		Les familles doivent se présenter impérativement au jour et à l’heure du rendez-vous fixé.
+    	    		</p>
+    	    		]]>
+	                </notice>
+        	</noticeGroup>
+        	<noticeGroup name="Reglement6">
+	                <notice>
+	                <![CDATA[
+					<p>
+        		Lorsque la demande est faite pour deux familles, celles-ci devront se présenter
+        		 ensemble au rendez-vous adressé à la première famille.
+    	    		</p>
+    	    		]]>
+	                </notice>
+        	</noticeGroup>
+        	<noticeGroup name="Reglement7">
+	                <notice>
+	                <![CDATA[
+					<p>
+        		Une famille annulant son rendez-vous ne peut pas être remplacée par une autre famille.
+        		</p>
+    	    		]]>
+	                </notice>
+        	</noticeGroup>
+        	<noticeGroup name="Plus information">
+	                <notice>
+	                <![CDATA[
+					<p>
+    	    		La liste des justificatifs à fournir lors des rendez-vous est consultable sur Paris.fr : <br/>
+            		<a href="http://www.paris.fr/portail/Education/Portal.lut?page_id=7477&document_type_id=5&document_id=21772&portlet_id=17270" target="_blank">» Consulter la rubrique Vacances Arc en Ciel</a>
+            		</p>
+    	    		]]>
+	                </notice>
+        	</noticeGroup>
+        	<noticeGroup name="Conditions générales">
+	                <notice>
+	                <![CDATA[
+					<p>
+            		<a title="Fichier conditions générales d'utilisation" href="http://r7evacform.mdp/evac/"  target="_blank">» Consulter les conditions générales d'utilisation (pdf- 50ko)</a>
+    	    		</p>
+    	    		]]>
+	                </notice>
+        	</noticeGroup>
+        	<noticeGroup name="Remarque">
+	                <notice>
+	                <![CDATA[
+					<p>
+					Ce téléservice vous permet de Vous inscrire au programme  « les Vacances Arc en Ciel » par voie électronique. 
+					<br>
+					Nous vous rappelons que vous avez également la possibilité de répondre par courrier. 
+					</p>
+    	    		]]>
+	                </notice>
+        	</noticeGroup>   	
+        </notices>
+        
+      </formElements> 
+   </subFormDefinition>
+   
+   <!-- Subform for first family -->
+    <subFormDefinition name="firstFamily" className="fr.paris.lutece.plugins.formengine.modules.evac.web.FirstFamilySubForm">
+      <title>Coordonnées 1ère famille</title>
+      <formElements>
+        <fields>
+
+          <field name="LastName" type="text">
+          	<label>Nom du parent</label>
+          	<value/> 
+          	<checkFieldRules>         		
+          		<checkRule type="fieldRequired" parameter="true" errorMessage="«Nom du parent» est obligatoire."  />
+          		<checkRule type="maxLength" parameter="60"/>
+          		<checkRule type="xss"/>
+          	</checkFieldRules>
+          </field>
+          <field name="FirstName" type="text">
+	        <label>Prénom du parent</label>
+	        <value/> 
+	        <checkFieldRules>	        	
+	        	<checkRule type="fieldRequired" parameter="true" errorMessage="«Prénom du parent» est obligatoire."/>
+	        	<checkRule type="maxLength" parameter="60"/>
+	        	<checkRule type="xss"/>
+	        </checkFieldRules>
+          </field>
+          
+		  <field name="phone" type="text">
+	  	   <label>téléphone</label>
+	  	   <value/>
+	  	   <checkFieldRules>
+		   	<checkRule type="fieldRequired" parameter="true" errorMessage="«téléphone» est obligatoire."/>
+	        <checkRule type="phoneNumber" errorMessage="Le champ téléphone doit être un numéro de téléphone valide de 10 chiffres."/>
+		   	<checkRule type="maxLength" parameter="80" />
+		   	<checkRule type="xss"/>
+	  	   </checkFieldRules>
+          </field>
+          
+          <field name="email" type="text">
+	  	   <label>Courriel</label>
+	  	   <value/>
+	  	   <checkFieldRules>
+	  	   	<checkRule type="fieldRequired" parameter="true" errorMessage="«Courriel» est obligatoire."/>
+	  	   </checkFieldRules>
+          </field>           
+          
+          <field name="confirmEmail" type="text">
+	  	   <label>Confirmer votre courriel</label>
+	  	   <value/>
+	  	   <checkFieldRules>
+	  	   	<checkRule type="fieldRequired" parameter="true" errorMessage="«Confirmer votre courriel» est obligatoire."/>
+	  	   </checkFieldRules>
+          </field>
+          
+		  <field name="NumberChilds" type="text">
+          	<label>Nombre d’enfants à inscrire</label>
+          	<value/> 
+          	<checkFieldRules>         		
+          		<checkRule type="fieldRequired" parameter="true" errorMessage="«Nombre d’enfants à inscrire» est obligatoire."/>
+          		<checkRule type="maxLength" parameter="2" errorMessage="«Nombre d’enfants à inscrire» doit être un nombre à 2 chiffres maximum."/>
+          		<checkRule type="fieldNumeric" min="1" errorMessage="«Nombre d’enfants à inscrire» doit être un nombre et ne peut être égal à 0." />
+          		<checkRule type="xss"/>
+          	</checkFieldRules>
+          </field>
+          
+        </fields>
+        
+        <buttons>
+           <button name="Etape suivante" type="submit"/>
+        </buttons>
+		
+		<checkSubFormRules>
+        	<checkRule type="specific"
+            	parameter="fr.paris.lutece.plugins.formengine.modules.evac.service.validator.ValidatorComfirmEmail"
+            />
+        </checkSubFormRules>
+		
+      </formElements>
+   </subFormDefinition>
+   
+   <!-- Subform for address first family -->
+    <subFormDefinition name="addressFirstFamily" className="fr.paris.lutece.plugins.formengine.modules.evac.web.AddressFirstFamilySubForm">
+      <title>Adresse 1ère famille</title>
+      <formElements>
+      
+		<fields>
+          <field name="numVoie" type="text">
+          	<label>Numéro dans la voie</label>
+          	<value/> 
+          	<checkFieldRules>         		
+          		<checkRule type="fieldRequired" parameter="true" errorMessage="«Numero dans la voie» est obligatoire."/>
+          		<checkRule type="fieldNumeric" min="1" max="10000"/>
+          		<checkRule type="xss"/>
+          	</checkFieldRules>
+          </field>
+          
+          <field name="suffixe" type="combo">
+	        <label>Suffixe</label>
+			<value/>
+	        <choiceList> 
+	        		<choice value="" label=""/>
+      				<choice value="b" label="Bis"/>
+      				<choice value="t" label="Ter"/>
+      				<choice value="q" label="Quiquies"/>
+      		</choiceList>
+	        <checkFieldRules>
+	        	<checkRule type="xss"/>
+	        </checkFieldRules>
+	        <additionalInfo>
+	        	Ex : bis, ter, ...
+	        </additionalInfo>
+          </field>
+
+          <field name="nomVoie" type="text">
+	        <label>Nom de la voie</label>
+	        <value/> 
+	        <checkFieldRules>	        	
+	        	<checkRule type="fieldRequired" parameter="true" errorMessage="«Nom de la voie» est obligatoire."/>
+	        	<checkRule type="minLength" parameter="2" errorMessage="«Nom de la voie», saisir au minimum deux caractères."/>
+	        	<checkRule type="maxLength" parameter="100"/>
+	        	<checkRule type="xss"/>
+	        </checkFieldRules>
+	        <additionalInfo>
+	        	Ex : Saisir « rue de l’abbaye » ou abbaye.
+	        </additionalInfo>
+          </field>         
+		   
+          <field name="complAddress" type="text">
+	        <label>Complément d'adresse 1</label>
+	        <value/> 
+	        <checkFieldRules>	        	
+	        	<checkRule type="maxLength" parameter="100"/>
+	        	<checkRule type="xss"/>
+	        </checkFieldRules>
+	        <additionalInfo>
+	        	Ex : Escalier B, bat 3, ...
+          	</additionalInfo>
+          </field>
+          
+          <field name="complAddress2" type="text">
+	        <label>Complément d'adresse 2</label>
+	        <value/> 
+	        <checkFieldRules>	        	
+	        	<checkRule type="maxLength" parameter="100"/>
+	        	<checkRule type="xss"/>
+	        </checkFieldRules>
+	        <additionalInfo>
+	        	Ex : chez M. Dupont, Hotel, ...
+          	</additionalInfo>
+          </field>
+  
+	      <field name="address" type="radio">
+		    <label>Choisissez votre adresse</label>
+			<value/>
+		    <choiceList/> 
+		    <checkFieldRules>
+		    	<checkRule type="fieldRequired" parameter="true" errorMessage="Vous n'avez pas choisi d'adresse dans la liste proposée."/>
+		    </checkFieldRules>
+	      </field>
+
+        </fields>
+        
+        <buttons>
+        	<button name="Modifier" type="submit"/>
+        	<button name="Réinitialiser votre adresse" type="submit"/>
+      		<button name="Valider" type="submit"/>
+          <button name="Rechercher" type="submit"/>
+          <button name="Etape précédente" type="submit"/>
+          <button name="Seconde famille" type="submit"/>
+          <button name="Valider votre inscription" type="submit"/>
+        </buttons>
+		
+		<notices>
+			<noticeGroup name="ville">
+                <notice>
+                    Ville : Paris
+                </notice>
+           </noticeGroup>	
+        	<noticeGroup name="information">
+                <notice>
+                <![CDATA[
+                    <p>Les compléments d’adresse ne sont pas vérifiés par le moteur de recherche d’adresse.</p>
+                ]]>
+                </notice>
+           </noticeGroup>
+           <noticeGroup name="informationChoix">
+                <notice>
+                <![CDATA[
+                    <p>Si votre adresse ne figure pas dans cette liste, modifiez votre saisie.</p>
+                ]]>
+                </notice>
+           </noticeGroup>
+           
+			
+		</notices>
+      </formElements>
+   </subFormDefinition>
+  
+   
+  	<!-- Subform for second family -->
+    <subFormDefinition name="secondFamily" className="fr.paris.lutece.plugins.formengine.modules.evac.web.SecondFamilySubForm">
+      <title>Coordonnées 2ième famille</title>
+      <formElements>
+        <fields>
+
+          <field name="LastName" type="text">
+          	<label>Nom du parent</label>
+          	<value/> 
+          	<checkFieldRules>   
+          		<checkRule type="fieldRequired" parameter="true" errorMessage="«Nom du parent» est obligatoire."/>      		
+          		<checkRule type="maxLength" parameter="60"/>
+          		<checkRule type="xss"/>
+          	</checkFieldRules>
+          </field>
+          
+          <field name="FirstName" type="text">
+	        <label>Prénom du parent</label>
+	        <value/> 
+	        <checkFieldRules>
+	        	<checkRule type="fieldRequired" parameter="true" errorMessage="«Prénom du parent» est obligatoire."/>
+	        	<checkRule type="maxLength" parameter="60"/>
+	        	<checkRule type="xss"/>
+	        </checkFieldRules>
+          </field>
+          
+		  <field name="phone" type="text">
+	  	   <label>téléphone</label>
+	  	   <value/>
+	  	   <checkFieldRules>
+	        <checkRule type="phoneNumber" errorMessage="Le champ téléphone doit être un numéro de téléphone valide de 10 chiffres." />
+		   	<checkRule type="maxLength" parameter="80"/>
+		   	<checkRule type="xss"/>
+	  	   </checkFieldRules>
+          </field>       
+          
+		  <field name="NumberChilds" type="text">
+          	<label>Nombre d’enfants à inscrire</label>
+          	<value/> 
+          	<checkFieldRules>         	
+          		<checkRule type="fieldRequired" parameter="true" errorMessage="«Nombre d’enfants à inscrire» est obligatoire."/>
+          		<checkRule type="maxLength" parameter="2" errorMessage="«Nombre d’enfants à inscrire» doit être un nombre à 2 chiffres maximum."/>
+          		<checkRule type="fieldNumeric" min="1" errorMessage="«Nombre d’enfants à inscrire»  doit être un nombre et ne peut être égal à 0." />
+          		<checkRule type="xss"/>
+          	</checkFieldRules>
+          </field>
+        </fields>
+        
+        <buttons>
+          <button name="Etape précédente" type="submit"/>
+           <button name="Etape suivante" type="submit"/>
+        </buttons>
+		
+      </formElements>
+   </subFormDefinition>
+  
+  <!-- Subform for adress second family -->
+    <subFormDefinition name="addressSecondFamily" className="fr.paris.lutece.plugins.formengine.modules.evac.web.AddressSecondFamilySubForm">
+      <title>Adresse 2ième famille</title>
+      <formElements>
+      
+		<fields>
+          <field name="numVoie" type="text">
+          	<label>Numéro dans la voie</label>
+          	<value/> 
+          	<checkFieldRules>
+          		<checkRule type="fieldRequired" parameter="true" errorMessage="«Numero dans la voie» est obligatoire."/>
+          		<checkRule type="fieldNumeric" min="1" max="10000"/>
+          		<checkRule type="xss"/>
+          	</checkFieldRules>
+          </field>
+          
+          <field name="suffixe" type="combo">
+	        <label>Suffixe</label>
+			<value/>
+	        <choiceList> 
+	        		<choice value="" label=""/>
+      				<choice value="b" label="Bis"/>
+      				<choice value="t" label="Ter"/>
+      				<choice value="q" label="Quiquies"/>
+      		</choiceList>
+	        <checkFieldRules>
+	        	<checkRule type="xss"/>
+	        </checkFieldRules>
+			<additionalInfo>
+	        	Ex : bis, ter, ...
+	        </additionalInfo>
+          </field>
+		
+          <field name="nomVoie" type="text">
+	        <label>Nom de la voie</label>
+	        <value/> 
+	        <checkFieldRules>
+	        	<checkRule type="fieldRequired" parameter="true" errorMessage="«Nom de la voie» est obligatoire."/>
+	        	<checkRule type="minLength" parameter="2" errorMessage="«Nom de la voie», saisir au minimum deux caractères."/>
+	        	<checkRule type="maxLength" parameter="100"/>
+	        	<checkRule type="xss"/>
+	        </checkFieldRules>
+	        <additionalInfo>
+	        	Ex : Saisir « rue de l’abbaye » ou abbaye.
+	        </additionalInfo>
+          </field>
+          	   
+          <field name="complAddress" type="text">
+	        <label>Complément d'adresse</label>
+	        <value/> 
+	        <checkFieldRules>	        	
+	        	<checkRule type="maxLength" parameter="100"/>
+	        	<checkRule type="xss"/>
+	        </checkFieldRules>
+	        <additionalInfo>
+	        	Ex : Escalier B, bat 3, ...
+          	</additionalInfo>
+          </field>
+          
+          <field name="complAddress2" type="text">
+	        <label>Complément d'adresse</label>
+	        <value/>
+	        <checkFieldRules>	        	
+	        	<checkRule type="maxLength" parameter="100"/>
+	        	<checkRule type="xss"/>
+	        </checkFieldRules>
+	        <additionalInfo>
+	        	Ex : chez M. Dupont, Hotel, ...
+          	</additionalInfo>
+          </field>
+           
+           <field name="address" type="radio">
+		    <label>Choisissez votre adresse</label>
+			<value/>
+		    <choiceList/> 
+		    <checkFieldRules>
+		       <checkRule type="fieldRequired" parameter="true" errorMessage="Vous n'avez pas choisi d'adresse dans la liste proposée."/>
+		    </checkFieldRules>
+	      </field>
+	      
+        </fields>
+        
+        <buttons>
+        	<button name="Modifier" type="submit"/>
+        	<button name="Réinitialiser votre adresse" type="submit"/>
+      	<button name="Valider" type="submit"/>
+        	<button name="Rechercher" type="submit"/>
+          <button name="Etape précédente" type="submit"/>
+           <button name="Etape suivante" type="submit"/>
+        </buttons>
+        
+        <notices>
+        	<noticeGroup name="ville">
+                <notice>
+                    Ville : Paris
+                </notice>
+           </noticeGroup>
+           <noticeGroup name="information">
+                <notice>
+                <![CDATA[
+                    <p>Les compléments d’adresse ne sont pas vérifiés par le moteur de recherche d’adresse.</p>
+                ]]>
+                </notice>
+           </noticeGroup>
+            <noticeGroup name="informationChoix">
+                <notice>
+                <![CDATA[
+                    <p>Si votre adresse ne figure pas dans cette liste, modifiez votre saisie.</p>
+                ]]>
+                </notice>
+           </noticeGroup>
+          
+		</notices>
+        
+      </formElements>
+   </subFormDefinition>
+   
+  	
+  	<subFormDefinition name="summary"
+   className="fr.paris.lutece.plugins.formengine.modules.evac.web.SummarySubForm">
+   <title>Récapitulatif</title>
+   <formElements>
+   <fields/>
+    <buttons>
+     <button name="Modifier la 1ère famille" type="submit"/>
+     <button name="Modifier la 2de famille" type="submit"/>
+     <button name="2de famille" type="submit"/>
+     <button name="Valider" type="submit"/>
+    </buttons>
+    
+    <notices>
+    	<noticeGroup name="Seconde famille">
+            <notice>
+            <![CDATA[
+			<p>
+			Si vous voulez faire une demande de rendez-vous pour une deuxième famille dont 
+			les enfants souhaitent partir avec les vôtres, cliquez sur ce bouton. 
+			</p>
+  	    	]]>
+            </notice>
+       	</noticeGroup>
+    		
+   		<noticeGroup name="Remarque">
+            <notice>
+            <![CDATA[
+			<p>
+			Attention, la validation de la demande de rendez-vous est définitive. Un numéro de demande va vous être attribué.
+			</p>
+  	    	]]>
+            </notice>
+       	</noticeGroup>
+		</notices>
+    
+    
+   </formElements>
+  </subFormDefinition>
+  
+  <subFormDefinition name="confirmation"
+   className="fr.paris.lutece.plugins.formengine.modules.evac.web.ConfirmationSubForm">
+   <title>Validation</title>
+   <formElements>
+   <fields/>
+   
+    <buttons>
+     <button name="Fermer" type="submit"/>
+    </buttons>
+    <notices>
+   		<noticeGroup name="information">
+            <notice>
+            <![CDATA[
+			<p>
+			Retrouver toutes les informations sur les vacances arc en ciel sur paris.fr :<br/>
+			<a href="http://www.paris.fr/portail/Education/Portal.lut?page_id=7477&document_type_id=5&document_id=21772&portlet_id=17270" target="_blank">» Consulter la rubrique</a>
+			<br/><br/>
+			Retrouver toutes les téléprocédures sur paris.fr :<br/>
+			<a href="http://www.paris.fr/portail/vosdemarches/Portal.lut?page_id=6475" target="_blank">» Consulter la rubrique</a>
+ 			</p>
+  	    	]]>
+            </notice>
+       	</noticeGroup>
+	</notices>
+    
+   </formElements>
+   
+  </subFormDefinition>
+  
+  </subForms>
+  
+   <outputs>
+       <outputSet useTransactionHeaders="false" >
+          <output outputProcessorClassName="fr.paris.lutece.plugins.formengine.modules.evac.service.output.EvacFileOutputProcessor" />
+          <output outputProcessorClassName="fr.paris.lutece.plugins.formengine.modules.evac.service.output.EvacMailOutputProcessor" />
+      </outputSet>
+   </outputs>
+   
+</formDefinition>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Lutèce - Reporting">
+	<body>
+		<links>
+			<item name="EN" href="../index.html" />
+		</links>
+
+		<menu name="Aperçu">
+			<item name="Introduction" href="index.html" />
+			<item name="Téléchargement" href="download.html" />
+			<item name="Configuration" href="configuration.html" />
+			<item name="Utilisation" href="usage.html"/>
+		</menu>
+
+		<menu ref="reports" />
+	</body>
+</project>

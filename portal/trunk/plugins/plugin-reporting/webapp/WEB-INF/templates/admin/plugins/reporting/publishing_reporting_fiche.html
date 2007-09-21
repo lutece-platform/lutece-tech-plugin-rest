@@ -1,0 +1,53 @@
+<div class="content-box" >
+    <h2>#i18n{reporting.publishingReportingFiche.title} : ${project_name}</h2>
+    	<#if last_fiche?exists>
+        	<form method="post" id="create_reporting_project" action="jsp/admin/plugins/reporting/ConfirmUpdateFiche.jsp">
+        	<input type="hidden" name="fiche_id" value="${last_fiche.idFiche}" />
+        	
+        <#else>
+        	<form method="post" id="create_reporting_project" action="jsp/admin/plugins/reporting/ConfirmUpdateFiche.jsp?fiche_id=">
+        </#if>
+        
+        <input type="hidden" name="project_id" value=${project_id}>
+        <p>
+            <label for="reporting_current_tasks" >#i18n{reporting.publishingReportingFiche.labelCurrentTasks} : </label> 
+            <textarea id="reporting_current_tasks" name="current_tasks" rows="8" cols="80"><#if last_fiche?exists>${last_fiche.currentTasks}</#if></textarea>
+        </p>
+        
+        <p>
+            <label for="reporting_completed_tasks" >#i18n{reporting.publishingReportingFiche.labelCompletedTasks} :</label>  
+            <textarea id="reporting_completed_tasks" name="completed_tasks" rows="8" cols="80"><#if last_fiche?exists>${last_fiche.completedTasks}</#if></textarea>
+        </p>
+        
+        <p>
+            <label for="reporting_coming_tasks" >#i18n{reporting.publishingReportingFiche.labelComingTasks} :</label>  
+            <textarea id="reporting_coming_tasks" name="coming_tasks" rows="8" cols="80"><#if last_fiche?exists>${last_fiche.comingTasks}</#if></textarea>
+        </p>
+        
+         <p>
+            <label for="reporting_risk" >#i18n{reporting.publishingReportingFiche.labelRisk} :</label>
+            <#if last_fiche?exists>
+            	<@combo name="risk" default_value="${last_fiche.risk}" items=risk_list />   
+            <#else>
+            	<@combo name="risk" default_value="" items=risk_list /> 
+            </#if>
+         </p>
+         
+        <p>
+            <label for="reporting_tendency" >#i18n{reporting.publishingReportingFiche.labelTendency} :</label>
+            <#if last_fiche?exists>
+            	<@combo name="tendency" default_value="${last_fiche.tendency}" items=tendency_list />
+            <#else>
+            	<@combo name="tendency" default_value="" items=tendency_list />
+            </#if>
+         </p>
+			
+	        <input type="submit" value="#i18n{reporting.publishingReportingFiche.buttonValidate}" class="button"/></td>
+	      	<input class="button" onclick="javascript:history.go(-1)" value="#i18n{reporting.publishingReportingFiche.buttonCancel}" type="button"/></td>
+	      	<a target="blank" href="jsp/admin/plugins/reporting/ManageHistoryFiche.jsp?project_id=${project_id}">
+	      		<img src="images/admin/skin/plugins/reporting/actions/history.png" alt="#i18n{reporting.publishingReportingFiche.history}" title="#i18n{reporting.publishingReportingFiche.history}" />
+	      	</a>
+
+    </form>
+    
+</div>

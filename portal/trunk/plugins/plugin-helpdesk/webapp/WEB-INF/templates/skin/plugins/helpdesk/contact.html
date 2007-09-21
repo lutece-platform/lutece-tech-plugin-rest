@@ -1,0 +1,116 @@
+<html>
+
+<head>
+<title>#i18n{helpdesk.contact.boxTitle}</title>
+<link rel="stylesheet" type="text/css" href="../../../../css/page_template_styles.css">
+</head>
+
+<body>
+
+<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" summary="">
+    <tr>
+        <td valign="top">
+            <table width="400" cellpadding="2" cellspacing="0" border="0" align="center" summary="">
+                <form name="form_contact" action="DoSendQuestionMail.jsp">                                                     
+                         <tr>
+                                <td width="400" colspan="2">
+                                        <br/>
+                                        <img border="0" src="../../../../images/local/skin/arrows.gif" alt=""><Font class="popup"><b>#i18n{helpdesk.contact.adminTitle}</b></Font>
+                                        <br/><br/>
+                                </td>
+                        </tr>
+                        <tr>
+                                <td width="150">
+                                        <font class="popup">
+                                                #i18n{helpdesk.contact.Name}
+                                        </font>
+                                </td>
+                                <td width="250">
+                                        <input type="text" name="last_name" size="20" maxlength="50">
+                                </td>
+                        </tr>
+                        <tr>
+                                <td width="150">
+                                        <font class="popup">
+                                                #i18n{helpdesk.contact.FirstName}
+                                        </font>
+                                </td>
+                                <td width="250">
+                                        <input type="text" name="first_name" size="20" maxlength="50">
+                                </td>
+                        </tr>
+                        <tr>
+                                <td width="150">
+                                        <font class="popup">
+                                                #i18n{helpdesk.contact.Email}
+                                        </font>
+                                </td>
+                                <td width="250">
+                                        <input type="text" name="email" size="20" maxlength="80">
+                                </td>
+                        </tr>
+                        <tr>
+                                <td width="150">
+                                        <font class="popup">
+                                                #i18n{helpdesk.contact.QuestionType}
+                                        </font>
+                                </td>
+                                <td width="250">  
+                                <select name="question_topic_id">
+                                    <#list question_type_list as type_list>
+                                            <optgroup label="${type_list.questionType}">
+                                                <#list contact_list as topic_list>	
+                                                    <#if type_list.idQuestionType == topic_list.idQuestionType>                                                                              
+                                                        <option selected="selected" name="" value ="${topic_list.idQuestionTopic}">${topic_list.questionTopic}</option>
+                                                     </#if>
+                                                </#list>                                               
+                                            </optgroup>              
+                                    </#list>                                     
+                                </select> 
+
+                                </td>                                    
+                        </tr>
+                        <tr>
+                                <td width="150" valign="top">
+                                        <font class="popup">
+                                                #i18n{helpdesk.contact.YourQuestion}
+                                        </font>
+                                </td>
+                                <td width="250">
+                                        <textarea name="question" rows="5"></textarea>
+                                </td>
+                        </tr>
+                        <tr>
+                                <td width="150">
+                                        <font class="popup">
+                                                <br/><br/>
+                                        </font>
+                                </td>
+                                <td width="250">
+                                        <input type="hidden" name="valid" value="ok">
+                                        <input type="submit" value="#i18n{helpdesk.contact.send}" tabindex="10" class="button" />                                        
+                                </td>
+                        </tr>
+                </form>                             
+            </table>
+
+        </td>
+    </tr>
+    <tr>
+        <td valign="bottom">
+            <hr size="1" width="400" align="center">            
+            &nbsp;&nbsp;&nbsp;<a href="javascript:window.close()">#i18n{helpdesk.contact.Close}</a>
+            <br/><br/>           
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
+
+
+
+
+
+
+

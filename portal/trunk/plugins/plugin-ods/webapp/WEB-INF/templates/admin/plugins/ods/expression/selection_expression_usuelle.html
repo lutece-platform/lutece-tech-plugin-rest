@@ -1,0 +1,56 @@
+<div class="content-box">
+	<h2>#i18n{ods.listeexpressionusuelle.label.title}</h2>
+	
+	<p>
+		#i18n{ods.listeexpressionusuelle.label.resultCount} ${nb_results}
+	</p>
+		
+	<#if !nb_results?exists || (nb_results = 0)>
+	<form method="post" action="jsp/admin/plugins/ods/ordredujour/DoSelectionExpression.jsp?plugin_name=ods">
+		<div class="highlight-box">
+		#i18n{ods.listeexpressionusuelle.label.noExpression}
+		</div>
+		<p>
+			<input type="submit" value="#i18n{ods.all.button.cancel}" class="button" name="annuler" />
+		</p>
+	</form>
+	<#else>
+		<form method="post" action="jsp/admin/plugins/ods/expression/ExpressionsForOdj.jsp?plugin_name=ods">
+			<@pagination paginator=paginator />
+			
+			#i18n{ods.listeexpressionusuelle.label.lineCount}
+			<select name="items_per_page">
+		        <#list [ "5" , "10" , "20" , "50" ] as nb>
+			        <#if nb_items_per_page = nb >
+			        <option selected="selected" value="${nb}">${nb}</option>
+			        <#else>
+			        <option value="${nb}">${nb}</option>
+			        </#if>
+		        </#list>
+		    </select>
+			<input type="submit" class="button" value=#i18n{ods.listeexpressionusuelle.button.modify} />
+		</form>
+	
+		<form method="post" action="jsp/admin/plugins/ods/ordredujour/DoSelectionExpression.jsp?plugin_name=ods">
+		<table>
+			<tr>
+				<th>#i18n{ods.listeexpressionusuelle.label.nom}</th>
+				<th>#i18n{ods.listeexpressionusuelle.label.actions}</th>
+			</tr>
+			<#list liste_expressions as expression>
+			<a name="ANC_LAST" id="ANC_LAST"></a>
+				<tr>
+					<td><input id="id_expression" name="id_expression" type="radio" value=${expression.idExpression} /></td>
+					<td nowrap="nowrap">${expression.expression}</td>
+					
+				</tr>
+			</#list>
+		</table>
+		
+		<p>
+			<input type="submit" value="#i18n{ods.odj.button.selectExpressionUsuelle}" class="button" />
+			<input type="submit" value="#i18n{ods.all.button.cancel}" class="button" name="annuler" />
+		</p>
+		</form>
+	</#if>
+</div>

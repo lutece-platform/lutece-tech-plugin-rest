@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<plug-in>
+    
+    <!-- Plugin Informations -->
+    <name>jcaptcha</name>
+    <class>fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation</class>
+    <version>2.0</version>
+    <description>Module d'intégration de Captcha</description>
+    <provider>Mairie de Paris</provider>
+    <provider-url>http://lutece.paris.fr</provider-url>
+    <icon-url>images/admin/skin/plugins/jcaptcha/jcaptcha.png</icon-url>
+    <copyright>Copyright 2001-2006 Mairie de Paris</copyright>
+    <db-pool-required>0</db-pool-required>
+    
+    <!-- Specific plugin CSS stylesheet -->
+    <css-stylesheet>jcaptcha/jcaptcha.css</css-stylesheet>    
+    
+</plug-in>
+

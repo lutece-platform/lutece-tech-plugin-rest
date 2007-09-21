@@ -1,0 +1,53 @@
+<div id="page-content-left">
+	<#include "page_content_left.html">
+</div>
+<div id="page-content-right">
+	<div id="out-min-height">
+		<div id="in-min-height">
+			<div id="one-zone-first">
+				<div id="one-zone-first-content">
+					<div class="portlet-background-image-on-title">
+						<h3 class="portlet-background-image-on-title-header">#i18n{ods.front.accueil.label.title}</h3>
+						<div class="portlet-background-image-on-title-content">
+							<p>
+								<#if nbr_projets?exists>
+									${nbr_projets}
+								</#if>
+								#i18n{ods.front.accueil.nombredeprojets}
+								<#if nbr_propositions?exists>
+									${nbr_propositions}
+								</#if>
+								#i18n{ods.front.accueil.nombredepropositions}
+								<#if date_derniere_connexion?exists>
+									${date_derniere_connexion?string(" EEEE dd MMMM yyyy")}
+								</#if>
+								</p>
+							<p><a href="${url_pdd_list_new}">&raquo; #i18n{ods.front.accueil.label.listenouveauxprojets}</a></p>
+						</div>
+					</div>
+					<#if liste_requetes?has_content>
+						<div class="portlet-background-colored-title">
+							<h3 class="portlet-background-colored-title-header">#i18n{ods.front.criteres.page.title}</h3>
+							<div class="portlet-background-colored-title-content">
+								<ul>
+									<#list liste_requetes as requete>
+										<li>
+											<a href="${url_recherche_resultats}&id_requete=${requete.idRequete}">${requete.nomRequete}</a>
+										</li>
+									</#list>
+								</ul>
+								<p><a href="${url_mes_criteres}"> #i18n{ods.front.link.criteres}</a></p>
+							</div>
+						</div>
+					</#if>
+					<div class="portlet-background-image-on-title">
+						<div class="portlet-background-image-on-title-content">
+							<p>#i18n{ods.front.accueil.label.reglement}<a href="${url_paris_fr}" target="_blank">Paris.fr</a>.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+               

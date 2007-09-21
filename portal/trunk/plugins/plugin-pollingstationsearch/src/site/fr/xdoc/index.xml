@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+    <properties>
+        <title>
+           Module de recherche des bureaux de vote 
+        </title>
+    </properties>
+    <body>
+	
+	    	
+    	<section name="Introduction">
+    	
+    		 	<p>Ce document décrit le fonctionnement du module "Bureaux de vote".</p>
+    		    <p> Ce dernier  permet de connaître en quelques clics le bureau de vote dont dépend un électeur parisien à partir de son adresse postale.</p>
+    		
+		</section>
+    	
+
+	</body>
+</document>  
+  

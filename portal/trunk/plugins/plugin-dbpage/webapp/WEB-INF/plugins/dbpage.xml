@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<plug-in>
+    
+        
+    <!-- Plugin Informations --> 
+    <name>dbpage</name>
+    <class>fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation</class>
+    <version>2.0</version>
+    <description>dbpage.plugin.description</description>
+    <documentation></documentation>
+    <installation></installation>
+    <changes></changes>
+    <user-guide></user-guide>
+    <description>dbpage.plugin.description</description>
+    <provider>dbpage.plugin.provider</provider>
+    <provider-url>http://lutece.paris.fr</provider-url>
+    <icon-url>images/admin/skin/plugins/dbpage/dbpage.png</icon-url>
+    <copyright>Copyright 2001-2007 Mairie de Paris</copyright>
+    <db-pool-required>1</db-pool-required>
+    
+    <!--Administration interface parameters-->
+    <admin-features>
+        <admin-feature>
+            <feature-id>DBPAGE_MANAGEMENT</feature-id>
+            <feature-title>dbpage.adminFeature.dbpage_management.name</feature-title>
+            <feature-description>dbpage.adminFeature.dbpage_management.description</feature-description>
+            <feature-level>1</feature-level>
+            <feature-url>jsp/admin/plugins/dbpage/ManageDbPages.jsp</feature-url>
+        </admin-feature>
+    </admin-features>
+    
+        <!-- Applications -->
+    <applications>
+        <application>
+            <application-id>dbpage</application-id>
+            <application-class>fr.paris.lutece.plugins.dbpage.web.DbpageApp</application-class>
+        </application>
+    </applications>
+    
+    <!-- Portlet parameters -->
+
+    <portlets>
+        
+        <portlet>
+            <portlet-class>fr.paris.lutece.plugins.dbpage.business.portlet.DbPagePortletHome</portlet-class>
+            <portlet-type-id>DBPAGE_PORTLET</portlet-type-id>
+            <portlet-type-name>dbpage.portlet.name</portlet-type-name>
+            <portlet-creation-url>plugins/dbpage/CreatePortletDbPage.jsp</portlet-creation-url>
+            <portlet-update-url>plugins/dbpage/ModifyPortletDbPage.jsp</portlet-update-url>
+            <portlet-create-action-url>plugins/dbpage/DoCreatePortletDbPage.jsp</portlet-create-action-url>
+            <portlet-modify-action-url>plugins/dbpage/DoModifyPortletDbPage.jsp</portlet-modify-action-url>
+            
+            <portlet-create-script-template>/admin/portlet/script_create_portlet.html</portlet-create-script-template>
+            <portlet-modify-script-template>/admin/portlet/script_modify_portlet.html</portlet-modify-script-template>
+            <portlet-create-specific-template>/admin/plugins/dbpage/portlet/portlet_dbpage_type.html</portlet-create-specific-template>
+            <portlet-modify-specific-template>/admin/plugins/dbpage/portlet/portlet_dbpage_type.html</portlet-modify-specific-template>
+            <portlet-create-specific-form-template></portlet-create-specific-form-template>
+            <portlet-modify-specific-form-template></portlet-modify-specific-form-template>
+        </portlet>
+    </portlets>
+
+</plug-in>

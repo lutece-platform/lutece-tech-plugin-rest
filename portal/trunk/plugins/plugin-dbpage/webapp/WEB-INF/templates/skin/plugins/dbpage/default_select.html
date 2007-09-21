@@ -1,0 +1,10 @@
+    <form method="post" action="jsp/site/Portal.jsp?page=dbpage&dbpage=test4">
+        <select id="value1" name="value1">
+             <#if list_select?exists>
+             <#list list_select as row>
+                <option value=" ${row[0]?string}"> ${row[1]}</option>
+             </#list> 
+             </#if>
+        </select>
+    <input class="button" value="Submit" type="submit">
+    </form>

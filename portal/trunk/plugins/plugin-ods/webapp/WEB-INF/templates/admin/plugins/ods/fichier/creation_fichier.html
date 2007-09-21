@@ -1,0 +1,69 @@
+<SCRIPT>
+	function verificationInitutle() {
+   		var myForm = document.getElementById('creationFichier');
+   		
+   		if( (myForm.fichier_intitule.value == null) || (myForm.fichier_intitule.value == '') )
+   		{
+   			if( myForm.id_type_document.value > 0 )
+   			{
+   				myForm.fichier_intitule.value = myForm.id_type_document.options[myForm.id_type_document.selectedIndex].text;
+   			}
+   		}
+    }
+</SCRIPT>
+<div class="content-box">
+  <h2>#i18n{ods.creationfichier.label.title}</h2>
+  
+   	<#if gestion_aval=true>
+		<form id="creationFichier" name="creationFichier" action="jsp/admin/plugins/ods/fichiers/DoCreationFichierGestionAval.jsp" method="POST" enctype="multipart/form-data">
+	<#else>
+  		<form id="creationFichier" name="creationFichier" action="jsp/admin/plugins/ods/fichiers/DoCreationFichier.jsp" method="POST" enctype="multipart/form-data">
+  	</#if>
+  	
+   	<p>
+    	<label>#i18n{ods.creationfichier.label.seance} * :</label>
+	   	<#if gestion_aval=true>
+    		<select name="id_seance">
+			<#list liste_seances as seance>
+				<#if seance.idSeance=id_seance_selected>
+					<option value=${seance.idSeance} selected>
+				<#else>
+					<option value=${seance.idSeance}>
+				</#if>	
+				#i18n{ods.listevoeuxnonrattaches.label.from} ${seance.dateSeance?string("dd/MM/yyyy")} #i18n{ods.listevoeuxnonrattaches.label.to} ${seance.dateCloture?string("dd/MM/yyyy")}
+				</option> 
+			</#list>
+			</select>
+	    <#else>
+    		<input type="hidden" name="id_seance" id="id_seance" value="${prochaine_seance.idSeance}" />
+    		#i18n{ods.listefichiers.label.du} ${prochaine_seance.dateSeance?string("dd/MM/yyyy")} #i18n{ods.listefichiers.label.au} ${prochaine_seance.dateCloture?string("dd/MM/yyyy")}
+	    </#if>	
+   </p>
+
+   	<p>
+		<label>#i18n{ods.creationfichier.label.typededocument} * :</label>
+	    <@comboWithParams name="id_type_document"  items=liste_type_document default_value="-1" additionalParameters="onchange='verificationInitutle()'"/>
+   	</p>
+   
+   	<p>
+	    <label for="">#i18n{ods.creationfichier.label.intitule} * :</label>
+	    <input type="text" name="fichier_intitule" id="fichier_intitule" size="80" value="" />
+   	</p>
+   
+   	<p>
+	    <label for="">#i18n{ods.creationfichier.label.fichier} * :</label>
+	    <input type="file" id="fichier_physique" name="fichier_physique"/>
+   	</p>
+   
+   	<p>
+    	<label for="">#i18n{ods.creationfichier.label.txtrecherche}</label>
+    	<textarea name="fichier_txt_recherche" id="fichier_txt_recherche" cols="80" rows="6"></textarea>
+   	</p>
+   
+   	<p>
+    	<input type="submit" value="#i18n{ods.creationfichier.button.enregistrer}" class="button" />
+    	<input type="button" value="#i18n{ods.all.button.cancel}" class="button" onclick="javascript:history.go(-1)" />
+   	</p>
+	</form>
+
+</div>

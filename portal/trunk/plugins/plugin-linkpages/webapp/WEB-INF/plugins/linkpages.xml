@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<plug-in>
+
+   <!-- Plugin Informations -->
+   <name>linkpages</name>
+   <class>fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation</class>
+   <version>2.0</version>
+   <documentation></documentation>
+   <installation></installation>
+   <changes></changes>
+   <user-guide></user-guide>
+   <description>Module de gestion de la rubrique Liens vers les autres pages du site</description>
+   <provider>Mairie de Paris</provider>
+   <provider-url>http://lutece.paris.fr</provider-url>
+   <icon-url>images/admin/skin/plugins/linkpages/linkpages.png</icon-url>
+   <copyright>Copyright 2001-2006 Mairie de Paris</copyright>
+   <db-pool-required>0</db-pool-required>
+
+<!-- Portlet parameters -->
+    <portlets>
+        <portlet>
+            <portlet-class>fr.paris.lutece.plugins.linkpages.business.portlet.LinkPagesPortletHome</portlet-class>
+            <portlet-type-id>LINK_PAGES_PORTLET</portlet-type-id>
+            <portlet-type-name>linkpages.portlet.name</portlet-type-name>
+            <portlet-creation-url>plugins/linkpages/CreatePortletLinkPages.jsp</portlet-creation-url>
+            <portlet-update-url>plugins/linkpages/ModifyPortletLinkPages.jsp</portlet-update-url>
+            <portlet-create-action-url>plugins/linkpages/DoCreatePortletLinkPages.jsp</portlet-create-action-url>
+            <portlet-modify-action-url>plugins/linkpages/DoModifyPortletLinkPages.jsp</portlet-modify-action-url>
+            <!-- optional entries -->
+            <portlet-create-script-template>/admin/portlet/script_create_portlet.html</portlet-create-script-template>
+            <portlet-modify-script-template>/admin/portlet/script_modify_portlet.html</portlet-modify-script-template>
+            <portlet-create-specific-template></portlet-create-specific-template>
+            <portlet-modify-specific-template></portlet-modify-specific-template>
+            <portlet-create-specific-form-template></portlet-create-specific-form-template>
+            <portlet-modify-specific-form-template>/admin/plugins/linkpages/modify_portlet_linkpages_list.html</portlet-modify-specific-form-template>
+        </portlet>
+    </portlets>
+
+ </plug-in>

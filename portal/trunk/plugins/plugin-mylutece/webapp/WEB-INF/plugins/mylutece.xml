@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<plug-in>
+    <name>mylutece</name>
+    <class>fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation</class>
+    <version>2.0</version>
+    <description>mylutece.plugin.description</description>
+    <documentation></documentation>
+    <installation></installation>
+    <changes></changes>
+    <user-guide></user-guide>
+    <provider>mylutece.plugin.provider</provider>
+    <provider-url>http://lutece.paris.fr</provider-url>
+    <icon-url>images/admin/skin/plugins/mylutece/mylutece.png</icon-url>
+    <copyright>Copyright 2001-2006 Mairie de Paris</copyright>
+    <db-pool-required>0</db-pool-required>
+    
+    
+    <!-- Portlet parameters -->
+    <portlets>
+        <portlet>
+            <portlet-class>fr.paris.lutece.plugins.mylutece.business.portlet.MyLutecePortletHome</portlet-class>
+            <portlet-type-id>MYLUTECE_PORTLET</portlet-type-id>
+            <portlet-type-name>mylutece.portlet.name</portlet-type-name>
+            <portlet-creation-url>plugins/mylutece/CreatePortletMyLutece.jsp</portlet-creation-url>
+            <portlet-update-url>plugins/mylutece/ModifyPortletMyLutece.jsp</portlet-update-url>
+            <portlet-create-action-url>plugins/mylutece/DoCreatePortletMyLutece.jsp</portlet-create-action-url>
+            <portlet-modify-action-url>plugins/mylutece/DoModifyPortletMyLutece.jsp</portlet-modify-action-url>
+            <!-- optional entries -->
+            <portlet-create-script-template>/admin/portlet/script_create_portlet.html</portlet-create-script-template>
+            <portlet-modify-script-template>/admin/portlet/script_modify_portlet.html</portlet-modify-script-template>
+            <portlet-create-specific-template></portlet-create-specific-template>
+            <portlet-modify-specific-template></portlet-modify-specific-template>
+            <portlet-create-specific-form-template></portlet-create-specific-form-template>
+            <portlet-modify-specific-form-template></portlet-modify-specific-form-template>
+        </portlet>
+    </portlets>
+
+ 
+    <!-- Applications -->
+    <applications>
+        <application>
+            <application-id>mylutece</application-id>
+            <application-class>fr.paris.lutece.plugins.mylutece.web.MyLuteceApp</application-class>
+        </application>
+    </applications>
+    
+    <!-- Page Include Service -->
+    <page-include-services>
+        <page-include-service>
+            <page-include-service-id>mylutece.include.service.name</page-include-service-id>
+            <page-include-service-class>fr.paris.lutece.plugins.mylutece.web.includes.UserInfoInclude</page-include-service-class>
+        </page-include-service>
+    </page-include-services>
+    
+</plug-in>

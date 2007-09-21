@@ -1,0 +1,31 @@
+<div class="content-box">
+    <h2>#i18n{newsletter.prepare_newsletter.boxTitle}</h2>
+    <form method="post" action="jsp/admin/plugins/newsletter/ConfirmSendNewsLetter.jsp">
+        <input type="hidden" name="newsletter_id" value="${newsletter.id}" />
+        
+        <p>
+            <label for="newsletter_object">#i18n{newsletter.prepare_newsletter.newsletterSubject} :</label>
+            <input type="text" value="${newsletter_object}" id="newsletter_object" name="newsletter_object" size="80" />
+        </p>
+        <p>
+            <center>
+                <object type="text/html" width="100%" height="30%" data="jsp/admin/plugins/newsletter/PreviewNewsLetter.jsp?newsletter_id=${newsletter.id}&plugin_name=newsletter">
+                </object>
+         <#if unsubscribe?exists>
+            <#if unsubscribe = "TRUE">
+        <p>
+           #i18n{newsletter.prepare_newsletter.labelToUnsubscribe}<a href="${portal_url}/jsp/site/plugins/newsletter/DoUnsubscribeNewsLetter.jsp&subscriber_email=${subscriber_email}&newsletter_id=${newsletter.id}" class="newsletter">#i18n{newsletter.prepare_newsletter.labelClickHere}</a>
+        </p>
+        </#if>
+        </#if>
+            </center>
+        </p>
+        <p>
+            <center>
+                <input type="submit" value="#i18n{newsletter.prepare_newsletter.sendButton}" class="button" />
+                <input type="submit" value="#i18n{newsletter.prepare_newsletter.composeNewsletter}" class="button" onclick="this.form.action='jsp/admin/plugins/newsletter/ComposeNewsLetter.jsp';" />
+            </center>
+        </p>
+    </form>
+    
+</div>

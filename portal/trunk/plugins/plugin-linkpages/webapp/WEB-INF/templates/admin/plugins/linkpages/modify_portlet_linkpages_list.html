@@ -1,0 +1,34 @@
+</div>
+<div class="content-box" >
+    <h2>Liste des pages associées :</h2>
+    <table class="admin-site-preview">
+    <tr>
+        <th >Nom :</th>
+        <th>Description :</th>
+        <th>Rang :</th>
+        <th>Suppression :</th>
+    </tr>
+    </form>
+    ${linkpages_list}  <!-- inserting the linkpages list -->
+    </table>
+    
+	</div>
+
+<br /><br />
+
+	<div class="content-box" >
+    <table>
+        <tr>
+            <h2>Ins&eacute;rer une nouvelle page dans la liste : </h2>
+        </tr>
+        <tr>
+            <form method="post" action="plugins/linkpages/DoSelectLinkPage.jsp" >
+                <td> <@combo name="linkpage" default_value="1" items=combo_linkpages /></td>
+                <td> Rang:<@combo name="linkpage_order" default_value="${linkpage_order}" items=combo_linkpages_order /></td>
+                <input type="hidden" name="portlet_id" value="${portlet_id}" />
+                <input type="hidden" name="page_id" value="${page_id}" />
+                <td><input type ="submit"  value="Ajouter" class="button" /></td>
+            </form>
+        </tr>
+    </table>
+	</div>

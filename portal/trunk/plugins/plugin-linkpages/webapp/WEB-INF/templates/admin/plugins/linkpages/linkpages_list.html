@@ -1,0 +1,19 @@
+<tr>
+<form method="post"  action ="plugins/linkpages/DoModifyOrderLinkPage.jsp">
+    <td><input type="hidden" value="${linkpage_id}" />&nbsp;${linkpage_name}</td>
+    <td>&nbsp;${linkpage_description}</td>
+    <td>&nbsp;
+    <@combo name="linkpage_order" default_value="${linkpage_order}" items=combo_linkpages_order />
+    
+			<input type="hidden" name="portlet_id" value="${portlet_id}"/>
+			<input type="hidden" name="page_id" value="${linkpage_id}"/>
+			<input type="hidden" name="new_linkpage" value="${new_linkpage}"/>
+			<input type="submit" value="Modifier" class="button"/>
+    </td>
+	<td>
+		<a href="plugins/linkpages/DoUnselectLinkPage.jsp?portlet_id=${portlet_id}&page_id=${linkpage_id}">
+			<img src="../../images/admin/skin/actions/delete.png" />
+		</a>
+	</td>
+</form>
+</tr>

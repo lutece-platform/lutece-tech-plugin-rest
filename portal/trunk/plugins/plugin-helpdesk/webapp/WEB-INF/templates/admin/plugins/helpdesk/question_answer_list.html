@@ -1,0 +1,32 @@
+<div class="content-box" >
+    <h2>#i18n{helpdesk.question_answer_list.adminTitle}</h2>
+    
+    <table>
+        <tr>
+            <th >#i18n{helpdesk.question_answer_list.LabelQuestion}</th>
+        </tr>
+
+        <#list helpdesk_subject_list as subject_list >
+        <tr>
+            <td>
+                <p><strong>${subject_list.subject}<br/></strong></p>
+                <input type="hidden" name="subject_id" value="${subject_list.idSubject}"
+                    <#list helpdesk_question_list as question_list >
+                        <#if subject_list.idSubject=question_list.idSubject>
+                        <p>
+                            <a href="jsp/admin/plugins/helpdesk/ModifyQuestionAnswer.jsp?question_id=${question_list.idQuestionAnswer}" class="admin-menu">${question_list.question}</a>
+                        </p>
+                        </#if>
+                    </#list>                      
+            </td>
+        </tr>
+        </#list>  
+    </table>
+  
+
+
+<form action="jsp/admin/plugins/helpdesk/CreateQuestionAnswer.jsp">
+    <input type="submit" value="#i18n{helpdesk.question_answer_list.buttonLabelCreate}" tabindex="10" class="button"/>
+</form>
+
+</div>

@@ -1,0 +1,60 @@
+<div class="content-box">
+    <h2>#i18n{newsletter.manage_newsletters.boxTitle}</h2>
+    <form method="post" rm action="jsp/admin/plugins/newsletter/ManageNewsLetter.jsp">
+        <@pagination paginator=paginator />
+        
+        <!-- Number of newsletters per page selector -->
+        #i18n{newsletter.manage_newsletters.labelItemsPerPage} :
+        <select name="items_per_page">
+            <#list [ "5" , "10" , "20" , "50" ] as nb>
+            <#if nb_items_per_page = nb >
+            <option selected="selected" value="${nb}">${nb}</option>
+            <#else>
+            <option value="${nb}">${nb}</option>
+            </#if>
+            </#list>
+        </select>
+        <input type="submit" class="button" value="#i18n{newsletter.manage_newsletters.buttonItemsPerPage}" />
+    </form>  
+    <table>
+        <tr>
+            <th>#i18n{newsletter.manage_newsletters.columnTitleLabel}</th>
+            <th>#i18n{newsletter.manage_newsletters.columnTitleLastSent}</th>
+            <th>#i18n{newsletter.manage_newsletters.columnTitleSubscribersCount}</th>
+            <th>#i18n{newsletter.manage_newsletters.columnTitleWorkGroup}</th>
+            <th>#i18n{newsletter.manage_newsletters.columnTitleManageSubscribers}</th>
+            <th>#i18n{newsletter.manage_newsletters.columnTitleCompose}</th>
+            <th>#i18n{newsletter.manage_newsletters.columnTitlePrepareSending}</th>
+            <th>#i18n{newsletter.manage_newsletters.columnTitleDelete}</th>
+            <th></th>
+        </tr>
+        <#list newsletters_list?sort_by('name') as newsletter >	                
+        <tr>
+            <td>
+                &nbsp;&nbsp;<img src="images/admin/skin/bullet.png" border="0">
+                <a href="jsp/admin/plugins/newsletter/ModifyNewsLetter.jsp?newsletter_id=${newsletter.id}" class="admin-menu">
+                    ${newsletter.name}
+                </a>
+            </td>
+            <td>${newsletter.dateLastSending?string.short}</td>
+            <td>#{subscribers_count_list[newsletter.id?string]}</td>
+            <td>${newsletter.workgroup}</td>
+            <td><a href="jsp/admin/plugins/newsletter/ManageSubscribers.jsp?newsletter_id=${newsletter.id}"><img src="images/admin/skin/b_manage.png" border="0"></a></td>
+            <td><a href="jsp/admin/plugins/newsletter/DoComposeNewsLetter.jsp?newsletter_id=${newsletter.id}"><img src="images/admin/skin/b_compose.png" border="0"></a></td>
+            <td><a href="jsp/admin/plugins/newsletter/DoPrepareNewsLetter.jsp?newsletter_id=${newsletter.id}"><img src="images/admin/skin/b_letter.png" border="0"></a></td>
+            <td><a href="jsp/admin/plugins/newsletter/RemoveNewsLetter.jsp?newsletter_id=${newsletter.id}"><img src="images/admin/skin/actions/delete.png" border="0"></a></td>
+        </tr>
+        </#list>	
+    </table>
+    <br/>
+    <table>
+        <form method="post" action="jsp/admin/plugins/newsletter/CreateNewsLetter.jsp">
+            <input type="submit" value="#i18n{newsletter.manage_newsletters.buttonAddNewsletter}" class="button" />
+        </form>
+        <#if access_button?exists >
+        <form method="post" action="jsp/admin/plugins/newsletter/ManageTemplates.jsp">
+            <input type="submit" value="#i18n{newsletter.manage_newsletters.buttonManageTemplates}" class="button" />
+        </form>
+    </table>
+    </#if>
+</div>
