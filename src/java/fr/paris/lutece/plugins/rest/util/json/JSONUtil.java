@@ -33,9 +33,10 @@
  */
 package fr.paris.lutece.plugins.rest.util.json;
 
-import net.sf.json.JSONObject;
-import net.sf.json.xml.XMLSerializer;
 
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.util.Map;
 
 
@@ -44,8 +45,7 @@ import java.util.Map;
  */
 public final class JSONUtil
 {
-    private static final int INDENT = 4;
-
+    
     /** Private constructor */
     private JSONUtil(  )
     {
@@ -58,35 +58,22 @@ public final class JSONUtil
      */
     public static String model2Json( Map model )
     {
-        JSONObject json = json( model );
+        ObjectNode json = json( model );
 
-        return json.toString( INDENT );
+        return json.toPrettyString( );
     }
 
-    /**
-     * Convert a model into an XML generated string
-     * @param model The model
-     * @return The XML string
-     */
-    public static String model2Xml( Map model )
-    {
-        JSONObject json = json( model );
-        XMLSerializer serializer = new XMLSerializer(  );
-
-        return serializer.write( json );
-    }
 
     /**
      * Convert a model into a JSON object
      * @param model The model
      * @return The JSON Object
      */
-    public static JSONObject json( Map model )
+    public static ObjectNode json( Map model )
     {
-        JSONObject json = new JSONObject(  );
-        json.accumulateAll( model );
+        ObjectMapper objectMapper = new ObjectMapper( );
 
-        return json;
+        return objectMapper.convertValue( model, ObjectNode.class );
     }
 
     /**
@@ -97,12 +84,14 @@ public final class JSONUtil
      */
     public static String formatError( String strMessage, int nCode )
     {
-        JSONObject json = new JSONObject(  );
-        JSONObject detail = new JSONObject(  );
-        detail.accumulate( "message", strMessage );
-        detail.accumulate( "code", nCode );
-        json.accumulate( "error", detail );
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode json = mapper.createObjectNode();
+        ObjectNode detail = mapper.createObjectNode();
+        
+        detail.put( "message", strMessage );
+        detail.put( "code", nCode );
+        json.set( "error", detail );
 
-        return json.toString( INDENT );
+        return json.toPrettyString( );
     }
 }
