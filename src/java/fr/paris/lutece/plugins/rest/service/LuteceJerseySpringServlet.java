@@ -45,7 +45,7 @@ import fr.paris.lutece.plugins.rest.service.mediatype.RestMediaTypes;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.util.signrequest.RequestAuthenticator;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
