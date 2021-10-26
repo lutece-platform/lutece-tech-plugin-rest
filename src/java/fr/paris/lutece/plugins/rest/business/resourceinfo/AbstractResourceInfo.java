@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,12 +35,12 @@ package fr.paris.lutece.plugins.rest.business.resourceinfo;
 
 import java.util.List;
 
-
 /**
  *
  * AbstractResourceInfo
  *
- * @param <E> the resource class
+ * @param <E>
+ *            the resource class
  */
 public abstract class AbstractResourceInfo<E> implements IResourceInfo
 {
@@ -50,7 +50,9 @@ public abstract class AbstractResourceInfo<E> implements IResourceInfo
 
     /**
      * Set the resource info
-     * @param resource the resource
+     * 
+     * @param resource
+     *            the resource
      */
     public abstract void setResourceInfo( E resource );
 
@@ -65,7 +67,7 @@ public abstract class AbstractResourceInfo<E> implements IResourceInfo
     /**
      * {@inheritDoc}
      */
-    public String getKey(  )
+    public String getKey( )
     {
         return _strKey;
     }
@@ -81,7 +83,7 @@ public abstract class AbstractResourceInfo<E> implements IResourceInfo
     /**
      * {@inheritDoc}
      */
-    public String getValue(  )
+    public String getValue( )
     {
         return _strValue;
     }
@@ -97,7 +99,7 @@ public abstract class AbstractResourceInfo<E> implements IResourceInfo
     /**
      * {@inheritDoc}
      */
-    public List<IResourceInfo> getListChildren(  )
+    public List<IResourceInfo> getListChildren( )
     {
         return _listChildren;
     }
@@ -105,8 +107,8 @@ public abstract class AbstractResourceInfo<E> implements IResourceInfo
     /**
      * {@inheritDoc}
      */
-    public boolean hasChildren(  )
+    public boolean hasChildren( )
     {
-        return ( _listChildren != null ) && !_listChildren.isEmpty(  );
+        return ( _listChildren != null ) && !_listChildren.isEmpty( );
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,10 +37,11 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-
 /**
  * Provides simple param parsing. Implementations have to override {@link #parse(String)} to transform the String to a concrete V object.
- * @param <V> the <i>real</i> object class
+ * 
+ * @param <V>
+ *            the <i>real</i> object class
  */
 public abstract class AbstractParam<V>
 {
@@ -49,8 +50,11 @@ public abstract class AbstractParam<V>
 
     /**
      * Builds this param and calls {@link #parse(String)}
-     * @param strParam the param to parse
-     * @throws WebApplicationException if an exception occured, with preconfigured message {@link #getErrorMessage(String, Throwable)}
+     * 
+     * @param strParam
+     *            the param to parse
+     * @throws WebApplicationException
+     *             if an exception occured, with preconfigured message {@link #getErrorMessage(String, Throwable)}
      */
     public AbstractParam( String strParam ) throws WebApplicationException
     {
@@ -60,7 +64,7 @@ public abstract class AbstractParam<V>
         {
             this._value = parse( strParam );
         }
-        catch ( Throwable e )
+        catch( Throwable e )
         {
             throw new WebApplicationException( onError( strParam, e ) );
         }
@@ -68,18 +72,20 @@ public abstract class AbstractParam<V>
 
     /**
      * The value of the string {@link #getOriginalParam()}
+     * 
      * @return the object value
      */
-    public V getValue(  )
+    public V getValue( )
     {
         return _value;
     }
 
     /**
      * Gets the original string param
+     * 
      * @return the string
      */
-    public String getOriginalParam(  )
+    public String getOriginalParam( )
     {
         return _strOriginalParam;
     }
@@ -89,38 +95,47 @@ public abstract class AbstractParam<V>
      * {@inheritDoc}
      */
     @Override
-    public String toString(  )
+    public String toString( )
     {
-        return _value.toString(  );
+        return _value.toString( );
     }
 
     /**
      * Builds a reponse when an error occurs with {@link Status#BAD_REQUEST} as http status.
-     * @param strParam the string causing the error
-     * @param e the exception
+     * 
+     * @param strParam
+     *            the string causing the error
+     * @param e
+     *            the exception
      * @return th reponse
      */
     protected Response onError( String strParam, Throwable e )
     {
-        return Response.status( Status.BAD_REQUEST ).entity( getErrorMessage( strParam, e ) ).build(  );
+        return Response.status( Status.BAD_REQUEST ).entity( getErrorMessage( strParam, e ) ).build( );
     }
 
     /**
      * Gets an error message
-     * @param strParam string to parse
-     * @param e error to handle
+     * 
+     * @param strParam
+     *            string to parse
+     * @param e
+     *            error to handle
      * @return error message
      */
     protected String getErrorMessage( String strParam, Throwable e )
     {
-        return "Parameter : " + strParam + " cannot be parsed : " + e.getMessage(  );
+        return "Parameter : " + strParam + " cannot be parsed : " + e.getMessage( );
     }
 
     /**
      * Parse the string to its real value
-     * @param strParam the string to parse
+     * 
+     * @param strParam
+     *            the string to parse
      * @return real object value
-     * @throws Throwable if occurs
+     * @throws Throwable
+     *             if occurs
      */
     protected abstract V parse( String strParam ) throws Throwable;
 }

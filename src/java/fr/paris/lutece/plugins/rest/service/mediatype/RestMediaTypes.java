@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,10 +35,10 @@ package fr.paris.lutece.plugins.rest.service.mediatype;
 
 import javax.ws.rs.core.MediaType;
 
-
 /**
  *
  * Media Types : media types extensions.
+ * 
  * @see MediaType
  */
 public final class RestMediaTypes
@@ -56,7 +56,7 @@ public final class RestMediaTypes
     /**
      * Empty constructor
      */
-    private RestMediaTypes(  )
+    private RestMediaTypes( )
     {
         // nothing
     }

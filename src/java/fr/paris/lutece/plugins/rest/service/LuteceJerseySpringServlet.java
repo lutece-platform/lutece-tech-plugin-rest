@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -64,10 +64,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import javax.ws.rs.core.MediaType;
 
-
 /**
  *
  * LuteceJerseySpringServlet : using {@link SpringContextService#getContext()} as context.
+ * 
  * @see ServletContainer
  */
 public class LuteceJerseySpringServlet extends ServletContainer
@@ -81,17 +81,19 @@ public class LuteceJerseySpringServlet extends ServletContainer
      * {@inheritDoc}
      */
     @Override
-    protected ResourceConfig getDefaultResourceConfig( Map<String, Object> props, WebConfig webConfig )
-        throws ServletException
+    protected ResourceConfig getDefaultResourceConfig( Map<String, Object> props, WebConfig webConfig ) throws ServletException
     {
-        return new DefaultResourceConfig(  );
+        return new DefaultResourceConfig( );
     }
 
     /**
      *
      * Initialize the services. Adds suffix to mediatype mapping.
-     * @param rc ResourceConfig
-     * @param wa WebApplication
+     * 
+     * @param rc
+     *            ResourceConfig
+     * @param wa
+     *            WebApplication
      * @see com.sun.jersey.api.container.filter.UriConnegFilter
      */
     @Override
@@ -102,10 +104,10 @@ public class LuteceJerseySpringServlet extends ServletContainer
             try
             {
                 // map default ".extension" to MediaType
-                rc.getMediaTypeMappings(  ).put( "atom", MediaType.APPLICATION_ATOM_XML_TYPE );
-                rc.getMediaTypeMappings(  ).put( "xml", MediaType.APPLICATION_XML_TYPE );
-                rc.getMediaTypeMappings(  ).put( "json", MediaType.APPLICATION_JSON_TYPE );
-                rc.getMediaTypeMappings(  ).put( "kml", RestMediaTypes.APPLICATION_KML_TYPE );
+                rc.getMediaTypeMappings( ).put( "atom", MediaType.APPLICATION_ATOM_XML_TYPE );
+                rc.getMediaTypeMappings( ).put( "xml", MediaType.APPLICATION_XML_TYPE );
+                rc.getMediaTypeMappings( ).put( "json", MediaType.APPLICATION_JSON_TYPE );
+                rc.getMediaTypeMappings( ).put( "kml", RestMediaTypes.APPLICATION_KML_TYPE );
 
                 // add specific-plugin-provided extensions
                 List<MediaTypeMapping> listMappings = SpringContextService.getBeansOfType( MediaTypeMapping.class );
@@ -114,35 +116,35 @@ public class LuteceJerseySpringServlet extends ServletContainer
                 {
                     for ( MediaTypeMapping mapping : listMappings )
                     {
-                        String strExtension = mapping.getExtension(  );
-                        MediaType mediaType = mapping.getMediaType(  );
+                        String strExtension = mapping.getExtension( );
+                        MediaType mediaType = mapping.getMediaType( );
 
                         if ( StringUtils.isNotBlank( strExtension ) && ( mediaType != null ) )
                         {
-                            rc.getMediaTypeMappings(  ).put( strExtension, mediaType );
+                            rc.getMediaTypeMappings( ).put( strExtension, mediaType );
                         }
                         else
                         {
-                            LOGGER.error( "Can't add media type mapping for extension : " + strExtension +
-                                ", mediatype : " + mediaType + ". Please check your context configuration." );
+                            LOGGER.error( "Can't add media type mapping for extension : " + strExtension + ", mediatype : " + mediaType
+                                    + ". Please check your context configuration." );
                         }
                     }
                 }
             }
-            catch ( UnsupportedOperationException uoe )
+            catch( UnsupportedOperationException uoe )
             {
                 // might be immutable map
-                LOGGER.error( uoe.getMessage(  ) + ". Won't support extension mapping (.json, .xml, .atom)", uoe );
+                LOGGER.error( uoe.getMessage( ) + ". Won't support extension mapping (.json, .xml, .atom)", uoe );
             }
 
-            wa.initiate( rc, new SpringComponentProviderFactory( rc, getContext(  ) ) );
+            wa.initiate( rc, new SpringComponentProviderFactory( rc, getContext( ) ) );
 
             // log services
-            if ( LOGGER.isDebugEnabled(  ) )
+            if ( LOGGER.isDebugEnabled( ) )
             {
                 LOGGER.debug( "Listing registered services and providers" );
 
-                for ( Class<?> clazz : rc.getClasses(  ) )
+                for ( Class<?> clazz : rc.getClasses( ) )
                 {
                     LOGGER.debug( clazz );
                 }
@@ -150,9 +152,9 @@ public class LuteceJerseySpringServlet extends ServletContainer
                 LOGGER.debug( "End of listing" );
             }
         }
-        catch ( RuntimeException e )
+        catch( RuntimeException e )
         {
-        	LOGGER.log( Level.ERROR, "REST services won't be available. Please check your configuration or enable at least on rest module." );
+            LOGGER.log( Level.ERROR, "REST services won't be available. Please check your configuration or enable at least on rest module." );
             LOGGER.log( Level.ERROR, "LuteceJerseySpringServlet : Exception occurred when intialization", e );
             // throw e;
         }
@@ -160,31 +162,38 @@ public class LuteceJerseySpringServlet extends ServletContainer
 
     /**
      * Gets the lutece spring context
+     * 
      * @return the spring context
      */
-    private ConfigurableApplicationContext getContext(  )
+    private ConfigurableApplicationContext getContext( )
     {
-        return (ConfigurableApplicationContext) SpringContextService.getContext(  );
+        return (ConfigurableApplicationContext) SpringContextService.getContext( );
     }
 
     /**
-     * Checks if the request is authenticated. Sets {@link HttpServletResponse#SC_UNAUTHORIZED} if not,
-     * calls {@link ServletContainer#doFilter(HttpServletRequest, HttpServletResponse, FilterChain)} otherwise.
-     * @param request the HTTP request
-     * @param response the response
-     * @param chain the filter chain
-     * @throws IOException exception if I/O error
-     * @throws ServletException exception if servlet error
+     * Checks if the request is authenticated. Sets {@link HttpServletResponse#SC_UNAUTHORIZED} if not, calls
+     * {@link ServletContainer#doFilter(HttpServletRequest, HttpServletResponse, FilterChain)} otherwise.
+     * 
+     * @param request
+     *            the HTTP request
+     * @param response
+     *            the response
+     * @param chain
+     *            the filter chain
+     * @throws IOException
+     *             exception if I/O error
+     * @throws ServletException
+     *             exception if servlet error
      */
     @Override
-    public void doFilter( HttpServletRequest request, HttpServletResponse response, FilterChain chain )
-        throws IOException, ServletException
+    public void doFilter( HttpServletRequest request, HttpServletResponse response, FilterChain chain ) throws IOException, ServletException
     {
         if ( checkRequestAuthentification( request ) )
         {
-            if( LOGGER.isDebugEnabled())
+            if ( LOGGER.isDebugEnabled( ) )
             {
-                LOGGER.debug( "LuteceJerseySpringServlet processing request : " + request.getMethod() + " " + request.getContextPath() + request.getServletPath() );
+                LOGGER.debug( "LuteceJerseySpringServlet processing request : " + request.getMethod( ) + " " + request.getContextPath( )
+                        + request.getServletPath( ) );
             }
             super.doFilter( request, response, chain );
         }
@@ -196,7 +205,9 @@ public class LuteceJerseySpringServlet extends ServletContainer
 
     /**
      * Checks if the request is authenticated.
-     * @param request the request
+     * 
+     * @param request
+     *            the request
      * @return <code>true</code> if the request is authenticated, <code>false</code> otherwise.
      */
     private boolean checkRequestAuthentification( HttpServletRequest request )

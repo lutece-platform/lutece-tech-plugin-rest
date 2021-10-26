@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,7 +35,6 @@ package fr.paris.lutece.plugins.rest.service.mediatype;
 
 import javax.ws.rs.core.MediaType;
 
-
 /**
  *
  * MediaTypeMapping use to map extensions (ex: xml) to media type (application/xml). Extension should not contain the dot "." prefix.
@@ -47,16 +46,19 @@ public class MediaTypeMapping
 
     /**
      * Gets the media type
+     * 
      * @return the media type
      */
-    public MediaType getMediaType(  )
+    public MediaType getMediaType( )
     {
         return _mediaType;
     }
 
     /**
      * Sets the media type
-     * @param mediaType the media type
+     * 
+     * @param mediaType
+     *            the media type
      */
     public void setMediaType( MediaType mediaType )
     {
@@ -65,16 +67,19 @@ public class MediaTypeMapping
 
     /**
      * Gets the extension
+     * 
      * @return the extension
      */
-    public String getExtension(  )
+    public String getExtension( )
     {
         return _strExtension;
     }
 
     /**
      * Sets the extension
-     * @param strExtension the extension
+     * 
+     * @param strExtension
+     *            the extension
      */
     public void setExtension( String strExtension )
     {

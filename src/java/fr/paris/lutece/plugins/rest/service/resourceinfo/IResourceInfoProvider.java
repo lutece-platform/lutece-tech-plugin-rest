@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,7 +37,6 @@ import fr.paris.lutece.plugins.rest.business.resourceinfo.IResourceInfo;
 
 import java.util.Map;
 
-
 /**
  *
  * IResourceInfoProvider
@@ -47,14 +46,18 @@ public interface IResourceInfoProvider
 {
     /**
      * Chec if the resource info provider is invoked or not
-     * @param mapParams the map parameters
+     * 
+     * @param mapParams
+     *            the map parameters
      * @return true if it is invoked, false otherwise
      */
     boolean isInvoked( Map<String, String> mapParams );
 
     /**
      * Get the resource info
-     * @param mapParams the map parameters
+     * 
+     * @param mapParams
+     *            the map parameters
      * @return the resource info
      */
     IResourceInfo getResourceInfo( Map<String, String> mapParams );

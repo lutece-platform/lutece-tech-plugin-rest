@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,6 @@ package fr.paris.lutece.plugins.rest.util.xml;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.util.xml.XmlUtil;
 
-
 /**
  * Xml Response Util
  */
@@ -50,14 +49,17 @@ public final class XMLUtil
     /**
      * Private constructor
      */
-    private XMLUtil(  )
+    private XMLUtil( )
     {
     }
 
     /**
      * Format an error response
-     * @param strMessage The message
-     * @param nCode The error code
+     * 
+     * @param strMessage
+     *            The message
+     * @param nCode
+     *            The error code
      * @return An XML response
      */
     public static String formatError( String strMessage, int nCode )
@@ -68,6 +70,6 @@ public final class XMLUtil
         XmlUtil.addElement( sbXMl, TAG_CODE, "" + nCode );
         XmlUtil.endElement( sbXMl, TAG_ERROR );
 
-        return sbXMl.toString(  );
+        return sbXMl.toString( );
     }
 }

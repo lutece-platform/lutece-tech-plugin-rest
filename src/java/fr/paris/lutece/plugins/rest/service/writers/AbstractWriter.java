@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -53,12 +53,12 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.MessageBodyWriter;
 
-
 /**
  *
- * This class handle the action of formatting an object E to String with the appropriate
- * MediaType.
- * @param <E> the <i>real</i> object class
+ * This class handle the action of formatting an object E to String with the appropriate MediaType.
+ * 
+ * @param <E>
+ *            the <i>real</i> object class
  *
  */
 public abstract class AbstractWriter<E> implements MessageBodyWriter<List<E>>
@@ -77,7 +77,9 @@ public abstract class AbstractWriter<E> implements MessageBodyWriter<List<E>>
 
     /**
      * Set the formatters
-     * @param mapFormatters the formatters
+     * 
+     * @param mapFormatters
+     *            the formatters
      */
     public void setFormatters( Map<String, IFormatter<E>> mapFormatters )
     {
@@ -87,8 +89,7 @@ public abstract class AbstractWriter<E> implements MessageBodyWriter<List<E>>
     /**
      * {@inheritDoc}
      */
-    public long getSize( List<E> resource, Class<?> type, Type genericType, Annotation[] annotations,
-        MediaType mediaType )
+    public long getSize( List<E> resource, Class<?> type, Type genericType, Annotation [ ] annotations, MediaType mediaType )
     {
         return -1;
     }
@@ -96,14 +97,13 @@ public abstract class AbstractWriter<E> implements MessageBodyWriter<List<E>>
     /**
      * {@inheritDoc}
      */
-    public void writeTo( List<E> listResources, Class<?> type, Type genericType, Annotation[] annotations,
-        MediaType mediaType, MultivaluedMap<String, Object> httpHeaders, OutputStream entityStream )
-        throws IOException, WebApplicationException
+    public void writeTo( List<E> listResources, Class<?> type, Type genericType, Annotation [ ] annotations, MediaType mediaType,
+            MultivaluedMap<String, Object> httpHeaders, OutputStream entityStream ) throws IOException, WebApplicationException
     {
         if ( _mapFormatters != null )
         {
             String strContent = StringUtils.EMPTY;
-            IFormatter<E> formatter = _mapFormatters.get( mediaType.toString(  ) );
+            IFormatter<E> formatter = _mapFormatters.get( mediaType.toString( ) );
 
             if ( formatter == null )
             {
@@ -113,7 +113,7 @@ public abstract class AbstractWriter<E> implements MessageBodyWriter<List<E>>
 
             if ( listResources != null )
             {
-                if ( listResources.size(  ) == 1 )
+                if ( listResources.size( ) == 1 )
                 {
                     E resource = listResources.get( 0 );
 
@@ -126,14 +126,15 @@ public abstract class AbstractWriter<E> implements MessageBodyWriter<List<E>>
                         strContent = formatter.formatError( ERROR_CODE, MESSAGE_NO_RESOURCE );
                     }
                 }
-                else if ( listResources.size(  ) > 1 )
-                {
-                    strContent = formatter.format( listResources );
-                }
                 else
-                {
-                    strContent = formatter.formatError( ERROR_CODE, MESSAGE_NO_RESOURCE );
-                }
+                    if ( listResources.size( ) > 1 )
+                    {
+                        strContent = formatter.format( listResources );
+                    }
+                    else
+                    {
+                        strContent = formatter.formatError( ERROR_CODE, MESSAGE_NO_RESOURCE );
+                    }
             }
             else
             {

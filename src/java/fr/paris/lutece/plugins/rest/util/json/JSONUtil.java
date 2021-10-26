@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,27 +33,26 @@
  */
 package fr.paris.lutece.plugins.rest.util.json;
 
-
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.util.Map;
-
 
 /**
  * JSON Utils
  */
 public final class JSONUtil
 {
-    
+
     /** Private constructor */
-    private JSONUtil(  )
+    private JSONUtil( )
     {
     }
 
     /**
      * Convert a model into a JSON formatted string
-     * @param model The model
+     * 
+     * @param model
+     *            The model
      * @return The JSON string
      */
     public static String model2Json( Map model )
@@ -63,10 +62,11 @@ public final class JSONUtil
         return json.toPrettyString( );
     }
 
-
     /**
      * Convert a model into a JSON object
-     * @param model The model
+     * 
+     * @param model
+     *            The model
      * @return The JSON Object
      */
     public static ObjectNode json( Map model )
@@ -78,16 +78,19 @@ public final class JSONUtil
 
     /**
      * Format error as JSON
-     * @param strMessage the error message
-     * @param nCode The error code
+     * 
+     * @param strMessage
+     *            the error message
+     * @param nCode
+     *            The error code
      * @return The formatted string
      */
     public static String formatError( String strMessage, int nCode )
     {
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectNode json = mapper.createObjectNode();
-        ObjectNode detail = mapper.createObjectNode();
-        
+        ObjectMapper mapper = new ObjectMapper( );
+        ObjectNode json = mapper.createObjectNode( );
+        ObjectNode detail = mapper.createObjectNode( );
+
         detail.put( "message", strMessage );
         detail.put( "code", nCode );
         json.set( "error", detail );

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,33 +35,40 @@ package fr.paris.lutece.plugins.rest.service.formatters;
 
 import java.util.List;
 
-
 /**
  *
  * IFormatter
  *
- * @param <T> the resource to format
+ * @param <T>
+ *            the resource to format
  */
 public interface IFormatter<T>
 {
     /**
-    * Format the error message
-    * @param strCode the error code
-    * @param strMessage the error message
-    * @return the formatted error message
-    */
+     * Format the error message
+     * 
+     * @param strCode
+     *            the error code
+     * @param strMessage
+     *            the error message
+     * @return the formatted error message
+     */
     String formatError( String strCode, String strMessage );
 
     /**
      * Format the given resource
-     * @param resource the resource
+     * 
+     * @param resource
+     *            the resource
      * @return the formatted resource
      */
     String format( T resource );
 
     /**
      * Format the list of resources
-     * @param listResources the list of resources
+     * 
+     * @param listResources
+     *            the list of resources
      * @return the formatted resources
      */
     String format( List<T> listResources );

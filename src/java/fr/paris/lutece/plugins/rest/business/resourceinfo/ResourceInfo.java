@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,7 +33,6 @@
  */
 package fr.paris.lutece.plugins.rest.business.resourceinfo;
 
-
 /**
  *
  * ResourceInfo
@@ -43,8 +42,11 @@ public class ResourceInfo extends AbstractResourceInfo<ResourceInfo>
 {
     /**
      * Constructor
-     * @param strKey the key
-     * @param strValue the value
+     * 
+     * @param strKey
+     *            the key
+     * @param strValue
+     *            the value
      */
     public ResourceInfo( String strKey, String strValue )
     {
@@ -57,8 +59,8 @@ public class ResourceInfo extends AbstractResourceInfo<ResourceInfo>
      */
     public void setResourceInfo( ResourceInfo resource )
     {
-        setKey( resource.getKey(  ) );
-        setValue( resource.getValue(  ) );
-        setListChildren( resource.getListChildren(  ) );
+        setKey( resource.getKey( ) );
+        setValue( resource.getValue( ) );
+        setListChildren( resource.getListChildren( ) );
     }
 }

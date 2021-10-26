@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,7 +40,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  *
  * ResourceInfoManager
@@ -51,29 +50,32 @@ public final class ResourceInfoManager
     /**
      * Private constructor
      */
-    private ResourceInfoManager(  )
+    private ResourceInfoManager( )
     {
     }
 
     /**
      * Get the list of resource info
+     * 
      * @return the list of resource info
      */
-    public static List<IResourceInfoProvider> getProviders(  )
+    public static List<IResourceInfoProvider> getProviders( )
     {
         return SpringContextService.getBeansOfType( IResourceInfoProvider.class );
     }
 
     /**
      * Get the resource info
-     * @param mapParams the map parameters
+     * 
+     * @param mapParams
+     *            the map parameters
      * @return the resource info in format ( key - value )
      */
     public static List<IResourceInfo> getResourceInfo( Map<String, String> mapParams )
     {
-        List<IResourceInfo> listResourceInfos = new ArrayList<IResourceInfo>(  );
+        List<IResourceInfo> listResourceInfos = new ArrayList<IResourceInfo>( );
 
-        for ( IResourceInfoProvider provider : getProviders(  ) )
+        for ( IResourceInfoProvider provider : getProviders( ) )
         {
             if ( provider.isInvoked( mapParams ) )
             {
