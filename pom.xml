@@ -45,7 +45,7 @@
         <dependency>
             <groupId>fr.paris.lutece</groupId>
             <artifactId>lutece-core</artifactId>
-            <version>[6.0.0,6.9.9)</version>
+            <version>[7.0.0-RC-01,7.0.0-RC-09]</version>
             <type>lutece-core</type>
         </dependency>
 
