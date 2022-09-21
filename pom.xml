@@ -15,8 +15,8 @@
     <description>JAX-RS implementation for Lutece, providing both client and server (filter) implementations</description>
 	
     <properties>
-        <jerseyVersion>2.25.1</jerseyVersion>
-        <springVersion>4.3.3.RELEASE</springVersion> <!-- jersey brings its own spring version, we have to override -->
+        <jerseyVersion>2.37</jerseyVersion>
+        <springVersion>5.3.18</springVersion> <!-- jersey brings its own spring version, we have to override -->
         <componentName>rest</componentName>
         <jiraProjectName>REST</jiraProjectName>
         <jiraComponentId>10430</jiraComponentId>
@@ -57,7 +57,7 @@
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.ext</groupId>
-            <artifactId>jersey-spring3</artifactId>
+            <artifactId>jersey-spring5</artifactId>
             <version>${jerseyVersion}</version>
             <exclusions>
                 <exclusion>
