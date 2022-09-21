@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2022, Mairie de Paris
+ * Copyright (c) 2002-2022, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,13 +33,12 @@
  */
 package fr.paris.lutece.plugins.rest.service;
 
-
 import fr.paris.lutece.plugins.rest.service.mediatype.MediaTypeMapping;
 import fr.paris.lutece.plugins.rest.service.mediatype.RestMediaTypes;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.util.signrequest.RequestAuthenticator;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -63,10 +62,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 /**
  *
  * LuteceJerseySpringServlet : using {@link SpringContextService#getContext()} as context.
+ * 
  * @see ServletContainer
  */
 public class LuteceJerseySpringServlet extends ServletContainer
@@ -76,45 +75,53 @@ public class LuteceJerseySpringServlet extends ServletContainer
 
     static final Logger LOGGER = Logger.getLogger( RestConstants.REST_LOGGER );
 
-
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-        ServletContext context = filterConfig.getServletContext();
-        if ( WebApplicationContextUtils.getWebApplicationContext( context ) == null ) {
-            //If we are not using spring's context loader, register this property needed by the jersey spring integration
-            context.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, getContext( ) );
+    public void init( FilterConfig filterConfig ) throws ServletException
+    {
+        ServletContext context = filterConfig.getServletContext( );
+        if ( WebApplicationContextUtils.getWebApplicationContext( context ) == null )
+        {
+            // If we are not using spring's context loader, register this property needed by the jersey spring integration
+            context.setAttribute( WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, getContext( ) );
         }
 
-        super.init(filterConfig);
+        super.init( filterConfig );
     }
 
     /**
      * Gets the lutece spring context
+     * 
      * @return the spring context
      */
-    private ConfigurableApplicationContext getContext(  )
+    private ConfigurableApplicationContext getContext( )
     {
-        return (ConfigurableApplicationContext) SpringContextService.getContext(  );
+        return (ConfigurableApplicationContext) SpringContextService.getContext( );
     }
 
     /**
-     * Checks if the request is authenticated. Sets {@link HttpServletResponse#SC_UNAUTHORIZED} if not,
-     * calls {@link ServletContainer#doFilter(HttpServletRequest, HttpServletResponse, FilterChain)} otherwise.
-     * @param request the HTTP request
-     * @param response the response
-     * @param chain the filter chain
-     * @throws IOException exception if I/O error
-     * @throws ServletException exception if servlet error
+     * Checks if the request is authenticated. Sets {@link HttpServletResponse#SC_UNAUTHORIZED} if not, calls
+     * {@link ServletContainer#doFilter(HttpServletRequest, HttpServletResponse, FilterChain)} otherwise.
+     * 
+     * @param request
+     *            the HTTP request
+     * @param response
+     *            the response
+     * @param chain
+     *            the filter chain
+     * @throws IOException
+     *             exception if I/O error
+     * @throws ServletException
+     *             exception if servlet error
      */
     @Override
-    public void doFilter( HttpServletRequest request, HttpServletResponse response, FilterChain chain )
-        throws IOException, ServletException
+    public void doFilter( HttpServletRequest request, HttpServletResponse response, FilterChain chain ) throws IOException, ServletException
     {
         if ( checkRequestAuthentification( request ) )
         {
-            if( LOGGER.isDebugEnabled())
+            if ( LOGGER.isDebugEnabled( ) )
             {
-                LOGGER.debug( "LuteceJerseySpringServlet processing request : " + request.getMethod() + " " + request.getContextPath() + request.getServletPath() );
+                LOGGER.debug( "LuteceJerseySpringServlet processing request : " + request.getMethod( ) + " " + request.getContextPath( )
+                        + request.getServletPath( ) );
             }
             super.doFilter( request, response, chain );
         }
@@ -126,7 +133,9 @@ public class LuteceJerseySpringServlet extends ServletContainer
 
     /**
      * Checks if the request is authenticated.
-     * @param request the request
+     * 
+     * @param request
+     *            the request
      * @return <code>true</code> if the request is authenticated, <code>false</code> otherwise.
      */
     private boolean checkRequestAuthentification( HttpServletRequest request )

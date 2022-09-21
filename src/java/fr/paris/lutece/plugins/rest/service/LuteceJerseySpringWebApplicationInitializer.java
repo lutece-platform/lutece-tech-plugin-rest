@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2017, Mairie de Paris
+ * Copyright (c) 2002-2022, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -43,15 +43,17 @@ import org.springframework.web.WebApplicationInitializer;
  *
  * LuteceJerseySpringWebApplicationInitializer : prevent jersey-spring from creating a spring context.
  */
-@Order(Ordered.HIGHEST_PRECEDENCE)
-public class LuteceJerseySpringWebApplicationInitializer implements WebApplicationInitializer {
+@Order( Ordered.HIGHEST_PRECEDENCE )
+public class LuteceJerseySpringWebApplicationInitializer implements WebApplicationInitializer
+{
 
     @Override
-    public void onStartup(ServletContext servletContext) throws ServletException {
+    public void onStartup( ServletContext servletContext ) throws ServletException
+    {
         // The jersey spring integration by default creates a context unless this property is set !
         // But lutece creates the context in the SpringContextService class.
         // Register this with a Ordered.HIGHEST_PRECEDENCE so that it's loaded before and prevents jersey
         // from creating the context.
-        servletContext.setInitParameter("contextConfigLocation", "JERSEYPLEASEDONT");
+        servletContext.setInitParameter( "contextConfigLocation", "JERSEYPLEASEDONT" );
     }
 }

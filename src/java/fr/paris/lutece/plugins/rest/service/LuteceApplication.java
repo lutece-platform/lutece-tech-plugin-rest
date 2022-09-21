@@ -1,3 +1,36 @@
+/*
+ * Copyright (c) 2002-2022, City of Paris
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *  1. Redistributions of source code must retain the above copyright notice
+ *     and the following disclaimer.
+ *
+ *  2. Redistributions in binary form must reproduce the above copyright notice
+ *     and the following disclaimer in the documentation and/or other materials
+ *     provided with the distribution.
+ *
+ *  3. Neither the name of 'Mairie de Paris' nor 'Lutece' nor the names of its
+ *     contributors may be used to endorse or promote products derived from
+ *     this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * License 1.0
+ */
 package fr.paris.lutece.plugins.rest.service;
 
 import java.util.HashMap;
@@ -20,22 +53,24 @@ import static fr.paris.lutece.plugins.rest.service.LuteceJerseySpringServlet.LOG
 
 import javax.ws.rs.core.MediaType;
 
+public class LuteceApplication extends ResourceConfig
+{
 
-public class LuteceApplication extends ResourceConfig {
-
-    public LuteceApplication () {
-        //Automatically register all beans with @Path annotation because
-        //this is was the previous versions of plugin-rest did
-        Map<String, Object> map = SpringContextService.getContext().getBeansWithAnnotation(Path.class);
-        for (Object o: map.values()) {
-            register(o.getClass());
+    public LuteceApplication( )
+    {
+        // Automatically register all beans with @Path annotation because
+        // this is was the previous versions of plugin-rest did
+        Map<String, Object> map = SpringContextService.getContext( ).getBeansWithAnnotation( Path.class );
+        for ( Object o : map.values( ) )
+        {
+            register( o.getClass( ) );
         }
 
         try
         {
             try
             {
-                Map<String, MediaType> mapExtensionToMediaType = new HashMap<>();
+                Map<String, MediaType> mapExtensionToMediaType = new HashMap<>( );
 
                 // map default ".extension" to MediaType
                 mapExtensionToMediaType.put( "atom", MediaType.APPLICATION_ATOM_XML_TYPE );
@@ -50,8 +85,8 @@ public class LuteceApplication extends ResourceConfig {
                 {
                     for ( MediaTypeMapping mapping : listMappings )
                     {
-                        String strExtension = mapping.getExtension(  );
-                        MediaType mediaType = mapping.getMediaType(  );
+                        String strExtension = mapping.getExtension( );
+                        MediaType mediaType = mapping.getMediaType( );
 
                         if ( StringUtils.isNotBlank( strExtension ) && ( mediaType != null ) )
                         {
@@ -59,8 +94,8 @@ public class LuteceApplication extends ResourceConfig {
                         }
                         else
                         {
-                            LOGGER.error( "Can't add media type mapping for extension : " + strExtension +
-                                ", mediatype : " + mediaType + ". Please check your context configuration." );
+                            LOGGER.error( "Can't add media type mapping for extension : " + strExtension + ", mediatype : " + mediaType
+                                    + ". Please check your context configuration." );
                         }
                     }
                 }
@@ -69,19 +104,19 @@ public class LuteceApplication extends ResourceConfig {
 
             }
 
-            catch ( UnsupportedOperationException uoe )
+            catch( UnsupportedOperationException uoe )
             {
                 // In jersey 1.x, this might have been an immutable map.
                 // In jersey 2.x, I don't know if this is useful
-                LOGGER.error( uoe.getMessage(  ) + ". Won't support extension mapping (.json, .xml, .atom)", uoe );
+                LOGGER.error( uoe.getMessage( ) + ". Won't support extension mapping (.json, .xml, .atom)", uoe );
             }
 
             // log services
-            if ( LOGGER.isDebugEnabled(  ) )
+            if ( LOGGER.isDebugEnabled( ) )
             {
                 LOGGER.debug( "Listing registered services and providers" );
 
-                for ( Class<?> clazz : getClasses(  ) )
+                for ( Class<?> clazz : getClasses( ) )
                 {
                     LOGGER.debug( clazz );
                 }
@@ -89,9 +124,9 @@ public class LuteceApplication extends ResourceConfig {
                 LOGGER.debug( "End of listing" );
             }
         }
-        catch ( RuntimeException e )
+        catch( RuntimeException e )
         {
-        	LOGGER.log( Level.ERROR, "REST services won't be available. Please check your configuration or enable at least on rest module." );
+            LOGGER.log( Level.ERROR, "REST services won't be available. Please check your configuration or enable at least on rest module." );
             LOGGER.log( Level.ERROR, "LuteceJerseySpringServlet : Exception occurred when intialization", e );
             // throw e;
         }
