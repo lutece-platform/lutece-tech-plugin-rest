@@ -36,7 +36,6 @@ package fr.paris.lutece.plugins.rest.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.StringJoiner;
 
 import javax.ws.rs.Path;
 
@@ -53,10 +52,10 @@ import static fr.paris.lutece.plugins.rest.service.LuteceJerseySpringServlet.LOG
 
 import javax.ws.rs.core.MediaType;
 
-public class LuteceApplication extends ResourceConfig
+public class LuteceApplicationResourceConfig extends ResourceConfig
 {
 
-    public LuteceApplication( )
+    public LuteceApplicationResourceConfig( )
     {
         // Automatically register all beans with @Path annotation because
         // this is was the previous versions of plugin-rest did

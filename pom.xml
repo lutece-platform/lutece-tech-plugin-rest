@@ -60,6 +60,7 @@
             <artifactId>jersey-spring5</artifactId>
             <version>${jerseyVersion}</version>
             <exclusions>
+            <!-- Spring web is needed, but provided by Lutece-core -->
                 <exclusion>
                     <artifactId>spring-core</artifactId>
                     <groupId>org.springframework</groupId>
@@ -92,26 +93,7 @@
             <artifactId>jersey-media-json-jackson</artifactId>
             <version>${jerseyVersion}</version>
         </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-client</artifactId>
-            <version>${jerseyVersion}</version>
-        </dependency>
 		
-        <!-- Spring web is needed, but default version is 2.5.6 -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>${springVersion}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>xom</groupId>
-            <artifactId>xom</artifactId>
-            <version>1.2.5</version>
-        </dependency>
-        
-        <!-- signing request -->
         <dependency>
             <groupId>fr.paris.lutece.plugins</groupId>
             <artifactId>library-signrequest</artifactId>
