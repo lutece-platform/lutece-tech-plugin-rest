@@ -39,6 +39,7 @@ import java.util.Map;
 
 import javax.ws.rs.Path;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Level;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -51,6 +52,7 @@ import fr.paris.lutece.portal.service.spring.SpringContextService;
 import static fr.paris.lutece.plugins.rest.service.LuteceJerseySpringServlet.LOGGER;
 
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.ext.Provider;
 
 public class LuteceApplicationResourceConfig extends ResourceConfig
 {
@@ -59,8 +61,14 @@ public class LuteceApplicationResourceConfig extends ResourceConfig
     {
         // Automatically register all beans with @Path annotation because
         // this is was the previous versions of plugin-rest did
-        Map<String, Object> map = SpringContextService.getContext( ).getBeansWithAnnotation( Path.class );
-        for ( Object o : map.values( ) )
+        Map<String, Object> providers = SpringContextService.getContext( ).getBeansWithAnnotation( Provider.class );
+        for ( Object o : providers.values( ) )
+        {
+            register( o.getClass( ) );
+        }
+
+        Map<String, Object> pathes = SpringContextService.getContext( ).getBeansWithAnnotation( Path.class );
+        for ( Object o : pathes.values( ) )
         {
             register( o.getClass( ) );
         }
@@ -80,7 +88,7 @@ public class LuteceApplicationResourceConfig extends ResourceConfig
                 // add specific-plugin-provided extensions
                 List<MediaTypeMapping> listMappings = SpringContextService.getBeansOfType( MediaTypeMapping.class );
 
-                if ( listMappings != null )
+                if (CollectionUtils.isNotEmpty(listMappings))
                 {
                     for ( MediaTypeMapping mapping : listMappings )
                     {
