@@ -16,7 +16,7 @@
 	
     <properties>
         <jerseyVersion>1.18.1</jerseyVersion>
-        <springVersion>3.0.5.RELEASE</springVersion> <!-- jersey brings its own spring version (2.5.6), we have to override -->
+        <springVersion>6.0.0</springVersion> <!-- jersey brings its own spring version (2.5.6), we have to override -->
         <componentName>rest</componentName>
         <jiraProjectName>REST</jiraProjectName>
         <jiraComponentId>10430</jiraComponentId>
