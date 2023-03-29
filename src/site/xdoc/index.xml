@@ -4,10 +4,55 @@
 		<title>Plugin REST</title>
 	</properties>
 	<body>
-		<section name="Plugin REST">
-			<subsection name="Introduction">
-			Plugin REST
-			</subsection>
+	<section name="Plugin REST">
+	    <subsection name="Introduction">
+This plugin allows you to develop JAXRS REST services.
+            </subsection>
+            <subsection name = "Configuration">
+<p>This plugin uses Jersey 2.</p>
+<p>Singleton Root resources need the @component (
+  org.springframework.stereotype.Component ) annotation in addition to
+  @path</p>
+
+<p>Warning : This version 3.0.0 is not fully backwards compatible with oldest implementations. </p>
+<ul>
+ <li> Jersey will not use the spring bean without @component annotation  and will instantiate the
+  bean itself (the scope can be controller through annotations:
+  prototype, request, singleton).
+</li>
+<li>Spring Root resources with scope session or request are no longer
+  supported</li>
+  </ul>
+
+            </subsection>
+	    <subsection name = "Usage">
+		    <p>Example of REST implementation : </p>
+	<source>
+@Path( SERVICE_PATH )
+public class MyRest {
+
+    @GET
+    @Path( Constants.SEARCH_PATH )
+    @Component
+    @Produces( MediaType.APPLICATION_JSON )
+    public Response getItemsList(  )
+    {
+    	// search...
+    	
+	return Response.status( Response.Status.NOT_FOUND )
+                .entity( JsonUtil.buildJsonResponse( new ErrorJsonResponse( Response.Status.NOT_FOUND.name( ), Constants.ERROR_NOT_FOUND_VERSION ) ) )
+                .build( );
+    }
+}
+	</source>
+	<p> The Rest classes should be declared in plugin context :</p>
+		 <div class="source">
+                                                <pre>
+                                                        &lt;bean id="my-app.restService"
+                                                        class="fr.paris.lutece.plugins.myapp.modules.rest.service.myappRest"&gt;
+                                                </pre>
+                                        </div>
+            </subsection>
 		</section>
 	</body>
 </document>
