@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2022, City of Paris
+ * Copyright (c) 2002-2023, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,32 +33,41 @@
  */
 package fr.paris.lutece.plugins.rest.service;
 
+import fr.paris.lutece.plugins.rest.service.mapper.UncaughtThrowableMapper;
+import fr.paris.lutece.plugins.rest.service.mediatype.MediaTypeMapping;
+import fr.paris.lutece.plugins.rest.service.mediatype.RestMediaTypes;
+import fr.paris.lutece.portal.service.spring.SpringContextService;
+import fr.paris.lutece.portal.service.util.AppPropertiesService;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Level;
+import org.glassfish.jersey.jackson.JacksonFeature;
+import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.server.ServerProperties;
+
+import javax.ws.rs.Path;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.ext.Provider;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.Path;
-
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Level;
-import org.glassfish.jersey.server.ResourceConfig;
-import org.glassfish.jersey.server.ServerProperties;
-
-import fr.paris.lutece.plugins.rest.service.mediatype.MediaTypeMapping;
-import fr.paris.lutece.plugins.rest.service.mediatype.RestMediaTypes;
-import fr.paris.lutece.portal.service.spring.SpringContextService;
-
 import static fr.paris.lutece.plugins.rest.service.LuteceJerseySpringServlet.LOGGER;
-
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.ext.Provider;
 
 public class LuteceApplicationResourceConfig extends ResourceConfig
 {
+    // PROPERTIES
+    private static final String GENERIC_EXCEPTION_MAPPER = "rest.generic.exception.mapper";
 
     public LuteceApplicationResourceConfig( )
     {
+        if ( AppPropertiesService.getPropertyBoolean( GENERIC_EXCEPTION_MAPPER, true ) )
+        {
+            // Registering JacksonFeature without its built-in ExceptionMapper so that we can register our own generic one
+            register( JacksonFeature.withoutExceptionMappers( ) );
+            register( new UncaughtThrowableMapper( ) );
+        }
+
         // Automatically register all beans with @Path annotation because
         // this is was the previous versions of plugin-rest did
         Map<String, Object> providers = SpringContextService.getContext( ).getBeansWithAnnotation( Provider.class );
@@ -88,7 +97,7 @@ public class LuteceApplicationResourceConfig extends ResourceConfig
                 // add specific-plugin-provided extensions
                 List<MediaTypeMapping> listMappings = SpringContextService.getBeansOfType( MediaTypeMapping.class );
 
-                if (CollectionUtils.isNotEmpty(listMappings))
+                if ( CollectionUtils.isNotEmpty( listMappings ) )
                 {
                     for ( MediaTypeMapping mapping : listMappings )
                     {
