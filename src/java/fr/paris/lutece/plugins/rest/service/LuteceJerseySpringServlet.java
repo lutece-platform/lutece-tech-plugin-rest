@@ -33,34 +33,26 @@
  */
 package fr.paris.lutece.plugins.rest.service;
 
-import fr.paris.lutece.plugins.rest.service.mediatype.MediaTypeMapping;
-import fr.paris.lutece.plugins.rest.service.mediatype.RestMediaTypes;
-import fr.paris.lutece.portal.service.spring.SpringContextService;
-import fr.paris.lutece.util.signrequest.RequestAuthenticator;
-
-import org.apache.commons.lang3.StringUtils;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-
-import org.glassfish.jersey.server.ResourceConfig;
-import org.glassfish.jersey.servlet.ServletContainer;
-
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
-import org.springframework.web.context.WebApplicationContext;
-
 import java.io.IOException;
-
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+import org.glassfish.jersey.servlet.ServletContainer;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
+import fr.paris.lutece.portal.service.spring.SpringContextService;
+import fr.paris.lutece.util.signrequest.RequestAuthenticator;
 
 /**
  *
@@ -68,6 +60,15 @@ import javax.servlet.http.HttpServletResponse;
  * 
  * @see ServletContainer
  */
+@Component
+@WebFilter(urlPatterns = {
+        "/rest/*"
+    },
+    initParams = {
+        @WebInitParam(name = "javax.ws.rs.Application", value = "fr.paris.lutece.plugins.rest.service.LuteceApplicationResourceConfig"),
+        @WebInitParam(name = "jersey.config.server.provider.classname", value = "org.glassfish.jersey.filter.LoggingFilter;org.glassfish.jersey.media.multipart.MultiPartFeature")
+    },
+    asyncSupported=true)
 public class LuteceJerseySpringServlet extends ServletContainer
 {
     private static final long serialVersionUID = 5686655395749077671L;
