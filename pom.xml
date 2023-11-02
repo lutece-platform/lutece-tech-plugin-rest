@@ -9,7 +9,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>fr.paris.lutece.plugins</groupId>
     <artifactId>plugin-rest</artifactId>
-    <version>3.3.1-SNAPSHOT</version>
+    <version>3.3.1-alpha1</version>
     <packaging>lutece-plugin</packaging>
     <name>Lutece rest plugin</name>
     <description>JAX-RS implementation for Lutece, providing both client and server (filter) implementations</description>
