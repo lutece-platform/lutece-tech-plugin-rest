@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2023, City of Paris
+ * Copyright (c) 2002-2024, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,6 +33,7 @@
  */
 package fr.paris.lutece.plugins.rest.service;
 
+import fr.paris.lutece.plugins.rest.service.mapper.UncaughtJerseyExceptionMapper;
 import fr.paris.lutece.plugins.rest.service.mapper.UncaughtThrowableMapper;
 import fr.paris.lutece.plugins.rest.service.mediatype.MediaTypeMapping;
 import fr.paris.lutece.plugins.rest.service.mediatype.RestMediaTypes;
@@ -66,6 +67,7 @@ public class LuteceApplicationResourceConfig extends ResourceConfig
             // Registering JacksonFeature without its built-in ExceptionMapper so that we can register our own generic one
             register( JacksonFeature.withoutExceptionMappers( ) );
             register( new UncaughtThrowableMapper( ) );
+            register( new UncaughtJerseyExceptionMapper( ) );
         }
 
         // Automatically register all beans with @Path annotation because
