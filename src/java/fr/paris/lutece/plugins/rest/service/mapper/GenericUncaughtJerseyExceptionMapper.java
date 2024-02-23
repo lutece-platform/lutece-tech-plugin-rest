@@ -55,7 +55,7 @@ public abstract class GenericUncaughtJerseyExceptionMapper<T extends WebApplicat
     @Override
     public Response toResponse( final T exception )
     {
-        AppLogService.error( "REST : Uncaught Jersey exception occured.", exception );
+        AppLogService.error( "REST : Uncaught Jersey exception occured :: {}", exception.getMessage( ) );
         final Response exResponse = exception.getResponse( );
         return Response.status( exResponse.getStatus( ) ).entity( this.buildEntity( exception ) ).type( exResponse.getMediaType( ) ).build( );
     }
