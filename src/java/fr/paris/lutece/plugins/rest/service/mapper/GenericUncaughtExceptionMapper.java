@@ -58,7 +58,7 @@ public abstract class GenericUncaughtExceptionMapper<T extends Throwable, E> imp
     @Override
     public Response toResponse( final T exception )
     {
-        AppLogService.error( "REST : Uncaught exception occured.", exception );
+        AppLogService.error( "REST : Uncaught exception occured :: {}", exception.getMessage( ) );
         return Response.status( getStatus( ) ).entity( buildEntity( exception ) ).type( getType( ) ).build( );
     }
 
