@@ -47,13 +47,13 @@ public class UncaughtThrowableMapper extends GenericUncaughtExceptionMapper<Thro
 {
 
     @Override
-    protected Status getStatus( )
+    protected Status getStatus( final Throwable exception )
     {
         return Status.INTERNAL_SERVER_ERROR;
     }
 
     @Override
-    protected String buildEntity( final Throwable exception )
+    protected String getBody( final Throwable exception )
     {
         return ERROR_DURING_TREATMENT + " :: " + exception.getMessage( );
     }

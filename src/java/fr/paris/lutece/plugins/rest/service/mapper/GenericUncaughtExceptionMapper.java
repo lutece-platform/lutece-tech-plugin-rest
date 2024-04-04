@@ -59,12 +59,12 @@ public abstract class GenericUncaughtExceptionMapper<T extends Throwable, E> imp
     public Response toResponse( final T exception )
     {
         AppLogService.error( "REST : Uncaught exception occured :: {}", exception.getMessage( ) );
-        return Response.status( getStatus( ) ).entity( buildEntity( exception ) ).type( getType( ) ).build( );
+        return Response.status( getStatus( exception ) ).entity( getBody( exception ) ).type( getType( ) ).build( );
     }
 
-    protected abstract Status getStatus( );
+    protected abstract Status getStatus( final T exception );
 
-    protected abstract E buildEntity( final T exception );
+    protected abstract E getBody( final T exception );
 
     protected abstract String getType( );
 
