@@ -44,7 +44,7 @@ import javax.ws.rs.WebApplicationException;
 public class UncaughtJerseyExceptionMapper extends GenericUncaughtJerseyExceptionMapper<WebApplicationException, String>
 {
     @Override
-    protected String buildEntity( final WebApplicationException exception )
+    protected String getBody( final WebApplicationException exception )
     {
         return exception.getMessage( );
     }
