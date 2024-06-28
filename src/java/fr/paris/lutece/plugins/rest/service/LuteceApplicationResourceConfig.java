@@ -33,6 +33,7 @@
  */
 package fr.paris.lutece.plugins.rest.service;
 
+import fr.paris.lutece.plugins.rest.filter.LuteceJerseyLoggingFilter;
 import fr.paris.lutece.plugins.rest.service.mapper.UncaughtJerseyExceptionMapper;
 import fr.paris.lutece.plugins.rest.service.mapper.UncaughtThrowableMapper;
 import fr.paris.lutece.plugins.rest.service.mediatype.MediaTypeMapping;
@@ -59,6 +60,7 @@ public class LuteceApplicationResourceConfig extends ResourceConfig
 {
     // PROPERTIES
     private static final String GENERIC_EXCEPTION_MAPPER = "rest.generic.exception.mapper";
+    private static final String LOG_ACTIVATED = "rest.log.activated";
 
     public LuteceApplicationResourceConfig( )
     {
@@ -68,6 +70,12 @@ public class LuteceApplicationResourceConfig extends ResourceConfig
             register( JacksonFeature.withoutExceptionMappers( ) );
             register( new UncaughtThrowableMapper( ) );
             register( new UncaughtJerseyExceptionMapper( ) );
+        }
+
+        if ( AppPropertiesService.getPropertyBoolean( LOG_ACTIVATED, false ) )
+        {
+            LOGGER.info( "Activated rest logging with log level " + LOGGER.getLevel( ).toString( ) );
+            register( new LuteceJerseyLoggingFilter( ) );
         }
 
         // Automatically register all beans with @Path annotation because
