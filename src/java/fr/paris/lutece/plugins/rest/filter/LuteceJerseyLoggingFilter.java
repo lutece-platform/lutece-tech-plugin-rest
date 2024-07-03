@@ -76,29 +76,44 @@ public class LuteceJerseyLoggingFilter implements ContainerRequestFilter, Contai
     @Override
     public void filter( ContainerRequestContext requestContext ) throws IOException
     {
-        LOGGER.debug( HTTP_REQUEST_LABEL + this.formatRequest( requestContext ) );
+        if ( LOGGER.isDebugEnabled( ) )
+        {
+            LOGGER.debug( HTTP_REQUEST_LABEL + this.formatRequest( requestContext, true ) );
+        }
+        else
+            if ( LOGGER.isInfoEnabled( ) )
+            {
+                LOGGER.info( HTTP_REQUEST_LABEL + this.formatRequest( requestContext, false ) );
+            }
     }
 
     @Override
     public void filter( ContainerRequestContext requestContext, ContainerResponseContext responseContext ) throws IOException
     {
-
-        final String formattedResponse = this.formatResponse( responseContext );
-        if ( responseContext.getStatus( ) > 300 )
+        if ( responseContext.getStatus( ) >= 500 )
         {
-            if ( !LOGGER.isDebugEnabled( ) )
+            if ( !LOGGER.isDebugEnabled( ) && !LOGGER.isInfoEnabled( ) )
             {
-                LOGGER.info( HTTP_REQUEST_LABEL + this.formatRequest( requestContext ) );
+                LOGGER.error( HTTP_REQUEST_LABEL + this.formatRequest( requestContext, false ) );
             }
-            LOGGER.info( HTTP_RESPONSE_LABEL + formattedResponse );
+            LOGGER.error( HTTP_RESPONSE_LABEL + this.formatResponse( responseContext, false ) );
         }
         else
-        {
-            LOGGER.debug( HTTP_RESPONSE_LABEL + formattedResponse );
-        }
+            if ( responseContext.getStatus( ) >= 300 )
+            {
+                if ( !LOGGER.isDebugEnabled( ) && !LOGGER.isInfoEnabled( ) )
+                {
+                    LOGGER.warn( HTTP_REQUEST_LABEL + this.formatRequest( requestContext, false ) );
+                }
+                LOGGER.warn( HTTP_RESPONSE_LABEL + this.formatResponse( responseContext, false ) );
+            }
+            else
+            {
+                LOGGER.debug( HTTP_RESPONSE_LABEL + this.formatResponse( responseContext, true ) );
+            }
     }
 
-    private String formatResponse( final ContainerResponseContext responseContext )
+    private String formatResponse( final ContainerResponseContext responseContext, final boolean withHeaders )
     {
         final StringBuilder sb = new StringBuilder( );
         if ( responseContext.getDate( ) != null )
@@ -106,7 +121,10 @@ public class LuteceJerseyLoggingFilter implements ContainerRequestFilter, Contai
             sb.append( DATE_LABEL ).append( DateFormatUtils.format( responseContext.getDate( ), DATE_PATTERN ) ).append( "\n" );
         }
         sb.append( STATUS_LABEL ).append( responseContext.getStatus( ) ).append( "\n" );
-        sb.append( this.formatHeaders( responseContext.getStringHeaders( ) ) ).append( "\n" );
+        if ( withHeaders )
+        {
+            sb.append( this.formatHeaders( responseContext.getStringHeaders( ) ) ).append( "\n" );
+        }
         if ( responseContext.getEntity( ) != null )
         {
             sb.append( ENTITY_LABEL ).append( this.prettyPrint( responseContext.getEntity( ) ) );
@@ -114,7 +132,7 @@ public class LuteceJerseyLoggingFilter implements ContainerRequestFilter, Contai
         return sb.toString( );
     }
 
-    private String formatRequest( final ContainerRequestContext requestContext )
+    private String formatRequest( final ContainerRequestContext requestContext, final boolean withHeaders )
     {
         final StringBuilder sb = new StringBuilder( );
         if ( requestContext.getDate( ) != null )
@@ -127,7 +145,10 @@ public class LuteceJerseyLoggingFilter implements ContainerRequestFilter, Contai
         sb.append( USER_LABEL )
                 .append( requestContext.getSecurityContext( ).getUserPrincipal( ) == null ? NO_USER : requestContext.getSecurityContext( ).getUserPrincipal( ) )
                 .append( "\n" );
-        sb.append( this.formatHeaders( requestContext.getHeaders( ) ) ).append( "\n" );
+        if ( withHeaders )
+        {
+            sb.append( this.formatHeaders( requestContext.getHeaders( ) ) ).append( "\n" );
+        }
         sb.append( ENTITY_LABEL ).append( this.formatEntityBody( requestContext ) );
         return sb.toString( );
     }
