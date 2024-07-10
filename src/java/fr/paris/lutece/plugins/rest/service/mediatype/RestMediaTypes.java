@@ -33,7 +33,7 @@
  */
 package fr.paris.lutece.plugins.rest.service.mediatype;
 
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.MediaType;
 
 /**
  *

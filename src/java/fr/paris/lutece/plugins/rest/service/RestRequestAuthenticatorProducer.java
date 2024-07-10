@@ -31,58 +31,23 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.rest.service.mediatype;
+package fr.paris.lutece.plugins.rest.service;
 
-import jakarta.ws.rs.core.MediaType;
+import fr.paris.lutece.util.signrequest.RequestAuthenticator;
+import fr.paris.lutece.util.signrequest.cdi.AbstractSignRequestAuthenticatorProducer;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
 
-/**
- *
- * MediaTypeMapping use to map extensions (ex: xml) to media type (application/xml). Extension should not contain the dot "." prefix.
- */
-public class MediaTypeMapping
-{
-    private MediaType _mediaType;
-    private String _strExtension;
+@ApplicationScoped
+public class RestRequestAuthenticatorProducer extends AbstractSignRequestAuthenticatorProducer {
 
-    /**
-     * Gets the media type
-     * 
-     * @return the media type
-     */
-    public MediaType getMediaType( )
-    {
-        return _mediaType;
-    }
+    private static final String CONFIG_PREFIX = "rest.requestAuthenticator";
+    
+	@Produces
+	@ApplicationScoped
+	@RestRequestAuthenticator
+	public RequestAuthenticator produceRequestAuthenticator() {
+	    return produceRequestAuthenticator( CONFIG_PREFIX );
+	} 
 
-    /**
-     * Sets the media type
-     * 
-     * @param mediaType
-     *            the media type
-     */
-    public void setMediaType( MediaType mediaType )
-    {
-        this._mediaType = mediaType;
-    }
-
-    /**
-     * Gets the extension
-     * 
-     * @return the extension
-     */
-    public String getExtension( )
-    {
-        return _strExtension;
-    }
-
-    /**
-     * Sets the extension
-     * 
-     * @param strExtension
-     *            the extension
-     */
-    public void setExtension( String strExtension )
-    {
-        this._strExtension = strExtension;
-    }
 }

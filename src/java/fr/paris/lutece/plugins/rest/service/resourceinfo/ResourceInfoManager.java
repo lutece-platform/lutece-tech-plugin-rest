@@ -33,12 +33,12 @@
  */
 package fr.paris.lutece.plugins.rest.service.resourceinfo;
 
-import fr.paris.lutece.plugins.rest.business.resourceinfo.IResourceInfo;
-import fr.paris.lutece.portal.service.spring.SpringContextService;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import fr.paris.lutece.plugins.rest.business.resourceinfo.IResourceInfo;
+import jakarta.enterprise.inject.spi.CDI;
 
 /**
  *
@@ -61,7 +61,7 @@ public final class ResourceInfoManager
      */
     public static List<IResourceInfoProvider> getProviders( )
     {
-        return SpringContextService.getBeansOfType( IResourceInfoProvider.class );
+        return CDI.current( ).select( IResourceInfoProvider.class ).stream( ).toList( );
     }
 
     /**

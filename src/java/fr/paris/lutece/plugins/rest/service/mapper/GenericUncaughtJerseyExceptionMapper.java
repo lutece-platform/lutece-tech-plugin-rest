@@ -35,14 +35,14 @@ package fr.paris.lutece.plugins.rest.service.mapper;
 
 import fr.paris.lutece.portal.service.util.AppLogService;
 
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.ExceptionMapper;
+import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.ext.ExceptionMapper;
 
 /**
  * Generic Jersey exception mapper, implementing {@link ExceptionMapper}, used to convert uncaught Jersey exceptions to a proper {@link Response} to
  * return.<br/>
- * To implement your own in a Lutece plugin or module using lutece-rest-plugin-rest, extend this class, annotate it with {@link javax.ws.rs.ext.Provider}, and
+ * To implement your own in a Lutece plugin or module using lutece-rest-plugin-rest, extend this class, annotate it with {@link jakarta.ws.rs.ext.Provider}, and
  * add it as a bean in the context.xml file.
  *
  * @param <T>
