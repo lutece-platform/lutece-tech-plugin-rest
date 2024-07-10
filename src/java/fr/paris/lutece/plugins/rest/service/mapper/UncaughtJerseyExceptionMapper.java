@@ -33,7 +33,8 @@
  */
 package fr.paris.lutece.plugins.rest.service.mapper;
 
-import javax.ws.rs.WebApplicationException;
+import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.ext.Provider;
 
 /**
  * Exception mapper designed to intercept uncaught {@link WebApplicationException}.<br/>
@@ -41,6 +42,7 @@ import javax.ws.rs.WebApplicationException;
  *
  * @see GenericUncaughtJerseyExceptionMapper
  */
+@Provider
 public class UncaughtJerseyExceptionMapper extends GenericUncaughtJerseyExceptionMapper<WebApplicationException, String>
 {
     @Override

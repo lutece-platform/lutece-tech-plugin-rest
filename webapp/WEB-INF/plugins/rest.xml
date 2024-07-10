@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><plug-in>
     <name>rest</name>
     <class>fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation</class>
-    <version>3.3.3-SNAPSHOT</version>
+    <version>4.0.0-SNAPSHOT</version>
     <description>rest.plugin.description</description>
     <provider>rest.plugin.provider</provider>
     <provider-url>http://lutece.paris.fr</provider-url>
@@ -13,26 +13,4 @@
 	</core-version-dependency>
     <db-pool-required>0</db-pool-required>
     
-    <!-- Specific plugin CSS stylesheet -->
-
-	<filters>
-		<filter>
-			<filter-name>REST Filter</filter-name>
-			<url-pattern>/rest/*</url-pattern>
-			<init-param>
-				<param-name>javax.ws.rs.Application</param-name>
-				<param-value>fr.paris.lutece.plugins.rest.service.LuteceApplicationResourceConfig</param-value>
-			</init-param>
-			<init-param>
-				<param-name>jersey.config.servlet.filter.contextPath</param-name>
-				<param-value>/</param-value>
-			</init-param>
-			<init-param>
-				<param-name>jersey.config.server.provider.classnames</param-name>
-				<param-value>org.glassfish.jersey.filter.LoggingFilter;
-					org.glassfish.jersey.media.multipart.MultiPartFeature</param-value>
-			</init-param>
-			<filter-class>fr.paris.lutece.plugins.rest.service.LuteceJerseySpringServlet</filter-class>
-		</filter>
-	</filters>
 </plug-in>

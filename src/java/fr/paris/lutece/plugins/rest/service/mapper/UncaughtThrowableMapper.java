@@ -33,9 +33,9 @@
  */
 package fr.paris.lutece.plugins.rest.service.mapper;
 
-import javax.ws.rs.core.MediaType;
-
-import static javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response.Status;
+import jakarta.ws.rs.ext.Provider;
 
 /**
  * Exception mapper designed to intercept uncaught {@link Throwable}.<br/>
@@ -43,6 +43,7 @@ import static javax.ws.rs.core.Response.Status;
  * 
  * @see GenericUncaughtExceptionMapper
  */
+@Provider
 public class UncaughtThrowableMapper extends GenericUncaughtExceptionMapper<Throwable, String>
 {
 
