@@ -33,28 +33,33 @@
  */
 package fr.paris.lutece.plugins.rest.filter;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import fr.paris.lutece.plugins.rest.service.RestConstants;
-import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.log4j.Logger;
-import org.glassfish.jersey.message.internal.ReaderWriter;
-
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.container.ContainerRequestFilter;
-import javax.ws.rs.container.ContainerResponseContext;
-import javax.ws.rs.container.ContainerResponseFilter;
-import javax.ws.rs.core.MultivaluedMap;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.eclipse.microprofile.config.Config;
+import org.eclipse.microprofile.config.ConfigProvider;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
+import fr.paris.lutece.plugins.rest.service.RestConstants;
+import jakarta.ws.rs.container.ContainerRequestContext;
+import jakarta.ws.rs.container.ContainerRequestFilter;
+import jakarta.ws.rs.container.ContainerResponseContext;
+import jakarta.ws.rs.container.ContainerResponseFilter;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.ext.Provider;
+
+@Provider
 public class LuteceJerseyLoggingFilter implements ContainerRequestFilter, ContainerResponseFilter
 {
-    private static final Logger LOGGER = Logger.getLogger( RestConstants.REST_LOGGER );
+    private static final Logger LOGGER = LogManager.getLogger( RestConstants.REST_LOGGER );
     private static final ObjectMapper mapper = new ObjectMapper( ).enable( SerializationFeature.INDENT_OUTPUT );
     private static final String HTTP_RESPONSE_LABEL = "HTTP RESPONSE\n";
     private static final String HTTP_REQUEST_LABEL = "HTTP REQUEST\n";
@@ -68,49 +73,62 @@ public class LuteceJerseyLoggingFilter implements ContainerRequestFilter, Contai
     private static final String USER_LABEL = "User: ";
     private static final String NO_USER = "no user";
     private static final String DATE_PATTERN = "dd-MM-yyyy HH:mm:ss.SSS";
+    private static final String LOG_ACTIVATED = "rest.log.activated";
 
-    public LuteceJerseyLoggingFilter( )
-    {
+    private final Config _config;
+    
+    public LuteceJerseyLoggingFilter( ) {
+        this._config = ConfigProvider.getConfig( );
     }
-
+    
     @Override
     public void filter( ContainerRequestContext requestContext ) throws IOException
     {
-        if ( LOGGER.isDebugEnabled( ) )
+        if ( _config.getOptionalValue( LOG_ACTIVATED, Boolean.class ).orElse( false ) )
         {
-            LOGGER.debug( HTTP_REQUEST_LABEL + this.formatRequest( requestContext, true ) );
-        }
-        else
-            if ( LOGGER.isInfoEnabled( ) )
+            if ( LOGGER.isDebugEnabled( ) )
             {
-                LOGGER.info( HTTP_REQUEST_LABEL + this.formatRequest( requestContext, false ) );
+                LOGGER.debug( HTTP_REQUEST_LABEL + this.formatRequest( requestContext, true ) );
             }
+            else
+            {
+                if ( LOGGER.isInfoEnabled( ) )
+                {
+                    LOGGER.info( HTTP_REQUEST_LABEL + this.formatRequest( requestContext, false ) );
+                }
+            }
+        }
     }
 
     @Override
     public void filter( ContainerRequestContext requestContext, ContainerResponseContext responseContext ) throws IOException
     {
-        if ( responseContext.getStatus( ) >= 500 )
+        if ( _config.getOptionalValue( LOG_ACTIVATED, Boolean.class ).orElse( false ) )
         {
-            if ( !LOGGER.isDebugEnabled( ) && !LOGGER.isInfoEnabled( ) )
-            {
-                LOGGER.error( HTTP_REQUEST_LABEL + this.formatRequest( requestContext, false ) );
-            }
-            LOGGER.error( HTTP_RESPONSE_LABEL + this.formatResponse( responseContext, false ) );
-        }
-        else
-            if ( responseContext.getStatus( ) >= 300 )
+            if ( responseContext.getStatus( ) >= 500 )
             {
                 if ( !LOGGER.isDebugEnabled( ) && !LOGGER.isInfoEnabled( ) )
                 {
-                    LOGGER.warn( HTTP_REQUEST_LABEL + this.formatRequest( requestContext, false ) );
+                    LOGGER.error( HTTP_REQUEST_LABEL + this.formatRequest( requestContext, false ) );
                 }
-                LOGGER.warn( HTTP_RESPONSE_LABEL + this.formatResponse( responseContext, false ) );
+                LOGGER.error( HTTP_RESPONSE_LABEL + this.formatResponse( responseContext, false ) );
             }
             else
             {
-                LOGGER.debug( HTTP_RESPONSE_LABEL + this.formatResponse( responseContext, true ) );
+                if ( responseContext.getStatus( ) >= 300 )
+                {
+                    if ( !LOGGER.isDebugEnabled( ) && !LOGGER.isInfoEnabled( ) )
+                    {
+                        LOGGER.warn( HTTP_REQUEST_LABEL + this.formatRequest( requestContext, false ) );
+                    }
+                    LOGGER.warn( HTTP_RESPONSE_LABEL + this.formatResponse( responseContext, false ) );
+                }
+                else
+                {
+                    LOGGER.debug( HTTP_RESPONSE_LABEL + this.formatResponse( responseContext, true ) );
+                }
             }
+        }
     }
 
     private String formatResponse( final ContainerResponseContext responseContext, final boolean withHeaders )
@@ -164,9 +182,7 @@ public class LuteceJerseyLoggingFilter implements ContainerRequestFilter, Contai
         try ( final InputStream in = requestContext.getEntityStream( ) )
         {
             final StringBuilder b = new StringBuilder( );
-            final ByteArrayOutputStream out = new ByteArrayOutputStream( );
-            ReaderWriter.writeTo( in, out );
-            final byte [ ] requestEntity = out.toByteArray( );
+            final byte [ ] requestEntity = in.readAllBytes( );
             if ( requestEntity.length > 0 )
             {
                 b.append( new String( requestEntity ) );

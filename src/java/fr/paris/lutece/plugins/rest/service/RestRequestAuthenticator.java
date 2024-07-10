@@ -33,27 +33,18 @@
  */
 package fr.paris.lutece.plugins.rest.service;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
-import org.springframework.web.WebApplicationInitializer;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-/**
- *
- * LuteceJerseySpringWebApplicationInitializer : prevent jersey-spring from creating a spring context.
- */
-@Order( Ordered.HIGHEST_PRECEDENCE )
-public class LuteceJerseySpringWebApplicationInitializer implements WebApplicationInitializer
-{
+import jakarta.inject.Qualifier;
 
-    @Override
-    public void onStartup( ServletContext servletContext ) throws ServletException
-    {
-        // The jersey spring integration by default creates a context unless this property is set !
-        // But lutece creates the context in the SpringContextService class.
-        // Register this with a Ordered.HIGHEST_PRECEDENCE so that it's loaded before and prevents jersey
-        // from creating the context.
-        servletContext.setInitParameter( "contextConfigLocation", "JERSEYPLEASEDONT" );
-    }
+
+
+@Qualifier
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER, ElementType.TYPE, ElementType.ANNOTATION_TYPE})
+public @interface RestRequestAuthenticator {
+
 }
