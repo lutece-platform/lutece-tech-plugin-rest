@@ -21,6 +21,20 @@
     </bean>
 -->
 
+	<!-- IP Adress Authentificator -->
+<!-- 
+	<bean id = "rest.requestAuthenticator" class="fr.paris.lutece.util.signrequest.IPAuthentificator" >
+		<property name="iPs" >
+			<list>
+				<value>127.0.0.1</value>
+			</list>
+		</property>
+		<property name="mode">
+			<value>ALLOW</value>
+		</property>
+	</bean>
+-->
+
     <!-- JWT No Encryption Authentication -->
     <!--
     <bean id="rest.requestAuthenticator" class="fr.paris.lutece.util.signrequest.JWTNoEncryptionAuthenticator" >
