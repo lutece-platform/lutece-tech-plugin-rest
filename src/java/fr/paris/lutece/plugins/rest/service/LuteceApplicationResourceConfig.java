@@ -58,6 +58,7 @@ public class LuteceApplicationResourceConfig extends ResourceConfig
 {
     // PROPERTIES
     private static final String GENERIC_EXCEPTION_MAPPER = "rest.generic.exception.mapper";
+    private static final String OUTBOUND_CONTENT_BUFFER = "rest.outbound.content.buffer.size";
 
     public LuteceApplicationResourceConfig( )
     {
@@ -117,6 +118,11 @@ public class LuteceApplicationResourceConfig extends ResourceConfig
                 }
 
                 property( ServerProperties.MEDIA_TYPE_MAPPINGS, mapExtensionToMediaType );
+
+                int bufferSize = AppPropertiesService.getPropertyInt(OUTBOUND_CONTENT_BUFFER, -1);
+                if (bufferSize >= 0) { // -1 signifie que la propriété n'existe pas ou n'est pas valide
+                        property(ServerProperties.OUTBOUND_CONTENT_LENGTH_BUFFER, bufferSize);
+                    }
 
             }
 
