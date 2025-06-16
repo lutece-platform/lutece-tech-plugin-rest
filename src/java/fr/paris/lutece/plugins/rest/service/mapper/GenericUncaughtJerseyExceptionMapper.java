@@ -33,17 +33,18 @@
  */
 package fr.paris.lutece.plugins.rest.service.mapper;
 
-import fr.paris.lutece.portal.service.util.AppLogService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import fr.paris.lutece.plugins.rest.service.RestConstants;
 import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 
 /**
- * Generic Jersey exception mapper, implementing {@link ExceptionMapper}, used to convert uncaught Jersey exceptions to a proper {@link Response} to
+ * Generic REST exception mapper, implementing {@link ExceptionMapper}, used to convert uncaught REST exceptions to a proper {@link Response} to
  * return.<br/>
- * To implement your own in a Lutece plugin or module using lutece-rest-plugin-rest, extend this class, annotate it with {@link jakarta.ws.rs.ext.Provider}, and
- * add it as a bean in the context.xml file.
+ * To implement your own in a Lutece plugin or module using lutece-rest-plugin-rest, extend this class, annotate it with {@link jakarta.ws.rs.ext.Provider}.
  *
  * @param <T>
  *            The sub-class of {@link WebApplicationException} to catch
@@ -52,10 +53,12 @@ import jakarta.ws.rs.ext.ExceptionMapper;
  */
 public abstract class GenericUncaughtJerseyExceptionMapper<T extends WebApplicationException, E> implements ExceptionMapper<T>
 {
+    private static final Logger LOGGER = LogManager.getLogger( RestConstants.REST_LOGGER );
+    
     @Override
     public Response toResponse( final T exception )
     {
-        AppLogService.error( "REST : Uncaught Jersey exception occured :: {}", exception.getMessage( ) );
+        LOGGER.error( "REST : Uncaught REST exception occured :: {}", exception.getMessage( ) );
         final Response exResponse = exception.getResponse( );
         return Response.status( exResponse.getStatus( ) ).entity( this.getBody( exception ) ).type( exResponse.getMediaType( ) ).build( );
     }

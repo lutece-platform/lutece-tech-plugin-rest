@@ -33,7 +33,6 @@
  */
 package fr.paris.lutece.plugins.rest.util.xml;
 
-import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.util.xml.XmlUtil;
 
 /**
@@ -44,7 +43,6 @@ public final class XMLUtil
     private static final String TAG_ERROR = "error";
     private static final String TAG_MESSAGE = "error-message";
     private static final String TAG_CODE = "error-code";
-    private static String _strHeader = AppPropertiesService.getProperty( XmlUtil.PROPERTIES_XML_HEADER );
 
     /**
      * Private constructor
@@ -64,7 +62,7 @@ public final class XMLUtil
      */
     public static String formatError( String strMessage, int nCode )
     {
-        StringBuffer sbXMl = new StringBuffer( _strHeader );
+        StringBuffer sbXMl = new StringBuffer( XmlUtil.getXmlHeader( ) );
         XmlUtil.beginElement( sbXMl, TAG_ERROR );
         XmlUtil.addElement( sbXMl, TAG_MESSAGE, strMessage );
         XmlUtil.addElement( sbXMl, TAG_CODE, "" + nCode );
