@@ -40,24 +40,25 @@
     </repositories>
 	
     <dependencies>
-        <dependency>
-            <groupId>fr.paris.lutece</groupId>
-            <artifactId>lutece-core</artifactId>
-            <version>[8.0.0-SNAPSHOT]</version>
-            <type>lutece-core</type>
-        </dependency>		
+
        	<dependency>
             <groupId>fr.paris.lutece.plugins</groupId>
             <artifactId>library-signrequest</artifactId>
             <version>[4.0.0-SNAPSHOT,)</version>
             <type>jar</type>
         </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-        </dependency>
         
-     	
+        <dependency>
+            <groupId>fr.paris.lutece.plugins</groupId>
+            <artifactId>library-core-utils</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <type>jar</type> 
+        </dependency>        
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
     </dependencies>
 
     <scm>

@@ -33,12 +33,15 @@
  */
 package fr.paris.lutece.plugins.rest.service.mapper;
 
-import fr.paris.lutece.portal.service.util.AppLogService;
+import fr.paris.lutece.plugins.rest.service.RestConstants;
 
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 
 import static jakarta.ws.rs.core.Response.Status;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Generic exception mapper, implementing {@link ExceptionMapper}, used to convert uncaught exceptions to a proper {@link Response} to return.<br/>
@@ -55,10 +58,12 @@ public abstract class GenericUncaughtExceptionMapper<T extends Throwable, E> imp
 
     public static final String ERROR_DURING_TREATMENT = "An error occurred during the treatment.";
 
+    private static final Logger LOGGER = LogManager.getLogger( RestConstants.REST_LOGGER );
+    
     @Override
     public Response toResponse( final T exception )
     {
-        AppLogService.error( "REST : Uncaught exception occured :: {}", exception.getMessage( ) );
+        LOGGER.error( "REST : Uncaught exception occured :: {}", exception.getMessage( ) );
         return Response.status( getStatus( exception ) ).entity( getBody( exception ) ).type( getType( ) ).build( );
     }
 

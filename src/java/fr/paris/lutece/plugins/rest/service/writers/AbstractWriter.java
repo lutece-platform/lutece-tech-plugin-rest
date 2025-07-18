@@ -34,9 +34,6 @@
 package fr.paris.lutece.plugins.rest.service.writers;
 
 import fr.paris.lutece.plugins.rest.service.formatters.IFormatter;
-import fr.paris.lutece.portal.service.util.AppPropertiesService;
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -46,6 +43,9 @@ import java.lang.reflect.Type;
 
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.eclipse.microprofile.config.ConfigProvider;
 
 import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.MediaType;
@@ -147,7 +147,7 @@ public abstract class AbstractWriter<E> implements MessageBodyWriter<List<E>>
                 throw new WebApplicationException( Status.UNSUPPORTED_MEDIA_TYPE );
             }
 
-            String strEncoding = AppPropertiesService.getProperty( PROPERTY_WRITER_ENCODING );
+            String strEncoding = ConfigProvider.getConfig( ).getOptionalValue( PROPERTY_WRITER_ENCODING, String.class ).orElse(null);
             entityStream.write( strContent.getBytes( strEncoding ) );
         }
         else
