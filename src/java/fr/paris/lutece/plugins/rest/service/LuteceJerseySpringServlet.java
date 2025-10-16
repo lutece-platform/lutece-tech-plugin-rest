@@ -120,13 +120,21 @@ public class LuteceJerseySpringServlet extends ServletContainer
         {
             if ( LOGGER.isDebugEnabled( ) )
             {
-                LOGGER.debug( "LuteceJerseySpringServlet processing request : " + request.getMethod( ) + " " + request.getContextPath( )
+                LOGGER.debug( "LuteceJerseySpringServlet processing request from " + request.getRemoteAddr( ) + " : " 
+                	+ request.getMethod( ) + " " + request.getContextPath( )
                         + request.getServletPath( ) );
             }
             super.doFilter( request, response, chain );
         }
         else
         {
+            if ( LOGGER.isDebugEnabled( ) )
+            {
+                LOGGER.debug( "LuteceJerseySpringServlet processing UNAUTHORIZED request from " + request.getRemoteAddr( ) + " : " 
+                	+ request.getMethod( ) + " " + request.getContextPath( )
+                        + request.getServletPath( ) );
+            }
+            
             response.setStatus( HttpServletResponse.SC_UNAUTHORIZED );
         }
     }
