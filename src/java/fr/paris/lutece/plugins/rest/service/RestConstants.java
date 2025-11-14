@@ -46,7 +46,7 @@ public final class RestConstants
     /**
      * Base path : prefix for services url.
      */
-    public static final String BASE_PATH = "/rest/";
+    public static final String BASE_PATH = "";
 
     /**
      * Private constructor
